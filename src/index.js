@@ -1,9 +1,7 @@
 import React, {StrictMode} from 'react';
 import ReactDOM from 'react-dom';
-
 import './index.css';
-
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App'
 
 
@@ -15,7 +13,3 @@ ReactDOM.render(
   </StrictMode>
   , 
   document.querySelector('#root'));
-
-// const h1 = document.createElement('h1');
-// h1.textContent = 'Hello Class';
-// document.getElementById('root').append(h1);
