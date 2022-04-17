@@ -1,18 +1,13 @@
 
-export const books = [
+import Burger from '../../images/original_burger.jpg';
+
+export const squares = [
     {
-    author: "Yaniv Cohen",
-    title: "Learning",
-    year: 1996,
-    desc: "Book about learning",
-    image: "https://images.twinkl.co.uk/tr/image/upload/t_illustration/illustation/book.png",
+    title: "MENU",
+    image: Burger,
     },
     {
-      author: "Yaniv Cohen",
-      title: "Learning",
-      year: 1996,
-      desc: "Book about learning",
-      image: "https://images.twinkl.co.uk/tr/image/upload/t_illustration/illustation/book.png",
-      },
-  
+    title: "ORDER NOW",
+    image: Burger,
+    },
 ]

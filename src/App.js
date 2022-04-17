@@ -16,7 +16,7 @@ import Navbar1 from './components/navbar/Navbar1'
 function App() {
   return (
    <div className="app">
-     <Navbar1 fixed="top" />
+     <Navbar1 />
       <Main />
       <Footer />
    </div>

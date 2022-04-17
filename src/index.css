@@ -22,9 +22,6 @@ body {
   flex-direction: column;
 }
 
-main {
-  background: lightblue;
-}
 
 footer {
   margin-top: auto;

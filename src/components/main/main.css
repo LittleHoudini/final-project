@@ -4,3 +4,26 @@
     max-width: 600px;
     margin: auto;
 }
+
+.parent {
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+
+.beach-img {
+    position: relative;
+    top: 0;
+    left: 0;
+    border: 1px red solid;
+    width: 100%;
+}
+
+.heart-img {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 50%;
+    border: 1px green solid;
+}
+

@@ -3,10 +3,12 @@
  *****************************************/
 
 import React from 'react';
-// import Book from '../book/Book';
-import './main.css'
-// import {books} from './data'
+import Square from '../square/Square';
 
+import './main.css'
+import {squares} from './data'
+import Heart from '../../images/kiss_logo.png';
+import Beach from '../../images/beach_with_people.png';
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
  *****************************************/
@@ -16,9 +18,20 @@ import './main.css'
 function Main() {
   return (
     <main className="main">
-      {/* <Book
-      details={books[0]}
-      /> */}
+      <div className='parent'>
+        <img className='beach-img' src={Beach} alt="Beach with people"/>
+        <img className='heart-img' src={Heart} alt="Kissvibe logo"/>
+      </div>
+      {
+      squares.map((item,index) => (
+        <div key={index}>
+          <Square data={item} />
+        </div>
+      ))
+      }
+
+      {/* <Square data={squares[0]}/> */}
+      
     </main>
   );
 }
