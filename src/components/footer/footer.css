@@ -1,8 +1,5 @@
-.footer p {
+.footer{
+  background-color: rgba(145, 0, 17, 0.924);
   color: white;
-  font-size: 2rem;
-  text-align: center;
-  padding: 2em;
-  background: #d01b57;
 }
 
