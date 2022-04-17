@@ -1,0 +1,12 @@
+.navbar{
+    background-color: #ca7275;
+    font-size: 12px;
+}
+
+.logo-image-nav  {
+    height:auto;
+    max-width: 12%;
+    transform: scale(0.3,0);
+    border:solid blue 3px;
+    
+}

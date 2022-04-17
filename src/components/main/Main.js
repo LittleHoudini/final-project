@@ -7,7 +7,7 @@ import Square from '../square/Square';
 
 import './main.css'
 import {squares} from './data'
-import Heart from '../../images/kiss_logo.png';
+import Heart from '../../images/kiss_logo_red.png';
 import Beach from '../../images/beach_with_people.png';
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
