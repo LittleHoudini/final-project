@@ -2,7 +2,7 @@
 /* Container needed to position the button. Adjust the width as needed */
 .container {
     position: relative;
-    width: 50%;
+    width: 30%;
   }
   
   /* Make the image responsive */
@@ -18,7 +18,6 @@
     left: 50%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-    background-color: #555;
     color: white;
     font-size: 16px;
     padding: 12px 24px;

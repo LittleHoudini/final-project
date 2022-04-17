@@ -28,10 +28,7 @@ function Main() {
           <Square data={item} />
         </div>
       ))
-      }
-
-      {/* <Square data={squares[0]}/> */}
-      
+      }      
     </main>
   );
 }
