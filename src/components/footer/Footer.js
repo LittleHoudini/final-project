@@ -13,8 +13,6 @@ import './footer.css'
  * * CREATE REACT FUNCTION COMPONENT
  *****************************************/
 
-
-
 function Footer() {
   return (
     <MDBFooter className="font-small pt-4 mt-4 footer">
