@@ -7,7 +7,7 @@ import Square from '../square/Square';
 
 import './main.css'
 import {squares} from './data'
-import Heart from '../../images/kiss_logo_red.png';
+import HeartLogo from '../../images/kiss_logo_red.png';
 import Beach from '../../images/beach_with_people.png';
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
@@ -20,7 +20,7 @@ function Main() {
     <main className="main">
       <div className='parent'>
         <img className='beach-img' src={Beach} alt="Beach with people"/>
-        <img className='heart-img' src={Heart} alt="Kissvibe logo"/>
+        <img className='heart-img' src={HeartLogo} alt="Kissvibe logo"/>
       </div>
       {
       squares.map((item,index) => (

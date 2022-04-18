@@ -5,7 +5,7 @@
 import React from 'react';
 import {Navbar,Container, Nav, NavDropdown} from 'react-bootstrap';
 import './nav.css'
-import LogoImage from '../../images/kiss_logo.png'
+import HeartSmallLogo from '../../images/kiss_logo_heart_red_small.png'
 
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
@@ -17,23 +17,28 @@ import LogoImage from '../../images/kiss_logo.png'
     <Container>
 
     <img
-        src={LogoImage}
-        className="d-inline-block align-top logo-image-nav"
-        alt="logo nav"
-      />
-    <Navbar.Brand href="#home">KISSVIBE</Navbar.Brand>
+          alt=""
+          src={HeartSmallLogo}
+          width="10" 
+          height="10" 
+          className="d-inline-block align-top logo-image-nav"/>
+    <Navbar.Brand href="#home">KISS</Navbar.Brand>
 
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="me-auto">
-      <Nav.Link href="#features">HOME PAGE</Nav.Link>
-        <Nav.Link href="#features">OUR STORE</Nav.Link>
-        <Nav.Link href="#pricing">ORDER NOW</Nav.Link>
-        <NavDropdown title="MENU" id="collasible-nav-dropdown">
+      <NavDropdown title="MENU" id="collasible-nav-dropdown">
           <NavDropdown.Item href="#action/3.1">STARTERS</NavDropdown.Item>
           <NavDropdown.Item href="#action/3.2">EXTRAS</NavDropdown.Item>
           <NavDropdown.Item href="#action/3.3">BURGERS</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.3">COMBOS</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.3">DRINKS</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.3">DESSERTS</NavDropdown.Item>
         </NavDropdown>
+      <Nav.Link href="#features">HOME PAGE</Nav.Link>
+        <Nav.Link href="#features">OUR STORE</Nav.Link>
+        <Nav.Link href="#pricing">ORDER NOW</Nav.Link>
+   
       </Nav>
       <Nav>
         <Nav.Link href="#login">LOGIN</Nav.Link>

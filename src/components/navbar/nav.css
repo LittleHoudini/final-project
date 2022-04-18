@@ -4,9 +4,8 @@
 }
 
 .logo-image-nav  {
-    height:auto;
-    max-width: 12%;
-    transform: scale(0.3,0);
-    border:solid blue 3px;
-    
+ max-width: 60px;
+ max-height: 60px;
+ display: inline-block;
+ align-items: top;
 }

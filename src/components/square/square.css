@@ -3,8 +3,7 @@
 .container {
     position: relative;
     width: 100%;
-    padding: 1%;
-    
+    padding: 1%;   
   }
   
   /* Make the image responsive */
@@ -13,6 +12,7 @@
     width: 100%;
     height: 15rem;
     object-fit: cover;
+ 
   }
   
   /* Style the button and place it in the middle of the container/image */
@@ -31,5 +31,5 @@
   }
   
   .container .btn:hover {
-    background-color: black;
+    background-color: #a63437;
   }
