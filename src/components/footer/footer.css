@@ -1,5 +1,19 @@
 .footer{
-  background-color: rgba(145, 0, 17, 0.924);
+  background-color: #a63437;
   color: white;
 }
+
+.footer-social-link {
+  text-decoration: none;
+  text-align: left;
+}
+
+a {
+  color: white;
+}
+
+a:hover {
+  color: #ca7275;
+}
+
 

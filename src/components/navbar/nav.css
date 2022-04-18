@@ -1,0 +1,11 @@
+.navbar{
+    background-color: #ca7275;
+    font-size: 12px;
+}
+
+.logo-image-nav  {
+ max-width: 60px;
+ max-height: 60px;
+ display: inline-block;
+ align-items: top;
+}
