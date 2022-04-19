@@ -4,7 +4,7 @@ import Drinks from '../../images/drinks.png';
 import Sticker from '../../images/sticker.png';
 import FrontView from '../../images/front_view.JPG';
 
-export const squares = [
+export const home_page_squares = [
     {
     title: "MENU",
     image: Burger,
@@ -20,6 +20,18 @@ export const squares = [
     {
     title: "HOME PAGE",
     image: FrontView,
+    }
+ 
+]
+
+export const store_page_squares = [
+    {
+    title: "STORE TEST 1",
+    image: Burger,
+    },
+    {
+    title: "STORE TEST 2",
+    image: Drinks,
     },
  
 ]

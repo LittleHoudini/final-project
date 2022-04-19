@@ -6,7 +6,7 @@ import {Navbar,Container, Nav, NavDropdown} from 'react-bootstrap';
 import './nav.css'
 import HeartSmallLogo from '../../images/kiss_logo_heart_red_small.png'
 import Square from '../square/Square';
-import {squares} from '../main/data'
+import {store_page_squares} from '../main/data'
 import{
   BrowserRouter as Router,
   Routes,
@@ -14,7 +14,6 @@ import{
   Link
 } from 'react-router-dom'
 import Main from '../main/Main';
-import Footer from '../footer/Footer';
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
   *****************************************/
@@ -58,7 +57,7 @@ import Footer from '../footer/Footer';
     <Route path="/home" element={<Main/>}/>
       {/* <Route path="/store" element={<Square data={squares[0]}/>}/>  */}
       <Route path="/store" element={
-        squares.map((item,index) => (
+        store_page_squares.map((item,index) => (
           <div key={index}>
             <Square data={item} />
           </div>
