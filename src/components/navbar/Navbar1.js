@@ -9,6 +9,7 @@ import Square from '../square/Square';
 import {store_page_squares, starters_page_squares} from '../main/data';
 import Main from '../main/Main';
 import Store from '../store/Store';
+import MainImage from '../mainImage/MainImage';
 import{
   BrowserRouter as Router,
   Routes,
@@ -54,7 +55,7 @@ import{
       </Navbar.Collapse>
       </Container>
     </Navbar>
-
+    <MainImage/>
     <Routes>
     <Route path="/home/starters" element={
         starters_page_squares.map((item,index) => (
