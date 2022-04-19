@@ -7,6 +7,7 @@ import {Navbar,Container, Nav, NavDropdown} from 'react-bootstrap';
 import './nav.css'
 import HeartSmallLogo from '../../images/kiss_logo_heart_red_small.png'
 
+
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
   *****************************************/
