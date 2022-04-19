@@ -11,7 +11,6 @@ import {home_page_squares} from './data';
  * * CREATE REACT FUNCTION COMPONENT
  *****************************************/
 
-
 function Main() {
   return (
     <main className="main">

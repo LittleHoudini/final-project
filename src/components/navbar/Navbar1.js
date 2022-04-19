@@ -75,10 +75,8 @@ import{
       <Route path="/store" element={<Store/>}/>
     </Routes>
     </Router>
-      
    );
  }
- 
  export default Navbar1;
  
 
