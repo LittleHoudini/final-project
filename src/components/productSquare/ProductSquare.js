@@ -3,20 +3,20 @@
  *****************************************/
 
  import React from 'react';
- import './square.css';
+ import styles from './productSquare.module.css';
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
   *****************************************/
 
- function Square(props) {
+ function ProductSquare(props) {
     const {title,image,text} = props.data;
    return (
-    <div className='container'>
+    <div className={styles.container}>
         <img className='menu-cover-image' src={image} alt="Original Burger"/>
-        <button className='btn'>{title}<br></br>{text}</button>
+        <button className={styles.btn}>{title}<br></br>{text}</button>
     </div>
    );
  }
  
- export default Square;
+ export default ProductSquare;
  
