@@ -8,6 +8,7 @@ import HeartSmallLogo from '../../images/kiss_logo_heart_red_small.png'
 import Square from '../square/Square';
 import {store_page_squares, starters_page_squares} from '../main/data'
 import Main from '../main/Main';
+import Store from '../store/Store'
 import{
   BrowserRouter as Router,
   Routes,
@@ -70,13 +71,7 @@ import{
 
       <Route path="/" exact element={<Main/>}/>
 
-      <Route path="/store" element={
-        store_page_squares.map((item,index) => (
-          <div key={index}>
-            <Square data={item} />
-          </div>
-        ))
-      }/>
+      <Route path="/store" element={<Store/>}/>
     </Routes>
     </Router>
       
