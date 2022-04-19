@@ -5,7 +5,7 @@
 import React from 'react';
 import {MDBFooter } from "mdbreact";
 import * as FaIcons from "react-icons/fa";
-import './footer.css'
+import './footer.css';
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
  *****************************************/
@@ -30,7 +30,6 @@ function Footer() {
         </a>
       </div>
     </section>
-
     <section className=''>
       <div className='container text-center text-md-start mt-5'>
         <div className='row mt-3'>

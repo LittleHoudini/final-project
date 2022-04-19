@@ -3,18 +3,18 @@
  *****************************************/
 import React from 'react';
 import {Navbar,Container, Nav, NavDropdown} from 'react-bootstrap';
-import './nav.css'
-import HeartSmallLogo from '../../images/kiss_logo_heart_red_small.png'
+import './nav.css';
+import HeartSmallLogo from '../../images/kiss_logo_heart_red_small.png';
 import Square from '../square/Square';
-import {store_page_squares, starters_page_squares} from '../main/data'
+import {store_page_squares, starters_page_squares} from '../main/data';
 import Main from '../main/Main';
-import Store from '../store/Store'
+import Store from '../store/Store';
 import{
   BrowserRouter as Router,
   Routes,
   Route,
   Link
-} from 'react-router-dom'
+} from 'react-router-dom';
 
 
  /*****************************************
