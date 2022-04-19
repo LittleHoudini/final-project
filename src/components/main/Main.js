@@ -6,7 +6,7 @@ import React from 'react';
 import Square from '../square/Square';
 
 import './main.css'
-import {squares} from './data'
+import {home_page_squares} from './data'
 import HeartLogo from '../../images/kiss_logo_red.png';
 import Beach from '../../images/beach_with_people.png';
 /*****************************************
@@ -23,7 +23,7 @@ function Main() {
         <img className='heart-img' src={HeartLogo} alt="Kissvibe logo"/>
       </div>
       {
-      squares.map((item,index) => (
+      home_page_squares.map((item,index) => (
         <div key={index}>
           <Square data={item} />
         </div>
