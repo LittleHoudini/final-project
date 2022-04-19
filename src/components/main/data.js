@@ -28,10 +28,20 @@ export const store_page_squares = [
     {
     title: "STORE TEST 1",
     image: Burger,
+    text: "SEND NUDES"
     },
     {
     title: "STORE TEST 2",
     image: Drinks,
     },
+ 
+]
+
+export const starters_page_squares = [
+    {
+    title: "STARTERS",
+    image: Burger,
+    text: "SEND NUDES"
+    }
  
 ]

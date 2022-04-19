@@ -10,11 +10,11 @@
 
  // pascal case
  function Square(props) {
-    const {title,image} = props.data;
+    const {title,image,text} = props.data;
    return (
     <div className='container'>
         <img className='menu-cover-image' src={image} alt="Original Burger"/>
-        <button className='btn'>{title}</button>
+        <button className='btn'>{title}<br></br>{text}</button>
     </div>
    );
  }

@@ -6,14 +6,15 @@ import {Navbar,Container, Nav, NavDropdown} from 'react-bootstrap';
 import './nav.css'
 import HeartSmallLogo from '../../images/kiss_logo_heart_red_small.png'
 import Square from '../square/Square';
-import {store_page_squares} from '../main/data'
+import {store_page_squares, starters_page_squares} from '../main/data'
+import Main from '../main/Main';
 import{
   BrowserRouter as Router,
   Routes,
   Route,
   Link
 } from 'react-router-dom'
-import Main from '../main/Main';
+
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
   *****************************************/
@@ -35,14 +36,14 @@ import Main from '../main/Main';
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="me-auto">
         <NavDropdown title="MENU" id="collasible-nav-dropdown">
-            <NavDropdown.Item>STARTERS</NavDropdown.Item>
-            <NavDropdown.Item>EXTRAS</NavDropdown.Item>
-            <NavDropdown.Item>BURGERS</NavDropdown.Item>
-            <NavDropdown.Item>COMBOS</NavDropdown.Item>
-            <NavDropdown.Item>DRINKS</NavDropdown.Item>
-            <NavDropdown.Item>DESSERTS</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to={"/home/starters"}>STARTERS</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to={"/home/extras"}>EXTRAS</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to={"/home/burgers"}>BURGERS</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to={"/home/combos"}>COMBOS</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to={"/home/drinks"}>DRINKS</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to={"/home/desserts"}>DESSERTS</NavDropdown.Item>
           </NavDropdown>
-        <Nav.Link as={Link} to={"/home"}>HOME PAGE</Nav.Link>
+        <Nav.Link as={Link} to={"/"}>HOME PAGE</Nav.Link>
           <Nav.Link as={Link} to={"/store"}>OUR STORE</Nav.Link>
           <Nav.Link>ORDER NOW</Nav.Link>
         </Nav>
@@ -54,8 +55,21 @@ import Main from '../main/Main';
     </Navbar>
 
     <Routes>
-    <Route path="/home" element={<Main/>}/>
-      {/* <Route path="/store" element={<Square data={squares[0]}/>}/>  */}
+    <Route path="/home/starters" element={
+        starters_page_squares.map((item,index) => (
+          <div key={index}>
+            <Square data={item} />
+          </div>
+        ))
+      }/>
+      <Route path="/home/extras" element={<Square data={store_page_squares[0]}/>}/>
+      <Route path="/home/burgers" element={<Square data={store_page_squares[0]}/>}/>
+      <Route path="/home/combos" element={<Square data={store_page_squares[0]}/>}/>
+      <Route path="/home/drinks" element={<Square data={store_page_squares[0]}/>}/>
+      <Route path="/home/desserts" element={<Square data={store_page_squares[0]}/>}/>
+
+      <Route path="/" exact element={<Main/>}/>
+
       <Route path="/store" element={
         store_page_squares.map((item,index) => (
           <div key={index}>
@@ -64,7 +78,6 @@ import Main from '../main/Main';
         ))
       }/>
     </Routes>
-
     </Router>
       
    );
