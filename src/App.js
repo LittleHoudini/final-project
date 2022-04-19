@@ -7,6 +7,7 @@ import Main from './components/main/Main'
 import Footer from './components/footer/Footer'
 import Navbar1 from './components/navbar/Navbar1'
 
+
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
  *****************************************/
@@ -17,7 +18,6 @@ function App() {
   return (
    <div className="app">
      <Navbar1 />
-      <Main />
       <Footer />
    </div>
   );
