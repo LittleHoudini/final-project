@@ -1,33 +1,61 @@
 
 /* Container needed to position the button. Adjust the width as needed */
 .container {
-    position: relative;
-    width: 20%;
-    padding: 1%;   
-  }
+    position: flex;
+    flex-direction: column;
+    max-width: 25%;
+    margin:1%;
+    background-color: gainsboro; 
+    border-radius: 10px;
     
+  }
+
+
 /* Make the image responsive */
 .container img {
-    border-radius: 10px;
     width: 100%;
-    height: 15rem;
+    height: 11rem;
     object-fit: cover;
-
+    border-radius: 10px;
+    
 }
+
+.h2 {
+    color: #ca7275;
+    line-height:1.4rem;
+    margin-bottom:0.5rem ;
+    margin: 2%;
+    text-align: right;
+}
+
+figure {
+    /* position: block; */
+    color: black;
+    /* top: 50%;
+    left: 50%; */
+    padding: 5%;
+    margin:2%;
+     text-align: right;
+     display: inline-block;
+   
+} 
 
 /* Style the button and place it in the middle of the container/image */
 .container .btn {
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    position:relative;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     color: white;
+    top:75%;
+    left:50%;
     font-size: 10px;
-    padding: 12px 24px;
+    padding: 12px 10px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    background-color: #a63437;
+    margin:2%;
+    
 }
 
 .container .btn:hover {

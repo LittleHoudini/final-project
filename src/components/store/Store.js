@@ -3,7 +3,7 @@
  *****************************************/
 
 import React from 'react';
-import {store_page_squares} from '../main/data';
+import {starters_page_squares} from '../main/data';
 import ProductSquare from '../productSquare/ProductSquare';
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
@@ -12,7 +12,7 @@ import ProductSquare from '../productSquare/ProductSquare';
  // pascal case
  function Store() {
    return (
-    store_page_squares.map((item,index) => (
+    starters_page_squares.map((item,index) => (
         <div key={index}>
           <ProductSquare data={item} />
         </div>
