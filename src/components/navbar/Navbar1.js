@@ -6,16 +6,24 @@ import {Navbar,Container, Nav, NavDropdown} from 'react-bootstrap';
 import './nav.css';
 import HeartSmallLogo from '../../images/kiss_logo_heart_red_small.png';
 import Square from '../square/Square';
-import {store_page_squares, starters_page_squares} from '../main/data';
+import {store_page_squares, 
+  starters_page_squares,
+  extras_page_squares,
+  burgers_page_squares,
+  cocktails_page_squares,
+  combos_page_squares,
+  drinks_page_squares} from '../main/data';
 import Main from '../main/Main';
 import Store from '../store/Store';
 import MainImage from '../mainImage/MainImage';
+import ProductSquare from '../productSquare/ProductSquare';
 import{
   BrowserRouter as Router,
   Routes,
   Route,
   Link
 } from 'react-router-dom';
+
 
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
@@ -57,28 +65,52 @@ import{
     </Navbar>
     <MainImage/>
     <Routes>
-    <Route path="/home/starters" element={
-        starters_page_squares.map((item,index) => (
-          <div key={index}>
-            <Square data={item} />
-          </div>
-        ))
-      }/>
-      <Route path="/home/extras" element={<Square data={store_page_squares[0]}/>}/>
-      <Route path="/home/burgers" element={<Square data={store_page_squares[0]}/>}/>
-      <Route path="/home/combos" element={<Square data={store_page_squares[0]}/>}/>
-      <Route path="/home/drinks" element={<Square data={store_page_squares[0]}/>}/>
-      <Route path="/home/desserts" element={<Square data={store_page_squares[0]}/>}/>
+    <Route path="/home/starters" 
+    element={starters_page_squares.map((item,index) => (
+        <div key={index}>
+          <ProductSquare data={item} />
+        </div>))
+ }/>
+
+
+      <Route path="/home/extras"     
+        element={extras_page_squares.map((item,index) => (
+        <div key={index}>
+          <ProductSquare data={item} />
+        </div>))
+       }/>
+      <Route path="/home/burgers"  
+      element={burgers_page_squares.map((item,index) => (
+        <div key={index}>
+          <ProductSquare data={item} />
+        </div>))
+       }/>
+      <Route path="/home/combos"  
+      element={combos_page_squares.map((item,index) => (
+        <div key={index}>
+          <ProductSquare data={item} />
+        </div>))
+       }/>
+      <Route path="/home/drinks"  
+      element={drinks_page_squares.map((item,index) => (
+        <div key={index}>
+          <ProductSquare data={item} />
+        </div>))
+       }/>
+      <Route path="/home/cocktails"  
+      element={cocktails_page_squares.map((item,index) => (
+        <div key={index}>
+          <ProductSquare data={item} />
+        </div>))
+       }/>
 
       <Route path="/" exact element={<Main/>}/>
 
       <Route path="/store" element={<Store/>}/>
     </Routes>
     </Router>
-      
    );
  }
- 
  export default Navbar1;
  
 
