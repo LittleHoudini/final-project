@@ -1,41 +1,41 @@
 
-import Burger from '../../images/original_burger.jpg';
-import Drinks from '../../images/drinks.png';
-import Sticker from '../../images/sticker.png';
-import FrontView from '../../images/front_view.JPG';
+import Burger from '../images/original_burger.jpg';
+import Drinks from '../images/drinks.png';
+import Sticker from '../images/sticker.png';
+import FrontView from '../images/front_view.JPG';
 // menu - starters images
-import BafuloWings from '../../images/Products/starters/bafulo-wings.JPG';
-import GarlicWings from '../../images/Products/starters/garlic-wings.JPG';
-import CizerSalad from '../../images/Products/starters/cizer-salad.jpg';
-import Nuggets from '../../images/Products/starters/nuggets.jpg';
-import Pickels from '../../images/Products/starters/pickels.jpg';
+import BafuloWings from '../images/Products/starters/bafulo-wings.JPG';
+import GarlicWings from '../images/Products/starters/garlic-wings.JPG';
+import CizerSalad from '../images/Products/starters/cizer-salad.jpg';
+import Nuggets from '../images/Products/starters/nuggets.jpg';
+import Pickels from '../images/Products/starters/pickels.jpg';
 
-import CheddarSticks from '../../images/Products/starters/cheddar_sticks.jpg';
+import CheddarSticks from '../images/Products/starters/cheddar_sticks.jpg';
 
 // menu - extras images
-import Fries from '../../images/Products/extras/fries.jpg';
-import GreenSalad from '../../images/Products/extras/green-salad.jpg';
+import Fries from '../images/Products/extras/fries.jpg';
+import GreenSalad from '../images/Products/extras/green-salad.jpg';
 // menu - burgers and combos images
-import CheeseBurger from '../../images/Products/burgers/cheese-burger.jpg';
-import Crispyburger from '../../images/Products/burgers/crispy-burger.jpg';
-import OriginalBurger from '../../images/Products/burgers/original-burger.jpg';
-import VeggiBurger from '../../images/Products/burgers/veggi-burger.jpg';
-import SmashBurger from '../../images/Products/burgers/smash_burger.jpeg';
-import PhilliesSteak from '../../images/Products/burgers/phillies_steak.jpg';
+import CheeseBurger from '../images/Products/burgers/cheese-burger.jpg';
+import Crispyburger from '../images/Products/burgers/crispy-burger.jpg';
+import OriginalBurger from '../images/Products/burgers/original-burger.jpg';
+import VeggiBurger from '../images/Products/burgers/veggi-burger.jpg';
+import SmashBurger from '../images/Products/burgers/smash_burger.jpeg';
+import PhilliesSteak from '../images/Products/burgers/phillies_steak.jpg';
 // menu - drinks images
-import Bear from '../../images/Products/drinks/bear.jpg';
-import CocaCola from '../../images/Products/drinks/cocacola.png';
-import CocaZero from '../../images/Products/drinks/colazero.png';
-import Sprite from '../../images/Products/drinks/sprite.png';
-import Fuztea from '../../images/Products/drinks/fuztea.jpg';
-import Grapes from '../../images/Products/drinks/grapes.jpg';
-import Soda from '../../images/Products/drinks/soda.jpg';
-import Water from '../../images/Products/drinks/water.jpg';
+import Bear from '../images/Products/drinks/bear.jpg';
+import CocaCola from '../images/Products/drinks/cocacola.png';
+import CocaZero from '../images/Products/drinks/colazero.png';
+import Sprite from '../images/Products/drinks/sprite.png';
+import Fuztea from '../images/Products/drinks/fuztea.jpg';
+import Grapes from '../images/Products/drinks/grapes.jpg';
+import Soda from '../images/Products/drinks/soda.jpg';
+import Water from '../images/Products/drinks/water.jpg';
 // menu -  сocktails images
-import BadBoyBeny from '../../images/Products/cocktailes/bad_boy_beny.jpg'
-import FreshPrime from '../../images/Products/cocktailes/fresh_prime.jpg'
-import SimplyRed from '../../images/Products/cocktailes/simply_red.jpg'
-import PinkKiss from '../../images/Products/cocktailes/pink_kiss.jpg'
+import BadBoyBeny from '../images/Products/cocktailes/bad_boy_beny.jpg'
+import FreshPrime from '../images/Products/cocktailes/fresh_prime.jpg'
+import SimplyRed from '../images/Products/cocktailes/simply_red.jpg'
+import PinkKiss from '../images/Products/cocktailes/pink_kiss.jpg'
 
 export const home_page_squares = [
     {

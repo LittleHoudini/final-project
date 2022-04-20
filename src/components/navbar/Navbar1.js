@@ -5,25 +5,16 @@ import React from 'react';
 import {Navbar,Container, Nav, NavDropdown} from 'react-bootstrap';
 import './nav.css';
 import HeartSmallLogo from '../../images/kiss_logo_heart_red_small.png';
-import Square from '../square/Square';
-import {store_page_squares, 
-  starters_page_squares,
-  extras_page_squares,
-  burgers_page_squares,
-  cocktails_page_squares,
-  combos_page_squares,
-  drinks_page_squares} from '../main/data';
 import Main from '../main/Main';
-import Store from '../store/Store';
+import CreateSquare from '../createSquare/CreateSquare';
+import * as products from '../../data/products.js';
 import MainImage from '../mainImage/MainImage';
-import ProductSquare from '../productSquare/ProductSquare';
 import{
   BrowserRouter as Router,
   Routes,
   Route,
   Link
 } from 'react-router-dom';
-
 
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
@@ -65,47 +56,14 @@ import{
     </Navbar>
     <MainImage/>
     <Routes>
-    <Route path="/home/starters" 
-    element={starters_page_squares.map((item,index) => (
-        <div key={index}>
-          <ProductSquare data={item} />
-        </div>))
- }/>
-
-
-      <Route path="/home/extras"     
-        element={extras_page_squares.map((item,index) => (
-        <div key={index}>
-          <ProductSquare data={item} />
-        </div>))
-       }/>
-      <Route path="/home/burgers"  
-      element={burgers_page_squares.map((item,index) => (
-        <div key={index}>
-          <ProductSquare data={item} />
-        </div>))
-       }/>
-      <Route path="/home/combos"  
-      element={combos_page_squares.map((item,index) => (
-        <div key={index}>
-          <ProductSquare data={item} />
-        </div>))
-       }/>
-      <Route path="/home/drinks"  
-      element={drinks_page_squares.map((item,index) => (
-        <div key={index}>
-          <ProductSquare data={item} />
-        </div>))
-       }/>
-      <Route path="/home/cocktails"  
-      element={cocktails_page_squares.map((item,index) => (
-        <div key={index}>
-          <ProductSquare data={item} />
-        </div>))
-       }/>
-
+      <Route path="/home/starters" element={<CreateSquare data={products.starters_page_squares} type="productsquare"/>}/>
+      <Route path="/home/extras" element={<CreateSquare data={products.extras_page_squares} type="productsquare"/>}/>
+      <Route path="/home/burgers" element={<CreateSquare data={products.burgers_page_squares} type="productsquare"/>}/>
+      <Route path="/home/combos" element={<CreateSquare data={products.combos_page_squares} type="productsquare"/>}/>
+      <Route path="/home/drinks" element={<CreateSquare data={products.drinks_page_squares} type="productsquare"/>}/>
+      <Route path="/home/coctails" element={<CreateSquare data={products.cocktails_page_squares} type="productsquare"/>}/>
       <Route path="/" exact element={<Main/>}/>
-      <Route path="/store" element={<Store/>}/>
+      <Route path="/store" element={<CreateSquare data={products.store_page_squares} type="productsquare"/>}/>
     </Routes>
     </Router>
    );
