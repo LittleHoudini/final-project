@@ -105,7 +105,6 @@ import{
        }/>
 
       <Route path="/" exact element={<Main/>}/>
-
       <Route path="/store" element={<Store/>}/>
     </Routes>
     </Router>
