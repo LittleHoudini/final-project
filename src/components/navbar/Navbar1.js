@@ -62,9 +62,9 @@ import{
     </Navbar>
     <MainImage/>
     <div className={styles.wrapper}> 
-    <Routes>
-      
+    <Routes>      
       <Route  path="/home/starters" element={<CreateSquare data={products.starters_page_squares} type="productsquare"/>}/>
+      <Route path="/home/starters" element={<CreateSquare data={products.starters_page_squares} type="productsquare"/>}/>
       <Route path="/home/extras" element={<CreateSquare data={products.extras_page_squares} type="productsquare"/>}/>
       <Route path="/home/burgers" element={<CreateSquare data={products.burgers_page_squares} type="productsquare"/>}/>
       <Route path="/home/combos" element={<CreateSquare data={products.combos_page_squares} type="productsquare"/>}/>
