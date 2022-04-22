@@ -15,6 +15,7 @@
        <div className={Styles.wrapper3}>
         <button className={Styles.btn}>{title}</button>
        </div>
+       
    );
  }
  

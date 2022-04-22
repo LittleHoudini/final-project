@@ -12,7 +12,7 @@ function PopUpConnection(){
       <p>Modal is Open? {isOpen ? 'Yes' : 'No'}</p>
       <button onClick={open}>OPEN</button>
       <Modal>
-        <div style={{backgroundColor: "red"}}>
+        <div  style={{backgroundColor: "red"}}>
           <h1>Title</h1>
           <p>This is a customizable modal.</p>
           <button onClick={close}>CLOSE</button>

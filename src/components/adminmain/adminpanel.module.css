@@ -1,0 +1,36 @@
+.wrapper3{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  /* grid-auto-rows: minmax(50px, auto); */
+  width: 70%;
+  margin: auto;
+  padding: 2%;
+  border: 1px solid blue;
+  
+}
+  /* Style the button and place it in the middle of the container/image */
+   .btn {
+    position: relative;
+    text-decoration: none;
+    width: 150px;
+    height: 150px;
+    /* transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%); */
+    color: white;
+    font-size: 16px;
+    /* padding: 24px 24px; */
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #a63437;
+    
+   
+   
+    
+   
+  }
+  
+.btn:hover {
+    background-color:rgb(3, 2, 2)
+  }
