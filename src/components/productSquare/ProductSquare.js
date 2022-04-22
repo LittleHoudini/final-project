@@ -15,8 +15,13 @@
     <div className={styles.container}>
       <img className='menu-cover-image' src={image} alt="Original Burger"/>
       <h2 className={styles.h2}>{title}</h2>
-      <figure className={styles.figure}>{price}</figure>
+
+      <div className={styles.infodiv}> 
+      <figure className={`${styles.price} ${styles.figure}`}>{price}</figure>
       <figure className={styles.figure}>{text}</figure>
+     </div>
+
+      
       <button className={styles.btn}>הוסף מנה</button>
     </div>
    );

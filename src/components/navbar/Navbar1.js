@@ -9,6 +9,9 @@ import Main from '../main/Main';
 import CreateSquare from '../createSquare/CreateSquare';
 import * as products from '../../data/products.js';
 import MainImage from '../mainImage/MainImage';
+import styles from './mainform.module.css'
+import * as adminmain from '../../data/adminmain.js'
+import PopUpConnection from '../popupconnection/popUpConnection';
 import{
   BrowserRouter as Router,
   Routes,
@@ -43,19 +46,24 @@ import{
             <NavDropdown.Item as={Link} to={"/home/combos"}>COMBOS</NavDropdown.Item>
             <NavDropdown.Item as={Link} to={"/home/drinks"}>DRINKS</NavDropdown.Item>
             <NavDropdown.Item as={Link} to={"/home/desserts"}>DESSERTS</NavDropdown.Item>
+           
           </NavDropdown>
         <Nav.Link as={Link} to={"/"}>HOME PAGE</Nav.Link>
           <Nav.Link as={Link} to={"/store"}>OUR STORE</Nav.Link>
           <Nav.Link>ORDER NOW</Nav.Link>
+          <Nav.Link as={Link} to={"/home/adminmain"}>פעולות מנהל</Nav.Link>
         </Nav>
         <Nav>
-          <Nav.Link>LOGIN</Nav.Link>
+        <Nav.Link as={Link} to={"/home/login"}>LOGIN</Nav.Link>
+    
         </Nav>
       </Navbar.Collapse>
       </Container>
     </Navbar>
     <MainImage/>
-    <Routes>
+    <div className={styles.wrapper}> 
+    <Routes>      
+      <Route  path="/home/starters" element={<CreateSquare data={products.starters_page_squares} type="productsquare"/>}/>
       <Route path="/home/starters" element={<CreateSquare data={products.starters_page_squares} type="productsquare"/>}/>
       <Route path="/home/extras" element={<CreateSquare data={products.extras_page_squares} type="productsquare"/>}/>
       <Route path="/home/burgers" element={<CreateSquare data={products.burgers_page_squares} type="productsquare"/>}/>
@@ -64,7 +72,10 @@ import{
       <Route path="/home/coctails" element={<CreateSquare data={products.cocktails_page_squares} type="productsquare"/>}/>
       <Route path="/" exact element={<Main/>}/>
       <Route path="/store" element={<CreateSquare data={products.store_page_squares} type="productsquare"/>}/>
+      <Route path="/home/adminmain" element={<CreateSquare data={adminmain.admin_main_btn} type="adminmain"/>}/>
+      <Route path="/home/login" element={<popUpConnection />}/>
     </Routes>
+    </div>
     </Router>
    );
  }
