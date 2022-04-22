@@ -3,9 +3,7 @@
  *****************************************/
 
 import React from 'react';
-import Footer from './components/footer/Footer';
-import Navbar1 from './components/navbar/Navbar1';
-
+import Routing from './components/routing/Routing';
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
  *****************************************/
@@ -13,8 +11,7 @@ import Navbar1 from './components/navbar/Navbar1';
 function App() {
   return (
    <div className="app">
-     <Navbar1 />
-     <Footer />
+     <Routing/>
    </div>
   );
 }
