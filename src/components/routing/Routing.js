@@ -15,6 +15,7 @@ import * as adminmain from '../../data/adminmain.js'
 import Navbar1 from '../navbar/Navbar1';
 import Footer from '../footer/Footer';
 import MainImage from '../mainImage/MainImage';
+import PageNotFound from '../pageNotFound/PageNotFound';
  // import {home_page_squares} from './data';
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
@@ -37,6 +38,7 @@ import MainImage from '../mainImage/MainImage';
           <Route path="/" exact element={<Main/>}/>
           <Route path="/store" element={<CreateSquare data={products.store_page_squares} type="productsquare"/>}/>
           <Route path="/home/adminmain" element={<CreateSquare data={adminmain.admin_main_btn} type="adminmain"/>}/>
+          <Route path="*" element={<PageNotFound/>}/>
         </Routes>
       </div> 
       <Footer />
