@@ -2,7 +2,7 @@
  * * IMPORT LIBRARIES
  *****************************************/
 
- import React from 'react'; 
+ import React, { Component } from 'react'; 
  import HeartLogo from '../../images/kiss_logo_red.png';
  import Beach from '../../images/beach_with_people.png';
  
@@ -10,7 +10,9 @@
   * * CREATE REACT FUNCTION COMPONENT
   *****************************************/
  
- function MainImage() {
+ //Main image below navbar 
+ export default class MainImage extends Component {
+   render(){
    return (
      <div className='main'>
        <div className='parent'>
@@ -20,6 +22,7 @@
      </div>
    );
  }
+}
  
- export default MainImage;
+
  

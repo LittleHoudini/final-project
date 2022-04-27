@@ -1,4 +1,5 @@
 
+//Incase the user enters invalid route a 404 error page will raise.
 const PageNotFound = () => {
     return (
       <div>

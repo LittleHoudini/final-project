@@ -2,7 +2,7 @@
  * * IMPORT LIBRARIES
  *****************************************/
 
-import React from 'react';
+import React, { Component } from 'react';
 import {MDBFooter } from "mdbreact";
 import * as FaIcons from "react-icons/fa";
 import './footer.css';
@@ -10,7 +10,9 @@ import './footer.css';
  * * CREATE REACT FUNCTION COMPONENT
  *****************************************/
 
-function Footer() {
+//Footer
+export default class Footer extends Component {
+  render(){
   return (
     <MDBFooter bgcolor='light' className='text-center text-lg-start text-muted'>
     <section className='d-flex justify-content-center justify-content-lg-between p-4 border-bottom'>
@@ -116,5 +118,5 @@ function Footer() {
   </MDBFooter>
   );
 }
+}
 
-export default Footer;

@@ -2,7 +2,7 @@
  * * IMPORT LIBRARIES
  *****************************************/
 
- import React from 'react';
+ import React, { Component } from 'react';
 import { Card,Button } from 'react-bootstrap';
 import styles from './productSquare.module.css';
  
@@ -10,8 +10,11 @@ import styles from './productSquare.module.css';
   * * CREATE REACT FUNCTION COMPONENT
   *****************************************/
 
- function ProductSquare(props) {
-    const {title,image,text,price} = props.data;
+ //Creates a square where all the product info will be shown
+ //with title, image, text, price as data
+ export default class ProductSquare extends Component {
+   render(){
+   const {title,image,text,price} = this.props.data;
    return (
     // <div className={styles.container}>
     //   <img className='menu-cover-image' src={image} alt="Original Burger"/>
@@ -32,5 +35,5 @@ import styles from './productSquare.module.css';
     </Card>
    );
  }
- export default ProductSquare;
+}
  

@@ -2,14 +2,17 @@
  * * IMPORT LIBRARIES
  *****************************************/
 
- import React from 'react';
+ import React, { Component } from 'react';
  import Styles from './square.module.css';
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
   *****************************************/
 
- function Square(props) {
-    const {title,image,text} = props.data;
+ //Squares in the home page
+ export default class Square extends Component {
+   render(){
+    //  renders image and text as data
+    const {title,image,text} = this.props.data;
    return (
     <div className={Styles.container2}>
         <img className={Styles.img} src={image} alt="Original Burger"/>
@@ -18,5 +21,5 @@
    );
  }
  
- export default Square;
+}
  
