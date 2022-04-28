@@ -25,12 +25,12 @@ import styles from './productSquare.module.css';
     //  </div>
     //   <button className={styles.btn}>הוסף מנה</button>
     // </div>
-    <Card>
-      <Card.Img variant="top" src={image}/>
+    <Card className={styles.container}>
+      <Card.Img  variant="top" src={image}/>
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <Card.Text>{text}</Card.Text>
-        <Button variant="primary">{price}</Button>
+        <Button className={styles.containerbtn} variant="primary">{price}</Button>
       </Card.Body>
     </Card>
    );

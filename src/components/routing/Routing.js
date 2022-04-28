@@ -18,12 +18,13 @@ import PageNotFound from '../pageNotFound/PageNotFound';
 // import { Component } from 'react';
 import Signup from '../authentication/Signup';
 import Signin from '../authentication/Signin';
+import  '../authentication/sign.css'
 // import Signout from '../authentication/Signout';
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
   *****************************************/
  
- function Routing() {  
+ function Routing() { 
    return (
     <Router>
       {/* navbar and mainimage components */}
@@ -42,12 +43,13 @@ import Signin from '../authentication/Signin';
           <Route path="/store" element={<CreateSquare data={products.store_page_squares} type="productsquare"/>}/>
           <Route path="/adminmain" element={<CreateSquare data={adminmain.admin_main_btn} type="adminmain"/>}/>
           <Route path="/" exact element={<Main/>}/>
-          <Route path="/signin" element={<Signin/>}/>
+          <Route path="/signin" element={<Signin/>} />
           <Route path="/signup" element={<Signup/>}/>
           <Route path="*" element={<PageNotFound/>}/>
         </Routes>
       </div> 
     </Router>
+
    );
- }
- export default Routing;
+  }
+  export default Routing;

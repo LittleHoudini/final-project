@@ -1,4 +1,5 @@
 /* Container needed to position the button. Adjust the width as needed */
+
 .container {
     position: relative;
     margin:auto;
@@ -10,12 +11,13 @@
     justify-content: center;
     width:80%;
     height:90%;
-    
+    border:3px blue solid;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   }
 
 .infodiv {
     display: flex;
-    padding:3%
+    padding:3%;
 }
 
 /* Make the image responsive */
@@ -52,22 +54,15 @@ figure {
 } 
 
 /* Style the button and place it in the middle of the container/image */
-.container .btn {
-    /* position:relative; */
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    color: white;
-    left:50%; 
-    font-size: 10px;
-    padding: 12px 10px;
-    border: none;
-    cursor: pointer;
+ .containerbtn {
     border-radius: 5px;
-    background-color: #a63437;
-    /* margin:2%; */
-    position: relative;
+    border:none;
+    background-color: rgb(230, 223, 223);
+    padding: 3%;
     width: 50%;
-    margin: 6%;
+    align-self: center;
+    background-color: #a63437;
+    color: aliceblue;
 }
 
 .container .btn:hover {
@@ -76,9 +71,3 @@ figure {
     font-weight: bold;
 }
 
-.price {
-    color:#a63437;
-    font-weight: bold;
-    text-align: left;
-    /* padding-left:3%; */
-}
