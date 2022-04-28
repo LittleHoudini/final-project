@@ -2,9 +2,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App'
+import{BrowserRouter} from 'react-router-dom';
 
 // JSX - JavaScript extension
 ReactDOM.render(
-    <App />
+  <BrowserRouter>
+    <App/>
+  </BrowserRouter>  
   , 
   document.querySelector('#root'));

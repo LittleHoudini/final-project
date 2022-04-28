@@ -3,7 +3,6 @@
  *****************************************/
 import React from 'react';
 import {Navbar,Container, Nav, NavDropdown} from 'react-bootstrap';
-// import {Navigate as Redirect} from "react-router-dom";
 
 import './nav.css';
 import HeartSmallLogo from '../../images/kiss_logo_heart_red_small.png';
@@ -11,6 +10,7 @@ import {Link} from 'react-router-dom';
 import { useContext } from "react";
 import { UserContext } from '../../App';
 import Signout from '../authentication/Signout';
+
 
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
@@ -37,6 +37,7 @@ import Signout from '../authentication/Signout';
             <NavDropdown.Item as={Link} to={"/combos"}>COMBOS</NavDropdown.Item>
             <NavDropdown.Item as={Link} to={"/drinks"}>DRINKS</NavDropdown.Item>
             <NavDropdown.Item as={Link} to={"/desserts"}>DESSERTS</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to={"/coctails"}>COCTAILS</NavDropdown.Item>
           </NavDropdown>
         <Nav.Link as={Link} to={"/"}>HOME PAGE</Nav.Link>
           <Nav.Link as={Link} to={"/store"}>OUR STORE</Nav.Link>

@@ -2,53 +2,39 @@
  * * IMPORT LIBRARIES
  *****************************************/
 
-import{
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from 'react-router-dom';
-import Main from '../main/Main';
-import CreateSquare from '../createSquare/CreateSquare';
-import * as products from '../../data/products.js';
-import styles from './mainform.module.css'
-import * as adminmain from '../../data/adminmain.js'
-import Navbar1 from '../navbar/Navbar1';
-import MainImage from '../mainImage/MainImage';
+import{ Routes,Route } from 'react-router-dom';
 import PageNotFound from '../pageNotFound/PageNotFound';
-// import { Component } from 'react';
-import Signup from '../authentication/Signup';
-import Signin from '../authentication/Signin';
 import  '../authentication/sign.css'
-// import Signout from '../authentication/Signout';
+import { SignupPage } from '../pages/signup/SignupPage';
+import { SigninPage } from '../pages/signin/SigninPage';
+import { HomePage } from '../pages/home/HomePage';
+import { StorePage } from '../pages/store/StorePage';
+import { StartersPage } from '../pages/starters/StartersPage';
+import { CoctailsPage } from '../pages/coctails/CoctailsPage';
+import { DrinksPage } from '../pages/drinks/DrinksPage';
+import { CombosPage } from '../pages/combos/CombosPage';
+import { BurgersPage } from '../pages/burgers/BurgersPage';
+import { ExtrasPage } from '../pages/extras/ExtrasPage';
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
   *****************************************/
  
  function Routing() { 
    return (
-    <Router>
-      {/* navbar and mainimage components */}
-      <Navbar1/>
-      <MainImage/>
-      {/* All the routes */}
-      <div className={styles.wrapper}> 
-        <Routes>      
-          <Route path="/starters" element={<CreateSquare data={products.starters_page_squares} type="productsquare"/>}/>
-          <Route path="/starters" element={<CreateSquare data={products.starters_page_squares} type="productsquare"/>}/>
-          <Route path="/extras" element={<CreateSquare data={products.extras_page_squares} type="productsquare"/>}/>
-          <Route path="/burgers" element={<CreateSquare data={products.burgers_page_squares} type="productsquare"/>}/>
-          <Route path="/combos" element={<CreateSquare data={products.combos_page_squares} type="productsquare"/>}/>
-          <Route path="/drinks" element={<CreateSquare data={products.drinks_page_squares} type="productsquare"/>}/>
-          <Route path="/coctails" element={<CreateSquare data={products.cocktails_page_squares} type="productsquare"/>}/>
-          <Route path="/store" element={<CreateSquare data={products.store_page_squares} type="productsquare"/>}/>
-          <Route path="/adminmain" element={<CreateSquare data={adminmain.admin_main_btn} type="adminmain"/>}/>
-          <Route path="/" exact element={<Main/>}/>
-          <Route path="/signin" element={<Signin/>} />
-          <Route path="/signup" element={<Signup/>}/>
-          <Route path="*" element={<PageNotFound/>}/>
-        </Routes>
-      </div> 
-    </Router>
+    <Routes>      
+      <Route path="/starters" element={<StartersPage/>}/>
+      <Route path="/extras" element={<ExtrasPage/>}/>
+      <Route path="/burgers" element={<BurgersPage/>}/>
+      <Route path="/combos" element={<CombosPage/>}/>
+      <Route path="/drinks" element={<DrinksPage/>}/>
+      <Route path="/coctails" element={<CoctailsPage/>}/>
+      <Route path="/store" element={<StorePage/>}/>
+      {/* <Route path="/adminmain" element={<CreateSquare data={adminmain.admin_main_btn} type="adminmain"/>}/> */}
+      <Route path="/" exact element={<HomePage/>}/>
+      <Route path="*" element={<PageNotFound/>}/>
+      <Route path="/signin" element={<SigninPage/>}/>
+      <Route path="/signup" element={<SignupPage/>}/>
+    </Routes>
 
    );
   }

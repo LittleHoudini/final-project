@@ -22,8 +22,8 @@ const Signup = () => {
     }
     return (
 
-        <div className="signin-div">
-            <form onSubmit={(e) => {signUp(e,{email, password}); setSigned(true)}}>
+    <div className="signin-div">
+        <form onSubmit={(e) => {signUp(e,{email, password}); setSigned(true)}}>
             <h1>SIGN UP</h1>
             <input placeholder="First Name" value={firstName} onChange={event => {setFirstName(event.target.value)}} />
             <input placeholder="Last Name" value={lastName} onChange={event => {setLastName(event.target.value)}} />
@@ -36,8 +36,7 @@ const Signup = () => {
             <br></br>
             <button type="submit">Sign up</button>
         </form>
-
-           </div>
+    </div>
  
     );
 };
