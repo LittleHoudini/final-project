@@ -2,7 +2,6 @@
 import getFirebase from "./Firebase";
 import bcrypt from "bcryptjs/dist/bcrypt";
 import { doc, setDoc, getFirestore } from "firebase/firestore";
-import { Navigate as Redirect} from "react-router-dom";
 
 //Firebase instance
 const firebaseInstance = getFirebase();
@@ -48,9 +47,6 @@ export const signIn = async (event, ...userinfo) => {
         }
     } catch (error) {
         console.log("error", error);
-    // NEED TO FIX REDIRECT HERE NOT WORKING!!!
-    }finally{
-        return <Redirect to={{pathname: '/'}}/>
     }
 };
 

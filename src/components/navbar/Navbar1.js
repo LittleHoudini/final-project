@@ -3,7 +3,7 @@
  *****************************************/
 import React from 'react';
 import {Navbar,Container, Nav, NavDropdown} from 'react-bootstrap';
-import {Navigate as Redirect} from "react-router-dom";
+// import {Navigate as Redirect} from "react-router-dom";
 
 import './nav.css';
 import HeartSmallLogo from '../../images/kiss_logo_heart_red_small.png';
