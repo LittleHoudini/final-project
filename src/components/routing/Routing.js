@@ -16,17 +16,18 @@ import { CombosPage } from '../pages/combos/CombosPage';
 import { BurgersPage } from '../pages/burgers/BurgersPage';
 import { ExtrasPage } from '../pages/extras/ExtrasPage';
 import { OrderWayPage } from '../pages/orderway/OrderWayPage'
-import { ReportType } from '../pages/reporttype/ReportTypePage'
-import { ProductPopUp } from '../pages/productpopup/ProductPopUpPage'
-import {ShoppingCart} from '../pages/shoppingcart/ShoppingCartPage'
-import {Customer} from '../pages/customer/CustomerPage'
+import {ReportTypePage } from '../pages/reporttype/ReportTypePage'
+import {ProductPopUpPage } from '../pages/productpopup/ProductPopUpPage'
+import {ShoppingCartPage} from '../pages/shoppingcart/ShoppingCartPage'
+import {UserProfilePage} from '../pages/userprofile/UserProfilePage'
+import {MenuCategoriesPage} from '../pages/menucategories/MenuCategoriesPage'
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
   *****************************************/
  
  function Routing() { 
    return (
-    <Routes>      
+    <Routes>   
       <Route path="/starters" element={<StartersPage/>}/>
       <Route path="/extras" element={<ExtrasPage/>}/>
       <Route path="/burgers" element={<BurgersPage/>}/>
@@ -37,13 +38,18 @@ import {Customer} from '../pages/customer/CustomerPage'
       {/* <Route path="/adminmain" element={<CreateSquare data={adminmain.admin_main_btn} type="adminmain"/>}/> */}
       <Route path="/" exact element={<HomePage/>}/>
       <Route path="*" element={<PageNotFound/>}/>
+        {/* פופ אפ לבחירת אופן ביצוע המשלוח */}
       <Route path="/orderway" element={<OrderWayPage/>}/>
-      <Route path="/reporttype" element={<ReportType/>}/>
-      <Route path="/productpopup" element={<ProductPopUp/>}/> 
-      <Route path="/customer" element={<Customer/>}/> 
-        {/* זה בעצם הקישור שפותח פופאפ לכל מנה להזמנה^ צריך לקשר לכפתורים בתפריט^ */}
-      <Route path="/shoppingcart" element={<ShoppingCart/>}/> 
-      {/* ^תבנית של סל הקניה^ */}
+      {/* פופ אפ לבחירתסוג הדוח */}
+      <Route path="/reporttype" element={<ReportTypePage/>}/>
+      {/* זה בעצם הקישור שפותח פופאפ לכל מנה להזמנה^ צריך לקשר לכפתורים בתפריט */}
+      <Route path="/productpopup" element={<ProductPopUpPage/>}/> 
+      {/* ממשק משתמש - לקוח */}
+      <Route path="/userprofile" element={<UserProfilePage/>}/> 
+      {/* תבנית של סל הקניה */}
+      <Route path="/shoppingcart" element={<ShoppingCartPage/>}/> 
+      {/* קטגוריות התפריט */}     
+      <Route path="/menucategories" element={<MenuCategoriesPage/>}/> 
       <Route path="/signin" element={<SigninPage/>}/>
       <Route path="/signup" element={<SignupPage/>}/>
     </Routes>

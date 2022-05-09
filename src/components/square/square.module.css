@@ -2,17 +2,13 @@
 /* Container needed to position the button. Adjust the width as needed */
 .container3 {
   position: relative;
-  width: 400%;
-  padding: 1%;   
-  margin:5%;
-
-
+  margin:auto;
 }
   
 /* Make the image responsive */
  img {
   border-radius: 10px;
-  width: 100%;
+  width: 425%;
   height: 15rem;
   object-fit: cover;
 }
@@ -21,7 +17,7 @@
  .btn {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left:200%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   background-color: #a63437;

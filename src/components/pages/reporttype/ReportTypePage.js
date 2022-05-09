@@ -3,7 +3,7 @@ import './reporttype.css';
 import Popup from '../../popups/Popups'
 import {useState} from 'react';
 
-export const ReportType = () => {
+export const ReportTypePage = () => {
 
   const [buttonPopup, setButtonPopup] = useState(true);
   return (

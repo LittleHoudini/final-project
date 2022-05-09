@@ -25,7 +25,7 @@ export default class Footer extends Component {
         <div className='row mt-3'>
           <div className='col-md-3 col-lg-4 col-xl-3 mx-auto mb-4'>
             <h6 className='text-uppercase fw-bold mb-4'>
-              <i className='fas fa-gem me-3'></i><FaIcons.FaAngleDoubleRight/> KISSVIBE <FaIcons.FaAngleDoubleLeft/>
+              <i className='fas fa-gem me-3'></i><FaIcons.FaAngleDoubleRight/>קיס בורגר <FaIcons.FaAngleDoubleLeft/>
             </h6>
              <p> 
               דיינר אמריקאי בסגנון שנות ה80’. בקיס מבחר מנות אמריקאיות ומגוון של מנות פיוז׳ן. ההמבורגר עשוי מ100% בשר בקר טרי הנקצץ מדי יום. שירות משלוחים פעיל ברחבי הקריות מדי יום שעות פעילות : א' 18:00 - ועד אחרון הלקוחות, ב - ש' 12:30 - ועד אחרון הלקוחות.  
@@ -33,7 +33,7 @@ export default class Footer extends Component {
           </div>
 
           <div className='col-md-2 col-lg-2 col-xl-2 mx-auto mb-4'>
-            <h6 className='text-uppercase fw-bold mb-4'>Products</h6>
+            <h6 className='text-uppercase fw-bold mb-4'>MENU</h6>
             <p>
               <a href='#!' className='text-reset'>
               BURGERS
@@ -100,7 +100,7 @@ export default class Footer extends Component {
     <div className='text-center p-4 copyright' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
       &copy; {new Date().getFullYear()} Copyright:
       <a className='text-reset fw-bold' href='https://mdbootstrap.com/'>
-        kissvibe.co.il
+           kissvibe.co.il
       </a>
     </div>
   </MDBFooter>

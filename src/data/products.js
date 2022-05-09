@@ -41,6 +41,7 @@ export const home_page_squares = [
     {
     title: "MENU",
     image: Burger,
+    // link: "href=/menucategories"
     },
     {
     title: "ORDER NOW",
@@ -52,6 +53,38 @@ export const home_page_squares = [
     },
     {
     title: "HOME PAGE",
+    image: FrontView,
+    }
+ 
+]
+
+export const menu_categories = [
+    {
+    title: "STARTERS",
+    image: Burger,
+    },
+    {
+    title: "EXTRAS",
+    image: Drinks,
+    },
+    {
+    title: "BURGERS",
+    image: Sticker,
+    },
+    {
+    title: "COMBOS",
+    image: FrontView,
+    },
+    {
+    title: "DRINKS",
+    image: FrontView,
+    },
+    {
+    title: "DESSERTS",
+    image: FrontView,
+    },
+    {
+    title: "COCTAILS",
     image: FrontView,
     }
  
