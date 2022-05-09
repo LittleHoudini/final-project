@@ -14,24 +14,12 @@ import './footer.css';
 export default class Footer extends Component {
   render(){
   return (
-    <MDBFooter bgcolor='light' className='text-center text-lg-start text-muted'>
+    <MDBFooter bgcolor='light' className='text-center text-lg-start text-muted footercontainer'>
     <section className='d-flex justify-content-center justify-content-lg-between p-4 border-bottom'>
-      <div className='me-5 d-none d-lg-block'>
-        <span>Get connected with us on social networks:</span>
-      </div>
 
-      <div>
-        <a href='#' className='me-4 text-reset'>
-          <i><FaIcons.FaInstagram/></i>
-        </a>
-        <a href='#' className='me-4 text-reset'>
-          <i><FaIcons.FaFacebook/></i>
-        </a>
-        <a href='#' className='me-4 text-reset'>
-          <i><FaIcons.FaTiktok/></i>
-        </a>
-      </div>
     </section>
+
+
     <section className=''>
       <div className='container text-center text-md-start mt-5'>
         <div className='row mt-3'>
@@ -48,46 +36,46 @@ export default class Footer extends Component {
             <h6 className='text-uppercase fw-bold mb-4'>Products</h6>
             <p>
               <a href='#!' className='text-reset'>
-                Burgers
+              BURGERS
               </a>
             </p>
             <p>
               <a href='#!' className='text-reset'>
-                Coctails
+              COCTAILS
               </a>
             </p>
             <p>
               <a href='#!' className='text-reset'>
-                Extras
+              EXTRAS
               </a>
             </p>
             <p>
               <a href='#!' className='text-reset'>
-                Others
+              OTHERS
               </a>
             </p>
           </div>
 
           <div className='col-md-3 col-lg-2 col-xl-2 mx-auto mb-4'>
-            <h6 className='text-uppercase fw-bold mb-4'>Useful links</h6>
+            <h6 className='text-uppercase fw-bold mb-4'>SOCIAL</h6>
             <p>
               <a href='#!' className='text-reset'>
-                Pricing
+                INSTEGRAM
               </a>
             </p>
             <p>
               <a href='#!' className='text-reset'>
-                Settings
+                TIKTOK
               </a>
             </p>
             <p>
               <a href='#!' className='text-reset'>
-                Orders
+                FACEBOOK
               </a>
             </p>
             <p>
               <a href='#!' className='text-reset'>
-                Help
+                GOOGLE
               </a>
             </p>
           </div>
@@ -109,7 +97,7 @@ export default class Footer extends Component {
       </div>
     </section>
 
-    <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
+    <div className='text-center p-4 copyright' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
       &copy; {new Date().getFullYear()} Copyright:
       <a className='text-reset fw-bold' href='https://mdbootstrap.com/'>
         kissvibe.co.il

@@ -26,10 +26,10 @@ import styles from './productSquare.module.css';
     //   <button className={styles.btn}>הוסף מנה</button>
     // </div>
     <Card className={styles.container}>
-      <Card.Img  variant="top" src={image}/>
+      <Card.Img   src={image}/>
       <Card.Body>
-        <Card.Title>{title}</Card.Title>
-        <Card.Text>{text}</Card.Text>
+        <Card.Title className={styles.title}>{title}</Card.Title>
+        <Card.Text  className={styles.aboutproduct} >{text}</Card.Text>
         <Button className={styles.containerbtn} variant="primary">{price}</Button>
       </Card.Body>
     </Card>

@@ -1,11 +1,34 @@
-.footer{
-  background-color: #a63437;
+.footercontainer{
+  background-color: #ca7275;
+  color: white;
+}
+
+.footercontainer p {
+  color: white;
+}
+
+.footercontainer a {
+  color: white;
+}
+
+.footercontainer h6 {
+  color: white;
+}
+
+.footercontainer span {
   color: white;
 }
 
 .footer-social-link {
   text-decoration: none;
   text-align: left;
+  
+}
+
+.copyright  {
+
+color: white;
+
 }
 
 a {

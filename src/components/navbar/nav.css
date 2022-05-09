@@ -1,6 +1,13 @@
 .navbar{
     background-color: #ca7275;
     font-size: 12px;
+   
+  
+}
+.navbarcontainer {
+    padding:0;
+    margin: 0 ;
+    min-width: 100%;
 }
 
 .logo-image-nav  {
