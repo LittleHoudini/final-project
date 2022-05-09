@@ -1,41 +1,55 @@
 // import useInput from "./useInput"
 import React, { useState } from "react";
 import {signUp} from "../../firebase/Users";
-import { useContext } from "react";
-import { UserContext } from '../../App';
-import { Navigate as Redirect} from "react-router-dom";
 import './sign.css'
 
+
 const Signup = () => {
-    const currentUser = useContext(UserContext);
-    const [signed, setSigned] = useState(false);
-    const [email, setEmail] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [password, setPassword]=  useState("")
-    const [phoneNumber, setPhoneNumber]=  useState("")
-    const [city, setCity]=  useState("")
-    const [street, setStreet]=  useState("")
-    const [homeNumber, setHomeNumber]=  useState("")
-    if(currentUser && signed){
-        return <Redirect to={{pathname: '/'}}/>
+    const [values, setValues] = useState({
+        firstName: "",
+        lastName: "",
+        password: "",
+        phoneNumber: "",
+        city: "",
+        street: "",
+        homeNumber: "",
+        email: "",
+        error: null,
+      });
+
+    const { firstName, lastName, password, phoneNumber, city,street,homeNumber,email,error } = values;
+
+    const handleChange = name => event => {
+        setValues({ ...values, error: false, [name]: event.target.value });
+    };
+
+    const handleForm = (e) => {
+        e.preventDefault()
+        if(firstName.length < 1 || lastName.length < 1){
+            setValues({error: 'First name and last name are required'})
+            return false;
+        }
+        else{
+            signUp(e,{firstName,lastName,phoneNumber,city,street,homeNumber,email,password})
+        }
+        
     }
     return (
-
     <div className="signin-div">
-        <form onSubmit={(e) => {signUp(e,{email, password}); setSigned(true)}}>
+        <form onSubmit={(e) => {handleForm(e)}}>
             <h1>SIGN UP</h1>
-            <input placeholder="First Name" value={firstName} onChange={event => {setFirstName(event.target.value)}} />
-            <input placeholder="Last Name" value={lastName} onChange={event => {setLastName(event.target.value)}} />
-            <input placeholder="Phone Number" value={phoneNumber} onChange={event => {setPhoneNumber(event.target.value)}} />
-            <input placeholder="City" value={city} onChange={event => {setCity(event.target.value)}} />
-            <input placeholder="Street" value={street} onChange={event => {setStreet(event.target.value)}} />
-            <input placeholder="Home Number" value={homeNumber} onChange={event => {setHomeNumber(event.target.value)}} />
-            <input placeholder="Email" value={email} onChange={event => {setEmail(event.target.value)}} />
-            <input placeholder="Password" type="password" value={password} onChange={event => {setPassword(event.target.value)}} />
+            <input placeholder="First Name" value={firstName} onChange={handleChange("firstName")} />
+            <input placeholder="Last Name" value={lastName} onChange={handleChange("lastName")} />
+            <input placeholder="Phone Number" value={phoneNumber} onChange={handleChange("phoneNumber")} />
+            <input placeholder="City" value={city} onChange={handleChange("city")} />
+            <input placeholder="Street" value={street} onChange={handleChange("street")} />
+            <input placeholder="Home Number" value={homeNumber} onChange={handleChange("homeNumber")} />
+            <input placeholder="Email" value={email} onChange={handleChange("email")} />
+            <input placeholder="Password" type="password" value={password} onChange={handleChange("password")} />
             <br></br>
             <button type="submit">Sign up</button>
         </form>
+        {error ? <p style={{ color: 'red' }}>{error}</p> : null}
     </div>
  
     );

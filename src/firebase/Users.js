@@ -9,7 +9,8 @@ const firebaseInstance = getFirebase();
   export const signUp = async (event,...userinfo) => {
     //cancels the event if it is cancelable, meaning that the default action that belongs to the event will not occur.
     event.preventDefault();
-    const { email,password } = userinfo[0]
+    console.log(userinfo[0])
+    const {firstName,lastName,phoneNumber,city,street,homeNumber,email,password} = userinfo[0]
     try {
         if (firebaseInstance) {
             //Adds the email user, so the same email cant be registered again.
@@ -21,8 +22,15 @@ const firebaseInstance = getFirebase();
             const hashed_password = bcrypt.hashSync(password, salt);
             //Adds the user info to our database 
             const res = await setDoc(doc(db,'Person', email),{
+                firstName : firstName,
+                lastName : lastName,
+                phoneNumber : phoneNumber,
+                city : city,
+                street: street,
+                homeNumber : homeNumber,
                 email : email,
-                password : hashed_password
+                password : hashed_password,
+                classfication : ""
             });
             alert(`Welcome ${email}!`);
         }

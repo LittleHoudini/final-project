@@ -64,7 +64,6 @@ import setButtonPopup from '../popups/Popups'
           </Nav> 
           :
           <Nav>
-           
             <Nav.Link as={Link}  onClick={() => setButtonPopup(true)} to={'/signup'}>SIGN UP</Nav.Link>
             <Nav.Link as={Link} onClick={() => setButtonPopup(true)} to={'/signin'}>SIGN IN</Nav.Link>
           </Nav>

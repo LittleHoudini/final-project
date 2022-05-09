@@ -41,19 +41,22 @@ export const home_page_squares = [
     {
     title: "MENU",
     image: Burger,
-    // link: "href=/menucategories"
+    path: '/store',
     },
     {
     title: "ORDER NOW",
     image: Drinks,
+    path: '/store',
     },
     {
     title: "OUR STORE",
     image: Sticker,
+    path: '/store',
     },
     {
     title: "HOME PAGE",
     image: FrontView,
+    path: '/store',
     }
  
 ]
@@ -62,30 +65,37 @@ export const menu_categories = [
     {
     title: "STARTERS",
     image: Burger,
+    path: '/',
     },
     {
     title: "EXTRAS",
     image: Drinks,
+    path: '/',
     },
     {
     title: "BURGERS",
     image: Sticker,
+    path: '/',
     },
     {
     title: "COMBOS",
     image: FrontView,
+    path: '/',
     },
     {
     title: "DRINKS",
     image: FrontView,
+    path: '/',
     },
     {
     title: "DESSERTS",
     image: FrontView,
+    path: '/',
     },
     {
     title: "COCTAILS",
     image: FrontView,
+    path: '/',
     }
  
 ]
