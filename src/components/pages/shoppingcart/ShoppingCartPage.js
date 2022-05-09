@@ -2,7 +2,7 @@ import React from 'react';
 import './shoppingcart.css';
 
 
-export const ShoppingCart = () => {
+export const ShoppingCartPage = () => {
   return (
     <div className='wrapper2'>
           <div className='wrappershoppingcart'>

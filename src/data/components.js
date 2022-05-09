@@ -4,7 +4,7 @@ import ProductSquare from '../components/productSquare/ProductSquare.js';
 const components = {
     square: Square,
     productsquare: ProductSquare,
-    // productpopup: ProductPopUp
+   
   };
 
 export default components;

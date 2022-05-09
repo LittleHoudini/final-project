@@ -3,9 +3,9 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 5px;
     grid-auto-rows: minmax(100px, auto);
-    width: 100%;
     margin: auto;
     padding: 2%;
+   
 
 }
 
