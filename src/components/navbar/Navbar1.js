@@ -10,6 +10,8 @@ import {Link} from 'react-router-dom';
 import { useContext } from "react";
 import { UserContext } from '../../App';
 import Signout from '../authentication/Signout';
+import setButtonPopup from '../popups/Popups'
+
 
 
  /*****************************************
@@ -18,8 +20,8 @@ import Signout from '../authentication/Signout';
  function Navbar1(){
    const currentUser = useContext(UserContext);
    return (
-    <Navbar collapseOnSelect expand="lg"  variant="dark" className="navbar">
-      <Container>
+    <Navbar collapseOnSelect expand="lg"  variant="dark" className="navbar1">
+      <Container className="navbarcontainer">
       <img
             alt=""
             src={HeartSmallLogo}
@@ -41,8 +43,18 @@ import Signout from '../authentication/Signout';
           </NavDropdown>
         <Nav.Link as={Link} to={"/"}>HOME PAGE</Nav.Link>
           <Nav.Link as={Link} to={"/store"}>OUR STORE</Nav.Link>
-          <Nav.Link>ORDER NOW</Nav.Link>
-          <Nav.Link as={Link} to={"/adminmain"}>פעולות מנהל</Nav.Link>
+          <Nav.Link as={Link} to={"/orderway"}>ORDER NOW</Nav.Link>
+          <Nav.Link as={Link} to={"/shoppingcart"}>SHOPPING CART</Nav.Link>
+          <Nav.Link as={Link} to={"/productpopup"}>productpopupexample</Nav.Link>
+          <Nav.Link as={Link} to={"/shoppingcart"}>shoppingcartexample</Nav.Link>
+          <Nav.Link as={Link} to={"/customer"}>customerareaexample</Nav.Link>
+          <NavDropdown title="פעולות מנהל" id="collasible-nav-dropdown">
+          <NavDropdown.Item as={Link} to={"/adminmain"}>פעולות מנהל</NavDropdown.Item>
+          <NavDropdown.Item as={Link} to={"/reporttype"}>דוחות</NavDropdown.Item>
+          <NavDropdown.Item as={Link} to={"/adminmain"}>זמן אמת</NavDropdown.Item>
+          <NavDropdown.Item as={Link} to={"/adminmain"}>מלאי</NavDropdown.Item>
+          <NavDropdown.Item as={Link} to={"/adminmain"}>עובדים</NavDropdown.Item>
+          </NavDropdown>
         </Nav>
         {currentUser ?
           <Nav>
@@ -51,8 +63,9 @@ import Signout from '../authentication/Signout';
           </Nav> 
           :
           <Nav>
-            <Nav.Link as={Link} to={'/signup'}>SIGN UP</Nav.Link>
-            <Nav.Link as={Link} to={'/signin'}>SIGN IN</Nav.Link>
+           
+            <Nav.Link as={Link}  onClick={() => setButtonPopup(true)} to={'/signup'}>SIGN UP</Nav.Link>
+            <Nav.Link as={Link} onClick={() => setButtonPopup(true)} to={'/signin'}>SIGN IN</Nav.Link>
           </Nav>
         }
       </Navbar.Collapse>
