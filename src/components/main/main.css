@@ -1,8 +1,9 @@
 .main {
-    border: 3px solid purple;
+    /* border: 3px solid purple; */
     width: 100%;
     max-width: 100%;
     margin: auto;
+    
 }
 
 .parent {
