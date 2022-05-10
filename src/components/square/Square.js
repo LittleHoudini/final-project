@@ -20,7 +20,6 @@
         <Link to={path} as={Link}>
           <button className={Styles.btn}>{title}<br></br>{text}</button>
         </Link>
-        {/* <Nav.Link as={Link} to={"/userprofile"}>user profile page</Nav.Link> */}
     </div>
    );
  }

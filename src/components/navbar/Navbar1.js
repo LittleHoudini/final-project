@@ -1,7 +1,7 @@
 /*****************************************
  * * IMPORT LIBRARIES
  *****************************************/
-import React from 'react';
+import React, {useState} from 'react';
 import {Navbar,Container, Nav, NavDropdown} from 'react-bootstrap';
 
 import './nav.css';
@@ -10,7 +10,8 @@ import {Link} from 'react-router-dom';
 import { useContext } from "react";
 import { UserContext } from '../../App';
 import Signout from '../authentication/Signout';
-import setButtonPopup from '../popups/Popups'
+// import setButtonPopup from '../popups/Popups'
+
 
 
 
@@ -64,8 +65,8 @@ import setButtonPopup from '../popups/Popups'
           </Nav> 
           :
           <Nav>
-            <Nav.Link as={Link}  onClick={() => setButtonPopup(true)} to={'/signup'}>SIGN UP</Nav.Link>
-            <Nav.Link as={Link} onClick={() => setButtonPopup(true)} to={'/signin'}>SIGN IN</Nav.Link>
+            <Nav.Link as={Link} to={'/signup'}>SIGN UP</Nav.Link>
+            <Nav.Link as={Link} to={'/signin'}>SIGN IN</Nav.Link>
           </Nav>
         }
       </Navbar.Collapse>

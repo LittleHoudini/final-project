@@ -5,27 +5,48 @@ import { useContext } from "react";
 import { UserContext } from '../../App';
 import {Navigate as Redirect} from "react-router-dom";
 import './sign.css'
-
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
 
 //Sign in form for new users
-const Signin = (props) => {
+const Signin = () => {
     const currentUser = useContext(UserContext);
     const [signed, setSigned] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword]=  useState("")
+    const [open, setOpen] = useState(true);
+
+    // const handleClickOpen = () => {
+    //   setOpen(true);
+    // };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+    
     if(currentUser && signed){
         return <Redirect to={{pathname: '/'}}/>
     }
     return (
-        <div className="signin-div">
-            <form className="signin-form"  onSubmit={(e) => {signIn(e,{email, password}); setSigned(true)}}>                
-                <h1 className="signin-h1-form">SIGN IN</h1>
-                <input className="signin-input" placeholder="Email" value={email} onChange={event => {setEmail(event.target.value)}} />
-                <input className="signin-input" placeholder="Password" type="password" value={password} onChange={event => {setPassword(event.target.value)}} />
-                <br></br>
-                <button className="signin-button" type="submit">Sign in</button>
-            </form>
-        </div>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>SIGN IN</DialogTitle>
+          <DialogContent>
+            <form onSubmit={(e) => {signIn(e,{email, password}); setSigned(true)}}>                
+                 {/* <input placeholder="Email" value={email} onChange={event => {setEmail(event.target.value)}} /> */}
+                 <TextField autoFocus margin="dense" label="Email Address" type="email" fullWidth variant="standard" value={email} onChange={event => {setEmail(event.target.value)}}/>
+                 <TextField autoFocus margin="dense" label="password" type="password" fullWidth variant="standard" value={password} onChange={event => {setPassword(event.target.value)}}/>
+                 {/* <input placeholder="Password" type="password" value={password} onChange={event => {setPassword(event.target.value)}} /> */}
+                 <Button  type="submit">Sign in</Button>
+             </form>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>X</Button>
+          </DialogActions>
+        </Dialog>
     );
 };
 

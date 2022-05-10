@@ -2,11 +2,12 @@
  * * IMPORT LIBRARIES
  *****************************************/
 
- import{ Routes,Route } from 'react-router-dom';
+ import{ Routes,Route,useLocation } from 'react-router-dom';
  import PageNotFound from '../pageNotFound/PageNotFound';
  import  '../authentication/sign.css'
  import { SignupPage } from '../pages/signup/SignupPage';
  import { SigninPage } from '../pages/signin/SigninPage';
+ import Signin from '../authentication/Signin';
  import { HomePage } from '../pages/home/HomePage';
  import { StorePage } from '../pages/store/StorePage';
  import { StartersPage } from '../pages/starters/StartersPage';
@@ -21,12 +22,18 @@
  import {ShoppingCartPage} from '../pages/shoppingcart/ShoppingCartPage'
  import {UserProfilePage} from '../pages/userprofile/UserProfilePage'
  import {MenuCategoriesPage} from '../pages/menucategories/MenuCategoriesPage'
+import { useState } from 'react';
+ 
+
+ 
+
   /*****************************************
    * * CREATE REACT FUNCTION COMPONENT
    *****************************************/
   
   function Routing() { 
     return (
+      <div>
      <Routes>   
        <Route path="/starters" element={<StartersPage/>}/>
        <Route path="/extras" element={<ExtrasPage/>}/>
@@ -50,10 +57,12 @@
        <Route path="/shoppingcart" element={<ShoppingCartPage/>}/> 
        {/* קטגוריות התפריט */}     
        <Route path="/menucategories" element={<MenuCategoriesPage/>}/> 
-       <Route path="/signin" element={<SigninPage/>}/>
-       <Route path="/signup" element={<SignupPage/>}/>
+
+       <Route path="/signup" element={<SignupPage/>}/>  
+       <Route path='/signin' element={<SigninPage/>}/>
+       
      </Routes>
- 
+    </div>
     );
    }
    export default Routing;
