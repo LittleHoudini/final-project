@@ -30,7 +30,7 @@ const firebaseInstance = getFirebase();
                 homeNumber : homeNumber,
                 email : email,
                 password : hashed_password,
-                classfication : ""
+                classfication : ""                    
             });
             alert(`Welcome ${email}!`);
         }

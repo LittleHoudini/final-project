@@ -21,14 +21,11 @@
  import {ShoppingCartPage} from '../pages/shoppingcart/ShoppingCartPage'
  import {UserProfilePage} from '../pages/userprofile/UserProfilePage'
  import {MenuCategoriesPage} from '../pages/menucategories/MenuCategoriesPage'
- import { useContext } from "react";
-import { UserContext } from '../../App';
   /*****************************************
    * * CREATE REACT FUNCTION COMPONENT
    *****************************************/
   
   function Routing() { 
-    const currentUser = useContext(UserContext);
     return (
      <Routes>   
        <Route path="/starters" element={<StartersPage/>}/>
@@ -53,17 +50,8 @@ import { UserContext } from '../../App';
        <Route path="/shoppingcart" element={<ShoppingCartPage/>}/> 
        {/* קטגוריות התפריט */}     
        <Route path="/menucategories" element={<MenuCategoriesPage/>}/> 
-       {currentUser ?
-            <>
-            <Route path="/signin" element={<HomePage/>}/>
-            <Route path="/signup" element={<HomePage/>}/>
-            </>
-            :
-            <>
-            <Route path="/signin" element={<SigninPage/>}/>
-            <Route path="/signup" element={<SignupPage/>}/>
-            </>
-      }
+       <Route path="/signin" element={<SigninPage/>}/>
+       <Route path="/signup" element={<SignupPage/>}/>
      </Routes>
  
     );
