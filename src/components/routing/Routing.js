@@ -32,9 +32,11 @@ import { useState } from 'react';
    *****************************************/
   
   function Routing() { 
+    
+    
     return (
       <div>
-     <Routes>   
+     <Routes >   
        <Route path="/starters" element={<StartersPage/>}/>
        <Route path="/extras" element={<ExtrasPage/>}/>
        <Route path="/burgers" element={<BurgersPage/>}/>
@@ -57,10 +59,7 @@ import { useState } from 'react';
        <Route path="/shoppingcart" element={<ShoppingCartPage/>}/> 
        {/* קטגוריות התפריט */}     
        <Route path="/menucategories" element={<MenuCategoriesPage/>}/> 
-
        <Route path="/signup" element={<SignupPage/>}/>  
-       <Route path='/signin' element={<SigninPage/>}/>
-       
      </Routes>
     </div>
     );

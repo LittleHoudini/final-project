@@ -10,16 +10,21 @@ import {Link} from 'react-router-dom';
 import { useContext } from "react";
 import { UserContext } from '../../App';
 import Signout from '../authentication/Signout';
+import { SigninPage } from '../pages/signin/SigninPage';
+import { Button } from 'bootstrap';
 // import setButtonPopup from '../popups/Popups'
-
-
-
 
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
   *****************************************/
  function Navbar1(){
    const currentUser = useContext(UserContext);
+   const [openSignIn, setOpenSignIn] = useState(false);
+
+   const handleOpen = () => {
+     setOpenSignIn(prev => !prev);
+     console.log("in handle open")
+   }
    return (
     <Navbar collapseOnSelect expand="lg"  variant="dark" className="navbar1">
       <Container className="navbarcontainer">
@@ -66,7 +71,8 @@ import Signout from '../authentication/Signout';
           :
           <Nav>
             <Nav.Link as={Link} to={'/signup'}>SIGN UP</Nav.Link>
-            <Nav.Link as={Link} to={'/signin'}>SIGN IN</Nav.Link>
+            <Nav.Link onClick={handleOpen}>SIGN IN</Nav.Link>
+            <SigninPage openSignIn={openSignIn} setOpenSignIn={setOpenSignIn}/>
           </Nav>
         }
       </Navbar.Collapse>

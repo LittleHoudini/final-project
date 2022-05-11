@@ -13,38 +13,26 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
 //Sign in form for new users
-const Signin = () => {
+const Signin = ({open,setOpen}) => {
     const currentUser = useContext(UserContext);
     const [signed, setSigned] = useState(false);
     const [email, setEmail] = useState("");
-    const [password, setPassword]=  useState("")
-    const [open, setOpen] = useState(true);
-
-    // const handleClickOpen = () => {
-    //   setOpen(true);
-    // };
-  
-    const handleClose = () => {
-      setOpen(false);
-    };
-    
+    const [password, setPassword]=  useState("")    
     if(currentUser && signed){
         return <Redirect to={{pathname: '/'}}/>
     }
     return (
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog open={open} onClose={setOpen}>
           <DialogTitle>SIGN IN</DialogTitle>
           <DialogContent>
             <form onSubmit={(e) => {signIn(e,{email, password}); setSigned(true)}}>                
-                 {/* <input placeholder="Email" value={email} onChange={event => {setEmail(event.target.value)}} /> */}
-                 <TextField autoFocus margin="dense" label="Email Address" type="email" fullWidth variant="standard" value={email} onChange={event => {setEmail(event.target.value)}}/>
-                 <TextField autoFocus margin="dense" label="password" type="password" fullWidth variant="standard" value={password} onChange={event => {setPassword(event.target.value)}}/>
-                 {/* <input placeholder="Password" type="password" value={password} onChange={event => {setPassword(event.target.value)}} /> */}
-                 <Button  type="submit">Sign in</Button>
+                <TextField autoFocus margin="dense" label="Email Address" type="email" fullWidth variant="standard" value={email} onChange={event => {setEmail(event.target.value)}}/>
+                <TextField autoFocus margin="dense" label="password" type="password" fullWidth variant="standard" value={password} onChange={event => {setPassword(event.target.value)}}/>
+                <Button  type="submit">Sign in</Button>
              </form>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>X</Button>
+            <Button onClick={() => setOpen(false)}>X</Button>
           </DialogActions>
         </Dialog>
     );
