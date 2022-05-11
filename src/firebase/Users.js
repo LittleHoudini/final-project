@@ -1,7 +1,8 @@
 //IMPORTS
 import getFirebase from "./Firebase";
 import bcrypt from "bcryptjs/dist/bcrypt";
-import { doc, setDoc, getFirestore } from "firebase/firestore";
+import { doc, setDoc, getDoc, getFirestore } from "firebase/firestore";
+import { collection, query, where } from "firebase/firestore";
 
 //Firebase instance
 const firebaseInstance = getFirebase();
@@ -71,3 +72,23 @@ export const signOut = async () => {
         console.log("error", error);
     }
 };
+
+
+export const getDocument = async (frCollection,frDoc) => {
+    try{
+        if(firebaseInstance){
+            const db = getFirestore();
+            const docRef = doc(db, frCollection, frDoc);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                return docSnap.data();
+              } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+              }
+        }
+    }
+    catch (error) {
+        console.log("getDocument error : ", error);
+    }
+}
