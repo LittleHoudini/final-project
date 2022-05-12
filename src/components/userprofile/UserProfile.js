@@ -1,12 +1,13 @@
 import React ,{useEffect, useState} from 'react';
 import './userprofile.css';
-import HeartSmallLogo from '../../../images/kiss_logo_heart_red_small.png';
+import HeartSmallLogo from '../../images/kiss_logo_heart_red_small.png';
 import { useContext } from "react";
-import { UserContext } from '../../../App';
-import { getDocument } from '../../../firebase/Users';
+import { UserContext } from '../../App';
+import { getDocument } from '../../firebase/Users';
 import { FiEye } from 'react-icons/fi';
 
-export const UserProfilePage = () => {
+export const UserProfile = () => {
+  //context to pass down current user logged in
   const currentUser = useContext(UserContext);
   const [passwordShown, setPasswordShown] = useState(false);
   const [values,setValues] = useState({
@@ -19,27 +20,32 @@ export const UserProfilePage = () => {
     email : "",
     password : "",
   });
+  //deconstruct object values
   const {firstName,lastName,phoneNumber,city,street,homeNumber,email,password} = values;
 
+  //changing state based on input
   const handleChange = name => event => {
     setValues({ ...values, error: false, [name]: event.target.value });
   };
-      useEffect(() => {
-      let isMounted = true;
-      if(currentUser){
-        getDocument("Person",currentUser).then((result) => {
-          console.log(result)
-          if(isMounted){
-            setValues(result);  
-          }
-        }).catch((err) => {
-          console.log(err)
-        });
-      }    
-      return () =>{
-        isMounted = false;
-      };
-    }, [currentUser]);
+
+  // fetching user data based on current user logged in
+  useEffect(() => {
+  let isMounted = true;
+  if(currentUser){
+    //fetch data from collection Person
+    getDocument("Person",currentUser).then((result) => {
+      console.log(result)
+      if(isMounted){
+        setValues(result);  
+      }
+    }).catch((err) => {
+      console.log(err)
+    });
+  }    
+  return () =>{
+    isMounted = false;
+  };
+}, [currentUser]);
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);

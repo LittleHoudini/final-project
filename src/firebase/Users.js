@@ -2,8 +2,6 @@
 import getFirebase from "./Firebase";
 import bcrypt from "bcryptjs/dist/bcrypt";
 import { doc, setDoc, getDoc, getFirestore } from "firebase/firestore";
-import { collection, query, where } from "firebase/firestore";
-
 //Firebase instance
 const firebaseInstance = getFirebase();
   // sign up function

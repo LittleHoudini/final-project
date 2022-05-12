@@ -54,7 +54,6 @@ import { Button } from 'bootstrap';
           <Nav.Link as={Link} to={"/shoppingcart"}>SHOPPING CART</Nav.Link>
           <Nav.Link as={Link} to={"/productpopup"}>productpopupexample</Nav.Link>
           <Nav.Link as={Link} to={"/shoppingcart"}>shoppingcartexample</Nav.Link>
-          <Nav.Link as={Link} to={"/userprofile"}>user profile page</Nav.Link>
           <NavDropdown title="פעולות מנהל" id="collasible-nav-dropdown">
           <NavDropdown.Item as={Link} to={"/adminmain"}>פעולות מנהל</NavDropdown.Item>
           <NavDropdown.Item as={Link} to={"/reporttype"}>דוחות</NavDropdown.Item>
@@ -65,7 +64,9 @@ import { Button } from 'bootstrap';
         </Nav>
         {currentUser ?
           <Nav>
-            <Nav.Link>{currentUser}</Nav.Link>
+            <NavDropdown title={currentUser} id="collasible-nav-dropdown">
+              <NavDropdown.Item as={Link} to={"/profile"}>Profile</NavDropdown.Item >
+            </NavDropdown>
             <Signout/>
           </Nav> 
           :

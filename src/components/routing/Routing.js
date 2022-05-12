@@ -2,12 +2,10 @@
  * * IMPORT LIBRARIES
  *****************************************/
 
- import{ Routes,Route,useLocation } from 'react-router-dom';
+ import{ Routes,Route } from 'react-router-dom';
  import PageNotFound from '../pageNotFound/PageNotFound';
  import  '../authentication/sign.css'
  import { SignupPage } from '../pages/signup/SignupPage';
- import { SigninPage } from '../pages/signin/SigninPage';
- import Signin from '../authentication/Signin';
  import { HomePage } from '../pages/home/HomePage';
  import { StorePage } from '../pages/store/StorePage';
  import { StartersPage } from '../pages/starters/StartersPage';
@@ -20,9 +18,9 @@
  import {ReportTypePage } from '../pages/reporttype/ReportTypePage'
  import {ProductPopUpPage } from '../pages/productpopup/ProductPopUpPage'
  import {ShoppingCartPage} from '../pages/shoppingcart/ShoppingCartPage'
- import {UserProfilePage} from '../pages/userprofile/UserProfilePage'
+ import {UserProfile} from '../userprofile/UserProfile';
  import {MenuCategoriesPage} from '../pages/menucategories/MenuCategoriesPage'
-import { useState } from 'react';
+
  
 
  
@@ -54,7 +52,7 @@ import { useState } from 'react';
        {/* זה בעצם הקישור שפותח פופאפ לכל מנה להזמנה^ צריך לקשר לכפתורים בתפריט */}
        <Route path="/productpopup" element={<ProductPopUpPage/>}/> 
        {/* ממשק משתמש - לקוח */}
-       <Route path="/userprofile" element={<UserProfilePage/>}/> 
+       <Route path="/profile" element={<UserProfile/>}/> 
        {/* תבנית של סל הקניה */}
        <Route path="/shoppingcart" element={<ShoppingCartPage/>}/> 
        {/* קטגוריות התפריט */}     
