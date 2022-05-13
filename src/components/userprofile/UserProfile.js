@@ -3,7 +3,7 @@ import './userprofile.css';
 import HeartSmallLogo from '../../images/kiss_logo_heart_red_small.png';
 import { useContext } from "react";
 import { UserContext } from '../../App';
-import { getDocument } from '../../firebase/Users';
+import {getDocument} from '../../firebase/Users';
 import { FiEye } from 'react-icons/fi';
 
 export const UserProfile = () => {

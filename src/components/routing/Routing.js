@@ -14,17 +14,13 @@
  import { CombosPage } from '../pages/combos/CombosPage';
  import { BurgersPage } from '../pages/burgers/BurgersPage';
  import { ExtrasPage } from '../pages/extras/ExtrasPage';
- import { OrderWayPage } from '../pages/orderway/OrderWayPage'
- import {ReportTypePage } from '../pages/reporttype/ReportTypePage'
- import {ProductPopUpPage } from '../pages/productpopup/ProductPopUpPage'
- import {ShoppingCartPage} from '../pages/shoppingcart/ShoppingCartPage'
+ import { OrderWay } from '../pages/orderway/OrderWay';
+ import {ReportType } from '../pages/reporttype/ReportType';
+ import {ShoppingCart} from '../shoppingcart/ShoppingCart';
  import {UserProfile} from '../userprofile/UserProfile';
- import {MenuCategoriesPage} from '../pages/menucategories/MenuCategoriesPage'
+ import {MenuCategoriesPage} from '../pages/menucategories/MenuCategoriesPage';
 
  
-
- 
-
   /*****************************************
    * * CREATE REACT FUNCTION COMPONENT
    *****************************************/
@@ -46,18 +42,17 @@
        <Route path="/" exact element={<HomePage/>}/>
        <Route path="*" element={<PageNotFound/>}/>
          {/* פופ אפ לבחירת אופן ביצוע המשלוח */}
-       <Route path="/orderway" element={<OrderWayPage/>}/>
+       <Route path="/orderway" element={<OrderWay/>}/>
        {/* פופ אפ לבחירתסוג הדוח */}
-       <Route path="/reporttype" element={<ReportTypePage/>}/>
-       {/* זה בעצם הקישור שפותח פופאפ לכל מנה להזמנה^ צריך לקשר לכפתורים בתפריט */}
-       <Route path="/productpopup" element={<ProductPopUpPage/>}/> 
+       <Route path="/reporttype" element={<ReportType/>}/>
+   
        {/* ממשק משתמש - לקוח */}
        <Route path="/profile" element={<UserProfile/>}/> 
        {/* תבנית של סל הקניה */}
-       <Route path="/shoppingcart" element={<ShoppingCartPage/>}/> 
+       <Route path="/shoppingcart" element={<ShoppingCart/>}/> 
        {/* קטגוריות התפריט */}     
        <Route path="/menucategories" element={<MenuCategoriesPage/>}/> 
-       <Route path="/signup" element={<SignupPage/>}/>  
+   
      </Routes>
     </div>
     );

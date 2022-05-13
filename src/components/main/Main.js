@@ -5,7 +5,7 @@
  import React, { Component } from 'react';
  import { home_page_squares } from '../../data/products';
  import CreateSquare from '../createSquare/CreateSquare';
- import './main.css';
+ import Styles from './main.module.css';
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
   *****************************************/
@@ -14,7 +14,7 @@
  export default class Main extends Component {
    render(){
    return (
-     <main className="main">
+     <main className={Styles.Main}>
        <CreateSquare data={home_page_squares} type='square'/>
      </main>
    );

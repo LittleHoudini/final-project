@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { UserContext } from '../../App';
 import {Navigate as Redirect} from "react-router-dom";
 import './sign.css'
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -22,17 +22,17 @@ const Signin = ({open,setOpen}) => {
         return <Redirect to={{pathname: '/'}}/>
     }
     return (
-        <Dialog open={open} onClose={setOpen}>
+        <Dialog open={open} onClose={() => setOpen(false)}>
           <DialogTitle>SIGN IN</DialogTitle>
           <DialogContent>
             <form onSubmit={(e) => {signIn(e,{email, password}); setSigned(true)}}>                
-                <TextField autoFocus margin="dense" label="Email Address" type="email" fullWidth variant="standard" value={email} onChange={event => {setEmail(event.target.value)}}/>
-                <TextField autoFocus margin="dense" label="password" type="password" fullWidth variant="standard" value={password} onChange={event => {setPassword(event.target.value)}}/>
-                <Button  type="submit">Sign in</Button>
+                <TextField className="textfieldform"  autoFocus margin="dense" label="Email Address" type="email" fullWidth variant="standard" value={email} onChange={event => {setEmail(event.target.value)}}/>
+                <TextField className="textfieldform" autoFocus margin="dense" label="password" type="password" fullWidth variant="standard" value={password} onChange={event => {setPassword(event.target.value)}}/>
+                <button  className="formbtn"   type="submit">Sign in</button >
              </form>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setOpen(false)}>X</Button>
+            <button onClick={() => setOpen(false)}>X</button >
           </DialogActions>
         </Dialog>
     );
