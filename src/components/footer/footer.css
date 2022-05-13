@@ -1,44 +1,38 @@
-.footercontainer{
-  background-color: #a63437;
-  color: white;
-
+.footercontainer {
+	background-color: #a63437;
+	color: white;
 }
 
 .footercontainer p {
-  color: white;
+	color: white;
 }
 
 .footercontainer a {
-  color: white;
+	color: white;
 }
 
 .footercontainer h6 {
-  color: white;
+	color: white;
 }
 
 .footercontainer span {
-  color: white;
+	color: white;
 }
 
 .footer-social-link {
-  text-decoration: none;
-  text-align: left;
-  
+	text-decoration: none;
+	text-align: left;
 }
 
-.copyright  {
-
-color: white;
-
+.copyright {
+	color: white;
 }
 
 a {
-  color: white;
-  text-decoration: none;
+	color: white;
+	text-decoration: none;
 }
 
 a:hover {
-  color: #ca7275;
+	color: #ca7275;
 }
-
-

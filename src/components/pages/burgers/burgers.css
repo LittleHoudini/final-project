@@ -1,8 +1,8 @@
-.wrapperburgers{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 5px;
-    grid-auto-rows: minmax(100px, auto);
-    margin: auto;
-    padding: 2%;
+.wrapperburgers {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 5px;
+	grid-auto-rows: minmax(100px, auto);
+	margin: auto;
+	padding: 2%;
 }

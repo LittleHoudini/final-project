@@ -1,192 +1,175 @@
+.wrapper2 {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: auto;
+	border-radius: 10px;
+	justify-content: center;
+	width: 100%;
+	text-align: right;
+	height: inherit;
+	border: 3px solid blue;
+}
 
-.wrapper2{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    margin:auto;
-    border-radius: 10px;
-    justify-content: center;
-    width:100%;
-    text-align: right;
-    height: inherit;
-    border: 3px solid blue;
-    }
-    
-    .wrappershoppingcart{
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        background-color: gainsboro; 
-        margin:auto;
-        border-radius: 10px;
-        justify-content: center;
-        width:80%;
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-        /* text-align: right; */
-        /* height: inherit; */
-        padding:2%;
-        margin:3%;
-    }
-    
-    .userpfp {
-       /* border: solid 4px red; */
-       position: relative;
-       display:flex;
-       flex-direction: row;
-       width:100%;
-       height: 60px;
-       background-color:grey;
-       border-top-left-radius:10px;
-       border-top-right-radius:10px;
-       justify-content: flex-end;
-       
-    }
-    
-    .userpfp p {
-        position: relative;
-      
-    }
-    
-    
-    .orderslistcuntainer{
-        /* border: solid 4px blue; */
-        position: relative;
-        display:flex;
-        flex-direction:row;
-        width:100%;
-    
-    }
-    
-    .orderslist{
-        position: relative;
-        display:flex;
-        flex-direction:row;
-        width: 100%;
-        /* border: solid 4px yellow; */
-    }
-    
-    .productdetails{
-      /* /* border: solid 4px green;tion: relative; */
-        display:flex;
-        flex-direction:row;
-        width:100%;
-       justify-content: flex-end;
-        background-color:white;
-    
-    }
-    .productdetails p{
-        width: 100%;
-    }
-    
-    .orderslist {
-        padding: 10%;
-        border:none;
-        border-radius:2px;
-        background-color:lightgray;
-        color:darkgray;
-    }
-    
-    .orderslist:hover{
-        background-color:#ca7275;
-        color:white;
-    }
-    .savebtncontainer {
-        /* border: solid 4px red; */
-        position: relative;
-        display:flex;
-        flex-direction:row;
-        width:100%;
-        padding-top:3%;
-        padding-bottom:3%;
-        background-color:grey;
-    }
-    
-    .savebtncontainer button{
-        border-radius: 5px;
-        border:none;
-        padding:1%;
-        align-self: center;
-        background-color: #a63437;
-        color: aliceblue;
-        margin-right:10%;
-        margin-left:2%;
-    }
-    
-    .savebtncontainer button:hover {
-        background-color: #ca7275;;
-        color:white;
-        font-weight: bold;
-    }
-    
-    .productdetail{
-        color:black;
-        font-weight: bold;
-        margin:7%;
-        padding-right: 0;
-    }
-    
-    .ordercost {
-        padding-left: 20%;
-    }
+.wrappershoppingcart {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: gainsboro;
+	margin: auto;
+	border-radius: 10px;
+	justify-content: center;
+	width: 80%;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+	/* text-align: right; */
+	/* height: inherit; */
+	padding: 2%;
+	margin: 3%;
+}
 
+.userpfp {
+	/* border: solid 4px red; */
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	height: 60px;
+	background-color: grey;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	justify-content: flex-end;
+}
 
-    /* change personal data section */
-    .personaldetailsupdate {
-        display:flex;
-        flex-direction: column;
-     
-    }
+.userpfp p {
+	position: relative;
+}
 
-    .personaldetailsupdate button {
-        border-radius: 5px;
-        border:none;
-        padding:1%;
-        background-color: #a63437;
-        color: aliceblue;
-        margin:auto;
-        position: relative;    
-    }
+.orderslistcuntainer {
+	/* border: solid 4px blue; */
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
 
-    .personaldetailsupdate button:hover {
-        background-color: #ca7275;
-        color:white;
-        font-weight: bold;
-    }
+.orderslist {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	/* border: solid 4px yellow; */
+}
 
+.productdetails {
+	/* /* border: solid 4px green;tion: relative; */
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	justify-content: flex-end;
+	background-color: white;
+}
+.productdetails p {
+	width: 100%;
+}
 
-    .personaldetailsupdate form {
-       display:flex;
-       flex-wrap: wrap;
-       list-style-type: none;
-       margin: 0;
-       padding: 0;
-       justify-content:center;
-        
-    }
-    
-    .personaldetailsupdate h1 {
-        margin:auto;
-        color: #a63437;
-        font-size:16px;
-    }
-    
-    .personaldetailsupdate input {
-        border-radius: 5px;
-        border:none;
-        background-color: rgb(230, 223, 223);
-        padding: 1%;
-        margin: 2%;
-        flex-basis:20%;
-    }
+.orderslist {
+	padding: 10%;
+	border: none;
+	border-radius: 2px;
+	background-color: lightgray;
+	color: darkgray;
+}
 
-    .personaldetailsupdate input:hover {
-        background-color: rgb(232, 229, 229);
-        border:solid 2px  #ca7275;
-        
-        
-    }
+.orderslist:hover {
+	background-color: #ca7275;
+	color: white;
+}
+.savebtncontainer {
+	/* border: solid 4px red; */
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	padding-top: 3%;
+	padding-bottom: 3%;
+	background-color: grey;
+}
 
+.savebtncontainer button {
+	border-radius: 5px;
+	border: none;
+	padding: 1%;
+	align-self: center;
+	background-color: #a63437;
+	color: aliceblue;
+	margin-right: 10%;
+	margin-left: 2%;
+}
 
+.savebtncontainer button:hover {
+	background-color: #ca7275;
+	color: white;
+	font-weight: bold;
+}
 
- 
-    
+.productdetail {
+	color: black;
+	font-weight: bold;
+	margin: 7%;
+	padding-right: 0;
+}
+
+.ordercost {
+	padding-left: 20%;
+}
+
+/* change personal data section */
+.personaldetailsupdate {
+	display: flex;
+	flex-direction: column;
+}
+
+.personaldetailsupdate button {
+	border-radius: 5px;
+	border: none;
+	padding: 1%;
+	background-color: #a63437;
+	color: aliceblue;
+	margin: auto;
+	position: relative;
+}
+
+.personaldetailsupdate button:hover {
+	background-color: #ca7275;
+	color: white;
+	font-weight: bold;
+}
+
+.personaldetailsupdate form {
+	display: flex;
+	flex-wrap: wrap;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	justify-content: center;
+}
+
+.personaldetailsupdate h1 {
+	margin: auto;
+	color: #a63437;
+	font-size: 16px;
+}
+
+.personaldetailsupdate input {
+	border-radius: 5px;
+	border: none;
+	background-color: rgb(230, 223, 223);
+	padding: 1%;
+	margin: 2%;
+	flex-basis: 20%;
+}
+
+.personaldetailsupdate input:hover {
+	background-color: rgb(232, 229, 229);
+	border: solid 2px #ca7275;
+}

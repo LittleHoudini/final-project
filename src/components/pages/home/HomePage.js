@@ -1,11 +1,11 @@
-import React from 'react'
-import Main from '../../main/Main'
-import './home.css'
+import React from "react";
+import Main from "../../main/Main";
+import "./home.css";
 
 export const HomePage = () => {
-  return (
-    <div className='wrapper'>
-        <Main/>
-    </div>
-  )
-}
+	return (
+		<div className="wrapper">
+			<Main />
+		</div>
+	);
+};
