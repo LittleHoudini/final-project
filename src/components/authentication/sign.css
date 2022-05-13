@@ -1,5 +1,5 @@
 
-.signin-div {
+.sign-div {
     justify-content: center;
     align-content: center;   
     position: relative;
@@ -15,7 +15,7 @@
     margin:auto;
 }
 
-.signin-div form {
+.sign-div form {
     /* border: 3px solid green; */
     padding: 15%;
     display: flex;
@@ -27,7 +27,7 @@
     color: #a63437;
 }
 
-.signin-div input {
+.textfieldform {
     border-radius: 5px;
     border:none;
     background-color: rgb(230, 223, 223);
@@ -36,13 +36,18 @@
    
 }
 
-.signin-div button{
+.formbtn {
     border-radius: 5px;
     border:none;
-    background-color: rgb(230, 223, 223);
-    padding: 3%;
-    width: 50%;
-    align-self: center;
+    padding:1%;
     background-color: #a63437;
     color: aliceblue;
+    margin:auto;
+    position: relative;    
+}
+
+.formbtn:hover {
+    background-color: #ca7275;
+    color:white;
+    font-weight: bold;
 }

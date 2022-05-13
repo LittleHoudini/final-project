@@ -1,16 +1,16 @@
 import React from 'react'
 import Signup from '../../authentication/Signup'
 import './signup.css'
-import Popup from '../../popups/Popups'
-import {useState} from 'react';
 
-export const SignupPage = () => {
-  const [buttonPopup, setButtonPopup] = useState(true);
+export const SignupPage = ({openSignUp, setOpenSignUp}) => {
+  
   return (
-    <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-      <Signup/>
-    </Popup>
-       
-    
+    <div>
+      {openSignUp ? <Signup open={openSignUp} setOpen={setOpenSignUp}/> : null}
+    </div>    
+      
   )
 }
+
+
+

@@ -5,7 +5,7 @@
  import React, { Component } from 'react'; 
  import HeartLogo from '../../images/kiss_logo_red.png';
  import Beach from '../../images/beach_with_people.png';
- 
+ import './mainimage.css'
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
   *****************************************/

@@ -2,12 +2,10 @@
  * * IMPORT LIBRARIES
  *****************************************/
 
- import{ Routes,Route,useLocation } from 'react-router-dom';
+ import{ Routes,Route } from 'react-router-dom';
  import PageNotFound from '../pageNotFound/PageNotFound';
  import  '../authentication/sign.css'
  import { SignupPage } from '../pages/signup/SignupPage';
- import { SigninPage } from '../pages/signin/SigninPage';
- import Signin from '../authentication/Signin';
  import { HomePage } from '../pages/home/HomePage';
  import { StorePage } from '../pages/store/StorePage';
  import { StartersPage } from '../pages/starters/StartersPage';
@@ -16,25 +14,23 @@
  import { CombosPage } from '../pages/combos/CombosPage';
  import { BurgersPage } from '../pages/burgers/BurgersPage';
  import { ExtrasPage } from '../pages/extras/ExtrasPage';
- import { OrderWayPage } from '../pages/orderway/OrderWayPage'
- import {ReportTypePage } from '../pages/reporttype/ReportTypePage'
- import {ProductPopUpPage } from '../pages/productpopup/ProductPopUpPage'
- import {ShoppingCartPage} from '../pages/shoppingcart/ShoppingCartPage'
- import {UserProfilePage} from '../pages/userprofile/UserProfilePage'
- import {MenuCategoriesPage} from '../pages/menucategories/MenuCategoriesPage'
-import { useState } from 'react';
- 
+ import { OrderWay } from '../pages/orderway/OrderWay';
+ import {ReportType } from '../pages/reporttype/ReportType';
+ import {ShoppingCart} from '../shoppingcart/ShoppingCart';
+ import {UserProfile} from '../userprofile/UserProfile';
+ import {MenuCategoriesPage} from '../pages/menucategories/MenuCategoriesPage';
 
  
-
   /*****************************************
    * * CREATE REACT FUNCTION COMPONENT
    *****************************************/
   
   function Routing() { 
+    
+    
     return (
       <div>
-     <Routes>   
+     <Routes >   
        <Route path="/starters" element={<StartersPage/>}/>
        <Route path="/extras" element={<ExtrasPage/>}/>
        <Route path="/burgers" element={<BurgersPage/>}/>
@@ -46,21 +42,17 @@ import { useState } from 'react';
        <Route path="/" exact element={<HomePage/>}/>
        <Route path="*" element={<PageNotFound/>}/>
          {/* פופ אפ לבחירת אופן ביצוע המשלוח */}
-       <Route path="/orderway" element={<OrderWayPage/>}/>
+       <Route path="/orderway" element={<OrderWay/>}/>
        {/* פופ אפ לבחירתסוג הדוח */}
-       <Route path="/reporttype" element={<ReportTypePage/>}/>
-       {/* זה בעצם הקישור שפותח פופאפ לכל מנה להזמנה^ צריך לקשר לכפתורים בתפריט */}
-       <Route path="/productpopup" element={<ProductPopUpPage/>}/> 
+       <Route path="/reporttype" element={<ReportType/>}/>
+   
        {/* ממשק משתמש - לקוח */}
-       <Route path="/userprofile" element={<UserProfilePage/>}/> 
+       <Route path="/profile" element={<UserProfile/>}/> 
        {/* תבנית של סל הקניה */}
-       <Route path="/shoppingcart" element={<ShoppingCartPage/>}/> 
+       <Route path="/shoppingcart" element={<ShoppingCart/>}/> 
        {/* קטגוריות התפריט */}     
        <Route path="/menucategories" element={<MenuCategoriesPage/>}/> 
-
-       <Route path="/signup" element={<SignupPage/>}/>  
-       <Route path='/signin' element={<SigninPage/>}/>
-       
+   
      </Routes>
     </div>
     );
