@@ -1,8 +1,8 @@
 // import useInput from "./useInput"
 import React, { useState } from "react";
 import { signIn } from "../../firebase/Users";
-import { useContext } from "react";
-import { UserContext } from "../../App";
+// import { useContext } from "react";
+// import { UserContext } from "../../App";
 import { Navigate as Redirect } from "react-router-dom";
 import "./sign.css";
 import TextField from "@mui/material/TextField";
@@ -14,15 +14,13 @@ import DialogTitle from "@mui/material/DialogTitle";
 //Sign in form for new users
 const Signin = ({ open, setOpen }) => {
 	//state
-	const currentUser = useContext(UserContext);
-	const [signed, setSigned] = useState(false);
+	// const currentUser = useContext(UserContext);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
 
 	// Checks email and passsword fields are correctly filled
-	const checkInput = (e) => {
-		e.preventDefault();
+	const checkInput = () => {
 		let re =
 			/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		if (!re.test(email)) {
@@ -41,25 +39,23 @@ const Signin = ({ open, setOpen }) => {
 		e.preventDefault();
 		if (checkInput(e)) {
 			//makes sure to close the popup after sign in
-			setOpen(false);
-			signIn(e, { email, password });
+			if(signIn(e, { email, password })){
+				setOpen(false);
+			}
+			else{
+				setError("Something went wrong.")
+			}
+			
 		}
 	};
-	//if user is signed in, redirect him to home page
-	if (currentUser && signed) {
-		return <Redirect to={{ pathname: "/" }} />;
-	}
+
+	//<Redirect to={{ pathname: "/" }} />;
+
 	return (
 		<Dialog open={open} onClose={() => setOpen(false)}>
-			{console.log("in sign in")}
 			<DialogTitle>SIGN IN</DialogTitle>
 			<DialogContent>
-				<form
-					onSubmit={(e) => {
-						handleForm(e);
-						setSigned(true);
-					}}
-				>
+				<form onSubmit={(e) => {handleForm(e)}}>
 					{error ? <label style={{ color: "red" }}>{error}</label> : null}
 					<TextField
 						className="textfieldform"

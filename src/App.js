@@ -6,7 +6,7 @@ import Routing from "./components/routing/Routing";
 import Footer from "./components/footer/Footer";
 import getFirebase from "./firebase/Firebase";
 import Navbar1 from "./components/navbar/Navbar1";
-import MainImage from "./components/mainImage/MainImage";
+import {MainImage} from "./components/mainImage/MainImage";
 
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT

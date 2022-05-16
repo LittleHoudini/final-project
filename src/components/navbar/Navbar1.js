@@ -1,7 +1,7 @@
 /*****************************************
  * * IMPORT LIBRARIES
  *****************************************/
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import "./nav.css";
 import HeartSmallLogo from "../../images/kiss_logo_heart_red_small.png";
@@ -11,7 +11,7 @@ import { UserContext } from "../../App";
 import Signout from "../authentication/Signout";
 import { SigninPage } from "../pages/signin/SigninPage";
 import { SignupPage } from "../pages/signup/SignupPage";
-
+import { getUserClassification } from "../../firebase/Users";
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
  *****************************************/
@@ -20,14 +20,44 @@ function Navbar1() {
 	const currentUser = useContext(UserContext);
 	const [openSignIn, setOpenSignIn] = useState(false);
 	const [openSignUp, setOpenSignUp] = useState(false);
+	const [userType, setUserType] = useState("");
+
+
+	useEffect(() => {
+		if (currentUser) {
+			//checks user classification to determine if hes admin or worker
+			getUserClassification(currentUser)
+				.then(result => {
+					console.log("result = " , result);
+					setUserType(result);
+				})
+				.catch(err => {
+					console.log("error in fetching classification : ", err);
+				});
+		}
+		return () => {
+			setUserType("");
+		};
+	}, [currentUser]);
+
+	const checkUserType = () => {
+		if(userType === 'admin'){
+			return <Nav><Nav.Link>ADMIN</Nav.Link></Nav>
+		}
+		if(userType === 'worker'){
+			return <Nav><Nav.Link>WORKER</Nav.Link></Nav>
+		}
+		return null;
+	};
+	const type = checkUserType();
 
 	//sign in pop up state toggle
 	const handleOpenSignIn = () => {
-		setOpenSignIn((prev) => !prev);
+		setOpenSignIn(prev => !prev);
 	};
 	//sign up pop up state toggle
 	const handleOpenSignUp = () => {
-		setOpenSignUp((prev) => !prev);
+		setOpenSignUp(prev => !prev);
 	};
 	return (
 		<Navbar collapseOnSelect expand="lg" variant="dark" className="navbar1">
@@ -115,6 +145,7 @@ function Navbar1() {
 							<SignupPage openSignUp={openSignUp} setOpenSignUp={setOpenSignUp} />
 						</Nav>
 					)}
+					{type}
 				</Navbar.Collapse>
 			</Container>
 		</Navbar>

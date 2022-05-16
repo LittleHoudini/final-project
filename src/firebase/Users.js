@@ -1,10 +1,12 @@
 //IMPORTS
 import getFirebase from "./Firebase";
 import bcrypt from "bcryptjs/dist/bcrypt";
-import { doc, setDoc, getDoc, addDoc, getFirestore, collection } from "firebase/firestore";
+import { doc, setDoc, getDoc, addDoc, getFirestore, collection,query, where, getDocs } from "firebase/firestore";
+
 
 //Firebase instance
 const firebaseInstance = getFirebase();
+
 
 // sign up function
 export const signUp = async (event, ...userinfo) => {
@@ -31,18 +33,19 @@ export const signUp = async (event, ...userinfo) => {
 				homeNumber: homeNumber.trim(),
 				email: email.trim(),
 				password: hashed_password,
-				classfication: "",
+				classification: "",
 			});
 			//creating a sub collection of orders for each person
 			createSubCollection(db, "Person", email, "Orders");
 
 			console.log(`Welcome ${email}!`);
 		}
-	} catch (error) {
-		console.log("ERROR! : ", error);
-		alert(error.message);
+	} catch(error) {
+		console.log("error code :" ,error.code);
+		console.log("error message : " ,error.message);
 	}
 };
+
 
 //creates sub collection of orders for each person
 const createSubCollection = async (db, parentCollection, email, subCollectionName) => {
@@ -62,7 +65,7 @@ export const signIn = async (event, ...userinfo) => {
 			console.log(`Welcome ${email}!`);
 		}
 	} catch (error) {
-		console.log("error", error);
+		console.log("sign in error", error);
 	}
 };
 
@@ -74,9 +77,10 @@ export const signOut = async () => {
 			console.log("Successfully signed out!");
 		}
 	} catch (error) {
-		console.log("error", error);
+		console.log("sign out error", error);
 	}
 };
+
 
 // frCollection can be 'Person' and frDoc is the email of the current user
 export const getDocument = async (frCollection, frDoc) => {
@@ -92,11 +96,67 @@ export const getDocument = async (frCollection, frDoc) => {
 			if (docSnap.exists()) {
 				return docSnap.data();
 			} else {
-				// doc.data() will be undefined in this case
 				console.log("No such document!");
+				return false;
 			}
 		}
 	} catch (error) {
 		console.log("getDocument error : ", error);
 	}
 };
+
+
+
+// checks if phone number already exist in firestore before sign up
+export const phoneNumberExist = async (phoneNum) => {
+	try{
+		if (firebaseInstance){
+			let counter = 0;
+			const db = getFirestore();
+			//query to check if phone numbe exist
+			const q = query(collection(db,'Person'), where("phoneNumber", "==", phoneNum))
+			const querySnapshot = await getDocs(q);
+			querySnapshot.forEach((doc) => {
+				console.log(doc.id, " => ", doc.data()['email']);
+				counter++;
+			  });
+			//if counter above 0 it means the phone numbe exist
+			if(counter > 0){
+				console.log("phone number found");
+				return true;
+			}
+			//phone number not found
+			console.log("no phone numbers");
+			return false;
+			  
+
+
+		}
+
+	}catch(err){
+		console.log("err");
+	}
+}
+
+export const getUserClassification = async (frDoc) => {
+	try {
+		//checks there is db connection
+		if (firebaseInstance) {
+			const db = getFirestore();
+			//gets the doc
+			const docRef = doc(db, "Person", frDoc);
+			//gets snapshot of the doc
+			const docSnap = await getDoc(docRef);
+			//if doc exists return promise object
+			if (docSnap.exists()) {
+				return docSnap.data().classification;
+			} else {
+				// doc.data() will be undefined in this case
+				console.log("No such document");
+			}
+		}
+	} catch (error) {
+		console.log("getUserClassification error : ", error);
+	}
+};
+

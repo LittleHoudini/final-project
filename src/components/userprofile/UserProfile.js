@@ -36,6 +36,7 @@ export const UserProfile = () => {
 			getDocument("Person", currentUser)
 				.then((result) => {
 					console.table(result);
+					//console.log(result.classification);
 					if (isMounted) {
 						//set the values to input fields
 						setValues(result);

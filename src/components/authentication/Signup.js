@@ -1,19 +1,15 @@
 import React, { useState } from "react";
-import { signUp } from "../../firebase/Users";
+import { getDocument, signUp } from "../../firebase/Users";
 import "./sign.css";
-import { useContext } from "react";
-import { UserContext } from "../../App";
-import { Navigate as Redirect } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { phoneNumberExist } from "../../firebase/Users";
 
 const Signup = ({ open, setOpen }) => {
 	//state
-	const currentUser = useContext(UserContext);
-	const [signed, setSigned] = useState(false);
 	const [email, setEmail] = useState("");
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
@@ -23,6 +19,9 @@ const Signup = ({ open, setOpen }) => {
 	const [street, setStreet] = useState("");
 	const [homeNumber, setHomeNumber] = useState("");
 	const [error, setError] = useState("");
+
+
+	// SignUp_Handle
 
 	//checks all the fields are correctly filled
 	const checkInput = (e) => {
@@ -71,31 +70,39 @@ const Signup = ({ open, setOpen }) => {
 	};
 
 	//if checkinput return true, sign up the user
-	const handleForm = (e) => {
+	const handleForm = async (e) => {
 		e.preventDefault();
 		if (checkInput(e)) {
-			setOpen(false);
-			signUp(e, { firstName, lastName, phoneNumber, city, street, homeNumber, email, password });
+		try{
+			//if we manage to get the document(email), means the user already registered
+			if(await phoneNumberExist(phoneNumber)){
+				setError("Phone number already in use.")
+				return false;
+			}
+
+			if(await getDocument('Person',email)){
+				setError("Email address already in use.")
+				return false;
+			}
+
+			//if we are here it means no document(email) found.
+			signUp(e, { firstName, lastName, phoneNumber, city, street, homeNumber, email, password })
+				setOpen(false);
+				return true;
+		}	
+		catch(err){
+			console.log(error);
+		}
 		}
 	};
 
-	//if user is signed in, redirect him to home page
-	if (currentUser && signed) {
-		return <Redirect to={{ pathname: "/" }} />;
-	}
+
 
 	return (
 		<Dialog open={open} onClose={() => setOpen(false)}>
-			{console.log("in sign up")}
 			<DialogTitle>SIGN UP</DialogTitle>
 			<DialogContent>
-				<form
-					className="sign-div"
-					onSubmit={(e) => {
-						handleForm(e);
-						setSigned(true);
-					}}
-				>
+				<form className="sign-div" onSubmit={(e) => { handleForm(e) }}>
 					{error ? <label style={{ color: "red" }}>{error}</label> : null}
 					<TextField
 						className="textfieldform"
