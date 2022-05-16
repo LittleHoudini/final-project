@@ -1,8 +1,6 @@
-// import useInput from "./useInput"
+
 import React, { useState } from "react";
 import { signIn } from "../../firebase/Users";
-// import { useContext } from "react";
-// import { UserContext } from "../../App";
 import { Navigate as Redirect } from "react-router-dom";
 import "./sign.css";
 import TextField from "@mui/material/TextField";
@@ -10,6 +8,8 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { passwordMatch } from "../../firebase/Users";
+import { emailExist } from "../../firebase/Users";
 
 //Sign in form for new users
 const Signin = ({ open, setOpen }) => {
@@ -35,17 +35,32 @@ const Signin = ({ open, setOpen }) => {
 	};
 
 	//if checkinput return true, will sign in the user
-	const handleForm = (e) => {
+	const handleForm = async (e) => {
 		e.preventDefault();
 		if (checkInput(e)) {
-			//makes sure to close the popup after sign in
-			if(signIn(e, { email, password })){
-				setOpen(false);
+			//checks
+			try{
+				//checks if the email exist
+				if(await emailExist(email)){
+					setError("Incorrect email.")
+					return false;
+				}
+
+				if(await passwordMatch(email,password)){
+					setError("Incorrect Password")
+					return false;
+				}
+	
+	
+				if(signIn(e, { email, password })){
+					setOpen(false);
+				}
+
 			}
-			else{
-				setError("Something went wrong.")
+			catch(err){
+				console.log(err);
 			}
-			
+
 		}
 	};
 
