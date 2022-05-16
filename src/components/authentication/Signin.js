@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { signIn } from "../../firebase/Users";
+import { getDocument, signIn } from "../../firebase/Users";
 import { Navigate as Redirect } from "react-router-dom";
 import "./sign.css";
 import TextField from "@mui/material/TextField";
@@ -40,17 +40,18 @@ const Signin = ({ open, setOpen }) => {
 		if (checkInput(e)) {
 			//checks
 			try{
+
+				const emailExists = await getDocument('Person',email)
 				//checks if the email exist
-				if(await emailExist(email)){
+				if(!emailExists){
 					setError("Incorrect email.")
 					return false;
 				}
-
-				if(await passwordMatch(email,password)){
+				const pwMatched = await passwordMatch(email,password);
+				if(!pwMatched){
 					setError("Incorrect Password")
 					return false;
 				}
-	
 	
 				if(signIn(e, { email, password })){
 					setOpen(false);

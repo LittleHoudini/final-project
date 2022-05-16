@@ -80,9 +80,7 @@ export const passwordMatch = async (email,pw) => {
 			if(docSnap.exists()){
 				const hashed_pw = docSnap.data()['password'];
 				const match = await bcrypt.compare(pw, hashed_pw);
-				// if they match return false => will continue at signin
-				// if they dont match return true => error will raise at signin
-				return match ? false : true;
+				return match ? true : false;
 			}
 		}
 	}catch(error){
@@ -90,24 +88,6 @@ export const passwordMatch = async (email,pw) => {
 	}
 }
  
-export const emailExist = async(email) => {
-	try{
-		if(firebaseInstance){
-			const db = getFirestore();
-			const docRef = doc(db,'Person',email)
-			const docSnap = await getDoc(docRef);
-			if(docSnap.exists()){
-				// if email exist return false => will continue at signin
-				return false;
-			}
-			// if email does not exist return true => error will raise at sign in
-			return true;
-		}
-	}catch(err){
-		console.log(err);
-	}
-}
-
 //Sign out function for users
 export const signOut = async () => {
 	try {
@@ -159,18 +139,7 @@ export const phoneNumberExist = async (phoneNum) => {
 				console.log(doc.id, " => ", doc.data()['email']);
 				counter++;
 			  });
-			//if counter above 0 it means the phone numbe exist
-			if(counter > 0){
-				console.log("phone number found");
-				return true;
-			}
-			//phone number not found
-			console.log("no phone numbers");
-			return false;
-			  
-			// return counter > 0
-
-
+			return counter > 0;
 		}
 
 	}catch(err){
