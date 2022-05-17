@@ -12,8 +12,8 @@ import Pickels from "../images/Products/starters/pickels.jpg";
 import CheddarSticks from "../images/Products/starters/cheddar_sticks.jpg";
 
 // menu - extras images
-import Fries from "../images/Products/extras/fries.jpg";
-import GreenSalad from "../images/Products/extras/green-salad.jpg";
+// import Fries from "../images/Products/extras/fries.jpg";
+// import GreenSalad from "../images/Products/extras/green-salad.jpg";
 // menu - burgers and combos images
 import CheeseBurger from "../images/Products/burgers/cheese-burger.jpg";
 import Crispyburger from "../images/Products/burgers/crispy-burger.jpg";
@@ -226,26 +226,27 @@ export const starters_page_squares = [
 	},
 ];
 
-export const extras_page_squares = [
-	{
-		title: "צ'יפס",
-		image: Fries,
-		text: "",
-		price: "19.00",
-	},
-	{
-		title: "סלט ירוק",
-		image: GreenSalad,
-		text: "",
-		price: "19.00",
-	},
-	{
-		title: "טבעות בצל - חסר",
-		image: GreenSalad,
-		text: "",
-		price: "22.00",
-	},
-];
+
+// export const extras_page_squares = [
+// 	{
+// 		title: "צ'יפס",
+// 		image: Fries,
+// 		text: "",
+// 		price: "19.00",
+// 	},
+// 	{
+// 		title: "סלט ירוק",
+// 		image: GreenSalad,
+// 		text: "",
+// 		price: "19.00",
+// 	},
+// 	{
+// 		title: "טבעות בצל - חסר",
+// 		image: GreenSalad,
+// 		text: "",
+// 		price: "22.00",
+// 	},
+// ];
 
 export const drinks_page_squares = [
 	{

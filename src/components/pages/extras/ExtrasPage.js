@@ -1,12 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CreateSquare from "../../createSquare/CreateSquare";
-import { extras_page_squares } from "../../../data/products";
 import "./extra.css";
+import { getAllDocuments } from "../../../firebase/Users";
 
 export const ExtrasPage = () => {
+	const [extras ,setExtras] = useState([
+		 {
+			image: "",
+			price: "",
+			text: "",
+			title: ""
+		},
+	])
+	// const extras_page_squares = [
+	// 	{
+	// 		title: "צ'יפס",
+	// 		// image: Fries,
+	// 		text: "",
+	// 		price: "19.00",
+	// 	},
+	// 	{
+	// 		title: "סלט ירוק",
+	// 		// image: GreenSalad,
+	// 		text: "",
+	// 		price: "19.00",
+	// 	},
+	// 	{
+	// 		title: "טבעות בצל - חסר",
+	// 		// image: GreenSalad,
+	// 		text: "",
+	// 		price: "22.00",
+	// 	},
+	// ];
+
+	// console.log("extras_page_squars " , extras_page_squares)
+	// console.log("typeof extras_page_squars " , typeof extras_page_squares)
+
+	// import Fries from "../images/Products/extras/fries.jpg";
+	// import GreenSalad from "../images/Products/extras/green-salad.jpg";
+	useEffect(() => {
+		getAllDocuments('Category','Extras','extras')
+		.then((res) =>{
+			// console.log(typeof res)
+			// console.log(res)
+			setExtras(res)
+			console.log(extras)
+		})
+		.catch((err) => console.log(err))
+	},[]);
+
 	return (
 		<div className="wrapperextras">
-			<CreateSquare data={extras_page_squares} type="productsquare" />
+			<CreateSquare data={extras} type="productsquare" />
 		</div>
 	);
 };

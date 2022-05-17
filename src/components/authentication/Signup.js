@@ -9,17 +9,28 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { phoneNumberExist } from "../../firebase/Users";
 
 const Signup = ({ open, setOpen }) => {
-	//state
-	const [email, setEmail] = useState("");
-	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
-	const [password, setPassword] = useState("");
-	const [phoneNumber, setPhoneNumber] = useState("");
-	const [city, setCity] = useState("");
-	const [street, setStreet] = useState("");
-	const [homeNumber, setHomeNumber] = useState("");
+	//state to set errors
 	const [error, setError] = useState("");
 
+	//state for form values
+	const [values, setValues] = useState({
+		firstName: "",
+		lastName: "",
+		phoneNumber: "",
+		city: "",
+		street: "",
+		homeNumber: "",
+		email: "",
+		password: "",
+	});
+
+	//deconstruct
+	const { firstName, lastName, phoneNumber, city, street, homeNumber, email, password } = values;
+
+	//handle input value change
+	const handleChange = (name) => (event) => {
+		setValues({ ...values, [name]: event.target.value });
+	};
 
 	// SignUp_Handle
 
@@ -75,12 +86,15 @@ const Signup = ({ open, setOpen }) => {
 		if (checkInput(e)) {
 		try{
 			//if we manage to get the document(email), means the user already registered
-			if(await phoneNumberExist(phoneNumber)){
+			const checkNumberExist = await phoneNumberExist(phoneNumber);
+			if(checkNumberExist){
 				setError("Phone number already in use.")
 				return false;
 			}
 
-			if(await getDocument('Person',email)){
+			// checks if email exist in database
+			const getDoc = await getDocument('Person',email);
+			if(getDoc){
 				setError("Email address already in use.")
 				return false;
 			}
@@ -91,12 +105,10 @@ const Signup = ({ open, setOpen }) => {
 				return true;
 		}	
 		catch(err){
-			console.log(error);
+			console.log(err);
 		}
 		}
 	};
-
-
 
 	return (
 		<Dialog open={open} onClose={() => setOpen(false)}>
@@ -112,9 +124,7 @@ const Signup = ({ open, setOpen }) => {
 						variant="standard"
 						label="First Name"
 						value={firstName}
-						onChange={(event) => {
-							setFirstName(event.target.value);
-						}}
+						onChange={handleChange("firstName")}
 					/>
 					<TextField
 						className="textfieldform"
@@ -124,10 +134,7 @@ const Signup = ({ open, setOpen }) => {
 						variant="standard"
 						label="Last Name"
 						value={lastName}
-						onChange={(event) => {
-							setLastName(event.target.value);
-						}}
-					/>
+						onChange={handleChange("lastName")}/>
 					<TextField
 						className="textfieldform"
 						autoFocus
@@ -136,9 +143,7 @@ const Signup = ({ open, setOpen }) => {
 						variant="standard"
 						label="Phone Number"
 						value={phoneNumber}
-						onChange={(event) => {
-							setPhoneNumber(event.target.value);
-						}}
+						onChange={handleChange("phoneNumber")}
 					/>
 					<TextField
 						className="textfieldform"
@@ -148,9 +153,7 @@ const Signup = ({ open, setOpen }) => {
 						variant="standard"
 						label="City"
 						value={city}
-						onChange={(event) => {
-							setCity(event.target.value);
-						}}
+						onChange={handleChange("city")}
 					/>
 					<TextField
 						className="textfieldform"
@@ -160,9 +163,7 @@ const Signup = ({ open, setOpen }) => {
 						variant="standard"
 						label="Street"
 						value={street}
-						onChange={(event) => {
-							setStreet(event.target.value);
-						}}
+						onChange={handleChange("street")}
 					/>
 					<TextField
 						className="textfieldform"
@@ -172,9 +173,7 @@ const Signup = ({ open, setOpen }) => {
 						variant="standard"
 						label="Home Number"
 						value={homeNumber}
-						onChange={(event) => {
-							setHomeNumber(event.target.value);
-						}}
+						onChange={handleChange("homeNumber")}
 					/>
 					<TextField
 						className="textfieldform"
@@ -184,9 +183,7 @@ const Signup = ({ open, setOpen }) => {
 						variant="standard"
 						label="Email"
 						value={email}
-						onChange={(event) => {
-							setEmail(event.target.value);
-						}}
+						onChange={handleChange("email")}
 					/>
 					<TextField
 						className="textfieldform"
@@ -197,9 +194,7 @@ const Signup = ({ open, setOpen }) => {
 						label="Password"
 						type="password"
 						value={password}
-						onChange={(event) => {
-							setPassword(event.target.value);
-						}}
+						onChange={handleChange("password")}
 					/>
 
 					<br></br>

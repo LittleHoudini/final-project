@@ -169,3 +169,29 @@ export const getUserClassification = async (frDoc) => {
 	}
 };
 
+//Fetch all documents from a collection and return an array of objects
+export const getAllDocuments = async (frCollection,frDoc,subCollections) => {
+	try{
+		if(firebaseInstance){
+			//connect to firestore
+			const db = getFirestore();
+			//declare array
+			let res = [];
+			//path to get the collections => example => Category/Extras/extras
+			//will get all the documents in extras
+			const querySnapshot = await getDocs(collection(db, frCollection,frDoc,subCollections));
+			//iterate over each doc and push it to array
+			querySnapshot.forEach((doc) => {
+			//   console.log(doc.id, " => ", doc.data());
+			  let docToAdd = doc.data();
+			  res.push(docToAdd);
+			});
+			//return array of objects
+			return res;
+		}
+		
+	}catch(err){
+		console.log(err)
+	}
+
+}

@@ -22,10 +22,13 @@ export const MainImage  = () => {
 	useEffect(()=> {
 		getDocument("Product",'images')
 		.then((res) => {
+			// console.table(res)
 			setImagesData(res);
 		})
 		.catch((err) => console.log(err))
-	},[])
+	},[]);
+
+
 
 	// console.log(imagesData.beach);
 	// console.log(imagesData.heartLogo);
