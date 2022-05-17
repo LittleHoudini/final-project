@@ -99,7 +99,7 @@ const Signup = ({ open, setOpen }) => {
 				return false;
 			}
 
-			//if we are here it means no document(email) found.
+			//if we are here it means no document(email) and phone number is not registered.
 			signUp(e, { firstName, lastName, phoneNumber, city, street, homeNumber, email, password })
 				setOpen(false);
 				return true;

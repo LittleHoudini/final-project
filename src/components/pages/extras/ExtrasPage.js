@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CreateSquare from "../../createSquare/CreateSquare";
 import "./extra.css";
-import { getAllDocuments } from "../../../firebase/Users";
+import { getAllDocuments, getSubDocument } from "../../../firebase/Users";
 
 export const ExtrasPage = () => {
 	const [extras ,setExtras] = useState([
@@ -12,6 +12,16 @@ export const ExtrasPage = () => {
 			title: ""
 		},
 	])
+	// const [extrasItems, setExtrasItems] = useState([
+	// 	{
+	// 		onion: "",
+	// 		tomato: "",
+	// 	}
+	// ])
+	const [extrasItems, setExtrasItems] = useState({
+		onion: "",
+		tomato: "",
+	})
 	// const extras_page_squares = [
 	// 	{
 	// 		title: "צ'יפס",
@@ -36,8 +46,6 @@ export const ExtrasPage = () => {
 	// console.log("extras_page_squars " , extras_page_squares)
 	// console.log("typeof extras_page_squars " , typeof extras_page_squares)
 
-	// import Fries from "../images/Products/extras/fries.jpg";
-	// import GreenSalad from "../images/Products/extras/green-salad.jpg";
 	useEffect(() => {
 		getAllDocuments('Category','Extras','extras')
 		.then((res) =>{
@@ -49,9 +57,27 @@ export const ExtrasPage = () => {
 		.catch((err) => console.log(err))
 	},[]);
 
+	//use effect to fetch what the item includes ( ingredients)
+	useEffect(() => {
+		getSubDocument('Category','Extras','extras','chips','includes','ingredients')
+		.then((res) =>{
+			console.log(res);
+			setExtrasItems(res)
+			console.log(extrasItems)
+		})
+		.catch((err) => console.log(err))
+	},[]);
+
 	return (
 		<div className="wrapperextras">
 			<CreateSquare data={extras} type="productsquare" />
+			<ul>
+				{
+					Object.entries(extrasItems).map(([key, value]) => {
+						return <li key={key}>{key}: {value}</li>
+					})
+				}
+			</ul>
 		</div>
 	);
 };
