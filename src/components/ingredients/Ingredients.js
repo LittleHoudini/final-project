@@ -19,13 +19,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 //Creates a square where all the product info will be shown
 //with title, image, text, price as data
 export default function Ingredients({includes,open,setOpen}) {
-
-    // const [open, setOpen] = useState(false);
-
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-  
     const handleClose = () => {
       setOpen(false);
     };
@@ -46,8 +39,7 @@ export default function Ingredients({includes,open,setOpen}) {
           <TextField autoFocus margin="dense" id="name" label="Email Address" type="email" fullWidth variant="standard"/>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
+          <Button onClick={handleClose}>Exit</Button>
         </DialogActions>
       </Dialog>
     </div>

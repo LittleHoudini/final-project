@@ -67,6 +67,7 @@ export const getDishIngredients =  async (category,product,dishName) => {
 	}
 }
 
+
 //Fetch all documents from a collection and return an array of objects
 export const getAllDishesFromCategory = async (frCollection,frDoc,subCollection) => {
 	try{
