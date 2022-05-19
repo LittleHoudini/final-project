@@ -19,6 +19,7 @@ import { ReportType } from "../pages/reporttype/ReportType";
 import { ShoppingCart } from "../shoppingcart/ShoppingCart";
 import { UserProfile } from "../userprofile/UserProfile";
 import { MenuCategoriesPage } from "../pages/menucategories/MenuCategoriesPage";
+import Stock from '../stock/Stock.js';
 
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
@@ -49,6 +50,7 @@ function Routing() {
 				<Route path="/shoppingcart" element={<ShoppingCart />} />
 				{/* קטגוריות התפריט */}
 				<Route path="/menucategories" element={<MenuCategoriesPage />} />
+				<Route path="/admin/stock" element={<Stock/>} />
 			</Routes>
 		</div>
 	);

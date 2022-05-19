@@ -6,7 +6,7 @@ import "./burgers.css";
 export const BurgersPage = () => {
 	return (
 		<div className="wrapperburgers">
-			<CreateSquare data={burgers_page_squares} type="productsquare" />
+			<CreateSquare data={burgers_page_squares} type="productsquare"/>
 		</div>
 	);
 };

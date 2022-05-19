@@ -105,24 +105,15 @@ function Navbar1() {
 						<Nav.Link as={Link} to={"/shoppingcart"}>
 							SHOPPING CART
 						</Nav.Link>
-						<Nav.Link as={Link} to={"/productpopup"}>
-							productpopupexample
-						</Nav.Link>
 						<Nav.Link as={Link} to={"/shoppingcart"}>
 							shoppingcartexample
 						</Nav.Link>
-						<NavDropdown title="פעולות מנהל" id="collasible-nav-dropdown">
-							<NavDropdown.Item as={Link} to={"/adminmain"}>
-								פעולות מנהל
-							</NavDropdown.Item>
+						<NavDropdown title="Admin" id="collasible-nav-dropdown">
 							<NavDropdown.Item as={Link} to={"/reporttype"}>
-								דוחות
+								Reports
 							</NavDropdown.Item>
-							<NavDropdown.Item as={Link} to={"/adminmain"}>
-								זמן אמת
-							</NavDropdown.Item>
-							<NavDropdown.Item as={Link} to={"/adminmain"}>
-								מלאי
+							<NavDropdown.Item as={Link} to={"/admin/stock"}>
+								Stock
 							</NavDropdown.Item>
 						</NavDropdown>
 					</Nav>
@@ -133,8 +124,8 @@ function Navbar1() {
 								<NavDropdown.Item as={Link} to={"/profile"}>
 									Profile
 								</NavDropdown.Item>
+								<Signout />
 							</NavDropdown>
-							<Signout />
 						</Nav>
 					) : (
 						//if user is not logged in

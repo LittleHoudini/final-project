@@ -1,7 +1,6 @@
 
 import React, { useState } from "react";
 import { getDocument, signIn } from "../../firebase/Users";
-import { Navigate as Redirect } from "react-router-dom";
 import "./sign.css";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -9,7 +8,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { passwordMatch } from "../../firebase/Users";
-import { emailExist } from "../../firebase/Users";
+
 
 //Sign in form for new users
 const Signin = ({ open, setOpen }) => {

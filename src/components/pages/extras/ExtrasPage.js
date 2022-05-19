@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import CreateSquare from "../../createSquare/CreateSquare";
 import "./extra.css";
-import { getAllDocuments, getSubDocument } from "../../../firebase/Users";
+
+import { getAllDishesFromCategory, getDishIngredients } from "../../../firebase/Orders";
+import Ingredients from "../../ingredients/Ingredients";
+import ProductSquare from "../../productSquare/ProductSquare";
+
 
 export const ExtrasPage = () => {
 	const [extras ,setExtras] = useState([
@@ -12,16 +16,15 @@ export const ExtrasPage = () => {
 			title: ""
 		},
 	])
-	// const [extrasItems, setExtrasItems] = useState([
-	// 	{
-	// 		onion: "",
-	// 		tomato: "",
-	// 	}
-	// ])
-	const [extrasItems, setExtrasItems] = useState({
-		onion: "",
-		tomato: "",
-	})
+	const [ingredients, setIngredients] = useState({})
+	const [ingredients1, setIngredients1] = useState({})
+	// const [open, setOpen] = useState(false)
+
+	// const [extrasItems, setExtrasItems] = useState({
+	// 	onion: "",
+	// 	tomato: "",
+	// })
+
 	// const extras_page_squares = [
 	// 	{
 	// 		title: "צ'יפס",
@@ -47,37 +50,38 @@ export const ExtrasPage = () => {
 	// console.log("typeof extras_page_squars " , typeof extras_page_squares)
 
 	useEffect(() => {
-		getAllDocuments('Category','Extras','extras')
+		getAllDishesFromCategory('Category','Extras','extras')
 		.then((res) =>{
 			// console.log(typeof res)
-			// console.log(res)
 			setExtras(res)
-			console.log(extras)
+			// console.log(extras)
 		})
 		.catch((err) => console.log(err))
 	},[]);
 
-	//use effect to fetch what the item includes ( ingredients)
 	useEffect(() => {
-		getSubDocument('Category','Extras','extras','chips','includes','ingredients')
-		.then((res) =>{
-			console.log(res);
-			setExtrasItems(res)
-			console.log(extrasItems)
+		getDishIngredients('Extras','extras','chips')
+		.then((res) => {
+			console.log(typeof res)
+			setIngredients(res);
+			// console.log(ingredients)
 		})
 		.catch((err) => console.log(err))
-	},[]);
+	},[])
 
+	useEffect(() => {
+		getDishIngredients('Extras','extras','salad')
+		.then((res) => {
+			setIngredients1(res);
+			// console.log(ingredients)
+		})
+		.catch((err) => console.log(err))
+	},[])
+	const [open, setOpen] = useState(false);
 	return (
 		<div className="wrapperextras">
-			<CreateSquare data={extras} type="productsquare" />
-			<ul>
-				{
-					Object.entries(extrasItems).map(([key, value]) => {
-						return <li key={key}>{key}: {value}</li>
-					})
-				}
-			</ul>
+			<CreateSquare data={extras} type="productsquare" ingredients={ingredients}/>
+			{/* <Ingredients includes={ingredients}  open={open} setOpen={setOpen}/> */}
 		</div>
 	);
 };
