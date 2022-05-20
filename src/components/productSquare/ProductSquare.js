@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 import styles from "./productSquare.module.css";
 import Ingredients from "../ingredients/Ingredients";
-import { getDishIngredients } from "../../firebase/Orders";
+import { getDishIngredients, getDishNameAndPrice } from "../../firebase/Orders";
 
 
 
@@ -20,6 +20,10 @@ export default function ProductSquare(props) {
   const { hasIngredients, title, image, text, price } = props.data;
   const [open, setOpen] = useState(false);
   const [ingredients, setIngredients] = useState({});
+  const [nameAndPrice, setNameAndPrice] = useState({
+    title : "",
+    price : "",
+  })
   
   
   function getCategoryName(){
@@ -36,7 +40,7 @@ export default function ProductSquare(props) {
   const category = captializeFirstLetter()
 
   
-  
+  // if dish have ingredients, fetch them, and show the user if he wants to change something  
   useEffect(() => {
     getDishIngredients(category, subCategory, hasIngredients)
       .then((res) => {
@@ -45,6 +49,16 @@ export default function ProductSquare(props) {
       .catch((err) => console.log(err));
   }, [subCategory]);
 
+  useEffect(() => {
+    getDishNameAndPrice(category,subCategory,hasIngredients)
+    .then((res) => {
+      setNameAndPrice({title: res.title, price:res.price})
+
+    }).catch((err) => {
+      console.log(err);
+    })
+  },[])
+  
   
   return (
     <>
@@ -58,11 +72,11 @@ export default function ProductSquare(props) {
             variant="primary"
             id={hasIngredients}
             onClick={() => {setOpen(true);console.log(`${hasIngredients} button`);}}>
-            {price}
+            {price}.00
           </Button>
         </Card.Body>
       </Card>
-      { hasIngredients && <Ingredients includes={ingredients} open={open} setOpen={setOpen} />}
+      { hasIngredients && <Ingredients includes={ingredients} open={open} setOpen={setOpen} dataParentToChild={nameAndPrice} />}
     </>
   );
 }

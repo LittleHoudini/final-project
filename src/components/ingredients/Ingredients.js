@@ -18,10 +18,14 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 //Creates a square where all the product info will be shown
 //with title, image, text, price as data
-export default function Ingredients({includes,open,setOpen}) {
+export default function Ingredients({includes,open,setOpen,dataParentToChild}) {
     const handleClose = () => {
       setOpen(false);
     };
+
+    const dishAdded = () => {
+      console.table(dataParentToChild);
+    }
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
@@ -40,6 +44,7 @@ export default function Ingredients({includes,open,setOpen}) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Exit</Button>
+          <Button onClick={dishAdded}>Order</Button>
         </DialogActions>
       </Dialog>
     </div>

@@ -93,3 +93,21 @@ export const getAllDishesFromCategory = async (frCollection,frDoc,subCollection)
 		console.log(err)
 	}
 }
+
+export const getDishNameAndPrice = async (category,product,dishName) => {
+	try{
+		if(firebaseInstance){
+			const db = getFirestore();
+			const docSnap = await getDoc(doc(db, `Category/${category}/${product}/${dishName}`));
+			//if doc exists return promise object
+			if (docSnap.exists()) {
+				return docSnap.data()
+			} else {
+				console.log("No such document!");
+				return false;
+			}
+		}
+	}catch(err){
+		console.log(err);
+	}
+}
