@@ -198,13 +198,15 @@ const Signup = ({ open, setOpen }) => {
 					/>
 
 					<br></br>
-					<button className="formbtn" type="submit">
+					
+					{/* <a className="youraccountlink"> יש לך משתמש קיים? לחץ להתחברות</a> */}
+					<button className="containerbtn" type="submit">
 						Sign up
 					</button>
 				</form>
 			</DialogContent>
 			<DialogActions>
-				<button onClick={() => setOpen(false)}>X</button>
+				<button className="closebtn" onClick={() => setOpen(false)}>X</button>
 			</DialogActions>
 		</Dialog>
 	);

@@ -2,16 +2,14 @@
 	justify-content: center;
 	align-content: center;
 	position: relative;
-	/* border: 3px solid red; */
 	border-radius: 25px;
 	align-items: center;
-	/* left:50%; */
 	width: 300px;
-	/* height: 250px; */
-	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 	align-self: center;
 	background-color: white;
 	margin: auto;
+	display: flex;
+	flex-direction: column;
 }
 
 .sign-div form {
@@ -32,20 +30,15 @@
 	background-color: rgb(230, 223, 223);
 	padding: 3%;
 	margin: 3%;
+	width: 80%;
+}
+button{
+	margin: 2%;
+}
+.youraccountlink{
+	text-decoration: none;
+	font-size:12px;
+	color: #a63437;
+	margin-bottom: 5%;
 }
 
-.formbtn {
-	border-radius: 5px;
-	border: none;
-	padding: 1%;
-	background-color: #a63437;
-	color: aliceblue;
-	margin: auto;
-	position: relative;
-}
-
-.formbtn:hover {
-	background-color: #ca7275;
-	color: white;
-	font-weight: bold;
-}

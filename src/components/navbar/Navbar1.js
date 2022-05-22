@@ -12,6 +12,7 @@ import Signout from "../authentication/Signout";
 import { SigninPage } from "../pages/signin/SigninPage";
 import { SignupPage } from "../pages/signup/SignupPage";
 import { getUserClassification } from "../../firebase/Users";
+import { OrderWayPage } from "../pages/orderway/OrderWayPage";
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
  *****************************************/
@@ -20,6 +21,7 @@ function Navbar1() {
 	const currentUser = useContext(UserContext);
 	const [openSignIn, setOpenSignIn] = useState(false);
 	const [openSignUp, setOpenSignUp] = useState(false);
+	const [openOrderWayPage, setOpenOrderWayPage] = useState(false);
 	const [userType, setUserType] = useState("");
 
 
@@ -59,6 +61,11 @@ function Navbar1() {
 	const handleOpenSignUp = () => {
 		setOpenSignUp(prev => !prev);
 	};
+	//order way pop up state toggle
+	const handleOpenOrderWayPage = () => {
+		setOpenOrderWayPage(prev => !prev);
+	};
+
 	return (
 		<Navbar collapseOnSelect expand="lg" variant="dark" className="navbar1">
 			<Container className="navbarcontainer">
@@ -99,9 +106,7 @@ function Navbar1() {
 						<Nav.Link as={Link} to={"/store"}>
 							OUR STORE
 						</Nav.Link>
-						<Nav.Link as={Link} to={"/orderway"}>
-							ORDER NOW
-						</Nav.Link>
+				 
 						<Nav.Link as={Link} to={"/shoppingcart"}>
 							SHOPPING CART
 						</Nav.Link>
@@ -116,6 +121,10 @@ function Navbar1() {
 								Stock
 							</NavDropdown.Item>
 						</NavDropdown>
+
+						<Nav.Link onClick={handleOpenOrderWayPage}>ORDER NOW</Nav.Link>
+							<OrderWayPage openOrderWayPage={openOrderWayPage} setOpenOrderWayPage={setOpenOrderWayPage} />
+						
 					</Nav>
 					{currentUser ? (
 						//if user is logged in
@@ -134,6 +143,7 @@ function Navbar1() {
 							<SigninPage openSignIn={openSignIn} setOpenSignIn={setOpenSignIn} />
 							<Nav.Link onClick={handleOpenSignUp}>SIGN UP</Nav.Link>
 							<SignupPage openSignUp={openSignUp} setOpenSignUp={setOpenSignUp} />
+
 						</Nav>
 					)}
 					{type}

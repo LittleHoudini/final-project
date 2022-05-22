@@ -98,13 +98,13 @@ const Signin = ({ open, setOpen }) => {
 							setPassword(event.target.value);
 						}}
 					/>
-					<button className="formbtn" type="submit">
+					<button className="containerbtn" type="submit">
 						Sign in
 					</button>
 				</form>
 			</DialogContent>
 			<DialogActions>
-				<button onClick={() => setOpen(false)}>X</button>
+				<button className="closebtn"  onClick={() => setOpen(false)}>X</button>
 			</DialogActions>
 		</Dialog>
 	);

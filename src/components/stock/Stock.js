@@ -9,6 +9,7 @@ import {
   GridToolbarDensitySelector,
 } from '@mui/x-data-grid';
 import { getItems } from '../../firebase/Orders';
+import './stock.css';
 
 
 function CustomToolbar() {
@@ -52,6 +53,7 @@ export default function CustomToolbarGrid() {
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
+        className="reportform"
         rows={items}
         columns={columns}
         pageSize={10}

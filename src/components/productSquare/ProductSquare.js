@@ -6,7 +6,8 @@ import React, { useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 import styles from "./productSquare.module.css";
 import Ingredients from "../ingredients/Ingredients";
-import { getDishIngredients, getDishNameAndPrice } from "../../firebase/Orders";
+import '../button/btn.css';
+import { getDishIngredients,getDishNameAndPrice } from "../../firebase/Orders";
 
 
 
@@ -41,6 +42,7 @@ export default function ProductSquare(props) {
 
   
   // if dish have ingredients, fetch them, and show the user if he wants to change something  
+  
   useEffect(() => {
     getDishIngredients(category, subCategory, hasIngredients)
       .then((res) => {
@@ -64,19 +66,19 @@ export default function ProductSquare(props) {
     <>
       <Card className={styles.container}>
         <Card.Img src={image} />
-        <Card.Body>
+        <Card.Body className={styles.cardbody}>
           <Card.Title className={styles.title}>{title}</Card.Title>
           <Card.Text className={styles.aboutproduct}>{text}</Card.Text>
           <Button
-            className={styles.containerbtn}
+            className={"containerbtn"}
             variant="primary"
             id={hasIngredients}
             onClick={() => {setOpen(true);console.log(`${hasIngredients} button`);}}>
-            {price}.00
+            {price}
           </Button>
         </Card.Body>
       </Card>
-      { hasIngredients && <Ingredients includes={ingredients} open={open} setOpen={setOpen} dataParentToChild={nameAndPrice} />}
+      { hasIngredients && <Ingredients includes={ingredients} open={open} setOpen={setOpen} image={image} title={title} dataParentToChild={nameAndPrice} />}
     </>
   );
 }

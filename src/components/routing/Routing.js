@@ -14,7 +14,6 @@ import { DrinksPage } from "../pages/drinks/DrinksPage";
 import { CombosPage } from "../pages/combos/CombosPage";
 import { BurgersPage } from "../pages/burgers/BurgersPage";
 import { ExtrasPage } from "../pages/extras/ExtrasPage";
-import { OrderWay } from "../pages/orderway/OrderWay";
 import { ReportType } from "../pages/reporttype/ReportType";
 import { ShoppingCart } from "../shoppingcart/ShoppingCart";
 import { UserProfile } from "../userprofile/UserProfile";
@@ -39,8 +38,7 @@ function Routing() {
 				{/* <Route path="/adminmain" element={<CreateSquare data={adminmain.admin_main_btn} type="adminmain"/>}/> */}
 				<Route path="/" exact element={<HomePage />} />
 				<Route path="*" element={<PageNotFound />} />
-				{/* פופ אפ לבחירת אופן ביצוע המשלוח */}
-				<Route path="/orderway" element={<OrderWay />} />
+	
 				{/* פופ אפ לבחירתסוג הדוח */}
 				<Route path="/reporttype" element={<ReportType />} />
 

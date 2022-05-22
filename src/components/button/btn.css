@@ -1,0 +1,29 @@
+.containerbtn {
+	border-radius: 5px;
+	border: none;
+	background-color: rgb(230, 223, 223);
+	padding: 3%;
+	width: 50%;
+	align-self: center;
+	background-color: #a63437;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+	color: aliceblue;
+}
+
+.containerbtn:hover {
+	background-color: #ca7275;
+	color: white;
+	
+}
+
+.closebtn {
+	border-radius: 5px;
+	border: none;
+	background-color: rgb(230, 223, 223);
+	padding: 2% 5%;
+	/* width: 50%; */
+	align-self: center;
+	background-color: #a63437;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+	color: aliceblue;
+}
