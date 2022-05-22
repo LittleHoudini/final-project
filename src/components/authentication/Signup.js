@@ -198,7 +198,6 @@ const Signup = ({ open, setOpen }) => {
 					/>
 
 					<br></br>
-					
 					{/* <a className="youraccountlink"> יש לך משתמש קיים? לחץ להתחברות</a> */}
 					<button className="containerbtn" type="submit">
 						Sign up
