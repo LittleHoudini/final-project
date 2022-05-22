@@ -1,12 +1,29 @@
-import React from 'react'
-import CreateSquare from '../../createSquare/CreateSquare'
-import { drinks_page_squares } from '../../../data/products'
-import './drinks.css'
+import React, {useState, useEffect} from "react";
+import CreateSquare from "../../createSquare/CreateSquare";
+import "./drinks.css";
+import { getAllDishesFromCategory } from "../../../firebase/Orders";
 
 export const DrinksPage = () => {
-  return (
-    <div className='wrapperdrinks'>
-        <CreateSquare data={drinks_page_squares} type="productsquare"/>
-    </div>
-  )
-}
+	const [drinks ,setDrinks] = useState([
+		{
+		   image: "",
+		   price: "",
+		   text: "",
+		   title: ""
+	   },
+   ])
+	useEffect(() => {
+		getAllDishesFromCategory('Category','Drinks','drinks')
+		.then((res) =>{
+			// console.log(typeof res)
+			setDrinks(res)
+			// console.log(extras)
+		})
+		.catch((err) => console.log(err))
+	},[]);
+	return (
+		<div className="wrapperdrinks">
+			<CreateSquare data={drinks} type="productsquare" />
+		</div>
+	);
+};

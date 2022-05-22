@@ -1,12 +1,32 @@
-import React from 'react'
-import CreateSquare from '../../createSquare/CreateSquare'
-import { extras_page_squares } from '../../../data/products'
-import './extra.css'
+import React, { useEffect, useState } from "react";
+import CreateSquare from "../../createSquare/CreateSquare";
+import "./extra.css";
+import { getAllDishesFromCategory } from "../../../firebase/Orders";
+
+
 
 export const ExtrasPage = () => {
-  return (
-    <div className='wrapperextras'>
-        <CreateSquare data={extras_page_squares} type="productsquare"/>
-    </div>
-  )
-}
+	const [extras ,setExtras] = useState([
+		 {
+			image: "",
+			price: "",
+			text: "",
+			title: ""
+		},
+	])
+	useEffect(() => {
+		getAllDishesFromCategory('Category','Extras','extras')
+		.then((res) =>{
+			// console.log(typeof res)
+			setExtras(res)
+			// console.log(extras)
+		})
+		.catch((err) => console.log(err))
+	},[]);
+	
+	return (
+		<div className="wrapperextras">
+			<CreateSquare data={extras} type="productsquare" />
+		</div>
+	);
+};

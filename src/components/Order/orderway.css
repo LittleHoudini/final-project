@@ -1,0 +1,14 @@
+.sign-div-order {
+	display:flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+}
+
+.sign-div-order h1 {
+	color:#a63437;
+}
+
+.sign-div-order button{
+	margin:2%;
+}
+

@@ -1,131 +1,123 @@
-
-.wrapper2{
-display:flex;
-flex-direction:column;
-align-items:center;
-margin:auto;
-border-radius: 10px;
-justify-content: center;
-width:100%;
-text-align: right;
-height: inherit;
+.wrapper2 {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: auto;
+	border-radius: 10px;
+	justify-content: center;
+	width: 100%;
+	text-align: right;
+	height: inherit;
 }
 
-.wrappershoppingcart{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    background-color: gainsboro; 
-    margin:auto;
-    border-radius: 10px;
-    justify-content: center;
-    width:80%;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    text-align: right;
-    height: inherit;
-    padding:2%;
-    margin:3%;
+.wrappershoppingcart {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: gainsboro;
+	margin: auto;
+	border-radius: 10px;
+	justify-content: center;
+	width: 80%;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+	text-align: right;
+	height: inherit;
+	padding: 2%;
+	margin: 3%;
 }
 
 .orderdetails {
-   /* border: solid 4px red; */
-   position: relative;
-   display:flex;
-   flex-direction:row;
-   width:100%;
-   height: 100px;
-   background-color:grey;
-   border-top-left-radius:10px;
-   border-top-right-radius:10px;
-   justify-content:space-between;
-   
+	/* border: solid 4px red; */
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	height: 100px;
+	background-color: grey;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	justify-content: space-between;
 }
 
 .orderdetails p {
-    position: relative;
-  
+	position: relative;
 }
 
-
-.shoppingcart{
-    /* border: solid 4px blue; */
-    position: relative;
-    display:flex;
-    flex-direction:row;
-    width:100%;
-
+.shoppingcart {
+	/* border: solid 4px blue; */
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
 }
 
-.сhangequantity{
-    position: relative;
-    display:flex;
-    flex-direction:row;
-    width: 100%;
-    /* border: solid 4px yellow; */
+.сhangequantity {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	/* border: solid 4px yellow; */
 }
 
-.productdetails{
-  /* /* border: solid 4px green;tion: relative; */
-    display:flex;
-    flex-direction:row;
-    width:100%;
-   justify-content: flex-end;
-    background-color:white;
-
+.productdetails {
+	/* /* border: solid 4px green;tion: relative; */
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	justify-content: flex-end;
+	background-color: white;
 }
-.productdetails p{
-    width: 100%;
-}
-
-.сhangequantitybtn  {
-  
-    padding: 10%;
-    border:none;
-    border-radius:2px;
-    background-color:lightgray;
-    color:darkgray;
+.productdetails p {
+	width: 100%;
 }
 
-.сhangequantitybtn:hover{
-    background-color:#ca7275;
-    color:white;
+.сhangequantitybtn {
+	padding: 10%;
+	border: none;
+	border-radius: 2px;
+	background-color: lightgray;
+	color: darkgray;
+}
+
+.сhangequantitybtn:hover {
+	background-color: #ca7275;
+	color: white;
 }
 .costbuttons {
-    /* border: solid 4px red; */
-    position: relative;
-    display:flex;
-    flex-direction:row;
-    width:100%;
-    padding-top:3%;
-    padding-bottom:3%;
-    background-color:grey;
-  
+	/* border: solid 4px red; */
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	padding-top: 3%;
+	padding-bottom: 3%;
+	background-color: grey;
 }
 
-.costbuttons button{
-    border-radius: 5px;
-    border:none;
-    padding:1%;
-    align-self: center;
-    background-color: #a63437;
-    color: aliceblue;
-   margin-right:10%;
-   margin-left:2%;
+.costbuttons button {
+	border-radius: 5px;
+	border: none;
+	padding: 1%;
+	align-self: center;
+	background-color: #a63437;
+	color: aliceblue;
+	margin-right: 10%;
+	margin-left: 2%;
 }
 
 .costbuttons button:hover {
-    background-color: #ca7275;;
-    color:white;
-    font-weight: bold;
+	background-color: #ca7275;
+	color: white;
+	font-weight: bold;
 }
 
-.productdetail{
-    color:black;
-    font-weight: bold;
-    margin:7%;
-    padding-right: 0;
+.productdetail {
+	color: black;
+	font-weight: bold;
+	margin: 7%;
+	padding-right: 0;
 }
 
 .ordercost {
-    padding-left: 20%;
+	padding-left: 20%;
 }
