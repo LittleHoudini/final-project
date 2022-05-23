@@ -7,7 +7,7 @@ import { Card, Button } from "react-bootstrap";
 import styles from "./productSquare.module.css";
 import Ingredients from "../ingredients/Ingredients";
 import '../button/btn.css';
-import { getDishIngredients,getDishNameAndPrice } from "../../firebase/Orders";
+import { getDishData } from "../../firebase/Orders";
 
 
 
@@ -18,49 +18,46 @@ import { getDishIngredients,getDishNameAndPrice } from "../../firebase/Orders";
 //Creates a square where all the product info will be shown
 //with title, image, text, price as data
 export default function ProductSquare(props) {
-  const { hasIngredients, title, image, text, price } = props.data;
+  const { name,hasIngredients, title, image, text, price } = props.data;
   const [open, setOpen] = useState(false);
-  const [ingredients, setIngredients] = useState({});
-  const [nameAndPrice, setNameAndPrice] = useState({
+  const [dishData, setDishData] = useState({
     title : "",
     price : "",
+    image : "",
   })
   
   
+  //getting category name through url to match database path
   function getCategoryName(){
     const location = window.location.pathname;
     return location.replace(/\//, "");
   }
+  //capitalize first letter to match database path
   function captializeFirstLetter(str){
     const location = window.location.pathname;
     return location.charAt(1).toUpperCase() + location.slice(2);
   }
 
-  
+  //save path
   const subCategory = getCategoryName()
   const category = captializeFirstLetter()
 
   
-  // if dish have ingredients, fetch them, and show the user if he wants to change something  
-  
+  //get dish title ,image and price and send it ingredients component
   useEffect(() => {
-    getDishIngredients(category, subCategory, hasIngredients)
-      .then((res) => {
-        setIngredients(res);
-      })
-      .catch((err) => console.log(err));
-  }, [subCategory]);
-
-  useEffect(() => {
-    getDishNameAndPrice(category,subCategory,hasIngredients)
+    let isMounted = true;
+    getDishData(category,subCategory,name)
     .then((res) => {
-      setNameAndPrice({title: res.title, price:res.price})
+      if(isMounted){
+        setDishData({title: res.title, price:res.price, image:res.image})
+      }
 
-    }).catch((err) => {
-      console.log(err);
-    })
-  },[])
-  
+    }).catch((err) => console.log(err))
+    return () => {
+      isMounted = false;
+    }
+
+  },[subCategory])
   
   return (
     <>
@@ -72,13 +69,13 @@ export default function ProductSquare(props) {
           <Button
             className={"containerbtn"}
             variant="primary"
-            id={hasIngredients}
-            onClick={() => {setOpen(true);console.log(`${hasIngredients} button`);}}>
-            {price}
+            id={name}
+            onClick={() => {setOpen(true);console.log(`${name} button`);}}>
+            {price}.00
           </Button>
         </Card.Body>
       </Card>
-      { hasIngredients && <Ingredients includes={ingredients} open={open} setOpen={setOpen} image={image} title={title} dataParentToChild={nameAndPrice} />}
+      { hasIngredients && <Ingredients name={name} open={open} setOpen={setOpen} dishData={dishData} />}
     </>
   );
 }

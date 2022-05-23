@@ -94,7 +94,7 @@ export const getAllDishesFromCategory = async (frCollection,frDoc,subCollection)
 	}
 }
 
-export const getDishNameAndPrice = async (category,product,dishName) => {
+export const getDishData = async (category,product,dishName) => {
 	try{
 		if(firebaseInstance){
 			const db = getFirestore();

@@ -5,7 +5,6 @@
 import { Routes, Route } from "react-router-dom";
 import PageNotFound from "../pageNotFound/PageNotFound";
 import "../authentication/sign.css";
-import { SignupPage } from "../pages/signup/SignupPage";
 import { HomePage } from "../pages/home/HomePage";
 import { StorePage } from "../pages/store/StorePage";
 import { StartersPage } from "../pages/starters/StartersPage";

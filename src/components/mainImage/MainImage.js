@@ -24,12 +24,20 @@ export const MainImage  = () => {
 	useEffect(()=> {
 		getDocument("Product",'images')
 		.then((res) => {
-			console.log(res);
+			localStorage.setItem('photos', JSON.stringify(res));
 			setImagesData(res);
 		})
 		.catch((err) => console.log(err))
 
 	},[]);
+
+
+	useEffect(() => {
+		const photos = JSON.parse(localStorage.getItem('photos'));
+		if (photos) {
+		 setImagesData(photos);
+		}
+	  }, []);
 
 	return (
 		<div className="main">
