@@ -18,7 +18,6 @@ import { ShoppingCart } from "../shoppingcart/ShoppingCart";
 import { UserProfile } from "../userprofile/UserProfile";
 import { MenuCategoriesPage } from "../pages/menucategories/MenuCategoriesPage";
 import Stock from '../stock/Stock.js';
-
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
  *****************************************/
@@ -26,6 +25,7 @@ import Stock from '../stock/Stock.js';
 function Routing() {
 	return (
 		<div>
+
 			<Routes>
 				<Route path="/starters" element={<StartersPage />} />
 				<Route path="/extras" element={<ExtrasPage />} />
@@ -48,7 +48,9 @@ function Routing() {
 				{/* קטגוריות התפריט */}
 				<Route path="/menucategories" element={<MenuCategoriesPage />} />
 				<Route path="/admin/stock" element={<Stock/>} />
+
 			</Routes>
+
 		</div>
 	);
 }

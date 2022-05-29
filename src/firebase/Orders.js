@@ -111,3 +111,21 @@ export const getDishData = async (category,product,dishName) => {
 		console.log(err);
 	}
 }
+
+export const getMisc = async (docName) => {
+	try{
+		if(firebaseInstance){
+			const db = getFirestore();
+			const docSnap = await getDoc(doc(db, `misc/${docName}`));
+			if (docSnap.exists()) {
+				return docSnap.data()
+			} else {
+				console.log("No such document!");
+				return false;
+			}
+		}
+	}catch(err){
+		console.log(err);
+	}
+	
+}

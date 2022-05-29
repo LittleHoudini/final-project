@@ -3,6 +3,7 @@ import CreateSquare from "../../createSquare/CreateSquare";
 import "./drinks.css";
 import { getAllDishesFromCategory } from "../../../firebase/Orders";
 
+
 export const DrinksPage = () => {
 	const [drinks ,setDrinks] = useState([{}])
 
