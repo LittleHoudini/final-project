@@ -1,0 +1,21 @@
+						{Object.entries(includes).map(([key, value]) => {
+
+							return (
+								<DialogContentText className={Styles.ingredientsContainer} key={key}>
+									<div className={Styles.ingredientsList}>{key}</div>
+									<div className={Styles.ingredientsBtns}>
+										{/* onClick={() => setValues({...values, [key]: value-1})} */}
+
+										<button   onClick={(() => {DecreaseItemByKey(key)})} className={Styles.minusBtn} name={key} >-</button>
+
+										<input  className={Styles.countInput}  value={value} name={key} onChange={handleOnChange}  />
+
+
+										<button onClick={(() => {IncrementItemByKey(key)})} className={Styles.plusBtn} name={key} >+</button>
+										
+										
+									</div>
+								</DialogContentText>
+							);
+						})}
+							{console.log(values)}

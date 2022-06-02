@@ -196,9 +196,6 @@ const Signup = ({ open, setOpen }) => {
 						value={password}
 						onChange={handleChange("password")}
 					/>
-
-					<br></br>
-					<a className="youraccountlink"> יש לך משתמש קיים? לחץ להתחברות</a>
 					<button className="containerbtn" type="submit">
 						Sign up
 					</button>

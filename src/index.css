@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Alef:wght@700&family=Staatliches&display=swap');
+
 * {
 	box-sizing: border-box;
 }
@@ -6,11 +8,14 @@ html {
 }
 
 body {
+	font-family: 'Staatliches', cursive,  'Alef', sans-serif;
+	letter-spacing: 1.5px;
 	margin: 0;
-	font-family: "Times New Roman", Times, serif;
 	font-size: 16px;
 	line-height: 1.5;
 	padding: 2rem;
+	
+	
 }
 .app {
 	min-height: 100vh;

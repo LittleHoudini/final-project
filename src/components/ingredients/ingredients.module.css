@@ -1,7 +1,8 @@
 
 .ingredientsTitle {
     color:#a63437;
-    margin:auto;
+    margin:0;
+    align-self: center;
 }
 
 
@@ -13,12 +14,15 @@
 	border-radius: 10px;
 	min-height:50px;
     object-fit: cover;  
+    margin-left:15%;
+    margin-bottom: 7%;
     
 }
 
 .ingredientsContainer{
     display: flex;
     flex-direction: row;
+    width: 200px;
    
 
 }
@@ -26,7 +30,10 @@
 .ingredientsList {
     font-weight:600;
     border-radius: 10px solid red;
-    text-align:left;    
+    text-align:left;  
+    flex-direction: row;
+    padding: auto;
+    margin:auto;  
 }
 
 .ingredientsBtns{
@@ -36,33 +43,6 @@
     margin-left: 10%;
     text-align:right;
   
-}
-
-.plusBtn {
-    font-weight: bold;
-    color:  rgb(89, 136, 89);  
-    border:none;
-    border-radius: 15%;
-    width:20px;
-}
-
-.plusBtn:hover {
-    color: white;
-    background-color:rgb(103, 152, 103);
-}
-
-.minusBtn {
-    font-weight: bold;
-    color:  rgb(122, 19, 24);  
-    border:none;
-    border-radius: 15%;
-    width:20px;
-   
-}
-
-.minusBtn:hover {
-    color: white;
-    background-color:rgb(166, 36, 36);  
 }
 
 .countInput {

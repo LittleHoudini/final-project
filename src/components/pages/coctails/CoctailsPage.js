@@ -4,26 +4,25 @@ import "./coctails.css";
 import { getAllDishesFromCategory } from "../../../firebase/Orders";
 
 export const CoctailsPage = () => {
-	const [coctails ,setCoctails] = useState([
-		{
-		   image: "",
-		   price: "",
-		   text: "",
-		   title: ""
-	   },
-   ])
+	const [cocktails ,setCocktails] = useState([{}])
 	useEffect(() => {
 		getAllDishesFromCategory('Category','Coctails','coctails')
 		.then((res) =>{
-			// console.log(typeof res)
-			setCoctails(res)
-			// console.log(extras)
+			localStorage.setItem('cocktails',JSON.stringify(res))
+			setCocktails(res);
 		})
 		.catch((err) => console.log(err))
 	},[]);
+
+	useEffect(() => {
+		const cocktails = JSON.parse(localStorage.getItem('cocktails'));
+		if(cocktails){
+			setCocktails(cocktails);
+		}
+	},[])
 	return (
 		<div className="wrappercoctails">
-			<CreateSquare data={coctails} type="productsquare" />
+			<CreateSquare data={cocktails} type="productsquare" />
 		</div>
 	);
 };

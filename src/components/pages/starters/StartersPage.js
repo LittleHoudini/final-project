@@ -4,24 +4,26 @@ import "./starters.css";
 import { getAllDishesFromCategory } from "../../../firebase/Orders";
 
 export const StartersPage = () => {
-	const [starters ,setStarters] = useState([
-		{
-		   image: "",
-		   price: "",
-		   text: "",
-		   title: ""
-	   },
-   ])
+	const [starters ,setStarters] = useState([{}])
 	useEffect(() => {
 		getAllDishesFromCategory('Category','Starters','starters')
 		.then((res) =>{
-			// console.log(typeof res)
-			setStarters(res)
-			// console.log(extras)
+			localStorage.setItem('starters',JSON.stringify(res))
+			setStarters(res);
 		})
 		.catch((err) => console.log(err))
 	},[]);
+
+	useEffect(() => {
+		const starters = JSON.parse(localStorage.getItem('starters'));
+		console.log("in get " , starters);
+		if(starters){
+			setStarters(starters);
+		}
+	},[])
+
 	return (
+		
 		<div className="wrapperstarters">
 			<CreateSquare data={starters} type="productsquare" />
 		</div>

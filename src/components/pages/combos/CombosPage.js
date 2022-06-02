@@ -5,23 +5,24 @@ import "./combos.css";
 import { getAllDishesFromCategory } from "../../../firebase/Orders";
 
 export const CombosPage = () => {
-	const [combos ,setCombos] = useState([
-		{
-		   image: "",
-		   price: "",
-		   text: "",
-		   title: ""
-	   },
-   ])
+	const [combos ,setCombos] = useState([{}])
 	useEffect(() => {
 		getAllDishesFromCategory('Category','Combos','combos')
 		.then((res) =>{
-			// console.log(typeof res)
-			setCombos(res)
-			// console.log(extras)
+			localStorage.setItem('combos',JSON.stringify(res))
+			setCombos(res);
 		})
 		.catch((err) => console.log(err))
 	},[]);
+
+	useEffect(() => {
+		const combos = JSON.parse(localStorage.getItem('combos'));
+		if(combos){
+			setCombos(combos);
+		}
+	},[])
+
+
 	return (
 		<div className="wrappercombos">
 			<CreateSquare data={combos} type="productsquare" />

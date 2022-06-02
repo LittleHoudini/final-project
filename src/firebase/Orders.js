@@ -93,3 +93,85 @@ export const getAllDishesFromCategory = async (frCollection,frDoc,subCollection)
 		console.log(err)
 	}
 }
+
+export const getDishData = async (category,product,dishName) => {
+	try{
+		if(firebaseInstance){
+			const db = getFirestore();
+			const docSnap = await getDoc(doc(db, `Category/${category}/${product}/${dishName}`));
+			//if doc exists return promise object
+			if (docSnap.exists()) {
+				return docSnap.data()
+			} else {
+				console.log("No such document!");
+				return false;
+			}
+		}
+	}catch(err){
+		console.log(err);
+	}
+}
+
+export const getMisc = async (docName) => {
+	try{
+		if(firebaseInstance){
+			const db = getFirestore();
+			const docSnap = await getDoc(doc(db, `misc/${docName}`));
+			if (docSnap.exists()) {
+				return docSnap.data()
+			} else {
+				console.log("No such document!");
+				return false;
+			}
+		}
+	}catch(err){
+		console.log(err);
+	}
+	
+}
+
+//Fetch all documents from a collection and return an array of objects
+export const getMenuCategories = async () => {
+	try{
+		if(firebaseInstance){
+			//connect to firestore
+			const db = getFirestore();
+			//declare array
+			let res = [];
+			//will get all the document in documents in 'Category
+			const querySnapshot = await getDocs(collection(db, 'Category'));
+			//iterate over each doc and push it to array
+			querySnapshot.forEach((doc) => {
+			//   console.log(doc.id, " => ", doc.data());
+			  let docToAdd = doc.data();
+			  res.push(docToAdd);
+			});
+			//return array of objects
+			return res;
+		}
+		
+	}catch(err){
+		console.log(err)
+	}
+}
+
+export const getHomePageData = async () => {
+	try{
+		if(firebaseInstance){
+			const db = getFirestore();
+			let res = [];
+			// const q = query(collection(db,'Person'), where("phoneNumber", "==", phoneNum))
+			const querySnapshot = await getDocs(collection(db, 'misc'));
+			querySnapshot.forEach((doc) => {
+				  if(doc.data()['path']){
+				  	let docToAdd = doc.data();
+				  	res.push(docToAdd);
+				  }
+			});
+			return res;
+		}
+	}catch(err){
+		console.log(err);
+	}
+	
+}

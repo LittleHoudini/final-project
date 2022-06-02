@@ -6,3 +6,9 @@
 	margin: auto;
 	padding: 2%;
 }
+@media only screen and (max-width: 991px) {
+	.wrapperburgers {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+

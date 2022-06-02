@@ -6,23 +6,24 @@ import { useEffect, useState } from "react";
 import { getAllDishesFromCategory } from "../../../firebase/Orders";
 
 export const BurgersPage = () => {
-	const [burgers ,setBurgers] = useState([
-		{
-		   image: "",
-		   price: "",
-		   text: "",
-		   title: ""
-	   },
-   ])
+	const [burgers ,setBurgers] = useState([{}])
 	useEffect(() => {
 		getAllDishesFromCategory('Category','Burgers','burgers')
 		.then((res) =>{
-			// console.log(typeof res)
+			localStorage.setItem('burgers',JSON.stringify(res))
 			setBurgers(res)
-			// console.log(extras)
 		})
 		.catch((err) => console.log(err))
 	},[]);
+
+
+	useEffect(() => {
+		const burgers = JSON.parse(localStorage.getItem('burgers'));
+		if(burgers){
+			setBurgers(burgers);
+		}
+	},[])
+
 	return (
 		<div className="wrapperburgers">
 			<CreateSquare data={burgers} type="productsquare"/>
