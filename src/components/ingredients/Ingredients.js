@@ -4,8 +4,6 @@
 
 // import { Card, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -16,6 +14,7 @@ import Styles from "./ingredients.module.css";
 import { getDishIngredients } from "../../firebase/Orders";
 import { useCart } from "react-use-cart";
 import Alert from '@mui/material/Alert';
+import uuid from "react-uuid";
 
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
@@ -28,7 +27,7 @@ export default function Ingredients({ dishData,name, open, setOpen }) {
 		setOpen(false);
 	};
 
-	const { addItem } = useCart();
+	const { addItem,inCart,updateItem,getItem,setCartMetadata  } = useCart();
 
 	//values is our ingredients
 	const [values, setValues] = useState({});
@@ -89,8 +88,28 @@ export default function Ingredients({ dishData,name, open, setOpen }) {
 	  }, [subCategory]);
 
 	  const handleAddToCart = () => {
-		addItem({id:dishData.id, title:dishData.title, price:dishData.price, ing : values, items_id: dishData.items_id});
-		setItemAdded(true);
+			
+		//if item already in card
+		  if(inCart(dishData.id)){
+			  //get item
+			const myItem = getItem(dishData.id)
+			//check if item in cart ingredients are same as the one the user trying to add
+			if(JSON.stringify(myItem['ing']) === JSON.stringify(values)){
+				//if same
+				addItem({id:dishData.id, title:dishData.title, price:dishData.price, ing : values});
+				setItemAdded(true);
+			}
+			//if different ingredients
+			else{
+				addItem({id:dishData.id+" ", title:dishData.title, price:dishData.price, ing : values});
+				setItemAdded(true);
+			}
+		  }
+		  //if not in cart
+		  else{
+			addItem({id:dishData.id, title:dishData.title, price:dishData.price, ing : values});
+			setItemAdded(true);
+		}
 	}
 
 	return (
@@ -107,9 +126,9 @@ export default function Ingredients({ dishData,name, open, setOpen }) {
 								<DialogContentText className={Styles.ingredientsContainer}  key={key}>
 									<div className={Styles.ingredientsList}>{key}</div>
 									<div className={Styles.ingredientsBtns}>
-									<button   onClick={(() => {DecreaseItemByKey(key)})} className={Styles.minusBtn} name={key} >-</button>
+									<button   onClick={(() => {DecreaseItemByKey(key)})} className="minusBtn" name={key} >-</button>
 									<input  className={Styles.countInput}  value={value} name={key} onChange={handleOnChange}  />
-									<button onClick={(() => {IncrementItemByKey(key)})} className={Styles.plusBtn} name={key} >+</button>
+									<button onClick={(() => {IncrementItemByKey(key)})} className="plusBtn" name={key} >+</button>
 									</div>
 								</DialogContentText>
 							);
@@ -119,7 +138,7 @@ export default function Ingredients({ dishData,name, open, setOpen }) {
 					<button className="closebtn" onClick={handleClose}>
 						X
 					</button>
-					<button className="closebtn" onClick={() => console.log(dishData,values)}>
+					<button className="closebtn" onClick={() => {console.table(values);console.table(dishData)}}>
 						CLG
 					</button>
 					<button className="closebtn" onClick={handleAddToCart}>

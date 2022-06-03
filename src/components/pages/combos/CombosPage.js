@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from "react";
 import CreateSquare from "../../createSquare/CreateSquare";
-import { combos_page_squares } from "../../../data/products";
+
 import "./combos.css";
 import { getAllDishesFromCategory } from "../../../firebase/Orders";
 

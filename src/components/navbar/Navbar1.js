@@ -13,6 +13,8 @@ import { SigninPage } from "../pages/signin/SigninPage";
 import { SignupPage } from "../pages/signup/SignupPage";
 import { getUserClassification } from "../../firebase/Users";
 import { OrderWayPage } from "../pages/orderway/OrderWayPage";
+import { useCart} from "react-use-cart";
+
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
  *****************************************/
@@ -23,6 +25,7 @@ function Navbar1() {
 	const [openSignUp, setOpenSignUp] = useState(false);
 	const [openOrderWayPage, setOpenOrderWayPage] = useState(false);
 	const [userType, setUserType] = useState("");
+	const {totalUniqueItems} = useCart();
 
 
 	useEffect(() => {
@@ -108,7 +111,9 @@ function Navbar1() {
 						</Nav.Link>
 				 
 						<Nav.Link as={Link} to={"/shoppingcart"}>
-							SHOPPING CART
+							{
+								totalUniqueItems > 0 ? `SHOPPING CART(${totalUniqueItems})` : 'SHOPPING CART'
+							}
 						</Nav.Link>
 						<NavDropdown title="Admin" id="collasible-nav-dropdown">
 							<NavDropdown.Item as={Link} to={"/reporttype"}>
