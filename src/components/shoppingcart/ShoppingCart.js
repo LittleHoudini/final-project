@@ -21,6 +21,7 @@ export function ShoppingCart() {
 		updateItemQuantity,
 		removeItem,
 		cartTotal,
+		emptyCart 
 	  } = useCart();
 
 	  const [taxRate, setTaxRate] = useState(null);
@@ -64,19 +65,6 @@ export function ShoppingCart() {
 	return arrayOfObjects
 	}
 
-	// const getItemQuantity = () => {
-	// 	let obj = {}
-	// 	for(let i in items){
-	// 		for(let key in items[i]['ing']){
-	// 			obj[key] = (items[i]['ing'][key])*items[i]['quantity']
-	// 		}
-			
-	// 	  }
-	// 	//   console.table(obj);
-	// 	//   console.table(items);
-	// 	  return obj;
-	// }
-
 	useEffect(() => {
 		let isMounted = true;
 		if(isMounted){
@@ -87,6 +75,7 @@ export function ShoppingCart() {
 	},[items])
 
 	if (isEmpty) {
+		emptyCart();
 		return <div className="shoppingCartBox">
 			
  				<img alt="" src={ShoppingCartIcon}  className="emptyShoppingCartImage" />

@@ -177,25 +177,15 @@ export const checkStockAvailbility = async obj => {
 			//db
 			const db = getFirestore();
 			var flag = true;
-			// for(let key in obj){
-			// 	//query to match
-			// 	const q = query(collection(db, "Item"), where("name", "==", key));
-			// 	//get all docs matching query
-			// 	const querySnapshot = await getDocs(q);
-			// 	//iterate over docs
-			// 	querySnapshot.forEach((doc) => {
-			// 		if(doc.data()['count']-obj[key] < 0){
-			// 			flag = false
-			// 		}
-			// 	});
-			// }
-
 			for (let index in obj) {
 				for (let key in obj[index]) {
+					//query
 					const q = query(collection(db, "Item"), where("name", "==", key));
+					//get docs matching query
 					const querySnapshot = await getDocs(q);
 					console.log(obj[index][key], key);
 					querySnapshot.forEach((doc) => {
+						//if at least one of the items will be negative after update set flag to false
 						if(doc.data()['count']-obj[index][key] < 0){
 							flag = false
 						}
@@ -222,13 +212,19 @@ export const handleStockAfterOrder = async obj => {
 	try {
 		if (firebaseInstance) {
 			console.log("we shilling");
+			//db
 			const db = getFirestore();
-			for (let key in obj) {
-				const q = query(collection(db, "Item"), where("name", "==", key));
-				const querySnapshot = await getDocs(q);
-				querySnapshot.forEach(doc => {
-					updateDoc(doc.ref, { count: increment(-obj[key]) });
-				});
+			for (let index in obj) {
+				for (let key in obj[index]) {
+					//query
+					const q = query(collection(db, "Item"), where("name", "==", key));
+					//get docs matching query
+					const querySnapshot = await getDocs(q);
+					//update docs
+					querySnapshot.forEach((doc) => {
+						updateDoc(doc.ref, { count: increment(-obj[index][key]) });
+					});
+				}
 			}
 		}
 	} catch (err) {

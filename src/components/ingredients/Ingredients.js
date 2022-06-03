@@ -27,7 +27,7 @@ export default function Ingredients({ dishData,name, open, setOpen }) {
 		setOpen(false);
 	};
 
-	const { addItem,inCart,updateItem,getItem,setCartMetadata  } = useCart();
+	const { items,addItem,inCart,updateItem,getItem,setCartMetadata  } = useCart();
 
 	//values is our ingredients
 	const [values, setValues] = useState({});
@@ -35,7 +35,7 @@ export default function Ingredients({ dishData,name, open, setOpen }) {
 	//handle changes
 	const handleOnChange = e => {
 		const { name, value } = e.target;
-		setValues({...values, [name]: parseInt(value, 10) });
+		setValues({...values, [name]: value });
 	};
 	 
 	//increment dish values , 
@@ -87,29 +87,45 @@ export default function Ingredients({ dishData,name, open, setOpen }) {
 		  }
 	  }, [subCategory]);
 
+
+	//function to sort ingredients objects, to compare later
+	function sortedObject(unordered) {
+		return Object.keys(unordered).sort().reduce(
+			(obj, key) => {
+			obj[key] = unordered[key];
+			return obj;
+			}, {});
+		}
+
 	  const handleAddToCart = () => {
-			
-		//if item already in card
-		  if(inCart(dishData.id)){
-			  //get item
-			const myItem = getItem(dishData.id)
-			//check if item in cart ingredients are same as the one the user trying to add
-			if(JSON.stringify(myItem['ing']) === JSON.stringify(values)){
-				//if same
+
+		if(inCart(dishData.id)){
+			let flag = false;
+			items.map((item) => {
+				console.log(item.title === dishData.title && JSON.stringify(sortedObject(item.ing)) === JSON.stringify(sortedObject(values)));
+				if(item.title === dishData.title && JSON.stringify(sortedObject(item.ing)) === JSON.stringify(sortedObject(values))){
+					flag = true;
+				}
+			})
+
+			if(flag){
+				console.log("flag true");
 				addItem({id:dishData.id, title:dishData.title, price:dishData.price, ing : values});
 				setItemAdded(true);
 			}
-			//if different ingredients
 			else{
-				addItem({id:dishData.id+" ", title:dishData.title, price:dishData.price, ing : values});
+				console.log("in else, flag not true");
+				addItem({id:uuid(), title:dishData.title, price:dishData.price, ing : values});
 				setItemAdded(true);
 			}
-		  }
-		  //if not in cart
-		  else{
+
+		}		
+		else{
+			console.log("no items in cart yet");
 			addItem({id:dishData.id, title:dishData.title, price:dishData.price, ing : values});
 			setItemAdded(true);
 		}
+
 	}
 
 	return (
