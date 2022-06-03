@@ -13,7 +13,6 @@
 .containerbtn:hover {
 	background-color: #ca7275;
 	color: white;
-	
 }
 
 .closebtn {
@@ -26,4 +25,36 @@
 	background-color: #a63437;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 	color: aliceblue;
+}
+
+.closebtn:hover {
+	background-color: #ca7275;
+	color: white;
+}
+
+
+.plusBtn {
+    font-weight: bold;
+    color:  rgb(89, 136, 89);  
+    border:none;
+    border-radius: 15%;
+    width:20px;
+}
+
+.plusBtn:hover {
+    color: white;
+    background-color:rgb(103, 152, 103);
+}
+
+.minusBtn {
+    font-weight: bold;
+    color:  rgb(122, 19, 24);  
+    border:none;
+    border-radius: 15%;
+    width:20px;
+}
+
+.minusBtn:hover {
+    color: white;
+    background-color:rgb(166, 36, 36);  
 }

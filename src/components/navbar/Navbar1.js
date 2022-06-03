@@ -110,9 +110,6 @@ function Navbar1() {
 						<Nav.Link as={Link} to={"/shoppingcart"}>
 							SHOPPING CART
 						</Nav.Link>
-						<Nav.Link as={Link} to={"/shoppingcart"}>
-							shoppingcartexample
-						</Nav.Link>
 						<NavDropdown title="Admin" id="collasible-nav-dropdown">
 							<NavDropdown.Item as={Link} to={"/reporttype"}>
 								Reports
