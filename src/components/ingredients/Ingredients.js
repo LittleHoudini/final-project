@@ -99,6 +99,7 @@ export default function Ingredients({ dishData,name, open, setOpen }) {
 
 	  const handleAddToCart = () => {
 
+		//incase item is already in cart
 		if(inCart(dishData.id)){
 			let flag = false;
 			items.map((item) => {
@@ -107,19 +108,21 @@ export default function Ingredients({ dishData,name, open, setOpen }) {
 					flag = true;
 				}
 			})
-
+			//if item in cart, and has same ingredients just increment the amount of it by 1
 			if(flag){
 				console.log("flag true");
 				addItem({id:dishData.id, title:dishData.title, price:dishData.price, ing : values});
 				setItemAdded(true);
 			}
+			//if item in cart, and has different ingredients, add it as unique item
 			else{
 				console.log("in else, flag not true");
 				addItem({id:uuid(), title:dishData.title, price:dishData.price, ing : values});
 				setItemAdded(true);
 			}
 
-		}		
+		}
+		//if item is not in cart		
 		else{
 			console.log("no items in cart yet");
 			addItem({id:dishData.id, title:dishData.title, price:dishData.price, ing : values});
@@ -129,7 +132,6 @@ export default function Ingredients({ dishData,name, open, setOpen }) {
 	}
 
 	return (
-		
 			<Dialog open={open} onClose={handleClose}>
 				{/* add product name for every dish */}
 				{itemAdded && <Alert severity="success">Added To Cart</Alert> }

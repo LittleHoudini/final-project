@@ -47,7 +47,16 @@ function Navbar1() {
 
 	const checkUserType = () => {
 		if(userType === 'admin'){
-			return <Nav><Nav.Link>ADMIN</Nav.Link></Nav>
+			return (
+				<NavDropdown title="Admin" id="collasible-nav-dropdown">
+				<NavDropdown.Item as={Link} to={"/reporttype"}>
+					Reports
+				</NavDropdown.Item>
+				<NavDropdown.Item as={Link} to={"/admin/stock"}>
+					Stock
+				</NavDropdown.Item>
+			</NavDropdown>
+			)
 		}
 		if(userType === 'worker'){
 			return <Nav><Nav.Link>WORKER</Nav.Link></Nav>
@@ -115,15 +124,6 @@ function Navbar1() {
 								totalUniqueItems > 0 ? `SHOPPING CART(${totalUniqueItems})` : 'SHOPPING CART'
 							}
 						</Nav.Link>
-						<NavDropdown title="Admin" id="collasible-nav-dropdown">
-							<NavDropdown.Item as={Link} to={"/reporttype"}>
-								Reports
-							</NavDropdown.Item>
-							<NavDropdown.Item as={Link} to={"/admin/stock"}>
-								Stock
-							</NavDropdown.Item>
-						</NavDropdown>
-
 						<Nav.Link onClick={handleOpenOrderWayPage}>ORDER NOW</Nav.Link>
 							<OrderWayPage openOrderWayPage={openOrderWayPage} setOpenOrderWayPage={setOpenOrderWayPage} />
 						
@@ -134,6 +134,9 @@ function Navbar1() {
 							<NavDropdown title={currentUser} id="collasible-nav-dropdown">
 								<NavDropdown.Item as={Link} to={"/profile"}>
 									Profile
+								</NavDropdown.Item>
+								<NavDropdown.Item as={Link} to={"/orders"}>
+									My Orders
 								</NavDropdown.Item>
 								<Signout />
 							</NavDropdown>

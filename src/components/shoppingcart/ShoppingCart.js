@@ -9,11 +9,14 @@ import Paper from '@mui/material/Paper';
 import { getMisc } from "../../firebase/Orders";
 import "./shoppingcart.css";
 import { useCart} from "react-use-cart";
-import { checkStockAvailbility } from "../../firebase/Orders";
+import { checkStockAvailbility, handleStockAfterOrder,addOrderToDB } from "../../firebase/Orders";
 import ShoppingCartIcon from '../../images/shopping-cart-icon.png'
+import { useContext } from "react";
+import { UserContext } from "../../App";
 import "../button/btn.css";
 
 export function ShoppingCart() {
+	const currentUser = useContext(UserContext);
 		const {
 		isEmpty,
 		totalUniqueItems,
@@ -23,10 +26,12 @@ export function ShoppingCart() {
 		cartTotal,
 		emptyCart 
 	  } = useCart();
+	  
 
 	  const [taxRate, setTaxRate] = useState(null);
 	  const [itemQuantity, setItemQuantity] = useState();
 
+	  //use effect to get tax rate
 	  useEffect(() => {
 		let isMounted = true;
 		getMisc('tax')
@@ -42,15 +47,18 @@ export function ShoppingCart() {
 		  }
 	  }, []);
 
+	  //add 2 zeros after price
 	function ccyFormat(num) {
-	return `${num.toFixed(2)}`;
+		return `${num.toFixed(2)}`;
 	}
 
+	//convert json to string, to show ingredients as a string
 	const convertJSON = (obj) => {
 		let str = JSON.stringify(obj)
 		return str.replace(/{|},|}/g, "\n").replace(/\[|\]|"/g, "").replace(/,/g, ',\n')
 	}
 	
+	//get the amount of ingredients in the cart
 	const getItemQuantity = () => {
 		let arrayOfObjects = []
 		let obj = {}
@@ -65,6 +73,7 @@ export function ShoppingCart() {
 	return arrayOfObjects
 	}
 
+	//set the amount of ingredients to the state, rerender when cart item changes, to recalculate ingredients amount
 	useEffect(() => {
 		let isMounted = true;
 		if(isMounted){
@@ -74,6 +83,27 @@ export function ShoppingCart() {
 		return(() => isMounted = false)
 	},[items])
 
+	const handleOrder = async () => {
+		try{
+			//if we can update
+			const canUpdateStock = await checkStockAvailbility(itemQuantity)
+			if(canUpdateStock){
+				const handleUpdate = await handleStockAfterOrder(itemQuantity);
+				const addOrderToUserHistory = addOrderToDB(items,cartTotal,currentUser);
+				emptyCart();
+			}
+			else{
+				console.log("cant update");
+				//here we will show the user some kind of something went wrong...
+			}
+		}
+		catch(err){
+			console.log(err);
+		}
+	}
+
+
+	//incase cart is empty
 	if (isEmpty) {
 		emptyCart();
 		return <div className="shoppingCartBox">
@@ -138,7 +168,7 @@ export function ShoppingCart() {
       </Table>
     </TableContainer>
 	<div className="shoppingCartBtnBox">
-	<button className="containerbtn" onClick={() => checkStockAvailbility(itemQuantity)}> לתשלום</button>
+	<button className="containerbtn" onClick={handleOrder}> לתשלום</button>
 	<button className="containerbtn"> חזרה לתפריט</button>
 	</div>
 	</div>

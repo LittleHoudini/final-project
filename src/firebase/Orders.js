@@ -1,5 +1,7 @@
 import getFirebase from "./Firebase";
-import { doc, setDoc, getDoc, addDoc, getFirestore, collection, query, where, getDocs, updateDoc, increment } from "firebase/firestore";
+import { doc, setDoc, getDoc, addDoc, getFirestore, collection, query, where, getDocs, updateDoc, increment,Timestamp  } from "firebase/firestore";
+import moment from "moment";
+
 
 //Firebase instance
 const firebaseInstance = getFirebase();
@@ -109,7 +111,7 @@ export const getDishData = async (category, product, dishName) => {
 	}
 };
 
-export const getMisc = async docName => {
+export const getMisc = async (docName) => {
 	try {
 		if (firebaseInstance) {
 			const db = getFirestore();
@@ -171,7 +173,7 @@ export const getHomePageData = async () => {
 };
 
 //check stock before update
-export const checkStockAvailbility = async obj => {
+export const checkStockAvailbility = async (obj) => {
 	try {
 		if (firebaseInstance) {
 			//db
@@ -188,27 +190,20 @@ export const checkStockAvailbility = async obj => {
 						//if at least one of the items will be negative after update set flag to false
 						if(doc.data()['count']-obj[index][key] < 0){
 							flag = false
+							
 						}
 					});
 
 				}
 			}
-
-			// if we can update the stock, call function to update
-			if (flag) {
-				console.log("we can update!");
-				handleStockAfterOrder(obj);
-				//cant update
-			} else {
-				console.log("cant update!");
-			}
+			return flag;
 		}
 	} catch (err) {
 		console.log(err);
 	}
 };
 
-export const handleStockAfterOrder = async obj => {
+export const handleStockAfterOrder = async (obj) => {
 	try {
 		if (firebaseInstance) {
 			console.log("we shilling");
@@ -231,3 +226,42 @@ export const handleStockAfterOrder = async obj => {
 		console.log(err);
 	}
 };
+
+
+export const addOrderToDB = async (obj,cartTotal,currentUser) => {
+	try {
+		if (firebaseInstance) {
+			//Gets db
+			const db = getFirestore();
+			//Adds the user info to our database
+			const docRef = await addDoc(collection(db, "Person",currentUser,'Orders'), {
+				date: moment().format("DD-MM-YYYY hh:mm:ss"),
+				cartTotal : cartTotal,
+				orders: obj
+			  });
+			  
+
+		}
+	} catch(error) {
+		console.log("error code :" ,error.code);
+		console.log("error message : " ,error.message);
+	}
+};
+
+export const fetchUserOrders = async (currentUser) => {
+	try{
+		if(firebaseInstance){
+			const db = getFirestore();
+			let res = [];
+			const querySnapshot = await getDocs(collection(db, "Person",currentUser,"Orders"));
+			querySnapshot.forEach((doc) => {
+			//   console.log(doc.id, " => ", doc.data());
+			  let docToAdd = doc.data();
+			  res.push(docToAdd);
+			});
+			return res;
+		}
+	}catch(err){
+		console.log(err);
+	}
+}

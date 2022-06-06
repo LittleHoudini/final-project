@@ -17,6 +17,8 @@ import { ReportType } from "../pages/reporttype/ReportType";
 import { ShoppingCart } from "../shoppingcart/ShoppingCart";
 import { UserProfile } from "../userprofile/UserProfile";
 import { MenuCategoriesPage } from "../pages/menucategories/MenuCategoriesPage";
+// import UserOrders from "../userorders/UserOrders";
+import UserOrdersPage from '../pages/userorders/UserOrdersPage';
 import Stock from '../stock/Stock.js';
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
@@ -43,6 +45,8 @@ function Routing() {
 
 				{/* ממשק משתמש - לקוח */}
 				<Route path="/profile" element={<UserProfile />} />
+				<Route path="/orders" element={<UserOrdersPage/>} />
+
 				{/* תבנית של סל הקניה */}
 				<Route path="/shoppingcart" element={<ShoppingCart />} />
 				{/* קטגוריות התפריט */}
