@@ -1,6 +1,6 @@
 import React from "react";
 import CreateSquare from "../../createSquare/CreateSquare";
-import { burgers_page_squares } from "../../../data/products";
+
 import "./burgers.css";
 import { useEffect, useState } from "react";
 import { getAllDishesFromCategory } from "../../../firebase/Orders";

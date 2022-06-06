@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import React from "react";
 
 // import { useCart} from "react-use-cart";
@@ -69,6 +70,8 @@
 // 	);
 // };
 // import * as React from 'react';
+=======
+>>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 import { useEffect, useState } from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -80,27 +83,53 @@ import Paper from '@mui/material/Paper';
 import { getMisc } from "../../firebase/Orders";
 import "./shoppingcart.css";
 import { useCart} from "react-use-cart";
+<<<<<<< HEAD
 import ShoppingCartIcon from "../../images/shopping-cart-icon.png"
 import "../button/btn.css";
 
 export function ShoppingCart() {
+=======
+import { checkStockAvailbility, handleStockAfterOrder,addOrderToDB } from "../../firebase/Orders";
+import ShoppingCartIcon from '../../images/shopping-cart-icon.png'
+import { useContext } from "react";
+import { UserContext } from "../../App";
+import "../button/btn.css";
+
+export function ShoppingCart() {
+	const currentUser = useContext(UserContext);
+>>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 		const {
 		isEmpty,
 		totalUniqueItems,
 		items,
 		updateItemQuantity,
 		removeItem,
+<<<<<<< HEAD
 		cartTotal
 	  } = useCart();
 	  const [taxRate, setTaxRate] = useState(null);
 
+=======
+		cartTotal,
+		emptyCart 
+	  } = useCart();
+	  
+
+	  const [taxRate, setTaxRate] = useState(null);
+	  const [itemQuantity, setItemQuantity] = useState();
+
+	  //use effect to get tax rate
+>>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 	  useEffect(() => {
 		let isMounted = true;
 		getMisc('tax')
 		  .then((res) => {
 			  //making sure state is mounted before setting values
 			if(isMounted){
+<<<<<<< HEAD
 				console.log(res.tax);
+=======
+>>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 			  setTaxRate(res.tax);
 			}
 		  })
@@ -110,27 +139,94 @@ export function ShoppingCart() {
 		  }
 	  }, []);
 
+<<<<<<< HEAD
 	function ccyFormat(num) {
 	return `${num.toFixed(2)}`;
 	}
 
+=======
+	  //add 2 zeros after price
+	function ccyFormat(num) {
+		return `${num.toFixed(2)}`;
+	}
+
+	//convert json to string, to show ingredients as a string
+>>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 	const convertJSON = (obj) => {
 		let str = JSON.stringify(obj)
 		return str.replace(/{|},|}/g, "\n").replace(/\[|\]|"/g, "").replace(/,/g, ',\n')
 	}
 	
+<<<<<<< HEAD
 	// if  shopping cart is empty show this:
 	if (isEmpty) {
+=======
+	//get the amount of ingredients in the cart
+	const getItemQuantity = () => {
+		let arrayOfObjects = []
+		let obj = {}
+		for(let i in items){
+			for(let key in items[i]['ing']){
+				obj[key] = (items[i]['ing'][key])*items[i]['quantity']
+			}
+			//here push
+			arrayOfObjects.push(obj)
+			obj = {}
+		  }
+	return arrayOfObjects
+	}
+
+	//set the amount of ingredients to the state, rerender when cart item changes, to recalculate ingredients amount
+	useEffect(() => {
+		let isMounted = true;
+		if(isMounted){
+			const stock = getItemQuantity();
+			setItemQuantity(stock)
+		}
+		return(() => isMounted = false)
+	},[items])
+
+	const handleOrder = async () => {
+		try{
+			//if we can update
+			const canUpdateStock = await checkStockAvailbility(itemQuantity)
+			if(canUpdateStock){
+				const handleUpdate = await handleStockAfterOrder(itemQuantity);
+				const addOrderToUserHistory = addOrderToDB(items,cartTotal,currentUser);
+				emptyCart();
+			}
+			else{
+				console.log("cant update");
+				//here we will show the user some kind of something went wrong...
+			}
+		}
+		catch(err){
+			console.log(err);
+		}
+	}
+
+
+	//incase cart is empty
+	if (isEmpty) {
+		emptyCart();
+>>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 		return <div className="shoppingCartBox">
 			
  				<img alt="" src={ShoppingCartIcon}  className="emptyShoppingCartImage" />
 				 <p> אנו מצטערים, סל הקניות שלכם ריק</p>
 				 <button className="closebtn">לתפריט</button>
 				</div>;
+<<<<<<< HEAD
 				}
 			// else
   return (
 	  <div className="shoppingCartBox">  
+=======
+	}
+
+  return (
+	<div className="shoppingCartBox">  
+>>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="spanning table">
         <TableHead>
@@ -161,7 +257,10 @@ export function ShoppingCart() {
               
               <TableCell align="right">{ccyFormat(item.price * item.quantity)}</TableCell>
 			  <TableCell align="right">{item.ing && convertJSON(item.ing)}</TableCell>
+<<<<<<< HEAD
 			  {console.log(JSON.stringify(item.items_id))}
+=======
+>>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 			  <TableCell align='right'><button  className="minusBtn fullTd" onClick={() => removeItem(item.id)}>הסר</button></TableCell>
             </TableRow>
           ))}
@@ -184,7 +283,11 @@ export function ShoppingCart() {
       </Table>
     </TableContainer>
 	<div className="shoppingCartBtnBox">
+<<<<<<< HEAD
 	<button className="containerbtn"> לתשלום</button>
+=======
+	<button className="containerbtn" onClick={handleOrder}> לתשלום</button>
+>>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 	<button className="containerbtn"> חזרה לתפריט</button>
 	</div>
 	</div>

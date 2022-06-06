@@ -14,7 +14,11 @@ import Styles from "./ingredients.module.css";
 import { getDishIngredients } from "../../firebase/Orders";
 import { useCart } from "react-use-cart";
 import Alert from '@mui/material/Alert';
+<<<<<<< HEAD
 import '../button/btn.css';
+=======
+import uuid from "react-uuid";
+>>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
@@ -27,7 +31,11 @@ export default function Ingredients({ dishData,name, open, setOpen }) {
 		setOpen(false);
 	};
 
+<<<<<<< HEAD
 	const { addItem } = useCart();
+=======
+	const { items,addItem,inCart,updateItem,getItem,setCartMetadata  } = useCart();
+>>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 
 	//values is our ingredients
 	const [values, setValues] = useState({});
@@ -35,7 +43,11 @@ export default function Ingredients({ dishData,name, open, setOpen }) {
 	//handle changes
 	const handleOnChange = e => {
 		const { name, value } = e.target;
+<<<<<<< HEAD
 		setValues({...values, [name]: parseInt(value, 10) });
+=======
+		setValues({...values, [name]: value });
+>>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 	};
 	 
 	//increment dish values , 
@@ -87,6 +99,7 @@ export default function Ingredients({ dishData,name, open, setOpen }) {
 		  }
 	  }, [subCategory]);
 
+<<<<<<< HEAD
 	  const handleAddToCart = () => {
 		addItem({id:dishData.id, title:dishData.title, price:dishData.price, ing : values, items_id: dishData.items_id});
 		setItemAdded(true);
@@ -94,6 +107,53 @@ export default function Ingredients({ dishData,name, open, setOpen }) {
 
 	return (
 		
+=======
+
+	//function to sort ingredients objects, to compare later
+	function sortedObject(unordered) {
+		return Object.keys(unordered).sort().reduce(
+			(obj, key) => {
+			obj[key] = unordered[key];
+			return obj;
+			}, {});
+		}
+
+	  const handleAddToCart = () => {
+
+		//incase item is already in cart
+		if(inCart(dishData.id)){
+			let flag = false;
+			items.map((item) => {
+				console.log(item.title === dishData.title && JSON.stringify(sortedObject(item.ing)) === JSON.stringify(sortedObject(values)));
+				if(item.title === dishData.title && JSON.stringify(sortedObject(item.ing)) === JSON.stringify(sortedObject(values))){
+					flag = true;
+				}
+			})
+			//if item in cart, and has same ingredients just increment the amount of it by 1
+			if(flag){
+				console.log("flag true");
+				addItem({id:dishData.id, title:dishData.title, price:dishData.price, ing : values});
+				setItemAdded(true);
+			}
+			//if item in cart, and has different ingredients, add it as unique item
+			else{
+				console.log("in else, flag not true");
+				addItem({id:uuid(), title:dishData.title, price:dishData.price, ing : values});
+				setItemAdded(true);
+			}
+
+		}
+		//if item is not in cart		
+		else{
+			console.log("no items in cart yet");
+			addItem({id:dishData.id, title:dishData.title, price:dishData.price, ing : values});
+			setItemAdded(true);
+		}
+
+	}
+
+	return (
+>>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 			<Dialog open={open} onClose={handleClose}>
 				{/* add product name for every dish */}
 				{itemAdded && <Alert severity="success">Added To Cart</Alert> }
@@ -118,7 +178,11 @@ export default function Ingredients({ dishData,name, open, setOpen }) {
 					<button className="closebtn" onClick={handleClose}>
 						X
 					</button>
+<<<<<<< HEAD
 					<button className="closebtn" onClick={() => console.log(dishData,values)}>
+=======
+					<button className="closebtn" onClick={() => {console.table(values);console.table(dishData)}}>
+>>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 						CLG
 					</button>
 					<button className="closebtn" onClick={handleAddToCart}>

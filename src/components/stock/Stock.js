@@ -51,7 +51,11 @@ export default function CustomToolbarGrid() {
     },[])
 
   return (
+<<<<<<< HEAD
     <div style={{ height: 400, width: '100%' }}>
+=======
+    <div style={{ height: 700, width: '100%' }}>
+>>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
       <DataGrid
         className="reportform"
         rows={items}

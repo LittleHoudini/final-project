@@ -17,8 +17,14 @@ import { ReportType } from "../pages/reporttype/ReportType";
 import { ShoppingCart } from "../shoppingcart/ShoppingCart";
 import { UserProfile } from "../userprofile/UserProfile";
 import { MenuCategoriesPage } from "../pages/menucategories/MenuCategoriesPage";
+<<<<<<< HEAD
 import Stock from '../stock/Stock.js';
 
+=======
+// import UserOrders from "../userorders/UserOrders";
+import UserOrdersPage from '../pages/userorders/UserOrdersPage';
+import Stock from '../stock/Stock.js';
+>>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
  *****************************************/
@@ -26,6 +32,7 @@ import Stock from '../stock/Stock.js';
 function Routing() {
 	return (
 		<div>
+
 			<Routes>
 				<Route path="/starters" element={<StartersPage />} />
 				<Route path="/extras" element={<ExtrasPage />} />
@@ -43,12 +50,19 @@ function Routing() {
 
 				{/* ממשק משתמש - לקוח */}
 				<Route path="/profile" element={<UserProfile />} />
+				<Route path="/orders" element={<UserOrdersPage/>} />
+
 				{/* תבנית של סל הקניה */}
 				<Route path="/shoppingcart" element={<ShoppingCart />} />
 				{/* קטגוריות התפריט */}
 				<Route path="/menucategories" element={<MenuCategoriesPage />} />
 				<Route path="/admin/stock" element={<Stock/>} />
+<<<<<<< HEAD
+=======
+
+>>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 			</Routes>
+
 		</div>
 	);
 }

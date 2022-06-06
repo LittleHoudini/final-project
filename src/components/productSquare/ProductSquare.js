@@ -60,11 +60,18 @@
              price: price,
              image: image,
              id: id,
+<<<<<<< HEAD
              items_id : items_id
+=======
+>>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
            }}
          />
        )}
      </>
    );
  }
+<<<<<<< HEAD
  
+=======
+ 
+>>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
