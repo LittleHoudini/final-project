@@ -121,7 +121,7 @@ function Navbar1() {
 				 
 						<Nav.Link as={Link} to={"/shoppingcart"}>
 							{
-								totalUniqueItems > 0 ? `SHOPPING CART(${totalUniqueItems})` : 'SHOPPING CART'
+								totalUniqueItems > 0 ? `SHOPPING CART (${totalUniqueItems})` : 'SHOPPING CART'
 							}
 						</Nav.Link>
 						<Nav.Link onClick={handleOpenOrderWayPage}>ORDER NOW</Nav.Link>

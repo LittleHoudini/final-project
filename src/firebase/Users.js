@@ -36,7 +36,7 @@ export const signUp = async (event, ...userinfo) => {
 				classification: "",
 			});
 			//creating a sub collection of orders for each person
-			createSubCollection(db, "Person", email, "Orders");
+			// createSubCollection(db, "Person", email, "Orders");
 
 			console.log(`Welcome ${email}!`);
 		}
@@ -48,9 +48,9 @@ export const signUp = async (event, ...userinfo) => {
 
 
 //creates sub collection of orders for each person
-const createSubCollection = async (db, parentCollection, email, subCollectionName) => {
-	const docRef = await addDoc(collection(db, parentCollection, email, subCollectionName), {});
-};
+// const createSubCollection = async (db, parentCollection, email, subCollectionName) => {
+// 	const docRef = await addDoc(collection(db, parentCollection, email, subCollectionName), {});
+// };
 
 // sign in function
 export const signIn = async (event, ...userinfo) => {

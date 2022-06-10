@@ -36,6 +36,8 @@ export default function UserOrdersPage() {
 		};
 	}, [currentUser]);
 
+  if(orderHistory.length === 0) return <p>You dont have Orders yet</p>
+
 	return (
             <TableContainer component={Paper}>
               <Table aria-label="collapsible table">

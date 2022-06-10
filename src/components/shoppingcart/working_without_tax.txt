@@ -16,7 +16,6 @@ import { UserContext } from "../../App";
 import "../button/btn.css";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import uuid from "react-uuid";
-import { SigninPage } from "../pages/signin/SigninPage";
 
 export function ShoppingCart() {
 	const currentUser = useContext(UserContext);
@@ -29,8 +28,6 @@ export function ShoppingCart() {
 
 	const [taxRate, setTaxRate] = useState(null);
 	const [itemQuantity, setItemQuantity] = useState();
-
-	const [openSignIn, setOpenSignIn] = useState(false);
 
 	//use effect to get tax rate
 	useEffect(() => {
@@ -87,44 +84,114 @@ export function ShoppingCart() {
 		return () => (isMounted = false);
 	}, [items]);
 
+	const itemsObj = items.map((item) => {
+		return {
+			name: item.title,
+			description: "Store Pickup on 12/31/2020. Bring receipt and photo ID for proof of purchase.",
+			sku: item.id,
+			unit_amount: { currency_code: "USD", value: ccyFormat(item.price) },
+			quantity: item.quantity,
+			tax: { currency_code: "USD", value: taxRate ? ccyFormat(taxRate) : "0.00" },
+			category: "PHYSICAL_GOODS",
+		};
+	});
+
 	const formatItemsForOrder = () => {
 		let arr = [];
-		items.map(item => {
+		items.map((item) => {
 			arr.push({
 				name: item.title,
 				description: "Store Pickup on 12/31/2020. Bring receipt and photo ID for proof of purchase.",
-				// sku: item.id,
-				unit_amount: { currency_code: "ILS", value: ccyFormat(item.price) },
+				sku: item.id,
+				unit_amount: { currency_code: "USD", value: ccyFormat(item.price).toString() },
 				quantity: item.quantity,
-				tax: { currency_code: "ILS", value: "0.00" },
+				tax: { currency_code: "USD", value:  ccyFormat(taxRate).toString() },
 				category: "PHYSICAL_GOODS",
 			});
 		});
 		return arr;
 	};
 
+
 	// creates a paypal order
 	const createOrder = (data, actions) => {
 		const formattedItems = formatItemsForOrder();
+
 		return actions.order
 			.create({
 				purchase_units: [
+					//Point of note: purchase_units is an array, you can have more than one when you repeat the structure insite the {}
+					//but using more than one seems useless since PayPal only recognizes the shipping address from the first purchase_unit
+					//When using more than 1 purchase_unit PayPal will summ the total from all the purchase_units and show that total
+					//on the PayPal shadowbox popup. Normally the buyer can click that total to see the item list of everything they are buying,
+					//but when you have more than 1 purchase_unit it does not allow the buyer to expand that item list
+					//The beauty of using more than 1 purchase_unit is that the buyer and seller will see 2 invoices in their PayPal acounts,
+					//which is exactly what I wanted to do, but then I ran into shipping address problems that I document below
+					//Another intereting point of note: When using multiple purchase_units you will find that the order is finalized and captured,
+					//in other words, you can't authorize the payment then go back later.
 					{
 						reference_id: "0", //make sure to always use a ref id, hopefully some day the ability to have multip purcahse_units will actually work
-						invoice_id: uuid(),
+						invoice_id: uuid(), //for your own sanity, pass the invoice number from your website. It will make future tracking easier for you
 						amount: {
-							currency_code: "ILS",
-							value: ccyFormat(cartTotal * taxRate + cartTotal), // this is the total of the breakdown lines below
+							currency_code: "USD",
+							value: ccyFormat(cartTotal).toString() , // this is the total of the breakdown lines below
 							//make sure to specify your currency_code and the price, and make sure the price has 2 digits after the decimal
 							breakdown: {
-								item_total: { currency_code: "ILS", value: cartTotal },
-								shipping: { currency_code: "ILS", value: "0.00" },
-								handling: { currency_code: "ILS", value: "0.00" },
-								tax_total: { currency_code: "ILS", value: ccyFormat(cartTotal * taxRate) },
-								discount: { currency_code: "ILS", value: "0.00" },
+								item_total: { currency_code: "USD", value: ccyFormat(cartTotal).toString()},
+								shipping: { currency_code: "USD", value: "0.00" },
+								handling: { currency_code: "USD", value: "0.00" },
+								// tax_total: { currency_code: "USD", value: taxRate },
+								//enter the discount as a positive number.
+								discount: { currency_code: "USD", value: "0.00"},
 							},
 						},
+						//write yourself a loop in your code to list all the items
+						//I have read through all the PayPal doc regarding chargebacks and I feel that you have
+						//bigger protection when you send the item details to PayPal so they appear within the PayPal account.
+						//This will also help your own sanity since you can look in your seller account and fully see the
+						//details of your online sales.  Naturally these same details should also be on your website
+
 						items: formattedItems,
+						// items: [
+						// 	{
+						// 		name: "Item 1", //This appears on the PayPal invoice
+						// 		//Although the description doesn't really seem to be needed, I found that it also appears on the PayPal invoice.
+						// 		//Notice I am using this to tell the buyer when they are expected to pick the item up.
+						// 		//My website allows the customer to choos a pickup or delivery, I tried to follow the docs that say to use
+						// 		//shipping_type:PICKUP, but no matter how hard I tried I could not get that to work, instead, I'm using
+						// 		//the description field here to remind the buyer that they have requested to pick this item up.
+						// 		//I also give them instructions for proving their ID upon pickup.
+						// 		//This description field also appears on the PayPal payment shadowbox screen as well as on their PayPal invoice
+						// 		description: "Store Pickup on 12/31/2020. Bring receipt and photo ID for proof of purchase.",
+						// 		sku: "xyz-2654",
+						// 		unit_amount: { currency_code: "USD", value: "100.00" },
+						// 		quantity: "1",
+						// 		tax: { currency_code: "USD", value: "0.00" },
+						// 		category: "PHYSICAL_GOODS", //I cannot find any place that this is being recorded, but I'm using it anyway to for CYA purposes
+						// 	}, //Remember to include this comma in your loop when generating this code on your site.
+						// 	{
+						// 		name: "Item 2",
+						// 		description: "Store Pickup on 12/31/2020. Bring receipt and photo ID for proof of purchase.",
+						// 		sku: "zdc-3942",
+						// 		unit_amount: { currency_code: "USD", value: "60.00" },
+						// 		quantity: "2",
+						// 		tax: { currency_code: "USD", value: "0.00" },
+						// 		category: "PHYSICAL_GOODS",
+						// 	},
+						// 	{
+						// 		name: "Item 3",
+						// 		//In this description I am including the expected shippment date or the expected delivery date, whichever one I have
+						// 		description: "Expected shipment on 05/10/2020.",
+						// 		sku: "xyz-2654",
+						// 		unit_amount: { currency_code: "USD", value: "60.00" },
+						// 		quantity: "1",
+						// 		tax: { currency_code: "USD", value: "0.00" },
+						// 		//I attempted to use DIGITAL_GOODS several times to see if I would get a reply that this item
+						// 		//is not covered by seller protection, but I never got any such message. Perhaps PayPal is not correctly
+						// 		//generating those messages
+						// 		category: "DIGITAL_GOODS",
+						// 	},
+						// ],
 					},
 				],
 
@@ -157,10 +224,7 @@ export function ShoppingCart() {
 
 	useEffect(() => {
 		if (success) {
-			console.log("if success, handle db");
-			const handleUpdate = handleStockAfterOrder(itemQuantity);
-			const addOrderToUserHistory = addOrderToDB(items, cartTotal * taxRate + cartTotal, currentUser);
-			emptyCart();
+			console.log("lets goooo");
 		}
 	}, [success]);
 
@@ -175,6 +239,11 @@ export function ShoppingCart() {
 				const canUpdateStock = await checkStockAvailbility(itemQuantity);
 				if (canUpdateStock) {
 					setShow(true);
+					if (success) {
+						const handleUpdate = await handleStockAfterOrder(itemQuantity);
+						const addOrderToUserHistory = addOrderToDB(items, cartTotal, currentUser);
+						emptyCart();
+					}
 				} else {
 					//seterrorMessage here
 					console.log("cant update");
@@ -182,7 +251,6 @@ export function ShoppingCart() {
 				}
 			} else {
 				console.log("please log in first");
-				setOpenSignIn(true);
 			}
 		} catch (err) {
 			console.log(err);
@@ -191,6 +259,7 @@ export function ShoppingCart() {
 
 	//incase cart is empty
 	if (isEmpty) {
+		emptyCart();
 		return (
 			<div className="shoppingCartBox">
 				<img alt="" src={ShoppingCartIcon} className="emptyShoppingCartImage" />
@@ -265,9 +334,9 @@ export function ShoppingCart() {
 				<button className="containerbtn" onClick={handleOrder}>
 					לתשלום {show ? <PayPalButtons style={{ layout: "vertical" }} createOrder={createOrder} onApprove={onApprove} /> : null}
 				</button>
+
 				<button className="containerbtn"> חזרה לתפריט</button>
 			</div>
-			{openSignIn && <SigninPage openSignIn={openSignIn} setOpenSignIn={setOpenSignIn} />}
 		</div>
 	);
 }
