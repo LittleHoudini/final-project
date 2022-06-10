@@ -17,6 +17,7 @@ import "../button/btn.css";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import uuid from "react-uuid";
 import { SigninPage } from "../pages/signin/SigninPage";
+import SomethingWentWrong from "./SomethingWentWrong";
 
 export function ShoppingCart() {
 	const currentUser = useContext(UserContext);
@@ -31,6 +32,7 @@ export function ShoppingCart() {
 	const [itemQuantity, setItemQuantity] = useState();
 
 	const [openSignIn, setOpenSignIn] = useState(false);
+	const [openSomethingWentWrong, setOpenSomethingWentWrong] = useState(false);
 
 	//use effect to get tax rate
 	useEffect(() => {
@@ -179,6 +181,8 @@ export function ShoppingCart() {
 					//seterrorMessage here
 					console.log("cant update");
 					//here we will show the user some kind of something went wrong...
+					setErrorMessage("Sorry, something went wrong. Please try again, or refresh the page. If you keep seeing this message, please contact us.");
+					setOpenSomethingWentWrong(true);
 				}
 			} else {
 				console.log("please log in first");
@@ -268,6 +272,7 @@ export function ShoppingCart() {
 				<button className="containerbtn"> חזרה לתפריט</button>
 			</div>
 			{openSignIn && <SigninPage openSignIn={openSignIn} setOpenSignIn={setOpenSignIn} />}
+			{ErrorMessage.length > 0 ? <SomethingWentWrong openSomethingWentWrong= {openSomethingWentWrong} setOpenSomethingWentWrong={setOpenSomethingWentWrong}/> : null}
 		</div>
 	);
 }
