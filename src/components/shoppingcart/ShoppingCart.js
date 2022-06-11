@@ -161,7 +161,7 @@ export function ShoppingCart() {
 		if (success) {
 			console.log("if success, handle db");
 			const handleUpdate = handleStockAfterOrder(itemQuantity);
-			const addOrderToUserHistory = addOrderToDB(items, cartTotal * taxRate + cartTotal, currentUser);
+			const addOrderToUserHistory = addOrderToDB(items, cartTotal * taxRate + cartTotal, currentUser,orderID);
 			emptyCart();
 		}
 	}, [success]);

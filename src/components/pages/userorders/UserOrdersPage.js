@@ -44,6 +44,7 @@ export default function UserOrdersPage() {
                 <TableHead>
                   <TableRow>
                   <TableCell />
+                  <TableCell >ORDER ID</TableCell>
                     <TableCell >DATE ORDERED</TableCell>
                     <TableCell align="right">Price For Order</TableCell>
                   </TableRow>

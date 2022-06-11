@@ -37,9 +37,14 @@ export default function UserOrders({docs}) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
+        
+        <TableCell component="th" scope="row" style={{backgroundColor:'#ca7275', color: 'white',}}>
+            {docs.orderID}
+        </TableCell>
         <TableCell component="th" scope="row" style={{backgroundColor:'#ca7275', color: 'white',}}>
             {docs.date}
         </TableCell>
+
         <TableCell align="right">{ccyFormat(docs.cartTotal)}</TableCell>
       </TableRow>
       <TableRow>

@@ -228,7 +228,7 @@ export const handleStockAfterOrder = async (obj) => {
 };
 
 
-export const addOrderToDB = async (obj,cartTotal,currentUser) => {
+export const addOrderToDB = async (obj,cartTotal,currentUser,orderID) => {
 	try {
 		if (firebaseInstance) {
 			//Gets db
@@ -237,7 +237,10 @@ export const addOrderToDB = async (obj,cartTotal,currentUser) => {
 			const docRef = await addDoc(collection(db, "Person",currentUser,'Orders'), {
 				date: moment().format("DD-MM-YYYY hh:mm:ss"),
 				cartTotal : cartTotal,
-				orders: obj
+				orderID : orderID,
+				status : "",
+				orders: obj,
+				
 			  });
 			  
 
