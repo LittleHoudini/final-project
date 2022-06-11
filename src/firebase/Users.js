@@ -1,12 +1,11 @@
 //IMPORTS
 import getFirebase from "./Firebase";
 import bcrypt from "bcryptjs/dist/bcrypt";
-import { doc, setDoc, getDoc, addDoc, getFirestore, collection,query, where, getDocs } from "firebase/firestore";
-
+import { doc, updateDoc, setDoc, getDoc, addDoc, getFirestore, collection, query, where, getDocs } from "firebase/firestore";
+import { getAuth, updatePassword, sendPasswordResetEmail, deleteUser } from "firebase/auth";
 
 //Firebase instance
 const firebaseInstance = getFirebase();
-
 
 // sign up function
 export const signUp = async (event, ...userinfo) => {
@@ -21,8 +20,12 @@ export const signUp = async (event, ...userinfo) => {
 			//Gets db
 			const db = getFirestore();
 			//Hashed password
-			const salt = bcrypt.genSaltSync(10);
-			const hashed_password = bcrypt.hashSync(password.trim(), salt);
+
+			// not needed after sign in update function update 
+			// const salt = bcrypt.genSaltSync(10);
+			// const hashed_password = bcrypt.hashSync(password.trim(), salt);
+
+
 			//Adds the user info to our database
 			const res = await setDoc(doc(db, "Person", email), {
 				firstName: firstName.trim(),
@@ -32,7 +35,7 @@ export const signUp = async (event, ...userinfo) => {
 				street: street.trim(),
 				homeNumber: homeNumber.trim(),
 				email: email.trim(),
-				password: hashed_password,
+				// password: hashed_password,
 				classification: "",
 			});
 			//creating a sub collection of orders for each person
@@ -40,12 +43,11 @@ export const signUp = async (event, ...userinfo) => {
 
 			console.log(`Welcome ${email}!`);
 		}
-	} catch(error) {
-		console.log("error code :" ,error.code);
-		console.log("error message : " ,error.message);
+	} catch (error) {
+		console.log("error code :", error.code);
+		console.log("error message : ", error.message);
 	}
 };
-
 
 //creates sub collection of orders for each person
 // const createSubCollection = async (db, parentCollection, email, subCollectionName) => {
@@ -53,41 +55,68 @@ export const signUp = async (event, ...userinfo) => {
 // };
 
 // sign in function
+	//*********old sign in function*************
+// export const signIn = async (event, ...userinfo) => {
+// 	//cancels the event if it is cancelable, meaning that the default action that belongs to the event will not occur.
+// 	event.preventDefault();
+// 	//deconstruct
+// 	const { email, password } = userinfo[0];
+// 	try {
+// 		if (firebaseInstance) {
+// 			//checks if user input match to database info
+// 			const user = await firebaseInstance.auth().signInWithEmailAndPassword(email, password);
+// 			console.log(`Welcome ${email}!`);
+// 		}
+// 	} catch (error) {
+// 		console.log("sign in error", error);
+// 	}
+// };
+
 export const signIn = async (event, ...userinfo) => {
-	//cancels the event if it is cancelable, meaning that the default action that belongs to the event will not occur.
 	event.preventDefault();
-	//deconstruct
-	const { email, password } = userinfo[0];
-	try {
-		if (firebaseInstance) {
-			//checks if user input match to database info
-			const user = await firebaseInstance.auth().signInWithEmailAndPassword(email, password);
-			console.log(`Welcome ${email}!`);
+	let res= "";
+	try{
+		if(firebaseInstance){
+			const { email, password } = userinfo[0];
+			await firebaseInstance.auth().signInWithEmailAndPassword(email, password)
+				.then(userCredential => {
+				})
+				.catch(error => {
+					const errorCode = error.code;
+					if(errorCode === 'auth/wrong-password'){
+						res = "Incorrect Password"
+					}
+				});
 		}
-	} catch (error) {
-		console.log("sign in error", error);
+	}catch(err){
+		console.log(err);
+	}
+	finally{
+		return res;
 	}
 };
 
-export const passwordMatch = async (email,pw) => {
-	try{
-		if(firebaseInstance){
-			const db = getFirestore();
-			//gets the doc
-			const docRef = doc(db,'Person',email)
-			//gets snapshot of the doc
-			const docSnap = await getDoc(docRef);
-			if(docSnap.exists()){
-				const hashed_pw = docSnap.data()['password'];
-				const match = await bcrypt.compare(pw, hashed_pw);
-				return match ? true : false;
-			}
-		}
-	}catch(error){
-		console.log(error);
-	}
-}
- 
+
+// not needed after sign in function update
+// export const passwordMatch = async (email, pw) => {
+// 	try {
+// 		if (firebaseInstance) {
+// 			const db = getFirestore();
+// 			//gets the doc
+// 			const docRef = doc(db, "Person", email);
+// 			//gets snapshot of the doc
+// 			const docSnap = await getDoc(docRef);
+// 			if (docSnap.exists()) {
+// 				const hashed_pw = docSnap.data()["password"];
+// 				const match = await bcrypt.compare(pw, hashed_pw);
+// 				return match ? true : false;
+// 			}
+// 		}
+// 	} catch (error) {
+// 		console.log(error);
+// 	}
+// };
+
 //Sign out function for users
 export const signOut = async () => {
 	try {
@@ -99,7 +128,6 @@ export const signOut = async () => {
 		console.log("sign out error", error);
 	}
 };
-
 
 // frCollection can be 'Person' and frDoc is the email of the current user
 export const getDocument = async (frCollection, frDoc) => {
@@ -124,30 +152,27 @@ export const getDocument = async (frCollection, frDoc) => {
 	}
 };
 
-
-
 // checks if phone number already exist in firestore before sign up
-export const phoneNumberExist = async (phoneNum) => {
-	try{
-		if (firebaseInstance){
+export const phoneNumberExist = async phoneNum => {
+	try {
+		if (firebaseInstance) {
 			let counter = 0;
 			const db = getFirestore();
 			//query to check if phone numbe exist
-			const q = query(collection(db,'Person'), where("phoneNumber", "==", phoneNum))
+			const q = query(collection(db, "Person"), where("phoneNumber", "==", phoneNum));
 			const querySnapshot = await getDocs(q);
-			querySnapshot.forEach((doc) => {
-				console.log(doc.id, " => ", doc.data()['email']);
+			querySnapshot.forEach(doc => {
+				console.log(doc.id, " => ", doc.data()["email"]);
 				counter++;
-			  });
+			});
 			return counter > 0;
 		}
-
-	}catch(err){
+	} catch (err) {
 		console.log("err");
 	}
-}
+};
 
-export const getUserClassification = async (frDoc) => {
+export const getUserClassification = async frDoc => {
 	try {
 		//checks there is db connection
 		if (firebaseInstance) {
@@ -170,4 +195,24 @@ export const getUserClassification = async (frDoc) => {
 };
 
 
-
+//
+export const resetPassword = async (email) => {
+	let res = "";
+	try {
+		if (firebaseInstance) {
+			const auth = getAuth();
+			await sendPasswordResetEmail(auth, email)
+				.then((result) => {
+				})
+				.catch(error => {
+					const errorCode = error.code;
+					res = errorCode;
+				});
+		}
+	} catch (err) {
+		console.log(err);
+	}
+	finally{
+		return res;
+	}
+};
