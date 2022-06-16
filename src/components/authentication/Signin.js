@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { getDocument, signIn,resetPassword } from "../../firebase/Users";
 import "./sign.css";
@@ -87,18 +86,17 @@ const Signin = ({ open, setOpen }) => {
 		else{
 			setEmailSent(true);
 		}
-
 	}
 	//<Redirect to={{ pathname: "/" }} />;
 
 	return (
-		<Dialog open={open} onClose={() => setOpen(false)}>
-			<DialogTitle>SIGN IN</DialogTitle>
+		<Dialog className=""textFieldFormWrapper open={open} onClose={() => setOpen(false)}>
+			<DialogTitle className="DialogTitle">SIGN IN</DialogTitle>
 			<DialogContent>
-				<form onSubmit={(e) => {handleForm(e)}}>
+				<form className="textFieldFormWrapper" onSubmit={(e) => {handleForm(e)}}>
 					{error ? <label style={{ color: "red" }}>{error}</label> : null}
 					<TextField
-						className="textfieldform"
+						className="textFieldForm"
 						autoFocus
 						margin="dense"
 						label="Email Address"
@@ -111,7 +109,7 @@ const Signin = ({ open, setOpen }) => {
 						}}
 					/>
 					<TextField
-						className="textfieldform"
+						className="textFieldForm"
 						autoFocus
 						margin="dense"
 						label="password"
@@ -134,7 +132,7 @@ const Signin = ({ open, setOpen }) => {
 			</button>
 			{forgotPassword && 
 						<form onSubmit={(e) => handlePasswordReset(e)}>
-							<TextField className="textfieldform" autoFocus margin="dense" label="Email Address"  type="email" fullWidth variant="standard" value={emailReset}
+							<TextField className="textFieldForm" autoFocus margin="dense" label="Email Address"  type="email" fullWidth variant="standard" value={emailReset}
 							onChange={(event) => {setEmailReset(event.target.value)}}/>
 							<button className="containerbtn" type="submit">Reset Password</button>
 							{emailSent && <Alert severity="success">Check your inbox for further instructions.</Alert>}

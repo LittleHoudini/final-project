@@ -141,14 +141,14 @@ export default function Ingredients({ dishData,name, open, setOpen }) {
 					{/* add image for every dish */}
 						{Object.entries(values).map(([key, value]) => {
 							return (
-								<DialogContentText className={Styles.ingredientsContainer}  key={key}>
+								<div className={Styles.ingredientsContainer}  key={key}>
 									<div className={Styles.ingredientsList}>{key}</div>
 									<div className={Styles.ingredientsBtns}>
 									<button   onClick={(() => {DecreaseItemByKey(key)})} className="minusBtn" name={key} >-</button>
-									<input  className={Styles.countInput}  value={value} name={key} onChange={handleOnChange}  />
+									<input disabled className={Styles.countInput}  value={value} name={key} onChange={handleOnChange}  />
 									<button onClick={(() => {IncrementItemByKey(key)})} className="plusBtn" name={key} >+</button>
 									</div>
-								</DialogContentText>
+								</div>
 							);
 						})}
 				</DialogContent>

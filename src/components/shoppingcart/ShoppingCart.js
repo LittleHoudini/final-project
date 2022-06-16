@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { getMisc } from "../../firebase/Orders";
 import "./shoppingcart.css";
+
 import { useCart } from "react-use-cart";
 import { checkStockAvailbility, handleStockAfterOrder, addOrderToDB } from "../../firebase/Orders";
 import ShoppingCartIcon from "../../images/shopping-cart-icon.png";
@@ -18,7 +19,7 @@ import { PayPalButtons } from "@paypal/react-paypal-js";
 import uuid from "react-uuid";
 import { SigninPage } from "../pages/signin/SigninPage";
 import SomethingWentWrong from "./SomethingWentWrong";
-
+import { getDocument } from "../../firebase/Users";
 export function ShoppingCart() {
 	const currentUser = useContext(UserContext);
 	const { isEmpty, totalUniqueItems, items, updateItemQuantity, removeItem, cartTotal, emptyCart } = useCart();
@@ -34,6 +35,52 @@ export function ShoppingCart() {
 	const [openSignIn, setOpenSignIn] = useState(false);
 	const [openSomethingWentWrong, setOpenSomethingWentWrong] = useState(false);
 
+	const [passwordShown, setPasswordShown] = useState(false);
+	const [values, setValues] = useState({
+		firstName: "",
+		lastName: "",
+		phoneNumber: "",
+		city: "",
+		street: "",
+		homeNumber: "",
+		email: "",
+		password: "",
+	});
+	//deconstruct object values
+	const { firstName, lastName, phoneNumber, city, street, homeNumber, email, password } = values;
+
+	//changing state based on input
+	const handleChange = (name) => (event) => {
+		setValues({ ...values, [name]: event.target.value });
+	};
+
+	// fetching user data based on current user logged in
+	useEffect(() => {
+		let isMounted = true;
+		if (currentUser) {
+			//fetch data from collection 'Person' if theres user logged in
+			getDocument("Person", currentUser)
+				.then((result) => {
+					console.table(result);
+					//console.log(result.classification);
+					if (isMounted) {
+						//set the values to input fields
+						setValues(result);
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
+		return () => {
+			isMounted = false;
+		};
+	}, [currentUser]);
+
+	const togglePasswordVisiblity = () => {
+		setPasswordShown(passwordShown ? false : true);
+	};
+	
 	//use effect to get tax rate
 	useEffect(() => {
 		let isMounted = true;
@@ -104,6 +151,8 @@ export function ShoppingCart() {
 		});
 		return arr;
 	};
+
+
 
 	// creates a paypal order
 	const createOrder = (data, actions) => {
@@ -197,82 +246,96 @@ export function ShoppingCart() {
 	if (isEmpty) {
 		return (
 			<div className="shoppingCartBox">
-				<img alt="" src={ShoppingCartIcon} className="emptyShoppingCartImage" />
-				<p> אנו מצטערים, סל הקניות שלכם ריק</p>
+				<img alt="" src={ShoppingCartIcon} className="emptyShoppingCartImage " />
+				<p> סל הקניות שלכם ריק</p>
 				<button className="closebtn">לתפריט</button>
 			</div>
 		);
 	}
 
 	return (
+		<div className="shoppingCartBoxMain">
 		<div className="shoppingCartBox">
-			<TableContainer component={Paper}>
-				<Table sx={{ minWidth: 700 }} aria-label="spanning table">
-					<TableHead>
+			<TableContainer  className="tableBodyBox" align="left" component={Paper}>
+
+				<Table aria-label="spanning table">
+					<TableHead >	
 						<TableRow>
-							<TableCell align="center" colSpan={6}>
-								Details
+							<TableCell align="center" colSpan={6}>סל קנייה
 							</TableCell>
 						</TableRow>
+					
 						<TableRow>
-							<TableCell>פריטים</TableCell>
-							<TableCell align="right">מחיר ליחידה</TableCell>
-							<TableCell align="right">יחידות</TableCell>
-							<TableCell align="right">סה"כ</TableCell>
-							<TableCell align="right">הערות</TableCell>
 							<TableCell align="right">הסר פריט</TableCell>
+							<TableCell align="right">סה"כ</TableCell>
+							<TableCell align="right">יחידות</TableCell>
+							<TableCell>פריטים</TableCell>
 						</TableRow>
 					</TableHead>
-					<TableBody>
+					<TableBody >
 						{items.map(item => (
 							<TableRow key={item.id}>
-								<TableCell>{item.title}</TableCell>
-								<TableCell align="right">{ccyFormat(item.price)}</TableCell>
-								<TableCell align="right">
-									<button className="minusBtn" onClick={() => updateItemQuantity(item.id, item.quantity - 1)}>
+							<TableCell align="right">
+									<button className="minusBtn fullTd" onClick={() => removeItem(item.id)}>
+										הסר
+									</button>
+								</TableCell>
+								<TableCell align="right">{ccyFormat(item.price * item.quantity)}</TableCell>
+								<TableCell align="center"  >
+								<div className="changeQ">
+
+								<button className="minusBtn" onClick={() => updateItemQuantity(item.id, item.quantity - 1)}>
 										-
 									</button>
 									{item.quantity}
 									<button className="plusBtn" onClick={() => updateItemQuantity(item.id, item.quantity + 1)}>
 										+
 									</button>
+								</div>
 								</TableCell>
 
-								<TableCell align="right">{ccyFormat(item.price * item.quantity)}</TableCell>
-								<TableCell align="right">{item.ing && convertJSON(item.ing)}</TableCell>
-								<TableCell align="right">
-									<button className="minusBtn fullTd" onClick={() => removeItem(item.id)}>
-										הסר
-									</button>
-								</TableCell>
+								{/* <TableCell align="right">{ccyFormat(item.price)}</TableCell> */}
+
+								<TableCell className="producttd">{item.title} <br></br>{item.ing && convertJSON(item.ing)}<br></br> {ccyFormat(item.price)}</TableCell>
+							
 							</TableRow>
 						))}
 
 						<TableRow>
-							<TableCell rowSpan={3} />
-							<TableCell colSpan={2}>סה"כ</TableCell>
-							<TableCell align="right">{ccyFormat(cartTotal)}</TableCell>
+						<TableCell colSpan={1}></TableCell>
+						<TableCell colSpan={1}></TableCell>
+						<TableCell align="right">{ccyFormat(cartTotal)}</TableCell>
+						<TableCell colSpan={1}>סה"כ</TableCell>
+
+							
 						</TableRow>
 						<TableRow>
-							<TableCell>מע"מ</TableCell>
-							<TableCell align="right">{`${(taxRate * 100).toFixed(0)} %`}</TableCell>
+					
+							<TableCell  colSpan={1}></TableCell>
+							<TableCell colSpan={1}></TableCell>
 							<TableCell align="right">{ccyFormat(taxRate * cartTotal)}</TableCell>
+							<TableCell> מע"מ{`${(taxRate * 100).toFixed(0)} %`}</TableCell>
+							
 						</TableRow>
 						<TableRow>
+							
+							<TableCell colSpan={1}></TableCell>
+							<TableCell colSpan={1}></TableCell>
+							<TableCell align="left">{ccyFormat(taxRate * cartTotal + cartTotal)}</TableCell>
 							<TableCell colSpan={2}>סה"כ אחרי מע"מ</TableCell>
-							<TableCell align="right">{ccyFormat(taxRate * cartTotal + cartTotal)}</TableCell>
 						</TableRow>
+						<TableRow> <TableCell colSpan={2}>חזרה לתפריט</TableCell></TableRow>
 					</TableBody>
 				</Table>
 			</TableContainer>
-			<div className="shoppingCartBtnBox">
-				<button className="containerbtn" onClick={handleOrder}>
-					לתשלום {show ? <PayPalButtons style={{ layout: "vertical" }} createOrder={createOrder} onApprove={onApprove} /> : null}
+			<div className="paybtn">
+				<button className="containerbtn paybtnpaypal " onClick={handleOrder}>
+					לתשלום {show ? <PayPalButtons className="payPalPayBox" style={{ layout: "vertical" }} createOrder={createOrder} onApprove={onApprove} /> : null}
 				</button>
-				<button className="containerbtn"> חזרה לתפריט</button>
 			</div>
 			{openSignIn && <SigninPage openSignIn={openSignIn} setOpenSignIn={setOpenSignIn} />}
 			{ErrorMessage.length > 0 ? <SomethingWentWrong openSomethingWentWrong= {openSomethingWentWrong} setOpenSomethingWentWrong={setOpenSomethingWentWrong}/> : null}
+		</div>
 		</div>
 	);
 }

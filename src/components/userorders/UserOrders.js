@@ -44,7 +44,9 @@ export default function UserOrders({docs}) {
         <TableCell component="th" scope="row" style={{backgroundColor:'#ca7275', color: 'white',}}>
             {docs.date}
         </TableCell>
-
+        <TableCell component="th" scope="row" style={{backgroundColor:'#ca7275', color: 'white',}}>
+            {docs.status}
+        </TableCell>
         <TableCell align="right">{ccyFormat(docs.cartTotal)}</TableCell>
       </TableRow>
       <TableRow>
@@ -83,4 +85,12 @@ export default function UserOrders({docs}) {
       </TableRow>
     </>
   );
+
+//   <section className="orderslistcuntainer">
+//   <div className="orderslist">
+//     <p className="orderdetail">מספר הזמנה</p>
+//     <p className="orderdetail"> תאריך </p>
+//     <p className="orderdetail"> סכום הזמנה </p>
+//   </div>
+// </section>
 }

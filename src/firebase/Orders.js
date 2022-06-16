@@ -235,10 +235,10 @@ export const addOrderToDB = async (obj,cartTotal,currentUser,orderID) => {
 			const db = getFirestore();
 			//Adds the user info to our database
 			const docRef = await addDoc(collection(db, "Person",currentUser,'Orders'), {
-				date: moment().format("DD-MM-YYYY hh:mm:ss"),
+				date : new Date().toLocaleString() + '',
 				cartTotal : cartTotal,
 				orderID : orderID,
-				status : "",
+				status : "Pending",
 				orders: obj,
 				
 			  });
@@ -266,5 +266,95 @@ export const fetchUserOrders = async (currentUser) => {
 		}
 	}catch(err){
 		console.log(err);
+	}
+}
+
+
+export const fetchAllUsersEmails = async () => {
+	try{
+		if(firebaseInstance){
+			const db = getFirestore();
+			let res = [];
+			const querySnapshot = await getDocs(collection(db,"Person"));
+			querySnapshot.forEach((doc) => {
+				//   console.log(doc.id, " => ", doc.data());
+				  let docToAdd = doc.data()['email'];
+				  res.push(docToAdd);
+				});
+			return res;
+		}
+	}
+	catch(err){
+		console.error(err)
+	}
+}
+
+export const fetchAllUsersData = async () => {
+	try{
+		if(firebaseInstance){
+			const db = getFirestore();
+			let res = [];
+			const querySnapshot = await getDocs(collection(db,"Person"));
+			querySnapshot.forEach((doc) => {
+				//   console.log(doc.id, " => ", doc.data());
+				  let docToAdd = doc.data();
+				  res.push(docToAdd);
+				});
+			return res;
+		}
+	}
+	catch(err){
+		console.error(err)
+	}
+}
+
+export const fetchAllPendingOrders = async () => {
+	try{
+		if(firebaseInstance){
+			const db = getFirestore();
+			let res = [];
+			const usersEmails = await fetchAllUsersEmails();
+			const usersData = await fetchAllUsersData();
+			for(let i in usersEmails){
+				//fetching all pending orders
+				const q = query(collection(db, "Person",usersEmails[i],"Orders"), where("status", "==", "Pending"));
+				// console.log("this is query  => " , q)
+				const currentUserData = usersData[i];
+				const querySnapshot = await getDocs(q);
+				querySnapshot.forEach((doc) => {
+				//   console.log(doc.id, " => ", doc.data());
+				  let docToAdd = doc.data();
+				  Object.assign(docToAdd, {...currentUserData});
+				  res.push(docToAdd);
+				});
+			}
+			// console.log(res)
+			return res;
+			
+		}
+	}catch(err){
+		console.log(err);
+	}
+}
+
+export const HandleOrderStatus = async (orderID, email,status) => {
+	try {
+		if(firebaseInstance){
+			const db = getFirestore();
+			const q = query(collection(db, "Person",email,"Orders"), where("orderID", "==", orderID));
+			let docRef;
+			const querySnapshot = await getDocs(q);
+					querySnapshot.forEach((doc) => {
+					// doc.data() is never undefined for query doc snapshots
+					//get document reference so we change its status
+					docRef = doc.ref
+					 
+			});
+			await updateDoc(docRef, {
+				status: status
+			  });
+		}
+	}catch(err){
+		console.log(err)
 	}
 }

@@ -66,11 +66,21 @@ a.dropdown-item:hover {
 
 	span.navbar-brand {
 		display: none;
+	
 	}
 
 	button.navbar-toggler {
 		border:none;
 		margin:auto 0;
+		box-shadow:none;
 		
+	}
+
+	span.navbar-toggler-icon:focus {
+		background-color: #ca7275;
+		color: white;
+		outline:0;
+		box-shadow:none;
+		border:none;
 	}
 }
