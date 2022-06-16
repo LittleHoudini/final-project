@@ -36,13 +36,18 @@ export default function UserOrdersPage() {
 		};
 	}, [currentUser]);
 
+  if(orderHistory.length === 0) return <p>You dont have Orders yet</p>
+
 	return (
             <TableContainer component={Paper}>
               <Table aria-label="collapsible table">
                 <TableHead>
                   <TableRow>
                   <TableCell />
+                  <TableCell >ORDER ID</TableCell>
                     <TableCell >DATE ORDERED</TableCell>
+                    <TableCell >STATUS</TableCell>
+
                     <TableCell align="right">Price For Order</TableCell>
                   </TableRow>
                 </TableHead>

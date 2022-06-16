@@ -1,143 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Alef:wght@700&family=Staatliches&display=swap');
 
-.wrapper2 {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin: auto;
-	border-radius: 10px;
-	justify-content: center;
-	width: 100%;
-	text-align: right;
-	height: inherit;
-}
 
-.wrappershoppingcart {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+.shoppingCartBoxMain{
 	background-color: gainsboro;
-	margin: auto;
-	border-radius: 10px;
-	justify-content: center;
-	width: 80%;
-	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-	text-align: right;
-	height: inherit;
-	padding: 2%;
-	margin: 3%;
-}
-
-.orderdetails {
-	/* border: solid 4px red; */
-	position: relative;
-	display: flex;
-	flex-direction: row;
-	width: 100%;
-	height: 100px;
-	background-color: grey;
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-	justify-content: space-between;
-}
-
-.orderdetails p {
-	position: relative;
-}
-
-.shoppingcart {
-	/* border: solid 4px blue; */
-	position: relative;
-	display: flex;
-	flex-direction: row;
-	width: 100%;
-}
-
-.сhangequantity {
-	position: relative;
-	display: flex;
-	flex-direction: row;
-	width: 100%;
-	/* border: solid 4px yellow; */
-}
-
-.productdetails {
-	/* /* border: solid 4px green;tion: relative; */
-	display: flex;
-	flex-direction: row;
-	width: 100%;
-	justify-content: flex-end;
-	background-color: white;
-}
-.productdetails p {
-	width: 100%;
-}
-
-.сhangequantitybtn {
-	padding: 10%;
-	border: none;
-	border-radius: 2px;
-	background-color: lightgray;
-	color: darkgray;
-}
-
-.сhangequantitybtn:hover {
-	background-color: #ca7275;
-	color: white;
-}
-.costbuttons {
-	/* border: solid 4px red; */
-	position: relative;
-	display: flex;
-	flex-direction: row;
-	width: 100%;
-	padding-top: 3%;
-	padding-bottom: 3%;
-	background-color: grey;
-}
-
-.costbuttons button {
-	border-radius: 5px;
-	border: none;
-	padding: 1%;
-	align-self: center;
-	background-color: #a63437;
-	color: aliceblue;
-	margin-right: 10%;
-	margin-left: 2%;
-}
-
-.costbuttons button:hover {
-	background-color: #ca7275;
-	color: white;
-	font-weight: bold;
-}
-
-.productdetail {
-	color: black;
-	font-weight: bold;
-	margin: 7%;
-	padding-right: 0;
-}
-
-.ordercost {
-	padding-left: 20%;
-}
-
-.shoppingCartBox{
-	background-color:grey;
-	display:flex;
-	flex-direction: column;
-	align-items: center;
-	width: 60%;
-	margin: 2% auto;
-	display: flex;
-	/* flex-wrap:wrap; */
-	border-radius: 10px;
-	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-	text-align: center;
-	padding-bottom:4%;
-
+	
 }
 
 .emptyShoppingCartImage {
@@ -151,39 +17,111 @@
 	opacity:0.7;
 }
 
-table.MuiTable-root {
-	background-color:gainsboro;
+.ShoppingCartImage {
+	width: 44px;
+	object-fit:contain;
+	padding:0;
+	height: 44px;
+}
+
+.ShoppingCartImage:hover {
+	width: 44px;
+	opacity:0.7;
+
+}
+
+.shoppingCartBox{
+	display:flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	align-items: center;
+	width:70%;
+	margin: auto;
 	
+	padding-bottom:4%;
+	background-color: gainsboro;
+	padding-top:3%;
+	
+}
+
+
+table.MuiTable-root {
+	border-radius: 10px;
+	background-color: white;
+	margin: auto;
+	width: 100%;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 table.MuiTable-root th {
 	font-size: 16px;
 	color:#a63437;
-	font-family: 'Staatliches', cursive,  'Alef', sans-serif;
+	font-weight: bold;
+	text-align: center;
+	border:none;
 }
 
 table.MuiTable-root td {
 	font-size: 16px;
-	color:#a63437;
-	font-family: 'Staatliches', cursive,  'Alef', sans-serif;
+	color:grey;
 	text-align: right;
-}
-
-th:hover {
-	box-shadow:  34px 34px 68px #dcdcdc,
-	-34px -34px 68px #e4e4e4;
-}
-
-.shoppingCartBtnBox {
-	display: flex;
-	flex-direction: row;
-	width:60%;
-	line-height: 1.1;
+	border:none;
+	letter-spacing: 1px;	
+	font-weight: 500;
 	
 }
 
+table.MuiTable-root .borderCell  {
+	font-size:16px;
+	background-color:#a63437;
+	color:white;
+	margin-top:3%;
+}
+
 .fullTd {
+	width:70%;
+	border-radius:5px;
+	align-content: center;
+}
+
+.backtomenubtn {
+	padding:1%;
+}
+
+.changeQ {
+	display: flex;
+	justify-content: center;
+}
+
+.paybtn {
+
+margin:auto;
+display: flex;
+flex-direction: column;
+margin-top:3%;
+width:100%;
+
+}
+.paybtnpaypal{
+	width:fit-content;
+	min-width: 222px;
 	width:100%;
-	border-radius:7%;
+	
+}
+
+.payPalPayBox{
+	margin-top:3%;
+}
+
+@media only screen and (max-width: 991px) {
+	
+	.shoppingCartBox{
+	
+		width:100%;
+	}
+	.shoppingCartBox{
+	
+		background-color: white;
+	}
 }
 

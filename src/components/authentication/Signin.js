@@ -1,6 +1,5 @@
-
 import React, { useState } from "react";
-import { getDocument, signIn } from "../../firebase/Users";
+import { getDocument, signIn,resetPassword } from "../../firebase/Users";
 import "./sign.css";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -8,7 +7,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { passwordMatch } from "../../firebase/Users";
-
+import Alert from '@mui/material/Alert';
 
 //Sign in form for new users
 const Signin = ({ open, setOpen }) => {
@@ -17,6 +16,12 @@ const Signin = ({ open, setOpen }) => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
+
+	const [forgotPassword, setForgotPassword] = useState(false);
+	const [emailReset, setEmailReset] = useState("");
+
+	const [emailSent, setEmailSent] = useState(false);
+	
 
 	// Checks email and passsword fields are correctly filled
 	const checkInput = () => {
@@ -46,14 +51,20 @@ const Signin = ({ open, setOpen }) => {
 					setError("Incorrect email.")
 					return false;
 				}
-				const pwMatched = await passwordMatch(email,password);
-				if(!pwMatched){
-					setError("Incorrect Password")
-					return false;
-				}
+				// const pwMatched = await passwordMatch(email,password);
+				// if(!pwMatched){
+				// 	setError("Incorrect Password")
+				// 	return false;
+				// }
 	
-				if(signIn(e, { email, password })){
+				const res = await signIn(e, { email, password });
+				console.log(res);
+				if(res.length === 0){
 					setOpen(false);
+				}
+				else{
+					setError(res);
+					return false;
 				}
 
 			}
@@ -64,16 +75,28 @@ const Signin = ({ open, setOpen }) => {
 		}
 	};
 
+
+	const handlePasswordReset = async (e) => {
+		e.preventDefault();
+		const res = await resetPassword(emailReset);
+		console.log(res);
+		if(res === 'auth/user-not-found'){
+			setError("There is no user with this email.")
+		}
+		else{
+			setEmailSent(true);
+		}
+	}
 	//<Redirect to={{ pathname: "/" }} />;
 
 	return (
-		<Dialog open={open} onClose={() => setOpen(false)}>
-			<DialogTitle>SIGN IN</DialogTitle>
+		<Dialog className=""textFieldFormWrapper open={open} onClose={() => setOpen(false)}>
+			<DialogTitle className="DialogTitle">SIGN IN</DialogTitle>
 			<DialogContent>
-				<form onSubmit={(e) => {handleForm(e)}}>
+				<form className="textFieldFormWrapper" onSubmit={(e) => {handleForm(e)}}>
 					{error ? <label style={{ color: "red" }}>{error}</label> : null}
 					<TextField
-						className="textfieldform"
+						className="textFieldForm"
 						autoFocus
 						margin="dense"
 						label="Email Address"
@@ -86,7 +109,7 @@ const Signin = ({ open, setOpen }) => {
 						}}
 					/>
 					<TextField
-						className="textfieldform"
+						className="textFieldForm"
 						autoFocus
 						margin="dense"
 						label="password"
@@ -102,6 +125,19 @@ const Signin = ({ open, setOpen }) => {
 						Sign in
 					</button>
 				</form>
+			</DialogContent>
+			<DialogContent>
+			<button className="containerbtn" onClick={() => setForgotPassword(true)}>
+						Forgot Password?
+			</button>
+			{forgotPassword && 
+						<form onSubmit={(e) => handlePasswordReset(e)}>
+							<TextField className="textFieldForm" autoFocus margin="dense" label="Email Address"  type="email" fullWidth variant="standard" value={emailReset}
+							onChange={(event) => {setEmailReset(event.target.value)}}/>
+							<button className="containerbtn" type="submit">Reset Password</button>
+							{emailSent && <Alert severity="success">Check your inbox for further instructions.</Alert>}
+						</form>
+						}
 			</DialogContent>
 			<DialogActions>
 				<button className="closebtn"  onClick={() => setOpen(false)}>X</button>

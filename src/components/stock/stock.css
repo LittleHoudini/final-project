@@ -1,7 +1,20 @@
-.reportform {
-    background-color:aliceblue;
-}
+
 
 .reportform  {
     color: rgb(25, 4, 4);
+    width: 100%;
+    background-color: gainsboro;
+    text-align: right;
+    display:flex;
+    margin:auto;
+    
+}
+
+.MuiDataGrid-cell {
+    color:black;
+}
+
+.MuiDataGrid-columnHeaderTitle  {
+    color:#a63437;
+    font-weight: bold;
 }

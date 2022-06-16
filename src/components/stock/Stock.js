@@ -14,22 +14,26 @@ import './stock.css';
 
 function CustomToolbar() {
   return (
-    <GridToolbarContainer>
+    <div className="shoppingCartBox">
+          <GridToolbarContainer>
       <GridToolbarColumnsButton />
       <GridToolbarFilterButton />
       <GridToolbarDensitySelector />
       <GridToolbarExport />
     </GridToolbarContainer>
+      
+       </div>
+
   );
 }
 
 export default function CustomToolbarGrid() {
     const columns = [
+       
+        { field: 'price', headerName: 'Price', width: 150},
+        { field: 'count', headerName: 'Available', width:  150 },
+        { field: 'name', headerName: 'Product Name', width: 150 },
         { field: 'id', headerName: 'ID', width: 100 },
-        { field: 'name', headerName: 'Product Name', width: 200 },
-        { field: 'count', headerName: 'Available', width: 200 },
-        { field: 'price', headerName: 'Price', width: 200 },
-        
       ];
     const [items, setItems] = useState([
         {
@@ -51,11 +55,7 @@ export default function CustomToolbarGrid() {
     },[])
 
   return (
-<<<<<<< HEAD
-    <div style={{ height: 400, width: '100%' }}>
-=======
-    <div style={{ height: 700, width: '100%' }}>
->>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
+    <div  className="shoppingCartBox" style={{ height: 700, width: '100%' }}>
       <DataGrid
         className="reportform"
         rows={items}

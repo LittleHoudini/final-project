@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
@@ -22,7 +22,9 @@ const convertJSON = (obj) => {
 }
 
 
-export default function UserOrders({docs}) {
+
+export function ManageOrders({docs}) {
+  
   const [open, setOpen] = useState(false);
 
   return (
@@ -46,6 +48,7 @@ export default function UserOrders({docs}) {
         </TableCell>
         <TableCell component="th" scope="row" style={{backgroundColor:'#ca7275', color: 'white',}}>
             {docs.status}
+            
         </TableCell>
         <TableCell align="right">{ccyFormat(docs.cartTotal)}</TableCell>
       </TableRow>
@@ -57,6 +60,35 @@ export default function UserOrders({docs}) {
                 History
               </Typography>
               <Table size="small" aria-label="purchases">
+
+
+
+              <TableHead>
+                  <TableRow>
+                    <TableCell>Email</TableCell>
+                    <TableCell>First Name</TableCell>
+                    <TableCell align="right">Last Name</TableCell>
+                    <TableCell align="right">Phone Number</TableCell>
+                    <TableCell align="right">City</TableCell>
+                    <TableCell align="right">Street</TableCell>
+                    <TableCell align="right">Home Number</TableCell>
+                  </TableRow>
+                </TableHead>
+                    <TableBody>
+                        <TableRow key={docs.email}>
+                            <TableCell component="th" scope="row">{docs.email}</TableCell>
+                            <TableCell component="th" scope="row">{docs.firstName}</TableCell>
+                            <TableCell>{docs.lastName}</TableCell>
+                            <TableCell>{docs.phoneNumber}</TableCell>
+                            <TableCell align="right">{docs.city}</TableCell>
+                            <TableCell>{docs.street}</TableCell>
+                            <TableCell align="right">{docs.homeNumber}</TableCell>
+                      </TableRow>
+                    </TableBody>
+                
+
+
+
                 <TableHead>
                   <TableRow>
                     <TableCell>Title</TableCell>
@@ -74,10 +106,16 @@ export default function UserOrders({docs}) {
                       <TableCell>{item.quantity}</TableCell>
                       <TableCell align="right">{ccyFormat(item.price)}</TableCell>
                       <TableCell align="right">{ccyFormat(item.itemTotal)}</TableCell>
-                      
                     </TableRow>
                   ))}
+                <TableRow>
+                </TableRow>
+
                 </TableBody>
+
+
+
+
               </Table>
             </Box>
           </Collapse>
@@ -85,12 +123,4 @@ export default function UserOrders({docs}) {
       </TableRow>
     </>
   );
-
-//   <section className="orderslistcuntainer">
-//   <div className="orderslist">
-//     <p className="orderdetail">מספר הזמנה</p>
-//     <p className="orderdetail"> תאריך </p>
-//     <p className="orderdetail"> סכום הזמנה </p>
-//   </div>
-// </section>
 }

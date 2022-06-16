@@ -1,0 +1,342 @@
+import { useEffect, useState } from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { getMisc } from "../../firebase/Orders";
+import "./shoppingcart.css";
+import { useCart } from "react-use-cart";
+import { checkStockAvailbility, handleStockAfterOrder, addOrderToDB } from "../../firebase/Orders";
+import ShoppingCartIcon from "../../images/shopping-cart-icon.png";
+import { useContext } from "react";
+import { UserContext } from "../../App";
+import "../button/btn.css";
+import { PayPalButtons } from "@paypal/react-paypal-js";
+import uuid from "react-uuid";
+
+export function ShoppingCart() {
+	const currentUser = useContext(UserContext);
+	const { isEmpty, totalUniqueItems, items, updateItemQuantity, removeItem, cartTotal, emptyCart } = useCart();
+
+	const [show, setShow] = useState(false);
+	const [success, setSuccess] = useState(false);
+	const [ErrorMessage, setErrorMessage] = useState("");
+	const [orderID, setOrderID] = useState(false);
+
+	const [taxRate, setTaxRate] = useState(null);
+	const [itemQuantity, setItemQuantity] = useState();
+
+	//use effect to get tax rate
+	useEffect(() => {
+		let isMounted = true;
+		getMisc("tax")
+			.then(res => {
+				//making sure state is mounted before setting values
+				if (isMounted) {
+					setTaxRate(res.tax);
+				}
+			})
+			.catch(err => console.log(err));
+		return () => {
+			isMounted = false;
+		};
+	}, []);
+
+	//add 2 zeros after price
+	function ccyFormat(num) {
+		return `${num.toFixed(2)}`;
+	}
+
+	//convert json to string, to show ingredients as a string
+	const convertJSON = obj => {
+		let str = JSON.stringify(obj);
+		return str
+			.replace(/{|},|}/g, "\n")
+			.replace(/\[|\]|"/g, "")
+			.replace(/,/g, ",\n");
+	};
+
+	//get the amount of ingredients in the cart
+	const getItemQuantity = () => {
+		let arrayOfObjects = [];
+		let obj = {};
+		for (let i in items) {
+			for (let key in items[i]["ing"]) {
+				obj[key] = items[i]["ing"][key] * items[i]["quantity"];
+			}
+			//here push
+			arrayOfObjects.push(obj);
+			obj = {};
+		}
+		return arrayOfObjects;
+	};
+
+	//set the amount of ingredients to the state, rerender when cart item changes, to recalculate ingredients amount
+	useEffect(() => {
+		let isMounted = true;
+		if (isMounted) {
+			const stock = getItemQuantity();
+			setItemQuantity(stock);
+		}
+		return () => (isMounted = false);
+	}, [items]);
+
+	const itemsObj = items.map((item) => {
+		return {
+			name: item.title,
+			description: "Store Pickup on 12/31/2020. Bring receipt and photo ID for proof of purchase.",
+			sku: item.id,
+			unit_amount: { currency_code: "USD", value: ccyFormat(item.price) },
+			quantity: item.quantity,
+			tax: { currency_code: "USD", value: taxRate ? ccyFormat(taxRate) : "0.00" },
+			category: "PHYSICAL_GOODS",
+		};
+	});
+
+	const formatItemsForOrder = () => {
+		let arr = [];
+		items.map((item) => {
+			arr.push({
+				name: item.title,
+				description: "Store Pickup on 12/31/2020. Bring receipt and photo ID for proof of purchase.",
+				sku: item.id,
+				unit_amount: { currency_code: "USD", value: ccyFormat(item.price).toString() },
+				quantity: item.quantity,
+				tax: { currency_code: "USD", value:  ccyFormat(taxRate).toString() },
+				category: "PHYSICAL_GOODS",
+			});
+		});
+		return arr;
+	};
+
+
+	// creates a paypal order
+	const createOrder = (data, actions) => {
+		const formattedItems = formatItemsForOrder();
+
+		return actions.order
+			.create({
+				purchase_units: [
+					//Point of note: purchase_units is an array, you can have more than one when you repeat the structure insite the {}
+					//but using more than one seems useless since PayPal only recognizes the shipping address from the first purchase_unit
+					//When using more than 1 purchase_unit PayPal will summ the total from all the purchase_units and show that total
+					//on the PayPal shadowbox popup. Normally the buyer can click that total to see the item list of everything they are buying,
+					//but when you have more than 1 purchase_unit it does not allow the buyer to expand that item list
+					//The beauty of using more than 1 purchase_unit is that the buyer and seller will see 2 invoices in their PayPal acounts,
+					//which is exactly what I wanted to do, but then I ran into shipping address problems that I document below
+					//Another intereting point of note: When using multiple purchase_units you will find that the order is finalized and captured,
+					//in other words, you can't authorize the payment then go back later.
+					{
+						reference_id: "0", //make sure to always use a ref id, hopefully some day the ability to have multip purcahse_units will actually work
+						invoice_id: uuid(), //for your own sanity, pass the invoice number from your website. It will make future tracking easier for you
+						amount: {
+							currency_code: "USD",
+							value: ccyFormat(cartTotal).toString() , // this is the total of the breakdown lines below
+							//make sure to specify your currency_code and the price, and make sure the price has 2 digits after the decimal
+							breakdown: {
+								item_total: { currency_code: "USD", value: ccyFormat(cartTotal).toString()},
+								shipping: { currency_code: "USD", value: "0.00" },
+								handling: { currency_code: "USD", value: "0.00" },
+								// tax_total: { currency_code: "USD", value: taxRate },
+								//enter the discount as a positive number.
+								discount: { currency_code: "USD", value: "0.00"},
+							},
+						},
+						//write yourself a loop in your code to list all the items
+						//I have read through all the PayPal doc regarding chargebacks and I feel that you have
+						//bigger protection when you send the item details to PayPal so they appear within the PayPal account.
+						//This will also help your own sanity since you can look in your seller account and fully see the
+						//details of your online sales.  Naturally these same details should also be on your website
+
+						items: formattedItems,
+						// items: [
+						// 	{
+						// 		name: "Item 1", //This appears on the PayPal invoice
+						// 		//Although the description doesn't really seem to be needed, I found that it also appears on the PayPal invoice.
+						// 		//Notice I am using this to tell the buyer when they are expected to pick the item up.
+						// 		//My website allows the customer to choos a pickup or delivery, I tried to follow the docs that say to use
+						// 		//shipping_type:PICKUP, but no matter how hard I tried I could not get that to work, instead, I'm using
+						// 		//the description field here to remind the buyer that they have requested to pick this item up.
+						// 		//I also give them instructions for proving their ID upon pickup.
+						// 		//This description field also appears on the PayPal payment shadowbox screen as well as on their PayPal invoice
+						// 		description: "Store Pickup on 12/31/2020. Bring receipt and photo ID for proof of purchase.",
+						// 		sku: "xyz-2654",
+						// 		unit_amount: { currency_code: "USD", value: "100.00" },
+						// 		quantity: "1",
+						// 		tax: { currency_code: "USD", value: "0.00" },
+						// 		category: "PHYSICAL_GOODS", //I cannot find any place that this is being recorded, but I'm using it anyway to for CYA purposes
+						// 	}, //Remember to include this comma in your loop when generating this code on your site.
+						// 	{
+						// 		name: "Item 2",
+						// 		description: "Store Pickup on 12/31/2020. Bring receipt and photo ID for proof of purchase.",
+						// 		sku: "zdc-3942",
+						// 		unit_amount: { currency_code: "USD", value: "60.00" },
+						// 		quantity: "2",
+						// 		tax: { currency_code: "USD", value: "0.00" },
+						// 		category: "PHYSICAL_GOODS",
+						// 	},
+						// 	{
+						// 		name: "Item 3",
+						// 		//In this description I am including the expected shippment date or the expected delivery date, whichever one I have
+						// 		description: "Expected shipment on 05/10/2020.",
+						// 		sku: "xyz-2654",
+						// 		unit_amount: { currency_code: "USD", value: "60.00" },
+						// 		quantity: "1",
+						// 		tax: { currency_code: "USD", value: "0.00" },
+						// 		//I attempted to use DIGITAL_GOODS several times to see if I would get a reply that this item
+						// 		//is not covered by seller protection, but I never got any such message. Perhaps PayPal is not correctly
+						// 		//generating those messages
+						// 		category: "DIGITAL_GOODS",
+						// 	},
+						// ],
+					},
+				],
+
+				// not needed if a shipping address is actually needed
+				application_context: {
+					shipping_preference: "NO_SHIPPING",
+				},
+			})
+			.then(orderID => {
+				setOrderID(orderID);
+				return orderID;
+			})
+			.catch(err => {
+				setErrorMessage(err);
+			});
+	};
+
+	// check Approval
+	const onApprove = (data, actions) => {
+		return actions.order.capture().then(function (details) {
+			const { payer } = details;
+			setSuccess(true);
+		});
+	};
+
+	//capture likely error
+	const onError = (data, actions) => {
+		setErrorMessage("An Error occured with your payment ");
+	};
+
+	useEffect(() => {
+		if (success) {
+			console.log("lets goooo");
+		}
+	}, [success]);
+
+	console.log(1, orderID);
+	console.log(2, success);
+	console.log(3, ErrorMessage);
+
+	const handleOrder = async () => {
+		try {
+			//if we can update
+			if (currentUser) {
+				const canUpdateStock = await checkStockAvailbility(itemQuantity);
+				if (canUpdateStock) {
+					setShow(true);
+					if (success) {
+						const handleUpdate = await handleStockAfterOrder(itemQuantity);
+						const addOrderToUserHistory = addOrderToDB(items, cartTotal, currentUser);
+						emptyCart();
+					}
+				} else {
+					//seterrorMessage here
+					console.log("cant update");
+					//here we will show the user some kind of something went wrong...
+				}
+			} else {
+				console.log("please log in first");
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	//incase cart is empty
+	if (isEmpty) {
+		emptyCart();
+		return (
+			<div className="shoppingCartBox">
+				<img alt="" src={ShoppingCartIcon} className="emptyShoppingCartImage" />
+				<p> אנו מצטערים, סל הקניות שלכם ריק</p>
+				<button className="closebtn">לתפריט</button>
+			</div>
+		);
+	}
+
+	return (
+		<div className="shoppingCartBox">
+			<TableContainer component={Paper}>
+				<Table sx={{ minWidth: 700 }} aria-label="spanning table">
+					<TableHead>
+						<TableRow>
+							<TableCell align="center" colSpan={6}>
+								Details
+							</TableCell>
+						</TableRow>
+						<TableRow>
+							<TableCell>פריטים</TableCell>
+							<TableCell align="right">מחיר ליחידה</TableCell>
+							<TableCell align="right">יחידות</TableCell>
+							<TableCell align="right">סה"כ</TableCell>
+							<TableCell align="right">הערות</TableCell>
+							<TableCell align="right">הסר פריט</TableCell>
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{items.map(item => (
+							<TableRow key={item.id}>
+								<TableCell>{item.title}</TableCell>
+								<TableCell align="right">{ccyFormat(item.price)}</TableCell>
+								<TableCell align="right">
+									<button className="minusBtn" onClick={() => updateItemQuantity(item.id, item.quantity - 1)}>
+										-
+									</button>
+									{item.quantity}
+									<button className="plusBtn" onClick={() => updateItemQuantity(item.id, item.quantity + 1)}>
+										+
+									</button>
+								</TableCell>
+
+								<TableCell align="right">{ccyFormat(item.price * item.quantity)}</TableCell>
+								<TableCell align="right">{item.ing && convertJSON(item.ing)}</TableCell>
+								<TableCell align="right">
+									<button className="minusBtn fullTd" onClick={() => removeItem(item.id)}>
+										הסר
+									</button>
+								</TableCell>
+							</TableRow>
+						))}
+
+						<TableRow>
+							<TableCell rowSpan={3} />
+							<TableCell colSpan={2}>סה"כ</TableCell>
+							<TableCell align="right">{ccyFormat(cartTotal)}</TableCell>
+						</TableRow>
+						<TableRow>
+							<TableCell>מע"מ</TableCell>
+							<TableCell align="right">{`${(taxRate * 100).toFixed(0)} %`}</TableCell>
+							<TableCell align="right">{ccyFormat(taxRate * cartTotal)}</TableCell>
+						</TableRow>
+						<TableRow>
+							<TableCell colSpan={2}>סה"כ אחרי מע"מ</TableCell>
+							<TableCell align="right">{ccyFormat(taxRate * cartTotal + cartTotal)}</TableCell>
+						</TableRow>
+					</TableBody>
+				</Table>
+			</TableContainer>
+			<div className="shoppingCartBtnBox">
+				<button className="containerbtn" onClick={handleOrder}>
+					לתשלום {show ? <PayPalButtons style={{ layout: "vertical" }} createOrder={createOrder} onApprove={onApprove} /> : null}
+				</button>
+
+				<button className="containerbtn"> חזרה לתפריט</button>
+			</div>
+		</div>
+	);
+}

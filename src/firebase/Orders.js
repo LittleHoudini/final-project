@@ -1,24 +1,11 @@
 import getFirebase from "./Firebase";
-<<<<<<< HEAD
-import { doc, setDoc, getDoc, addDoc, getFirestore, collection,query, where, getDocs } from "firebase/firestore";
-=======
 import { doc, setDoc, getDoc, addDoc, getFirestore, collection, query, where, getDocs, updateDoc, increment,Timestamp  } from "firebase/firestore";
 import moment from "moment";
 
->>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 
 //Firebase instance
 const firebaseInstance = getFirebase();
 
-<<<<<<< HEAD
-export const getItems = async(frCollection) => {
-	try{
-		if(firebaseInstance){
-			const db = getFirestore();
-			let res = [];
-			const querySnapshot = await getDocs(collection(db, frCollection));
-			querySnapshot.forEach((doc) => {
-=======
 export const getItems = async frCollection => {
 	try {
 		if (firebaseInstance) {
@@ -26,25 +13,11 @@ export const getItems = async frCollection => {
 			let res = [];
 			const querySnapshot = await getDocs(collection(db, frCollection));
 			querySnapshot.forEach(doc => {
->>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 				//   console.log(doc.id, " => ", doc.data());
 				let docToAdd = doc.data();
 				res.push(docToAdd);
 			});
 			//return array of objects(docs)
-<<<<<<< HEAD
-			return res; 
-		}
-	}catch(err){
-		console.log(err)
-	}
-}
-
-//Fetch all documents from a collection and return the doc
-export const getSubDocument = async (frCollection,frDoc,subCollection,subDoc,subCollection1,includes) => {
-	try{
-		if(firebaseInstance){
-=======
 			return res;
 		}
 	} catch (err) {
@@ -56,16 +29,11 @@ export const getSubDocument = async (frCollection,frDoc,subCollection,subDoc,sub
 export const getSubDocument = async (frCollection, frDoc, subCollection, subDoc, subCollection1, includes) => {
 	try {
 		if (firebaseInstance) {
->>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 			//connect to firestore
 			const db = getFirestore();
 			//path to get the document => example => ('Category','Extras','extras','chips','items','includes')
 			//will get the document includes for specific dish,
-<<<<<<< HEAD
-			const docRef = doc(db, frCollection,frDoc,subCollection,subDoc,subCollection1,includes);
-=======
 			const docRef = doc(db, frCollection, frDoc, subCollection, subDoc, subCollection1, includes);
->>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				return docSnap.data();
@@ -74,18 +42,6 @@ export const getSubDocument = async (frCollection, frDoc, subCollection, subDoc,
 				console.log("No such document");
 			}
 		}
-<<<<<<< HEAD
-		
-	}catch(err){
-		console.log(err)
-	}
-}
-// category, product,dishName
-export const getDishIngredients =  async (category,product,dishName) => {
-    try{
-        if(firebaseInstance){
-            const db = getFirestore();
-=======
 	} catch (err) {
 		console.log(err);
 	}
@@ -95,7 +51,6 @@ export const getDishIngredients = async (category, product, dishName) => {
 	try {
 		if (firebaseInstance) {
 			const db = getFirestore();
->>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 			// const docRef = doc(db, "Category/Burgers/burgers/CheeseBurger");
 			//gets snapshot of the doc
 			// const docSnap = await getDoc(docRef);
@@ -107,19 +62,6 @@ export const getDishIngredients = async (category, product, dishName) => {
 				console.log("No such document!");
 				return false;
 			}
-<<<<<<< HEAD
-        }
-    }catch(err){
-		console.log(err)
-	}
-}
-
-
-//Fetch all documents from a collection and return an array of objects
-export const getAllDishesFromCategory = async (frCollection,frDoc,subCollection) => {
-	try{
-		if(firebaseInstance){
-=======
 		}
 	} catch (err) {
 		console.log(err);
@@ -130,43 +72,22 @@ export const getAllDishesFromCategory = async (frCollection,frDoc,subCollection)
 export const getAllDishesFromCategory = async (frCollection, frDoc, subCollection) => {
 	try {
 		if (firebaseInstance) {
->>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 			//connect to firestore
 			const db = getFirestore();
 			//declare array
 			let res = [];
 			//path to get the collections => example => Category/Extras/extras
 			//will get all the document in extras
-<<<<<<< HEAD
-			const querySnapshot = await getDocs(collection(db, frCollection,frDoc,subCollection));
-			//iterate over each doc and push it to array
-			querySnapshot.forEach((doc) => {
-			//   console.log(doc.id, " => ", doc.data());
-			  let docToAdd = doc.data();
-			  res.push(docToAdd);
-=======
 			const querySnapshot = await getDocs(collection(db, frCollection, frDoc, subCollection));
 			//iterate over each doc and push it to array
 			querySnapshot.forEach(doc => {
 				//   console.log(doc.id, " => ", doc.data());
 				let docToAdd = doc.data();
 				res.push(docToAdd);
->>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 			});
 			//return array of objects
 			return res;
 		}
-<<<<<<< HEAD
-		
-	}catch(err){
-		console.log(err)
-	}
-}
-
-export const getDishData = async (category,product,dishName) => {
-	try{
-		if(firebaseInstance){
-=======
 	} catch (err) {
 		console.log(err);
 	}
@@ -175,35 +96,16 @@ export const getDishData = async (category,product,dishName) => {
 export const getDishData = async (category, product, dishName) => {
 	try {
 		if (firebaseInstance) {
->>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 			const db = getFirestore();
 			const docSnap = await getDoc(doc(db, `Category/${category}/${product}/${dishName}`));
 			//if doc exists return promise object
 			if (docSnap.exists()) {
-<<<<<<< HEAD
-				return docSnap.data()
-=======
 				return docSnap.data();
->>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 			} else {
 				console.log("No such document!");
 				return false;
 			}
 		}
-<<<<<<< HEAD
-	}catch(err){
-		console.log(err);
-	}
-}
-
-export const getMisc = async (docName) => {
-	try{
-		if(firebaseInstance){
-			const db = getFirestore();
-			const docSnap = await getDoc(doc(db, `misc/${docName}`));
-			if (docSnap.exists()) {
-				return docSnap.data()
-=======
 	} catch (err) {
 		console.log(err);
 	}
@@ -216,24 +118,11 @@ export const getMisc = async (docName) => {
 			const docSnap = await getDoc(doc(db, `misc/${docName}`));
 			if (docSnap.exists()) {
 				return docSnap.data();
->>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 			} else {
 				console.log("No such document!");
 				return false;
 			}
 		}
-<<<<<<< HEAD
-	}catch(err){
-		console.log(err);
-	}
-	
-}
-
-//Fetch all documents from a collection and return an array of objects
-export const getMenuCategories = async () => {
-	try{
-		if(firebaseInstance){
-=======
 	} catch (err) {
 		console.log(err);
 	}
@@ -243,40 +132,21 @@ export const getMenuCategories = async () => {
 export const getMenuCategories = async () => {
 	try {
 		if (firebaseInstance) {
->>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 			//connect to firestore
 			const db = getFirestore();
 			//declare array
 			let res = [];
 			//will get all the document in documents in 'Category
-<<<<<<< HEAD
-			const querySnapshot = await getDocs(collection(db, 'Category'));
-			//iterate over each doc and push it to array
-			querySnapshot.forEach((doc) => {
-			//   console.log(doc.id, " => ", doc.data());
-			  let docToAdd = doc.data();
-			  res.push(docToAdd);
-=======
 			const querySnapshot = await getDocs(collection(db, "Category"));
 			//iterate over each doc and push it to array
 			querySnapshot.forEach(doc => {
 				//   console.log(doc.id, " => ", doc.data());
 				let docToAdd = doc.data();
 				res.push(docToAdd);
->>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 			});
 			//return array of objects
 			return res;
 		}
-<<<<<<< HEAD
-		
-	}catch(err){
-		console.log(err)
-	}
-}
-
-export const getHomePageData = async () => {
-=======
 	} catch (err) {
 		console.log(err);
 	}
@@ -358,16 +228,19 @@ export const handleStockAfterOrder = async (obj) => {
 };
 
 
-export const addOrderToDB = async (obj,cartTotal,currentUser) => {
+export const addOrderToDB = async (obj,cartTotal,currentUser,orderID) => {
 	try {
 		if (firebaseInstance) {
 			//Gets db
 			const db = getFirestore();
 			//Adds the user info to our database
 			const docRef = await addDoc(collection(db, "Person",currentUser,'Orders'), {
-				date: moment().format("DD-MM-YYYY hh:mm:ss"),
+				date : new Date().toLocaleString() + '',
 				cartTotal : cartTotal,
-				orders: obj
+				orderID : orderID,
+				status : "Pending",
+				orders: obj,
+				
 			  });
 			  
 
@@ -379,34 +252,109 @@ export const addOrderToDB = async (obj,cartTotal,currentUser) => {
 };
 
 export const fetchUserOrders = async (currentUser) => {
->>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 	try{
 		if(firebaseInstance){
 			const db = getFirestore();
 			let res = [];
-<<<<<<< HEAD
-			// const q = query(collection(db,'Person'), where("phoneNumber", "==", phoneNum))
-			const querySnapshot = await getDocs(collection(db, 'misc'));
-			querySnapshot.forEach((doc) => {
-				  if(doc.data()['path']){
-				  	let docToAdd = doc.data();
-				  	res.push(docToAdd);
-				  }
-=======
 			const querySnapshot = await getDocs(collection(db, "Person",currentUser,"Orders"));
 			querySnapshot.forEach((doc) => {
 			//   console.log(doc.id, " => ", doc.data());
 			  let docToAdd = doc.data();
 			  res.push(docToAdd);
->>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 			});
 			return res;
 		}
 	}catch(err){
 		console.log(err);
 	}
-<<<<<<< HEAD
-	
-=======
->>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
+}
+
+
+export const fetchAllUsersEmails = async () => {
+	try{
+		if(firebaseInstance){
+			const db = getFirestore();
+			let res = [];
+			const querySnapshot = await getDocs(collection(db,"Person"));
+			querySnapshot.forEach((doc) => {
+				//   console.log(doc.id, " => ", doc.data());
+				  let docToAdd = doc.data()['email'];
+				  res.push(docToAdd);
+				});
+			return res;
+		}
+	}
+	catch(err){
+		console.error(err)
+	}
+}
+
+export const fetchAllUsersData = async () => {
+	try{
+		if(firebaseInstance){
+			const db = getFirestore();
+			let res = [];
+			const querySnapshot = await getDocs(collection(db,"Person"));
+			querySnapshot.forEach((doc) => {
+				//   console.log(doc.id, " => ", doc.data());
+				  let docToAdd = doc.data();
+				  res.push(docToAdd);
+				});
+			return res;
+		}
+	}
+	catch(err){
+		console.error(err)
+	}
+}
+
+export const fetchAllPendingOrders = async () => {
+	try{
+		if(firebaseInstance){
+			const db = getFirestore();
+			let res = [];
+			const usersEmails = await fetchAllUsersEmails();
+			const usersData = await fetchAllUsersData();
+			for(let i in usersEmails){
+				//fetching all pending orders
+				const q = query(collection(db, "Person",usersEmails[i],"Orders"), where("status", "==", "Pending"));
+				// console.log("this is query  => " , q)
+				const currentUserData = usersData[i];
+				const querySnapshot = await getDocs(q);
+				querySnapshot.forEach((doc) => {
+				//   console.log(doc.id, " => ", doc.data());
+				  let docToAdd = doc.data();
+				  Object.assign(docToAdd, {...currentUserData});
+				  res.push(docToAdd);
+				});
+			}
+			// console.log(res)
+			return res;
+			
+		}
+	}catch(err){
+		console.log(err);
+	}
+}
+
+export const HandleOrderStatus = async (orderID, email,status) => {
+	try {
+		if(firebaseInstance){
+			const db = getFirestore();
+			const q = query(collection(db, "Person",email,"Orders"), where("orderID", "==", orderID));
+			let docRef;
+			const querySnapshot = await getDocs(q);
+					querySnapshot.forEach((doc) => {
+					// doc.data() is never undefined for query doc snapshots
+					//get document reference so we change its status
+					docRef = doc.ref
+					 
+			});
+			await updateDoc(docRef, {
+				status: status
+			  });
+		}
+	}catch(err){
+		console.log(err)
+	}
 }

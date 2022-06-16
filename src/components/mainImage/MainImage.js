@@ -2,13 +2,6 @@
  * * IMPORT LIBRARIES
  *****************************************/
 
-<<<<<<< HEAD
-// import HeartLogo from "../../images/kiss_logo_red.png";
-// import Beach from "../../images/beach_with_people.png";
-
-
-=======
->>>>>>> a21fa53bf57510a2f82749c7abc452b0277f514f
 import "./mainimage.css";
 
 import { getDocument } from "../../firebase/Users";

@@ -58,47 +58,24 @@ export const UserProfile = () => {
 	return (
 		<div className="wrapper2">
 			<div className="wrappershoppingcart">
-				<section className="orderdetails">
-					<div className="userpfp">
-						<br></br>
-						<p className="orderdetail"> ברוכ\ה הבא </p>
-						<br></br>
-						<p className="orderdetail"> לעריכת פרטים אישיים </p>
-					</div>
-
-					<div className="customerpfp">
-						<img alt="" src={HeartSmallLogo} width="10" height="10" className="d-inline-block align-top align-right logo-image-nav" />
-					</div>
-				</section>
-
-				<section className="personaldetailsupdate">
+				<section className="personalDetailsUpdate">
+				<h1> ברוכה הבאה {firstName} {lastName}</h1>
 					<h1>שינוי פרטים אישיים </h1>
 					<form>
-						<input placeholder="First Name" value={firstName} onChange={handleChange("firstName")} />
+						<input  placeholder="First Name" value={firstName} onChange={handleChange("firstName")} />
 						<input placeholder="Last Name" value={lastName} onChange={handleChange("lastName")} />
 						<input placeholder="Phone Number" value={phoneNumber} onChange={handleChange("phoneNumber")} />
 						<input placeholder="City" value={city} onChange={handleChange("city")} />
 						<input placeholder="Street" value={street} onChange={handleChange("street")} />
 						<input placeholder="Home Number" value={homeNumber} onChange={handleChange("homeNumber")} />
 						<input placeholder="Email" value={email} onChange={handleChange("email")} />
-						<input placeholder="Password" type={passwordShown ? "text" : "password"} value={password} onChange={handleChange("password")} />
+						<input className="form-control" placeholder="Password" type={passwordShown ? "text" : "password"} value={password} onChange={handleChange("password")} />
 						<FiEye onClick={togglePasswordVisiblity} />
 						<br></br>
 					</form>
 					<button className="savebtn" type="submit">
 						שמירת פרטים
 					</button>
-				</section>
-				<section className="orderslistcuntainer">
-					<div className="orderslist">
-						<p className="orderdetail">מספר הזמנה</p>
-						<p className="orderdetail"> תאריך </p>
-						<p className="orderdetail"> סכום הזמנה </p>
-					</div>
-				</section>
-
-				<section className="savebtncontainer">
-					<button className="savebtn">שמירה</button>
 				</section>
 			</div>
 		</div>
