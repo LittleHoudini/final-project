@@ -12,7 +12,7 @@ import Paper from '@mui/material/Paper';
 import uuid from "react-uuid";
 import { ManageOrders } from "../../manageOrders/ManageOrders";
 import { HandleOrderStatus } from "../../../firebase/Orders";
-
+import './manageorderspage.css';
 export default function ManageOrdersPage() {
 	const currentUser = useContext(UserContext);
 	const [pendingOrders, setPendingOrders] = useState([]);
@@ -56,37 +56,38 @@ export default function ManageOrdersPage() {
   if(pendingOrders.length === 0) return <p>No Pending Orders</p>
 
 	return (
-            <TableContainer component={Paper}>
+    <div className="wrapper2">  
+            <TableContainer  component={Paper}>
               <Table aria-label="collapsible table">
                 <TableHead>
-                  <TableRow>
+                  <TableRow className="ordersTitle">
                   <TableCell />
-                  
-                  <TableCell >ORDER ID</TableCell>
-                    <TableCell >DATE ORDERED</TableCell>
-                    <TableCell >STATUS</TableCell>
-
-                    <TableCell align="right">Price For Order</TableCell>
+                  <TableCell align="right">סה״כ </TableCell>
+                    <TableCell >תאריך </TableCell>
+                    <TableCell >סטטוס</TableCell>
+                    <TableCell >מספר הזמנה</TableCell>
                   </TableRow>
                 </TableHead>
-                <TableBody>
+                <TableBody className="wrappershoppingcart">
                 {pendingOrders.map((docs) => {
                     // docs => each doc represents user order history
                     return (
                       <Fragment key={uuid()} >
-                        <TableRow key={uuid()}>
-                          <TableCell onClick={() => handleStatusChange(docs,"Approved")}>Accept Order</TableCell>
-                          <TableCell onClick={() => handleStatusChange(docs,"Canceled")}>Cancel Order</TableCell>
-                        </TableRow>
-                        <ManageOrders key={uuid()} docs={docs}  />
 
+                        <ManageOrders key={uuid()} docs={docs}  />
+                        <TableRow className="orderBox" key={uuid()}>
+                         
+                         <TableCell colSpan={3} component="th" scope="row" onClick={() => handleStatusChange(docs,"Approved")}><button className="containerbtn">לאשר הזמנה</button> </TableCell>
+                         <TableCell  colSpan={3} component="th" scope="row" onClick={() => handleStatusChange(docs,"Canceled")}><button className="containerbtn">לבטל הזמנה</button></TableCell>
+                       </TableRow>
                       </Fragment>
-                    
                     )
                 })}
                 </TableBody>
               </Table>
             </TableContainer>
+
+            </div>
 
 	);
 }

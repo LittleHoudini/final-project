@@ -10,8 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-
-
+import "./manageorders.css"
 function ccyFormat(num) {
   return `${num.toFixed(2)}`;
 }
@@ -30,7 +29,7 @@ export function ManageOrders({docs}) {
   return (
     <>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-        <TableCell>
+        <TableCell style={{backgroundColor:'#84A98c', color: 'white',}}>
           <IconButton
             aria-label="expand row"
             size="small"
@@ -40,17 +39,18 @@ export function ManageOrders({docs}) {
           </IconButton>
         </TableCell>
         
-        <TableCell component="th" scope="row" style={{backgroundColor:'#ca7275', color: 'white',}}>
-            {docs.orderID}
-        </TableCell>
-        <TableCell component="th" scope="row" style={{backgroundColor:'#ca7275', color: 'white',}}>
+
+        <TableCell align="right" style={{backgroundColor:'#84A98c', color: 'white',}}>{ccyFormat(docs.cartTotal)}</TableCell>
+        <TableCell component="th" scope="row" style={{backgroundColor:'#84A98c', color: 'white',}}>
             {docs.date}
         </TableCell>
-        <TableCell component="th" scope="row" style={{backgroundColor:'#ca7275', color: 'white',}}>
+        <TableCell component="th" scope="row" style={{backgroundColor:'#84A98c', color: 'white',}}>
             {docs.status}
-            
         </TableCell>
-        <TableCell align="right">{ccyFormat(docs.cartTotal)}</TableCell>
+        <TableCell component="th" scope="row" style={{backgroundColor:'#84A98c', color: 'white',}}>
+            {docs.orderID}
+        </TableCell>
+        <TableCell></TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -59,63 +59,59 @@ export function ManageOrders({docs}) {
               <Typography variant="h6" gutterBottom component="div">
                 History
               </Typography>
-              <Table size="small" aria-label="purchases">
+              <Table className='orderBoxInside' size="small" aria-label="purchases">
 
 
 
-              <TableHead>
+              <TableHead className='tableHeaderBox'>
                   <TableRow>
-                    <TableCell>Email</TableCell>
-                    <TableCell>First Name</TableCell>
-                    <TableCell align="right">Last Name</TableCell>
-                    <TableCell align="right">Phone Number</TableCell>
-                    <TableCell align="right">City</TableCell>
-                    <TableCell align="right">Street</TableCell>
-                    <TableCell align="right">Home Number</TableCell>
+                  <TableCell  style={{ color:'white'}} align="right">עיר</TableCell>
+                    <TableCell  style={{ color:'white'}} align="right">רחוב</TableCell>
+                    <TableCell  style={{ color:'white'}} align="right">מספר בית</TableCell>
+                    <TableCell  style={{ color:'white'}} align="right">מספר טלפון</TableCell>
+                    <TableCell  style={{ color:'white'}}>אימייל</TableCell>
+                    <TableCell  style={{ color:'white'}}>שם פרטי</TableCell>
+                    <TableCell   style={{ color:'white'}}align="right">שם משפחה</TableCell>
+                    
+                  
                   </TableRow>
                 </TableHead>
-                    <TableBody>
-                        <TableRow key={docs.email}>
-                            <TableCell component="th" scope="row">{docs.email}</TableCell>
-                            <TableCell component="th" scope="row">{docs.firstName}</TableCell>
-                            <TableCell>{docs.lastName}</TableCell>
-                            <TableCell>{docs.phoneNumber}</TableCell>
+                    <TableBody className='tableBodyBox'>
+                        <TableRow key={docs.email}> 
                             <TableCell align="right">{docs.city}</TableCell>
                             <TableCell>{docs.street}</TableCell>
                             <TableCell align="right">{docs.homeNumber}</TableCell>
+                            <TableCell>{docs.phoneNumber}</TableCell>
+                            <TableCell component="th" scope="row">{docs.email}</TableCell>
+                            <TableCell component="th" scope="row">{docs.firstName}</TableCell>
+                            <TableCell>{docs.lastName}</TableCell>
                       </TableRow>
                     </TableBody>
                 
-
-
-
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Title</TableCell>
-                    <TableCell>Ingredients</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Price Per Unit</TableCell>
-                    <TableCell align="right">Total ($)</TableCell>
+                <TableHead className='tableHeaderBox'>
+                  <TableRow >
+                  <TableCell colSpan={1} ></TableCell>
+                    <TableCell style={{ color:'white'}} align="right">סהכ ($)</TableCell>
+                    <TableCell  style={{ color:'white'}} align="right">מחיר ליחידה</TableCell>
+                    <TableCell   style={{ color:'white'}} align="right">כמות</TableCell>
+                    <TableCell  style={{ color:'white'}} colSpan={2}>רכיבים</TableCell>
+                    <TableCell  style={{ color:'white'}} colSpan={1}>שם מוצר</TableCell>
                   </TableRow>
                 </TableHead>
-                <TableBody>
+                <TableBody >
                   {docs.orders.map((item) => (
-                    <TableRow key={item.id}>
-                      <TableCell component="th" scope="row">{item.title}</TableCell>
-                      <TableCell component="th" scope="row">{item.ing && convertJSON(item.ing)}</TableCell>
-                      <TableCell>{item.quantity}</TableCell>
-                      <TableCell align="right">{ccyFormat(item.price)}</TableCell>
-                      <TableCell align="right">{ccyFormat(item.itemTotal)}</TableCell>
+                    <TableRow className='' key={item.id}>
+                       <TableCell colSpan={1} ></TableCell>
+                       <TableCell align="right">{ccyFormat(item.itemTotal)}</TableCell>
+                       <TableCell align="right">{ccyFormat(item.price)}</TableCell>
+                       <TableCell>{item.quantity}</TableCell>
+                      <TableCell colSpan={2}  component="th" scope="row">{item.ing && convertJSON(item.ing)}</TableCell>
+                      <TableCell colSpan={1} component="th" scope="row">{item.title}</TableCell>
                     </TableRow>
                   ))}
                 <TableRow>
                 </TableRow>
-
                 </TableBody>
-
-
-
-
               </Table>
             </Box>
           </Collapse>
