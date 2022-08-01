@@ -14,7 +14,7 @@ import { checkStockAvailbility, handleStockAfterOrder, addOrderToDB } from "../.
 import ShoppingCartIcon from "../../images/shopping-cart-icon.png";
 import { useContext } from "react";
 import { UserContext } from "../../App";
-import "../button/btn.css";
+import { Link } from "react-router-dom";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import uuid from "react-uuid";
 import { SigninPage } from "../pages/signin/SigninPage";
@@ -245,10 +245,12 @@ export function ShoppingCart() {
 	//incase cart is empty
 	if (isEmpty) {
 		return (
-			<div className="shoppingCartBox">
+			<div className="shoppingCartBoxMain">
+				<div className="shoppingCartBox">
 				<img alt="" src={ShoppingCartIcon} className="emptyShoppingCartImage " />
 				<p> סל הקניות שלכם ריק</p>
-				<button className="closebtn">לתפריט</button>
+				<Link as={Link} to={"/menucategories"} className="closebtn">לתפריט</Link>
+				</div>
 			</div>
 		);
 	}
@@ -261,15 +263,15 @@ export function ShoppingCart() {
 				<Table aria-label="spanning table">
 					<TableHead >	
 						<TableRow>
-							<TableCell align="center" colSpan={6}>סל קנייה
+							<TableCell style={{color:'white'}}    align="center" colSpan={6}>סל קנייה
 							</TableCell>
 						</TableRow>
 					
 						<TableRow>
-							<TableCell align="right">הסר פריט</TableCell>
-							<TableCell align="right">סה"כ</TableCell>
-							<TableCell align="right">יחידות</TableCell>
-							<TableCell>פריטים</TableCell>
+							<TableCell style={{color:'white'}} align="right">הסר פריט</TableCell>
+							<TableCell style={{color:'white'}}   align="right">סה"כ</TableCell>
+							<TableCell style={{color:'white'}}  align="right">יחידות</TableCell>
+							<TableCell style={{color:'white'}} >פריטים</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody >

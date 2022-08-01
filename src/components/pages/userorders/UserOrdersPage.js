@@ -16,6 +16,7 @@ import UserOrders from "../../userorders/UserOrders";
 export default function UserOrdersPage() {
 	const currentUser = useContext(UserContext);
 	const [orderHistory, setOrderHistory] = useState([]);
+  const [search,setSearch] = useState("");
 
 	useEffect(() => {
 		let isMounted = true;
@@ -40,6 +41,7 @@ export default function UserOrdersPage() {
 
 	return (
             <TableContainer component={Paper}>
+              <input placeholder="Search" type="text" onChange={(e) => setSearch(e.target.value)} value={search}/>
               <Table aria-label="collapsible table">
                 <TableHead>
                   <TableRow>
@@ -52,9 +54,14 @@ export default function UserOrdersPage() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                {orderHistory.map((docs) => {
+                {search === "" ? orderHistory.map((docs) => {
                     // docs => each doc represents user order history
                     return <UserOrders key={uuid()} docs={docs} />
+                })
+                :
+                orderHistory.filter((docs) => docs.date.includes(search) || docs.orderID.includes(search) || docs.status.includes(search))
+                .map((docs) => {
+                  return <UserOrders key={uuid()} docs={docs} />
                 })}
                 </TableBody>
               </Table>

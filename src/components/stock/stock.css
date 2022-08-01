@@ -1,20 +1,65 @@
+.wrapper55 {
+	align-items: center;
+	margin: auto;
+	justify-content: center;
+	width: 100%;
+	text-align: right;
+	height: inherit;
+	background-color: gainsboro;
+	padding:3%;
+}
 
 
-.reportform  {
-    color: rgb(25, 4, 4);
-    width: 100%;
+/* report box */
+.reportformbox {
     background-color: gainsboro;
-    text-align: right;
-    display:flex;
-    margin:auto;
+	width: 100%;
     
 }
 
-.MuiDataGrid-cell {
+/* table inside info */
+.MuiDataGrid-cell   {
+    color:black;
+    text-align:right; 
+	padding:15%;
+	
+}
+
+/* table title  */
+.MuiDataGrid-columnHeaderTitle  {
+    color:#a63437;
+    font-weight: bold;  
+	max-width: 550px;
+	width: 550px;
+	
+}
+
+.inside-row{
+padding-left: 25%;
+width: 100%;
+
+
+}
+/* toolbar functions style */
+.report-toolbar {
     color:black;
 }
 
-.MuiDataGrid-columnHeaderTitle  {
-    color:#a63437;
-    font-weight: bold;
+/* toolbar functions btn style */
+.MuiDataGrid-toolbarContainer button{
+    color:black;
+	
 }
+
+.MuiDataGrid-cell:last-child{
+	max-width: 0;
+	
+}
+.MuiDataGrid-cell{
+	position: relative;
+	max-width: 550px;
+	width: 550px;
+
+}
+
+

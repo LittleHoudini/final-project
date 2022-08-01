@@ -1,4 +1,4 @@
-.wrapper2 {
+.wrapper22 {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -8,60 +8,55 @@
 	text-align: right;
 	height: inherit;
 	background-color: lightgray;
-	
-
-	
+	padding: 5%;
+	align-self: center;
 }
-.wrappershoppingcart {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	background-color: white;
-	margin: auto;
-	border-radius: 10px;
-	justify-content: center;
-	width: 80%;
-	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-	/* text-align: right; */
-	/* height: inherit; */
-	padding: 4%;
-	margin: 3%;
-    font-size: 16px;
-}
-
 
 .ordersTitle {
 	background-color: white;
-    color: white;
+    color: white;	
+}
+
+/* page btns */
+.ContainerBtnCell{
+	display: flex;
+	flex-wrap: wrap;
 }
 
 
-.containerbtn {
+
+.containerbtn23 {
 	border-radius: 5px;
 	border: none;
 	background-color: rgb(230, 223, 223);
-	padding: 3%;
-	width: 50%;
+	padding: 3.2%;
+	width: 100px;
 	align-self: center;
 	background-color: #a63437;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 	color: aliceblue;
 }
 
-.containerbtn:hover {
+.containerbtn24 {
+	padding: 14%;
+}
+
+.containerbtn23:hover {
 	background-color: #ca7275;
 	color: white;
 }
 
-.containerbtn:focus {
+.containerbtn23:focus {
 	background-color: #ca7275;
 	color: white;
 	outline:0;
 	box-shadow:none;
 }
 
-.tableHeaderBox{
-	background-color:  #a63437;
+/* inside boxs titles */
+/* .tableHeaderBox{
+	background-color:  #3bef32;
 	color: antiquewhite;
 	font-size: 16px;	
-}
+	width:100%;
+} */

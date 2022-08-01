@@ -89,13 +89,11 @@
 }
 .personalDetailsUpdate input:focus {
 	background-color: rgb(232, 229, 229);
-	border: solid 2px #ca7275;
-	outline: 0;
+	border: solid 1px #ca7275;
+	
 }
 
 .personalDetailsUpdate input:hover {
 	background-color: rgb(232, 229, 229);
-	border: solid 2px #497694;
-	outline: 0;
 }
 

@@ -56,16 +56,17 @@ export default function ManageOrdersPage() {
   if(pendingOrders.length === 0) return <p>No Pending Orders</p>
 
 	return (
-    <div className="wrapper2">  
+    <div className="wrapper22">
+      
             <TableContainer  component={Paper}>
               <Table aria-label="collapsible table">
                 <TableHead>
                   <TableRow className="ordersTitle">
                   <TableCell />
-                  <TableCell align="right">סה״כ </TableCell>
-                    <TableCell >תאריך </TableCell>
-                    <TableCell >סטטוס</TableCell>
-                    <TableCell >מספר הזמנה</TableCell>
+                  <TableCell style={{color:'white'}}  align="right">סה״כ </TableCell>
+                    <TableCell style={{color:'white'}}  >תאריך </TableCell>
+                    <TableCell style={{color:'white'}}  >סטטוס</TableCell>
+                    <TableCell  style={{color:'white'}} >מספר הזמנה</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody className="wrappershoppingcart">
@@ -75,10 +76,18 @@ export default function ManageOrdersPage() {
                       <Fragment key={uuid()} >
 
                         <ManageOrders key={uuid()} docs={docs}  />
-                        <TableRow className="orderBox" key={uuid()}>
-                         
-                         <TableCell colSpan={3} component="th" scope="row" onClick={() => handleStatusChange(docs,"Approved")}><button className="containerbtn">לאשר הזמנה</button> </TableCell>
-                         <TableCell  colSpan={3} component="th" scope="row" onClick={() => handleStatusChange(docs,"Canceled")}><button className="containerbtn">לבטל הזמנה</button></TableCell>
+                        <TableRow  className="ContainerBtnCell" key={uuid()}>
+
+                         <TableCell  component="tr"  onClick={() => handleStatusChange(docs,"Approved")}>
+                            <button className="containerbtn24 containerbtn23">
+                            לאשר הזמנה
+                            </button> 
+                            </TableCell>
+                         <TableCell component="tr"  onClick={() => handleStatusChange(docs,"Canceled")}>
+                            <button className="containerbtn23">
+                              לבטל הזמנה
+                            </button>
+                            </TableCell>
                        </TableRow>
                       </Fragment>
                     )
@@ -86,8 +95,7 @@ export default function ManageOrdersPage() {
                 </TableBody>
               </Table>
             </TableContainer>
-
             </div>
-
+        
 	);
 }

@@ -10,7 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-
+import './userorders.css';
 
 function ccyFormat(num) {
   return `${num.toFixed(2)}`;
@@ -28,7 +28,7 @@ export default function UserOrders({docs}) {
   return (
     <>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-        <TableCell>
+        <TableCell style={{backgroundColor:'#84A98c', color: 'white',}}>
           <IconButton
             aria-label="expand row"
             size="small"
@@ -38,43 +38,43 @@ export default function UserOrders({docs}) {
           </IconButton>
         </TableCell>
         
-        <TableCell component="th" scope="row" style={{backgroundColor:'#ca7275', color: 'white',}}>
+    
+        <TableCell   component="th" scope="row" style={{backgroundColor:'#84A98c', color: 'white',}}>
             {docs.orderID}
         </TableCell>
-        <TableCell component="th" scope="row" style={{backgroundColor:'#ca7275', color: 'white',}}>
+        <TableCell component="th" scope="row" style={{backgroundColor:'#84A98c', color: 'white',}}>
             {docs.date}
         </TableCell>
-        <TableCell component="th" scope="row" style={{backgroundColor:'#ca7275', color: 'white',}}>
+        <TableCell component="th" scope="row" style={{backgroundColor:'#84A98c', color: 'white',}}>
             {docs.status}
         </TableCell>
-        <TableCell align="right">{ccyFormat(docs.cartTotal)}</TableCell>
+        <TableCell style={{backgroundColor:'#84A98c', color: 'white',}}  component="th" align="right">
+          {ccyFormat(docs.cartTotal)}
+          </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                History
-              </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Title</TableCell>
-                    <TableCell>Ingredients</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Price Per Unit</TableCell>
-                    <TableCell align="right">Total ($)</TableCell>
+                    <TableCell style={{color:'white'}}   align="right">סה"כ ($)</TableCell>
+                    <TableCell style={{color:'white'}}  align="right">מחיר ליחידה</TableCell>
+                    <TableCell style={{color:'white'}}  align="right">כמות</TableCell>
+                    <TableCell style={{color:'white'}} >פריטים</TableCell>
+                    <TableCell style={{color:'white'}} >שם</TableCell>
                   </TableRow>
                 </TableHead>
+
                 <TableBody>
                   {docs.orders.map((item) => (
                     <TableRow key={item.id}>
-                      <TableCell component="th" scope="row">{item.title}</TableCell>
-                      <TableCell component="th" scope="row">{item.ing && convertJSON(item.ing)}</TableCell>
-                      <TableCell>{item.quantity}</TableCell>
-                      <TableCell align="right">{ccyFormat(item.price)}</TableCell>
                       <TableCell align="right">{ccyFormat(item.itemTotal)}</TableCell>
-                      
+                      <TableCell align="right">{ccyFormat(item.price)}</TableCell>
+                      <TableCell>{item.quantity}</TableCell>
+                      <TableCell  scope="row">{item.ing && convertJSON(item.ing)}</TableCell>
+                      <TableCell className="insideTable"  scope="row">{item.title}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -85,12 +85,5 @@ export default function UserOrders({docs}) {
       </TableRow>
     </>
   );
-
-//   <section className="orderslistcuntainer">
-//   <div className="orderslist">
-//     <p className="orderdetail">מספר הזמנה</p>
-//     <p className="orderdetail"> תאריך </p>
-//     <p className="orderdetail"> סכום הזמנה </p>
-//   </div>
-// </section>
+  
 }

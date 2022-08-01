@@ -59,7 +59,8 @@ export const UserProfile = () => {
 		<div className="wrapper2">
 			<div className="wrappershoppingcart">
 				<section className="personalDetailsUpdate">
-				<h1> ברוכה הבאה {firstName} {lastName}</h1>
+				<h1> ברוכ/ה הבאה </h1>
+				<h1> {firstName} {lastName} </h1>
 					<h1>שינוי פרטים אישיים </h1>
 					<form>
 						<input  placeholder="First Name" value={firstName} onChange={handleChange("firstName")} />
@@ -69,7 +70,7 @@ export const UserProfile = () => {
 						<input placeholder="Street" value={street} onChange={handleChange("street")} />
 						<input placeholder="Home Number" value={homeNumber} onChange={handleChange("homeNumber")} />
 						<input placeholder="Email" value={email} onChange={handleChange("email")} />
-						<input className="form-control" placeholder="Password" type={passwordShown ? "text" : "password"} value={password} onChange={handleChange("password")} />
+						<input  placeholder="Password" type={passwordShown ? "text" : "password"} value={password} onChange={handleChange("password")} />
 						<FiEye onClick={togglePasswordVisiblity} />
 						<br></br>
 					</form>

@@ -12,7 +12,6 @@
  import { SigninPage } from "../pages/signin/SigninPage";
  import { SignupPage } from "../pages/signup/SignupPage";
  import { getUserClassification } from "../../firebase/Users";
- import { OrderWayPage } from "../pages/orderway/OrderWayPage";
  import { useCart} from "react-use-cart";
  
  /*****************************************
@@ -49,9 +48,6 @@
 		 if(userType === 'admin'){
 			 return (
 				 <NavDropdown title="Admin" id="collasible-nav-dropdown">
-				 <NavDropdown.Item as={Link} to={"/reporttype"}>
-					 Reports
-				 </NavDropdown.Item>
 				 <NavDropdown.Item as={Link} to={"/admin/stock"}>
 					 Stock
 				 </NavDropdown.Item>
@@ -89,6 +85,9 @@
 				 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 				 <Navbar.Collapse id="responsive-navbar-nav">
 					 <Nav className="me-auto">
+					 <Nav.Link as={Link} to={"/"}>
+							 HOME PAGE
+						 </Nav.Link>
 						 <NavDropdown title="MENU" id="collasible-nav-dropdown">
 							 <NavDropdown.Item as={Link} to={"/menucategories"}>
 								 CATEGORIES
@@ -115,9 +114,6 @@
 								 COCTAILS
 							 </NavDropdown.Item>
 						 </NavDropdown>
-						 <Nav.Link as={Link} to={"/"}>
-							 HOME PAGE
-						 </Nav.Link>
 						 <Nav.Link as={Link} to={"/store"}>
 							 OUR STORE
 						 </Nav.Link>
@@ -127,8 +123,7 @@
 								 totalUniqueItems > 0 ? `SHOPPING CART (${totalUniqueItems})` : 'SHOPPING CART'
 							 }
 						 </Nav.Link>
-						 <Nav.Link onClick={handleOpenOrderWayPage}>ORDER NOW</Nav.Link>
-							 <OrderWayPage openOrderWayPage={openOrderWayPage} setOpenOrderWayPage={setOpenOrderWayPage} />
+					
 						 
 					 </Nav>
 					 {currentUser ? (
