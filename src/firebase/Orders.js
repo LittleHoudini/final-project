@@ -207,6 +207,7 @@ export const handleStockAfterOrder = async (obj) => {
 	try {
 		if (firebaseInstance) {
 			console.log("we shilling");
+			console.log(obj)
 			//db
 			const db = getFirestore();
 			for (let index in obj) {

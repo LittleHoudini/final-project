@@ -61,8 +61,6 @@ export function ShoppingCart() {
 			//fetch data from collection 'Person' if theres user logged in
 			getDocument("Person", currentUser)
 				.then((result) => {
-					console.table(result);
-					//console.log(result.classification);
 					if (isMounted) {
 						//set the values to input fields
 						setValues(result);
@@ -209,7 +207,6 @@ export function ShoppingCart() {
 	useEffect(() => {
 		if (success) {
 			console.log("if success, handle db");
-			const handleUpdate = handleStockAfterOrder(itemQuantity);
 			const addOrderToUserHistory = addOrderToDB(items, cartTotal * taxRate + cartTotal, currentUser,orderID);
 			emptyCart();
 		}

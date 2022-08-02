@@ -12,16 +12,39 @@ import Paper from '@mui/material/Paper';
 import uuid from "react-uuid";
 import { ManageOrders } from "../../manageOrders/ManageOrders";
 import { HandleOrderStatus } from "../../../firebase/Orders";
+import { handleStockAfterOrder } from "../../../firebase/Orders";
 import './manageorderspage.css';
 export default function ManageOrdersPage() {
 	const currentUser = useContext(UserContext);
 	const [pendingOrders, setPendingOrders] = useState([]);
   const [docsUpdated, setDocsUpdated] = useState(false);
 
+
+
+  const getItemQuantity = (items) => {
+		let arrayOfObjects = [];
+		let obj = {};
+		for (let i in items) {
+			for (let key in items[i]["ing"]) {
+				obj[key] = items[i]["ing"][key] * items[i]["quantity"];
+			}
+			//here push
+			arrayOfObjects.push(obj);
+			obj = {};
+		}
+
+		return arrayOfObjects;
+	};
+
+
   const handleStatusChange = async (docs,status) => {
     const res = await HandleOrderStatus(docs.orderID,docs.email,status)
-    // setDocsUpdated(true);
     handleDocsChange();
+    if(status === "Approved"){
+      console.log("Approved")
+      //if order is approved handle stock
+      const handleUpdate = handleStockAfterOrder(getItemQuantity(docs.orders));
+    }
     
   }
 
