@@ -20,11 +20,34 @@
  import UserOrdersPage from '../pages/userorders/UserOrdersPage';
  import Stock from '../stock/Stock.js';
  import ManageOrdersPage from "../pages/manageOrders/ManageOrdersPage";
+
+ import { useContext } from "react";
+import { UserContext } from "../../App";
+import { useState,useEffect } from "react";
+import { getUserClassification } from "../../firebase/Users";
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
   *****************************************/
  
  function Routing() {
+	const currentUser = useContext(UserContext);
+	const [userType, setUserType] = useState("");
+	useEffect(() => {
+		if (currentUser) {
+			//checks user classification to determine if hes admin or worker
+			getUserClassification(currentUser)
+				.then(result => {
+					console.log("result = " , result);
+					setUserType(result);
+				})
+				.catch(err => {
+					console.log("error in fetching classification : ", err);
+				});
+		}
+		return () => {
+			setUserType("");
+		};
+	}, [currentUser]);
 	 return (
 		 <div>
  
@@ -37,7 +60,10 @@
 				 <Route path="/coctails" element={<CoctailsPage />} />
 				 <Route path="/store" element={<StorePage />} />
 				 {/* <Route path="/adminmain" element={<CreateSquare data={adminmain.admin_main_btn} type="adminmain"/>}/> */}
-				 <Route path="/" exact element={<HomePage />} />
+				 {
+					userType === "admin" ? <Route path="/" element={<Stock/>} /> : <Route path="/" exact element={<HomePage />} />
+				 }
+				 {/* <Route path="/" exact element={<HomePage />} /> */}
 				 <Route path="*" element={<PageNotFound />} />
  
 				 {/* ממשק משתמש - לקוח */}

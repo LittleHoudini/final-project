@@ -216,3 +216,73 @@ export const resetPassword = async (email) => {
 		return res;
 	}
 };
+
+
+// checks if phone number already exist in firestore before updating Info
+export const phoneNumberExistForInfoUpdate = async (currentUserEmail,phoneNum) => {
+	try {
+		if (firebaseInstance) {
+			let counter = 0;
+			const db = getFirestore();
+			//query to check if phone numbe exist
+			const q = query(collection(db, "Person"), where("phoneNumber", "==", phoneNum));
+			const querySnapshot = await getDocs(q);
+			querySnapshot.forEach(doc => {
+				console.log(doc.id, " => ", doc.data()["email"]);
+				//skipping the current user
+				if(doc.id !== currentUserEmail){
+					counter++;
+				}
+			});
+			return counter > 0;
+		}
+	} catch (err) {
+		console.log("err");
+	}
+};
+
+export const updateInfo = async(email,data) => {
+	try{
+		if(firebaseInstance){
+			console.log(data)
+			const db = getFirestore();
+			await updateDoc(doc(db, "Person", email), {
+				city: data.city,
+				email: data.email,
+				firstName: data.firstName,
+				homeNumber: data.homeNumber,
+				lastName: data.lastName,
+				phoneNumber: data.phoneNumber,
+				street: data.street,
+			  });
+		}
+	}
+	catch(err){
+		console.log(err)
+	}
+}
+
+export const getEmailForInfoUpdate = async (currentUserEmail,email) => {
+	try {
+		//checks there is db connection
+		if (firebaseInstance) {
+			let counter = 0;
+			const db = getFirestore();
+			//query to check if phone numbe exist
+			const q = query(collection(db, "Person"), where("email", "==", email));
+			const querySnapshot = await getDocs(q);
+			querySnapshot.forEach(doc => {
+				console.log(doc.id, " => ", doc.data()["email"]);
+				//skipping the current user
+				if(doc.id !== currentUserEmail){
+					counter++;
+					console.log(doc.id, " => inside with counter ", doc.data()["email"]);
+				}
+			});
+			return counter > 0;
+		}
+	} catch (error) {
+		console.log("getDocument error : ", error);
+	}
+};
+
