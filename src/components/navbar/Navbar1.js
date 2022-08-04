@@ -54,6 +54,9 @@
 				 <NavDropdown.Item as={Link} to={"/admin/manageorders"}>
 					 Manage Orders
 				 </NavDropdown.Item>
+				 <NavDropdown.Item as={Link} to={"/admin/addproduct"}>
+					 Add Product
+				 </NavDropdown.Item>
 			 </NavDropdown>
 			 )
 		 }

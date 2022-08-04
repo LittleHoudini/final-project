@@ -25,6 +25,7 @@
 import { UserContext } from "../../App";
 import { useState,useEffect } from "react";
 import { getUserClassification } from "../../firebase/Users";
+import AddProduct from "../addproduct/AddProduct"
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
   *****************************************/
@@ -37,7 +38,6 @@ import { getUserClassification } from "../../firebase/Users";
 			//checks user classification to determine if hes admin or worker
 			getUserClassification(currentUser)
 				.then(result => {
-					console.log("result = " , result);
 					setUserType(result);
 				})
 				.catch(err => {
@@ -76,6 +76,7 @@ import { getUserClassification } from "../../firebase/Users";
 				 <Route path="/menucategories" element={<MenuCategoriesPage />} />
 				 <Route path="/admin/stock" element={<Stock/>} />
 				 <Route path="/admin/manageorders" element={<ManageOrdersPage/>} />
+				 <Route path="/admin/addproduct" element={<AddProduct/>} />
 				 
  
 			 </Routes>

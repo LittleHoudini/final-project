@@ -90,7 +90,7 @@ const Signin = ({ open, setOpen }) => {
 	//<Redirect to={{ pathname: "/" }} />;
 
 	return (
-		<Dialog className=""textFieldFormWrapper open={open} onClose={() => setOpen(false)}>
+		<Dialog className="textFieldFormWrapper" open={open} onClose={() => setOpen(false)}>
 			<DialogTitle className="DialogTitle">SIGN IN</DialogTitle>
 			<DialogContent>
 				<form className="textFieldFormWrapper" onSubmit={(e) => {handleForm(e)}}>

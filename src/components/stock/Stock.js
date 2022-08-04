@@ -48,6 +48,7 @@ export default function CustomToolbarGrid() {
         }
         )
         .catch((err) => console.log(err))
+        return () => setItems({})
     },[])
 
   return (

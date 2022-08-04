@@ -22,7 +22,9 @@ export const BurgersPage = () => {
 		if(burgers){
 			setBurgers(burgers);
 		}
-	},[])
+	},[setBurgers])
+
+
 
 	return (
 		<div className="wrapperburgers">
