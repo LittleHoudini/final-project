@@ -148,8 +148,10 @@ export const UserProfile = () => {
 						<input placeholder="Street" value={street} onChange={handleChange("street")} />
 						<label>Home Number</label>
 						<input placeholder="Home Number" value={homeNumber} onChange={handleChange("homeNumber")} />
-						<label>Email</label>
-						<input placeholder="Email" value={email} onChange={handleChange("email")} />
+						{/* <label>Email</label> */}
+						{/* <input placeholder="Email" value={email} onChange={handleChange("email")} /> */}
+
+						
 						{/* <input  placeholder="Password" type={passwordShown ? "text" : "password"} value={password} onChange={handleChange("password")} /> */}
 						{/* <FiEye onClick={togglePasswordVisiblity} /> */}
 						<br></br>

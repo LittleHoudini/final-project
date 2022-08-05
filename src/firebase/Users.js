@@ -3,6 +3,8 @@ import getFirebase from "./Firebase";
 import bcrypt from "bcryptjs/dist/bcrypt";
 import { doc, updateDoc, setDoc, getDoc, addDoc, getFirestore, collection, query, where, getDocs } from "firebase/firestore";
 import { getAuth, updatePassword, sendPasswordResetEmail, deleteUser } from "firebase/auth";
+import { updateEmail } from "firebase/auth";
+
 
 //Firebase instance
 const firebaseInstance = getFirebase();
@@ -285,4 +287,3 @@ export const getEmailForInfoUpdate = async (currentUserEmail,email) => {
 		console.log("getDocument error : ", error);
 	}
 };
-

@@ -7,6 +7,8 @@ import { getAllDishesFromCategory } from "../../../firebase/Orders";
 
 export const BurgersPage = () => {
 	const [burgers ,setBurgers] = useState([{}])
+	const [clicked, setClicked] = useState(false);
+
 	useEffect(() => {
 		getAllDishesFromCategory('Category','Burgers','burgers')
 		.then((res) =>{
@@ -14,7 +16,7 @@ export const BurgersPage = () => {
 			setBurgers(res)
 		})
 		.catch((err) => console.log(err))
-	},[]);
+	},[clicked]);
 
 
 	useEffect(() => {
@@ -28,7 +30,7 @@ export const BurgersPage = () => {
 
 	return (
 		<div className="wrapperburgers">
-			<CreateSquare data={burgers} type="productsquare"/>
+			<CreateSquare data={burgers} type="productsquare" setClicked={setClicked} />
 		</div>
 	);
 };

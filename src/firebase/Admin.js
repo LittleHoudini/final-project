@@ -20,3 +20,17 @@ export const handleDisabledProduct = async (category,product,dishName,disabled) 
 		console.log(err);
 	}
 }
+
+export const handleImageChange = async(category,product,dishName,link) => {
+	try {
+		if (firebaseInstance) {
+			const db = getFirestore();
+            const dishRef = doc(db, `Category/${category}/${product}/${dishName}`);
+            await updateDoc(dishRef, {
+                image: link
+              });
+		}
+	} catch (err) {
+		console.log(err);
+	}
+}
