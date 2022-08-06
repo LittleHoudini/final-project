@@ -22,7 +22,7 @@
 	 const currentUser = useContext(UserContext);
 	 const [openSignIn, setOpenSignIn] = useState(false);
 	 const [openSignUp, setOpenSignUp] = useState(false);
-	 const [openOrderWayPage, setOpenOrderWayPage] = useState(false);
+
 	 const [userType, setUserType] = useState("");
 	 const {totalUniqueItems} = useCart();
  
@@ -75,10 +75,7 @@
 	 const handleOpenSignUp = () => {
 		 setOpenSignUp(prev => !prev);
 	 };
-	 //order way pop up state toggle
-	 const handleOpenOrderWayPage = () => {
-		 setOpenOrderWayPage(prev => !prev);
-	 };
+
  
 	 return (
 		 <Navbar collapseOnSelect expand="lg" variant="dark" className="navbar1">

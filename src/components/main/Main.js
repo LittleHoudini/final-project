@@ -2,8 +2,7 @@
  * * IMPORT LIBRARIES
  *****************************************/
 
-import React, { useState,useEffect} from "react";
-import { home_page_squares } from "../../data/products";
+import React, { useState, useEffect } from "react";
 import CreateSquare from "../createSquare/CreateSquare";
 import Styles from "./main.module.css";
 import { getHomePageData } from "../../firebase/Orders";
@@ -12,29 +11,26 @@ import { getHomePageData } from "../../firebase/Orders";
  *****************************************/
 
 //Main Screen - Home Page
-export const Main = () =>  {
-	const [homePage ,setHomePage] = useState([{}])
+export const Main = () => {
+	const [homePage, setHomePage] = useState([{}]);
 
 	useEffect(() => {
-		getHomePageData()
-		.then((res) =>{
-			localStorage.setItem('homepage',JSON.stringify(res))
-			setHomePage(res);
-		})
-		.catch((err) => console.log(err))
-	},[]);
-
-	useEffect(() => {
-		const homepage = JSON.parse(localStorage.getItem('homepage'));
-		if(homePage){
-			setHomePage(homepage);
+		let isMounted = true;
+		if (isMounted) {
+			getHomePageData()
+				.then(res => {
+					setHomePage(res);
+				})
+				.catch(err => console.log(err));
 		}
-	},[])
-	
-		return (
-			<main className={Styles.Main}>
-				<CreateSquare data={homePage} type="square" />
-			</main>
-		);
-	
-}
+		return () => {
+			isMounted = false;
+		};
+	}, []);
+
+	return (
+		<main className={Styles.Main}>
+			<CreateSquare data={homePage} type="square" />
+		</main>
+	);
+};

@@ -59,7 +59,7 @@ import AddProduct from "../addproduct/AddProduct"
 				 <Route path="/drinks" element={<DrinksPage />} />
 				 <Route path="/coctails" element={<CoctailsPage />} />
 				 <Route path="/store" element={<StorePage />} />
-				 {/* <Route path="/adminmain" element={<CreateSquare data={adminmain.admin_main_btn} type="adminmain"/>}/> */}
+
 				 {
 					userType === "admin" ? <Route path="/" element={<Stock/>} /> : <Route path="/" exact element={<HomePage />} />
 				 }

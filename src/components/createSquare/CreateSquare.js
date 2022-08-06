@@ -17,7 +17,7 @@ export default class CreateSquare extends Component {
 		//data is the data provided when creating the square
 		return this.props.data.map((item) => (
 			<div key={uuid()}>
-				<MyComponent type={this.props.type} data={item} setClicked={this.props.setClicked}/>
+				<MyComponent type={this.props.type} data={item} setClicked={this.props.setClicked} userType={this.props.userType}/>
 			</div>
 		));
 	}

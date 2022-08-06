@@ -11,38 +11,29 @@ import { useEffect, useState } from "react";
  *****************************************/
 
 //Main image below navbar
-export const MainImage  = () => {
-	
+export const MainImage = () => {
 	const [imagesData, setImagesData] = useState({
 		beach: "",
-		heartLogo: ""
+		heartLogo: "",
 	});
-	useEffect(()=> {
-		getDocument("Product",'images')
-		.then((res) => {
-			localStorage.setItem('photos', JSON.stringify(res));
-			setImagesData(res);
-		})
-		.catch((err) => console.log(err))
-
-	},[]);
-
-
 	useEffect(() => {
-		const photos = JSON.parse(localStorage.getItem('photos'));
-		if (photos) {
-		 setImagesData(photos);
+		let isMounted = true;
+		if (isMounted) {
+			getDocument("Product", "images")
+				.then(res => {
+					setImagesData(res);
+				})
+				.catch(err => console.log(err));
 		}
-	  }, []);
+		return () => (isMounted = false);
+	}, []);
 
 	return (
 		<div className="main">
 			<div className="parent">
 				<img className="beach-img" src={imagesData.beach} alt="Beach with people" />
-				<img className="heart-img"  src={imagesData.heartLogo} alt="Kissvibe logo" />
-
+				<img className="heart-img" src={imagesData.heartLogo} alt="Kissvibe logo" />
 			</div>
 		</div>
 	);
-	
-}
+};

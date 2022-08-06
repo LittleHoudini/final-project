@@ -10,9 +10,6 @@ import "../button/btn.css";
 import { useCart } from "react-use-cart";
 import Alert from "@mui/material/Alert";
 import { handleDisabledProduct } from "../../firebase/Admin";
-import { useContext } from "react";
-import { UserContext } from "../../App";
-import { getUserClassification } from "../../firebase/Users";
 import { handleImageChange } from "../../firebase/Admin";
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
@@ -27,8 +24,7 @@ export default function ProductSquare(props) {
 	const [itemAdded, setItemAdded] = useState(false);
   const [imageLink,setImageLink] = useState("");
 
-	const currentUser = useContext(UserContext);
-	const [userType, setUserType] = useState("");
+
 
 	//getting category name through url to match database path
 	function getCategoryName() {
@@ -50,26 +46,7 @@ export default function ProductSquare(props) {
 		}
 	};
 
-	useEffect(() => {
-		let isMounted = true;
-		if (isMounted) {
-			if (currentUser) {
-				//checks user classification to determine if hes admin or worker
-				getUserClassification(currentUser)
-					.then(result => {
-						console.log("result = ", result);
-						setUserType(result);
-					})
-					.catch(err => {
-						console.log("error in fetching classification : ", err);
-					});
-			}
-		}
-		return () => {
-			isMounted = false;
-			setUserType("");
-		};
-	}, [currentUser]);
+
 
 	const handleDisabledClick = () => {
 		handleDisabledProduct(captializeFirstLetter(getCategoryName()), getCategoryName(), name, disabled);
@@ -97,7 +74,7 @@ export default function ProductSquare(props) {
 					<Button disabled={disabled} className={"containerbtn"} variant="primary" id={name} onClick={handleAddToCart}>
 						הוסף
 					</Button>
-					{userType === "admin" ? (
+					{props.userType === "admin" ? (
 						<>
 							<Button onClick={handleDisabledClick}>{disabled ? "Activate" : "Disable"}</Button>
               <form onSubmit={(e) => handleNewImageLinkSubmit(e)}>

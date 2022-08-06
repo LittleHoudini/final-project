@@ -29,11 +29,15 @@ const AddProduct = () => {
         })
     }
 	useEffect(() => {
-		getMenuCategories()
+        let isMounted = true;
+        if(isMounted){
+            getMenuCategories()
 			.then(res => {
 				setCategories(res);
 			})
 			.catch(err => console.log(err));
+        }
+        return () => isMounted=false;
 	}, []);
 
 	return (

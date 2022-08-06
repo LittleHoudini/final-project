@@ -1,31 +1,51 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import CreateSquare from "../../createSquare/CreateSquare";
 import "./starters.css";
 import { getAllDishesFromCategory } from "../../../firebase/Orders";
-
+import { getUserClassification } from "../../../firebase/Users";
+import { UserContext } from "../../../App";
+import { useContext } from "react";
 export const StartersPage = () => {
-	const [starters ,setStarters] = useState([{}])
+	const [starters, setStarters] = useState([{}]);
+	const [clicked, setClicked] = useState(false);
+	const [userType, setUserType] = useState("");
+	const currentUser = useContext(UserContext);
 	useEffect(() => {
-		getAllDishesFromCategory('Category','Starters','starters')
-		.then((res) =>{
-			localStorage.setItem('starters',JSON.stringify(res))
-			setStarters(res);
-		})
-		.catch((err) => console.log(err))
-	},[]);
+		let isMounted = true;
+		if (isMounted) {
+			getAllDishesFromCategory("Category", "Starters", "starters")
+				.then(res => {
+					setStarters(res);
+				})
+				.catch(err => console.log(err));
+		}
+		return () => (isMounted = false);
+	}, [clicked]);
 
 	useEffect(() => {
-		const starters = JSON.parse(localStorage.getItem('starters'));
-		console.log("in get " , starters);
-		if(starters){
-			setStarters(starters);
+		let isMounted = true;
+		if (isMounted) {
+			if (currentUser) {
+				//checks user classification to determine if hes admin or worker
+				getUserClassification(currentUser)
+					.then(result => {
+						console.log("result = ", result);
+						setUserType(result);
+					})
+					.catch(err => {
+						console.log("error in fetching classification : ", err);
+					});
+			}
 		}
-	},[])
+		return () => {
+			isMounted = false;
+			setUserType("");
+		};
+	}, [currentUser]);
 
 	return (
-		
 		<div className="wrapperstarters">
-			<CreateSquare data={starters} type="productsquare" />
+			<CreateSquare data={starters} type="productsquare" setClicked={setClicked} userType={userType} />
 		</div>
 	);
 };

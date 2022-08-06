@@ -5,7 +5,7 @@ import React from "react";
 
 import CreateSquare from "../../createSquare/CreateSquare";
 import "./menucategories.css";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { getMenuCategories } from "../../../firebase/Orders";
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
@@ -14,25 +14,19 @@ import { getMenuCategories } from "../../../firebase/Orders";
 //Menu Categories Page
 
 export const MenuCategoriesPage = () => {
-
-	const [categories ,setCategories] = useState([{}])
-
-	useEffect(() => {
-		getMenuCategories()
-		.then((res) => {
-			localStorage.setItem('categories',JSON.stringify(res))
-			setCategories(res);
-		})
-		.catch((err) => console.log(err))
-	},[]);
-	
+	const [categories, setCategories] = useState([{}]);
 
 	useEffect(() => {
-		const categories = JSON.parse(localStorage.getItem('categories'));
-		if(categories){
-			setCategories(categories);
+		let isMounted = true;
+		if (isMounted) {
+			getMenuCategories()
+				.then(res => {
+					setCategories(res);
+				})
+				.catch(err => console.log(err));
 		}
-	},[])
+		return () => isMounted = false;
+	}, []);
 
 	return (
 		<div className="main2">

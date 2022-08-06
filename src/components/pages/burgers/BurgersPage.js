@@ -4,34 +4,52 @@ import CreateSquare from "../../createSquare/CreateSquare";
 import "./burgers.css";
 import { useEffect, useState } from "react";
 import { getAllDishesFromCategory } from "../../../firebase/Orders";
+import { getUserClassification } from "../../../firebase/Users";
+import { UserContext } from "../../../App";
+import { useContext } from "react";
 
 export const BurgersPage = () => {
-	const [burgers ,setBurgers] = useState([{}])
+	const [burgers, setBurgers] = useState([{}]);
 	const [clicked, setClicked] = useState(false);
+	const [userType, setUserType] = useState("");
+	const currentUser = useContext(UserContext);
 
 	useEffect(() => {
-		getAllDishesFromCategory('Category','Burgers','burgers')
-		.then((res) =>{
-			localStorage.setItem('burgers',JSON.stringify(res))
-			setBurgers(res)
-		})
-		.catch((err) => console.log(err))
-	},[clicked]);
-
-
-	useEffect(() => {
-		const burgers = JSON.parse(localStorage.getItem('burgers'));
-		if(burgers){
-			setBurgers(burgers);
+		let isMounted = true;
+		if (isMounted) {
+			getAllDishesFromCategory("Category", "Burgers", "burgers")
+				.then(res => {
+					setBurgers(res);
+				})
+				.catch(err => console.log(err));
 		}
-	},[setBurgers])
+		return () => (isMounted = false);
+	}, [clicked]);
 
-
+	useEffect(() => {
+		let isMounted = true;
+		if (isMounted) {
+			if (currentUser) {
+				//checks user classification to determine if hes admin or worker
+				getUserClassification(currentUser)
+					.then(result => {
+						console.log("result = ", result);
+						setUserType(result);
+					})
+					.catch(err => {
+						console.log("error in fetching classification : ", err);
+					});
+			}
+		}
+		return () => {
+			isMounted = false;
+			setUserType("");
+		};
+	}, [currentUser]);
 
 	return (
 		<div className="wrapperburgers">
-			<CreateSquare data={burgers} type="productsquare" setClicked={setClicked} />
+			<CreateSquare data={burgers} type="productsquare" setClicked={setClicked} userType={userType} />
 		</div>
 	);
 };
-
