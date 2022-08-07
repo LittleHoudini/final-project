@@ -84,9 +84,6 @@ const AddProduct = () => {
 		return options;
 	};
 
-	function reverse(s) {
-		return s.split("").reverse().join("");
-	}
 
     const convertSelectedToMatchDB = () => {
         let obj = {};
@@ -121,8 +118,8 @@ const AddProduct = () => {
 			return false;
 		}
 
-        if (formData.text < 1) {
-			setError("Product Text Required");
+        if (formData.title < 1) {
+			setError("Product title Required");
 			return false;
 		}
 

@@ -10,7 +10,8 @@ import "../button/btn.css";
 import { useCart } from "react-use-cart";
 import Alert from "@mui/material/Alert";
 import { handleDisabledProduct } from "../../firebase/Admin";
-import { handleImageChange,removeProduct } from "../../firebase/Admin";
+import { updateDishData,removeProduct } from "../../firebase/Admin";
+
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
  *****************************************/
@@ -22,9 +23,19 @@ export default function ProductSquare(props) {
 	const [open, setOpen] = useState(false);
 	const { addItem } = useCart();
 	const [itemAdded, setItemAdded] = useState(false);
-  const [imageLink,setImageLink] = useState("");
+  	const [error,setError] = useState(false);
+	const [show,setShow] = useState(false);
 
+	const [values , setValues] = useState({
+		imageLink : image,
+		priceToEdit: price,
+		titleToEdit : title,
+		textToEdit : text,
+	})
 
+	const handleChange = (name) => (event) => {
+		setValues({ ...values, [name]: event.target.value });
+	};
 
 	//getting category name through url to match database path
 	function getCategoryName() {
@@ -53,18 +64,51 @@ export default function ProductSquare(props) {
 		props.setClicked(prev => !prev);
 	};
 
-  const handleNewImageLinkSubmit = (e) => {
+  const handleEdit = (e,values) => {
     e.preventDefault();
-    console.log(imageLink)
-    handleImageChange(captializeFirstLetter(getCategoryName()), getCategoryName(), name,imageLink)
-    setImageLink("");
+	console.log(values)
+	if(checkInput(e)){
+		try{
+			updateDishData(captializeFirstLetter(getCategoryName()), getCategoryName(), name,values)
+			return true;
+		}
+		catch(err){
+			console.log(err)
+		}
+
+	}	
   }
 
 
-  const handleremoveProduct = (e) => {
+  const handleremoveProduct = async (e) => {
 	e.preventDefault();
 	removeProduct(captializeFirstLetter(getCategoryName()), getCategoryName(), name)
   }
+
+  const checkInput = (e) => {
+	e.preventDefault();
+	if (values.titleToEdit.length < 1) {
+		setError("Product Category Required");
+		return false;
+	}
+	
+
+	if (Number(values.priceToEdit) < 1) {
+		setError("Price can not be below 1");
+		return false;
+	}
+
+	let re = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+	let re1 = /([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g;
+	if (re1.test(values.imageLinkToEdit) && !re.test(values.imageLinkToEdit)) {
+		setError("Incorrect Image Link Format");
+		return false;
+	}
+
+
+
+	return true;
+};
 
 	return (
 		<>
@@ -83,11 +127,19 @@ export default function ProductSquare(props) {
 					{props.userType === "admin" ? (
 						<>
 							<Button onClick={handleDisabledClick}>{disabled ? "Activate" : "Disable"}</Button>
-              <form onSubmit={(e) => handleNewImageLinkSubmit(e)}>
-                <label>Change Image</label>
-                <input value={imageLink} onChange={(e) => setImageLink(e.target.value)} placeholder="Image Link"/>
-                <button type="submit">Submit</button>
-              </form>
+			  <button onClick={(e) => setShow(prev => !prev)}>{show ? "Cancel Edit" : "Edit Product"}</button>
+			  {show ?
+			                <form onSubmit={(e) => handleEdit(e,values)}>
+								{error ? <label style={{ color: "red" }}>{error}</label> : null}
+							<input value={values.imageLink} onChange={handleChange("imageLink")} placeholder="Image Link"/>
+							<input value={values.priceToEdit} onChange={handleChange("priceToEdit")} placeholder="Product Price"/>
+							<input value={values.titleToEdit} onChange={handleChange("titleToEdit")} placeholder="Product Title"/>
+							<input value={values.textToEdit} onChange={handleChange("textToEdit")} placeholder="Product Text"/>
+							<button type="submit">Submit</button>
+						  </form>
+						  :
+						  null
+			  }
 			  <button onClick={(e) => handleremoveProduct(e)}>Delete Product</button>
 						</>
 					) : null}
