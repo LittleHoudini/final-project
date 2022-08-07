@@ -10,7 +10,7 @@ import "../button/btn.css";
 import { useCart } from "react-use-cart";
 import Alert from "@mui/material/Alert";
 import { handleDisabledProduct } from "../../firebase/Admin";
-import { handleImageChange } from "../../firebase/Admin";
+import { handleImageChange,removeProduct } from "../../firebase/Admin";
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
  *****************************************/
@@ -60,6 +60,12 @@ export default function ProductSquare(props) {
     setImageLink("");
   }
 
+
+  const handleremoveProduct = (e) => {
+	e.preventDefault();
+	removeProduct(captializeFirstLetter(getCategoryName()), getCategoryName(), name)
+  }
+
 	return (
 		<>
 			<Card className={styles.container}>
@@ -72,7 +78,7 @@ export default function ProductSquare(props) {
 						<Card.Text className={styles.aboutproduct}>{text}</Card.Text>
 					</div>
 					<Button disabled={disabled} className={"containerbtn"} variant="primary" id={name} onClick={handleAddToCart}>
-						הוסף
+						{disabled ? "אזל המלאי" : "הוסף לעגלה"}
 					</Button>
 					{props.userType === "admin" ? (
 						<>
@@ -82,6 +88,7 @@ export default function ProductSquare(props) {
                 <input value={imageLink} onChange={(e) => setImageLink(e.target.value)} placeholder="Image Link"/>
                 <button type="submit">Submit</button>
               </form>
+			  <button onClick={(e) => handleremoveProduct(e)}>Delete Product</button>
 						</>
 					) : null}
 					{itemAdded && <Alert severity="success">Added To Cart</Alert>}
