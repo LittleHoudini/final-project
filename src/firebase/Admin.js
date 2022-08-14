@@ -148,3 +148,39 @@ export const removeProduct = async (category, product, docToRemove) => {
 		console.log(err);
 	}
 };
+
+export const getStats = async () => {
+	try{
+		if(firebaseInstance){
+			const db = getFirestore();
+			const docSnap = await getDoc(doc(db, `Order/Chart`));
+			if (docSnap.exists()) {
+				return docSnap.data();
+			} else {
+				console.log("No such document!");
+				return false;
+			}
+		}
+	}
+	catch(err){
+		console.log(err);
+	}
+}
+
+export const updateStats = async (total,month) => {
+	try{
+		if(firebaseInstance){
+			const db = getFirestore();
+			const docRef = doc(db, (db, `Order/Chart`));
+
+			// Set the "capital" field of the city 'DC'
+			await updateDoc(docRef, {
+				[`${month}`] : total,
+			});
+		}
+	}
+	catch(err){
+		console.log(err);
+	}
+}
+

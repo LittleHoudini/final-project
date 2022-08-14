@@ -9,10 +9,12 @@ import { getItems } from "../../firebase/Orders";
 import { addIngredient } from "../../firebase/Admin";
 import { IngredientExists } from "../../firebase/Admin";
 import { addProductWithIngredients ,addProduct} from "../../firebase/Admin";
+import Alert from '@mui/material/Alert';
 const AddProduct = () => {
 	const [categories, setCategories] = useState([{}]);
 	const [error, setError] = useState("");
 	const [selected, setSelected] = useState([]);
+	const [success, setSuccess] = useState(false);
 	const [items, setItems] = useState([
 		{
 			count: "",
@@ -123,7 +125,7 @@ const AddProduct = () => {
 			return false;
 		}
 
-        if(formData.hasIngredients && selected.length > 4 || selected.length <= 0 ){
+        if(formData.hasIngredients && selected.length > 4 || formData.hasIngredients && selected.length <= 0 ){
             setError("You can only select up to four ingredients");
 			return false;
         }
@@ -148,10 +150,14 @@ const AddProduct = () => {
                         })
                     )
                     const res = await addProductWithIngredients(formData,convertSelectedToMatchDB(selected))
+					setError("");
+					setSuccess(true)
                     return true;
 
                 }else{
                     const res = await addProduct(formData);
+					setError("");
+					setSuccess(true)
                     return true;
                 }
             }
@@ -165,6 +171,7 @@ const AddProduct = () => {
 	return (
 		<form onSubmit={e => handleForm(e)}>
             {error ? <label style={{ color: "red" }}>{error}</label> : null}
+			{success && <Alert severity="success">Product Successfully Added</Alert>}
             <br/>
 			<label htmlFor="category">Category</label>
 			<br />

@@ -8,7 +8,11 @@ import { useContext } from "react";
 
 export const ExtrasPage = () => {
 	const [extras, setExtras] = useState([{}]);
-	const [clicked, setClicked] = useState(false);
+	const [clicks, setClicked] = useState({
+		edit : false,
+		deleteDish : false,
+		disable : false,
+	})
 	const [userType, setUserType] = useState("");
 	const currentUser = useContext(UserContext);
 
@@ -22,7 +26,7 @@ export const ExtrasPage = () => {
 				.catch(err => console.log(err));
 		}
 		return () => (isMounted = false);
-	}, [clicked]);
+	}, [clicks]);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -47,7 +51,7 @@ export const ExtrasPage = () => {
 
 	return (
 		<div className="wrapperextras">
-			<CreateSquare data={extras} type="productsquare" setClicked={setClicked} userType={userType} />
+			<CreateSquare data={extras} type="productsquare" setClicked={setClicked} userType={userType} clicks={clicks} />
 		</div>
 	);
 };

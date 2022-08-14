@@ -10,9 +10,14 @@ import { useContext } from "react";
 
 export const BurgersPage = () => {
 	const [burgers, setBurgers] = useState([{}]);
-	const [clicked, setClicked] = useState(false);
+	// const [clicked, setClicked] = useState(false);
 	const [userType, setUserType] = useState("");
 	const currentUser = useContext(UserContext);
+	const [clicks, setClicked] = useState({
+		edit : false,
+		deleteDish : false,
+		disable : false,
+	});
 
 	useEffect(() => {
 		let isMounted = true;
@@ -24,7 +29,7 @@ export const BurgersPage = () => {
 				.catch(err => console.log(err));
 		}
 		return () => (isMounted = false);
-	}, [clicked]);
+	}, [clicks]);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -49,7 +54,7 @@ export const BurgersPage = () => {
 
 	return (
 		<div className="wrapperburgers">
-			<CreateSquare data={burgers} type="productsquare" setClicked={setClicked} userType={userType} />
+			<CreateSquare data={burgers} type="productsquare" clicks={clicks} setClicked={setClicked} userType={userType} />
 		</div>
 	);
 };

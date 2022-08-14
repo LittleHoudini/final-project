@@ -10,7 +10,7 @@ import "../button/btn.css";
 import { useCart } from "react-use-cart";
 import Alert from "@mui/material/Alert";
 import { handleDisabledProduct } from "../../firebase/Admin";
-import { updateDishData,removeProduct } from "../../firebase/Admin";
+import { updateDishData, removeProduct } from "../../firebase/Admin";
 
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
@@ -20,20 +20,22 @@ import { updateDishData,removeProduct } from "../../firebase/Admin";
 //with title, image, text, price as data
 export default function ProductSquare(props) {
 	const { name, hasIngredients, title, image, text, price, id, items_id, disabled } = props.data;
+	const { deleteDish, disable, edit } = props.clicks;
 	const [open, setOpen] = useState(false);
 	const { addItem } = useCart();
 	const [itemAdded, setItemAdded] = useState(false);
-  	const [error,setError] = useState(false);
-	const [show,setShow] = useState(false);
+	const [error, setError] = useState(false);
+	const [show, setShow] = useState(false);
+	const [checkbox, setCheckBox] = useState(false);
 
-	const [values , setValues] = useState({
-		imageLink : image,
+	const [values, setValues] = useState({
+		imageLink: image,
 		priceToEdit: price,
-		titleToEdit : title,
-		textToEdit : text,
-	})
+		titleToEdit: title,
+		textToEdit: text,
+	});
 
-	const handleChange = (name) => (event) => {
+	const handleChange = name => event => {
 		setValues({ ...values, [name]: event.target.value });
 	};
 
@@ -57,58 +59,54 @@ export default function ProductSquare(props) {
 		}
 	};
 
-
-
 	const handleDisabledClick = () => {
 		handleDisabledProduct(captializeFirstLetter(getCategoryName()), getCategoryName(), name, disabled);
-		props.setClicked(prev => !prev);
+		props.setClicked({ ...props.clicks, disable: !disable });
 	};
 
-  const handleEdit = (e,values) => {
-    e.preventDefault();
-	console.log(values)
-	if(checkInput(e)){
-		try{
-			updateDishData(captializeFirstLetter(getCategoryName()), getCategoryName(), name,values)
-			return true;
+	const handleEdit = (e, values) => {
+		e.preventDefault();
+		console.log(values);
+		if (checkInput(e)) {
+			try {
+				updateDishData(captializeFirstLetter(getCategoryName()), getCategoryName(), name, values);
+				props.setClicked({ ...props.clicks, edit: !edit });
+				return true;
+			} catch (err) {
+				console.log(err);
+			}
 		}
-		catch(err){
-			console.log(err)
+	};
+
+	const handleremoveProduct = async e => {
+		e.preventDefault();
+		if (checkbox) {
+			removeProduct(captializeFirstLetter(getCategoryName()), getCategoryName(), name);
+			props.setClicked({ ...props.clicks, deleteDish: !deleteDish });
+		}
+	};
+
+	const checkInput = e => {
+		e.preventDefault();
+		if (values.titleToEdit.length < 1) {
+			setError("Product Category Required");
+			return false;
 		}
 
-	}	
-  }
+		if (Number(values.priceToEdit) < 1) {
+			setError("Price can not be below 1");
+			return false;
+		}
 
+		let re = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+		let re1 = /([./-]*[A-Za-z])\w+/g;
+		if (!re1.test(values.imageLinkToEdit) && !re.test(values.imageLinkToEdit)) {
+			setError("Incorrect Image Link Format");
+			return false;
+		}
 
-  const handleremoveProduct = async (e) => {
-	e.preventDefault();
-	removeProduct(captializeFirstLetter(getCategoryName()), getCategoryName(), name)
-  }
-
-  const checkInput = (e) => {
-	e.preventDefault();
-	if (values.titleToEdit.length < 1) {
-		setError("Product Category Required");
-		return false;
-	}
-	
-
-	if (Number(values.priceToEdit) < 1) {
-		setError("Price can not be below 1");
-		return false;
-	}
-
-	let re = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
-	let re1 = /([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g;
-	if (re1.test(values.imageLinkToEdit) && !re.test(values.imageLinkToEdit)) {
-		setError("Incorrect Image Link Format");
-		return false;
-	}
-
-
-
-	return true;
-};
+		return true;
+	};
 
 	return (
 		<>
@@ -127,20 +125,21 @@ export default function ProductSquare(props) {
 					{props.userType === "admin" ? (
 						<>
 							<Button onClick={handleDisabledClick}>{disabled ? "Activate" : "Disable"}</Button>
-			  <button onClick={(e) => setShow(prev => !prev)}>{show ? "Cancel Edit" : "Edit Product"}</button>
-			  {show ?
-			                <form onSubmit={(e) => handleEdit(e,values)}>
-								{error ? <label style={{ color: "red" }}>{error}</label> : null}
-							<input value={values.imageLink} onChange={handleChange("imageLink")} placeholder="Image Link"/>
-							<input value={values.priceToEdit} onChange={handleChange("priceToEdit")} placeholder="Product Price"/>
-							<input value={values.titleToEdit} onChange={handleChange("titleToEdit")} placeholder="Product Title"/>
-							<input value={values.textToEdit} onChange={handleChange("textToEdit")} placeholder="Product Text"/>
-							<button type="submit">Submit</button>
-						  </form>
-						  :
-						  null
-			  }
-			  <button onClick={(e) => handleremoveProduct(e)}>Delete Product</button>
+							<button onClick={e => setShow(prev => !prev)}>{show ? "Cancel Edit" : "Edit Product"}</button>
+							{show ? (
+								<form onSubmit={e => handleEdit(e, values)}>
+									{error ? <label style={{ color: "red" }}>{error}</label> : null}
+									<input value={values.imageLink} onChange={handleChange("imageLink")} placeholder="Image Link" />
+									<input value={values.priceToEdit} onChange={handleChange("priceToEdit")} placeholder="Product Price" />
+									<input value={values.titleToEdit} onChange={handleChange("titleToEdit")} placeholder="Product Title" />
+									<input value={values.textToEdit} onChange={handleChange("textToEdit")} placeholder="Product Text" />
+									<button type="submit">Submit</button>
+								</form>
+							) : null}
+							<input type="checkbox" onChange={() => setCheckBox(prev => !prev)} value={checkbox} />
+
+							<label htmlFor="hasIngredients">Confirm Delete</label>
+							<button onClick={e => handleremoveProduct(e)}>Delete Product</button>
 						</>
 					) : null}
 					{itemAdded && <Alert severity="success">Added To Cart</Alert>}

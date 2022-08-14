@@ -12,13 +12,14 @@ import Paper from '@mui/material/Paper';
 import uuid from "react-uuid";
 import { ManageOrders } from "../../manageOrders/ManageOrders";
 import { HandleOrderStatus } from "../../../firebase/Orders";
-import { handleStockAfterOrder } from "../../../firebase/Orders";
+import { handleStockAfterOrder,checkStockAvailbility } from "../../../firebase/Orders";
+import { updateStats } from "../../../firebase/Admin";
 import './manageorderspage.css';
 export default function ManageOrdersPage() {
 	const currentUser = useContext(UserContext);
 	const [pendingOrders, setPendingOrders] = useState([]);
   const [docsUpdated, setDocsUpdated] = useState(false);
-
+  const [error, setError] = useState(false);
 
 
   const getItemQuantity = (items) => {
@@ -36,14 +37,24 @@ export default function ManageOrdersPage() {
 		return arrayOfObjects;
 	};
 
+  
+  // {docs.date[3]+docs.date[4]}
 
   const handleStatusChange = async (docs,status) => {
-    const res = await HandleOrderStatus(docs.orderID,docs.email,status)
-    handleDocsChange();
     if(status === "Approved"){
       console.log("Approved")
-      //if order is approved handle stock
-      const handleUpdate = handleStockAfterOrder(getItemQuantity(docs.orders));
+      const canUpdateStock = await checkStockAvailbility(getItemQuantity(docs.orders));
+      if(canUpdateStock){
+        setError("");
+        const res = await HandleOrderStatus(docs.orderID,docs.email,status)
+        handleDocsChange();
+        const handleUpdate = handleStockAfterOrder(getItemQuantity(docs.orders));
+        updateStats(docs.cartTotal,docs.date[3]+docs.date[4]);
+        
+      }
+      else{
+        setError(`Can't approve order ${docs.orderID}, Stock can not be updated, Please check stock status`)
+      }
     }
     
   }
@@ -93,6 +104,7 @@ export default function ManageOrdersPage() {
                   </TableRow>
                 </TableHead>
                 <TableBody className="wrappershoppingcart">
+                {error ? <label style={{ color: "red" }}>{error}</label> : null}
                 {pendingOrders.map((docs) => {
                     // docs => each doc represents user order history
                     return (

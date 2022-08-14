@@ -7,7 +7,11 @@ import { UserContext } from "../../../App";
 import { useContext } from "react";
 export const StartersPage = () => {
 	const [starters, setStarters] = useState([{}]);
-	const [clicked, setClicked] = useState(false);
+	const [clicks, setClicked] = useState({
+		edit : false,
+		deleteDish : false,
+		disable : false,
+	});
 	const [userType, setUserType] = useState("");
 	const currentUser = useContext(UserContext);
 	useEffect(() => {
@@ -20,7 +24,7 @@ export const StartersPage = () => {
 				.catch(err => console.log(err));
 		}
 		return () => (isMounted = false);
-	}, [clicked]);
+	}, [clicks]);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -45,7 +49,7 @@ export const StartersPage = () => {
 
 	return (
 		<div className="wrapperstarters">
-			<CreateSquare data={starters} type="productsquare" setClicked={setClicked} userType={userType} />
+			<CreateSquare data={starters} type="productsquare" setClicked={setClicked} userType={userType} clicks={clicks}/>
 		</div>
 	);
 };

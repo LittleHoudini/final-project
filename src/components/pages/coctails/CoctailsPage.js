@@ -8,7 +8,11 @@ import { useContext } from "react";
 
 export const CoctailsPage = () => {
 	const [cocktails, setCocktails] = useState([{}]);
-	const [clicked, setClicked] = useState(false);
+	const [clicks, setClicked] = useState({
+		edit : false,
+		deleteDish : false,
+		disable : false,
+	});
 	const [userType, setUserType] = useState("");
 	const currentUser = useContext(UserContext);
 
@@ -22,7 +26,7 @@ export const CoctailsPage = () => {
 				.catch(err => console.log(err));
 		}
 		return () => (isMounted = false);
-	}, [clicked]);
+	}, [clicks]);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -47,7 +51,7 @@ export const CoctailsPage = () => {
 
 	return (
 		<div className="wrappercoctails">
-			<CreateSquare data={cocktails} type="productsquare" userType={userType} setClicked={setClicked} />
+			<CreateSquare data={cocktails} type="productsquare" userType={userType} clicks={clicks} setClicked={setClicked} />
 		</div>
 	);
 };

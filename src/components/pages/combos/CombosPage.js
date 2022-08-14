@@ -9,7 +9,11 @@ import { useContext } from "react";
 
 export const CombosPage = () => {
 	const [combos, setCombos] = useState([{}]);
-	const [clicked, setClicked] = useState(false);
+	const [clicks, setClicked] = useState({
+		edit : false,
+		deleteDish : false,
+		disable : false,
+	});
 	const [userType, setUserType] = useState("");
 	const currentUser = useContext(UserContext);
 
@@ -23,7 +27,7 @@ export const CombosPage = () => {
 				.catch(err => console.log(err));
 		}
 		return () => isMounted = false;
-	}, [clicked]);
+	}, [clicks]);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -48,7 +52,7 @@ export const CombosPage = () => {
 
 	return (
 		<div className="wrappercombos">
-			<CreateSquare data={combos} type="productsquare" setClicked={setClicked} userType={userType} />
+			<CreateSquare data={combos} type="productsquare" setClicked={setClicked} userType={userType} clicks={clicks}/>
 		</div>
 	);
 };

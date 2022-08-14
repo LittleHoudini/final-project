@@ -26,6 +26,7 @@ import { UserContext } from "../../App";
 import { useState,useEffect } from "react";
 import { getUserClassification } from "../../firebase/Users";
 import AddProduct from "../addproduct/AddProduct"
+import {Chart} from '../chart/Chart';
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
   *****************************************/
@@ -59,7 +60,6 @@ import AddProduct from "../addproduct/AddProduct"
 				 <Route path="/drinks" element={<DrinksPage />} />
 				 <Route path="/coctails" element={<CoctailsPage />} />
 				 <Route path="/store" element={<StorePage />} />
-
 				 {
 					userType === "admin" ? <Route path="/" element={<Stock/>} /> : <Route path="/" exact element={<HomePage />} />
 				 }
@@ -77,6 +77,7 @@ import AddProduct from "../addproduct/AddProduct"
 				 <Route path="/admin/stock" element={<Stock/>} />
 				 <Route path="/admin/manageorders" element={<ManageOrdersPage/>} />
 				 <Route path="/admin/addproduct" element={<AddProduct/>} />
+				 <Route path="/admin/chart" element={<Chart/>} />
 				 
  
 			 </Routes>
