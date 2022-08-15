@@ -13,11 +13,14 @@ export const BurgersPage = () => {
 	// const [clicked, setClicked] = useState(false);
 	const [userType, setUserType] = useState("");
 	const currentUser = useContext(UserContext);
+
 	const [clicks, setClicked] = useState({
 		edit : false,
 		deleteDish : false,
 		disable : false,
 	});
+
+
 
 	useEffect(() => {
 		let isMounted = true;

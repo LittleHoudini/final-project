@@ -1,4 +1,5 @@
 import React, {useEffect,useState} from 'react';
+import './chart.css';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -32,12 +33,10 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Bar Chart',
+      text: 'דוח חודשי',
     },
   },
 };
-
-
 
 // console.log(data.datasets[0].data)
 
@@ -47,7 +46,6 @@ export function Chart() {
     let isMounted = true;
     if(isMounted){
       getStats().then((res) => {
-        console.log("res" , res)
         setStats(getValuesOfObj(res))
       })
       .catch((err) => {
@@ -58,16 +56,17 @@ export function Chart() {
 
   },[])
 
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const labels = ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר'];
 
  const data = {
   labels,
   datasets: [
     {
-      label: 'Dataset 1',
+      label: 'מכירות',
       // data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
       data : stats,
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      
     }
   ],
 };
@@ -76,7 +75,7 @@ export function Chart() {
 const getValuesOfObj = (obj) => {
   let arr = [];
   Object.keys(obj).forEach(key => {
-    console.log("item " , obj[key]);
+   
     if(key === '01'){
       arr[0] = obj[key]
     }
@@ -119,5 +118,19 @@ const getValuesOfObj = (obj) => {
 
 
 
-  return <Bar options={options} data={data} />;
+return ( 
+  
+  <div className="wrapper66"> 
+   <div className="wrapperInside">
+  
+			<div className="titleDiv">
+				<h1 className="titleDiv"> דוח מכירות חודשי</h1>
+				<p>דוח מכירות חודשי </p>
+				</div>
+	 	
+  <Bar className="chartBox" options={options} data={data}/>
+  </div>
+  </div>
+  
+  );
 }

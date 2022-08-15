@@ -27,11 +27,12 @@ export default function UserOrders({docs}) {
 
   return (
     <>
+   
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell style={{backgroundColor:'#84A98c', color: 'white',}}>
           <IconButton
             aria-label="expand row"
-            size="small"
+            size="large"
             onClick={() => setOpen(!open)}
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -74,7 +75,7 @@ export default function UserOrders({docs}) {
                       <TableCell align="right">{ccyFormat(item.price)}</TableCell>
                       <TableCell>{item.quantity}</TableCell>
                       <TableCell  scope="row">{item.ing && convertJSON(item.ing)}</TableCell>
-                      <TableCell className="insideTable"  scope="row">{item.title}</TableCell>
+                      <TableCell  scope="row">{item.title}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

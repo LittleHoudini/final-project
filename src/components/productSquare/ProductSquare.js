@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import styles from "./productSquare.module.css";
 import Ingredients from "../ingredients/Ingredients";
-import "../button/btn.css";
+
 import { useCart } from "react-use-cart";
 import Alert from "@mui/material/Alert";
 import { handleDisabledProduct } from "../../firebase/Admin";
@@ -59,19 +59,19 @@ export default function ProductSquare(props) {
 		}
 	};
 
-	const handleDisabledClick = () => {
-		handleDisabledProduct(captializeFirstLetter(getCategoryName()), getCategoryName(), name, disabled);
+
+	const handleDisabledClick = async (e) => {
+		e.preventDefault();
+		const res = await handleDisabledProduct(captializeFirstLetter(getCategoryName()), getCategoryName(), name, disabled);
 		props.setClicked({ ...props.clicks, disable: !disable });
 	};
 
-	const handleEdit = (e, values) => {
+	const handleEdit = async (e, values) => {
 		e.preventDefault();
-		console.log(values);
 		if (checkInput(e)) {
 			try {
-				updateDishData(captializeFirstLetter(getCategoryName()), getCategoryName(), name, values);
+				const res = await updateDishData(captializeFirstLetter(getCategoryName()), getCategoryName(), name, values);
 				props.setClicked({ ...props.clicks, edit: !edit });
-				return true;
 			} catch (err) {
 				console.log(err);
 			}
@@ -81,7 +81,7 @@ export default function ProductSquare(props) {
 	const handleremoveProduct = async e => {
 		e.preventDefault();
 		if (checkbox) {
-			removeProduct(captializeFirstLetter(getCategoryName()), getCategoryName(), name);
+			const res = await removeProduct(captializeFirstLetter(getCategoryName()), getCategoryName(), name);
 			props.setClicked({ ...props.clicks, deleteDish: !deleteDish });
 		}
 	};
@@ -124,25 +124,40 @@ export default function ProductSquare(props) {
 					</Button>
 					{props.userType === "admin" ? (
 						<>
-							<Button onClick={handleDisabledClick}>{disabled ? "Activate" : "Disable"}</Button>
-							<button onClick={e => setShow(prev => !prev)}>{show ? "Cancel Edit" : "Edit Product"}</button>
+							<Button className={styles.containerbtn} onClick={(e) => handleDisabledClick(e)}>{disabled ? "הפוך לפעיל" : "הפוך ללא פעיל"}</Button>
+							<button  className={styles.containerbtn}  onClick={e => setShow(prev => !prev)}>{show ? "ביטול עריכה" : "עריכה"}</button>
 							{show ? (
+							
+								<div className={styles.adminEditBox }>
+								
+									<div className={styles.adminEditBox2 }>
 								<form onSubmit={e => handleEdit(e, values)}>
 									{error ? <label style={{ color: "red" }}>{error}</label> : null}
 									<input value={values.imageLink} onChange={handleChange("imageLink")} placeholder="Image Link" />
 									<input value={values.priceToEdit} onChange={handleChange("priceToEdit")} placeholder="Product Price" />
 									<input value={values.titleToEdit} onChange={handleChange("titleToEdit")} placeholder="Product Title" />
 									<input value={values.textToEdit} onChange={handleChange("textToEdit")} placeholder="Product Text" />
-									<button type="submit">Submit</button>
+									<button  className={styles.containerbtn}  type="submit">שמירה</button>
 								</form>
+								
+								</div>
+								<div className={styles.adminEditBox1 }>
+									<p>תמונה</p>
+									<p> מחיר</p>
+									<p> תיאור</p>
+									<p> שם </p>
+									</div>
+								</div>
+								
+									
 							) : null}
-							<input type="checkbox" onChange={() => setCheckBox(prev => !prev)} value={checkbox} />
-
-							<label htmlFor="hasIngredients">Confirm Delete</label>
-							<button onClick={e => handleremoveProduct(e)}>Delete Product</button>
+							<label htmlFor="hasIngredients">למחיקת המוצר נא לסמן את התיבה הבאה</label>
+							<input className={styles.checkBoxDelete} type="checkbox" onChange={() => setCheckBox(prev => !prev)} value={checkbox} />
+							<button   className={styles.containerbtn}   onClick={e => handleremoveProduct(e)}>מחיקת מוצר</button>
+							
 						</>
 					) : null}
-					{itemAdded && <Alert severity="success">Added To Cart</Alert>}
+					{itemAdded && <Alert severity="success">המוצר התווסף לעגלה</Alert>}
 				</Card.Body>
 			</Card>
 			{hasIngredients && (

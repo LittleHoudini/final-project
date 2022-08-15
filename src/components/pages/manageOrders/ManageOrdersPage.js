@@ -111,15 +111,12 @@ export default function ManageOrdersPage() {
                       <Fragment key={uuid()} >
 
                         <ManageOrders key={uuid()} docs={docs}  />
-                        <TableRow  className="ContainerBtnCell" key={uuid()}>
-
-                         <TableCell  component="tr"  onClick={() => handleStatusChange(docs,"Approved")}>
-                            <button className="containerbtn24 containerbtn23">
+                        <TableRow  key={uuid()}>
+                         <TableCell className="btnArea">
+                            <button   onClick={() => handleStatusChange(docs,"Approved")} className="containerbtn1">
                             לאשר הזמנה
                             </button> 
-                            </TableCell>
-                         <TableCell component="tr"  onClick={() => handleStatusChange(docs,"Canceled")}>
-                            <button className="containerbtn23">
+                            <button  onClick={() => handleStatusChange(docs,"Canceled")} className="containerbtn1">
                               לבטל הזמנה
                             </button>
                             </TableCell>

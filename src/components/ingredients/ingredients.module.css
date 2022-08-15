@@ -1,11 +1,20 @@
+/* main box  */
+.ingredientsContainer{
+    display: flex;
+    flex-direction: row;
+    width: 200px;
+ 
+}
 
+
+/* title */
 .ingredientsTitle {
     color:#a63437;
     margin:0;
     align-self: center;
 }
 
-
+/* product image */
 .ingredientsContent img {
     width: 150px;  
     height: auto; 
@@ -16,36 +25,75 @@
     object-fit: cover;  
     margin-left:15%;
     margin-bottom: 7%;
-    
-}
-
-.ingredientsContainer{
-    display: flex;
-    flex-direction: row;
-    width: 200px;
-   
-
 }
 
 .ingredientsList {
     font-weight:600;
-    border-radius: 10px solid red;
     text-align:left;  
     flex-direction: row;
-    padding: auto;
+    padding: 4%;
     margin:auto;  
+    
 }
 
-.ingredientsBtns{
-    display:flex;
-    font-weight:600;
-    border-radius: 10px solid red;
-    margin-left: 10%;
-    text-align:right;
-  
+/* inside ingredients List btns and input */
+
+.plusBtn {
+    font-weight: bold;
+    color:  rgb(89, 136, 89);  
+    border:none;
+    border-radius: 15%;
+    width:20px;
+	margin:0 ;
+	padding: 1% 2%;
+    background-color:white;
+}
+
+.plusBtn:hover {
+    color: white;
+    background-color:rgb(103, 152, 103);
+}
+
+.minusBtn {
+    font-weight: bold;
+    color:  rgb(122, 19, 24);  
+    border:none;
+    border-radius: 15%;
+    width:20px;
+	margin:0 ;
+	padding: 1% 2%;
+    background-color:white;
+}
+
+.minusBtn:hover {
+    color: white;
+    background-color:rgb(166, 36, 36);  
 }
 
 .countInput {
-    width: 36px;
-    border:none;
+    border: none;
+    width: 40px;
 }
+
+/* botton btns */
+.closebtn {
+	background-color: #a63437;
+	color: #fff;
+	font-size: 16px;
+	padding: 12px 24px;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	transition: background-color 0.5s;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+	align-content: center;
+	text-align: center;
+}
+
+.closebtn:hover {
+	background-color: #ca7275;
+	color: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+	
+}
+

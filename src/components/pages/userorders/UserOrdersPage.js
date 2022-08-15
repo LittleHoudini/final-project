@@ -40,8 +40,15 @@ export default function UserOrdersPage() {
   if(orderHistory.length === 0) return <p>You dont have Orders yet</p>
 
 	return (
+      
+    <div className="myOrdersPage">
+       <div className="titleDiv">
+				<h1 > ההזמנות שלי</h1>
+<p>לחיפוש הזמנה נא הכנס את מספר ההזמנה בשורה החיפוש</p>
+				<input placeholder="Search" type="text" onChange={(e) => setSearch(e.target.value)} value={search}/>
+        </div>
             <TableContainer component={Paper}>
-              <input placeholder="Search" type="text" onChange={(e) => setSearch(e.target.value)} value={search}/>
+              
               <Table aria-label="collapsible table">
                 <TableHead>
                   <TableRow>
@@ -66,6 +73,6 @@ export default function UserOrdersPage() {
                 </TableBody>
               </Table>
             </TableContainer>
-
+</div>
 	);
 }

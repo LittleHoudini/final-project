@@ -47,6 +47,15 @@ a.dropdown-item:hover {
 	background-color:#ca7275;
 }
 
+.navbar-toggler-icon .collapsed:active {
+	border:none;
+	box-shadow:none;
+}
+
+.navAdmin {
+	width: 100%;
+}
+
 @media only screen and (max-width: 991px) {
 
 	.navbar {

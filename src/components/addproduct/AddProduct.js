@@ -168,14 +168,24 @@ const AddProduct = () => {
         }
 	};
 
-	return (
+		return (
+
+		<div className="wrapper2">
+			<div className="titleDiv">
+				<h1 className="titleDiv"> הוספת מוצר חדש</h1>
+				<p>על מנת להשלים את תהליך הוספת המוצר נדרש למלא את כל הערכים בטופס</p>
+				</div>
+	 	
+		 <div className="wrapperInside">
+		 
 		<form onSubmit={e => handleForm(e)}>
             {error ? <label style={{ color: "red" }}>{error}</label> : null}
-			{success && <Alert severity="success">Product Successfully Added</Alert>}
             <br/>
-			<label htmlFor="category">Category</label>
-			<br />
-			<select id="category" value={formData.category} onChange={handleChange} name="category">
+			<p>בחירת קטגוריה</p>
+			<label htmlFor="category">בחר את הקטגוריה של המוצר</label>
+			<br/>
+			
+			<select className="select" id="category" value={formData.category} onChange={handleChange} name="category">
 				{categories.map(category => {
 					return (
 						<option key={uuid()} value={category.docID}>
@@ -184,7 +194,9 @@ const AddProduct = () => {
 					);
 				})}
 			</select>
-			<input  type="text" placeholder="Product Name" onChange={handleChange} name="productName" value={formData.productName} />
+			<p>שם המוצר</p>
+			<input  type="text" placeholder="שם המוצר" onChange={handleChange} name="productName" value={formData.productName} />
+			<p>מחיר המוצר</p>
 			<input
 				
 				onKeyPress={event => {
@@ -192,35 +204,45 @@ const AddProduct = () => {
 						event.preventDefault();
 					}
 				}}
-				placeholder="Product Price"
+				placeholder="מחיר המוצר"
 				onChange={handleChange}
 				name="price"
 				value={formData.price}
 			/>
-			<input  type="text" placeholder="Product Image Link" onChange={handleChange} name="imageLink" value={formData.imageLink} />
-			<input type="text" placeholder="Product Text" onChange={handleChange} name="text" value={formData.text} />
-			<input  type="text" placeholder="Product Title" onChange={handleChange} name="title" value={formData.title} />
+			<p>תמונת המוצר</p>
+			<input   type="text" placeholder="הכנס כתובת תמונה" onChange={handleChange} name="imageLink" value={formData.imageLink} />
+			<img className="productImg" src={formData.imageLink}></img>
+			<p>תיאור המוצר</p>
+			<input type="text" placeholder="הכנס תיאור המתאר את המנה "onChange={handleChange} name="text" value={formData.text} />
+			<p>כותרת המוצר</p>
+			<input  type="text" placeholder="כותרת המוצר" onChange={handleChange} name="title" value={formData.title} />
 			<br />
-			<input type="checkbox" id="hasIngredients" checked={formData.hasIngredients} onChange={handleChange} name="hasIngredients" />
-			<label htmlFor="hasIngredients">This product has ingredients in it?</label>
-			<div>
+			<input className="hasIngredients" type="checkbox" id="hasIngredients" checked={formData.hasIngredients} onChange={handleChange} name="hasIngredients" />
+			<label htmlFor="hasIngredients">האם המוצר בעל רכיבים?</label>
+			<div >
 				{!formData.hasIngredients ? null : (
 					<>
-						<h1>Select Up To Four Ingredients</h1>
-						<pre>{JSON.stringify(selected)}</pre>
+						<p>בחר עד ארבעה רכיבים למנה</p>
+						<pre >{JSON.stringify(selected)}</pre>
 						<MultiSelect
 							options={convertItemsToMatchOptions() || [{}]}
 							value={selected}
 							onChange={setSelected}
 							labelledBy="Select"
 							isCreatable={true}
+							className="select2"
 						/>
 					</>
 				)}
 			</div>
 			<br />
-			<button type="submit">Add Product</button>
+			<button className="containerbtn" type="submit">הוספת מוצר</button>
 		</form>
+	
+		</div>
+	
+		</div>
+	
 	);
 };
 

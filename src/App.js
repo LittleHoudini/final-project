@@ -37,7 +37,7 @@ function App() {
 			<PayPalScriptProvider options={{ "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID,currency:"ILS" }}>
 				<div className="app">
 					<CartProvider>
-						<h1>{currentUser ? `The current logged in user is: ${currentUser}` : "No user is currently logged in."}</h1>
+						{/* <h1>{currentUser ? `The current logged in user is: ${currentUser}` : "No user is currently logged in."}</h1> */}
 						<Navbar1 />
 						<MainImage />
 						<Routing currentUser={currentUser} />

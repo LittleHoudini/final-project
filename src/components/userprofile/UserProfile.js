@@ -128,38 +128,46 @@ export const UserProfile = () => {
 	// };
 
 	return (
+
 		<div className="wrapper2">
-			<div className="wrappershoppingcart">
-				<section className="personalDetailsUpdate">
+				<div className="titleDiv">
 				<h1> ברוכ/ה הבאה </h1>
 				<h1> {currentUser} </h1>
-					<h1>שינוי פרטים אישיים </h1>
+					<p>
+					
+						על מנת לעדכן את פרטי המשתמש המחובר יש לשנות את תוכן הערך וללחוץ על כפתור השמירה. אנא וודאו שהכתובת במערכת זוהי הכתובת העדכנית שלכם, תודה.
+					</p>
+				</div>
+			<div className="personalDataBox">
+				
+				<section className="personalDetailsUpdate">
+			
 					{error ? <label style={{ color: "red" }}>{error}</label> : null}
 					<form onSubmit={(e) => {handleForm(e)}}>
-						<label>First Name</label>
+					<label>שם פרטי</label>
 						<input  placeholder="First Name" value={firstName} onChange={handleChange("firstName")}/>
-						<label>Last Name</label>
+						<label>שם משפחה</label>
 						<input placeholder="Last Name" value={lastName} onChange={handleChange("lastName")} />
-						<label>Phone Number</label>
+						<label>מספר טלפון</label>
 						<input placeholder="Phone Number" value={phoneNumber} onChange={handleChange("phoneNumber")} />
-						<label>City</label>
+						<label>עיר</label>
 						<input placeholder="City" value={city} onChange={handleChange("city")} />
-						<label>Street</label>
+						<label>רחוב</label>
 						<input placeholder="Street" value={street} onChange={handleChange("street")} />
-						<label>Home Number</label>
+						<label>מספר בית</label>
 						<input placeholder="Home Number" value={homeNumber} onChange={handleChange("homeNumber")} />
+						
 						{/* <label>Email</label> */}
 						{/* <input placeholder="Email" value={email} onChange={handleChange("email")} /> */}
 
-						
 						{/* <input  placeholder="Password" type={passwordShown ? "text" : "password"} value={password} onChange={handleChange("password")} /> */}
 						{/* <FiEye onClick={togglePasswordVisiblity} /> */}
 						<br></br>
-						<button className="savebtn" type="submit">
+	
+					</form>
+					<button  type="submit">
 						שמירת פרטים
 					</button>
-					</form>
-
 				</section>
 			</div>
 		</div>

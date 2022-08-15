@@ -1,28 +1,27 @@
+
 .wrapper55 {
 	align-items: center;
-	margin: auto;
 	justify-content: center;
-	width: 100%;
 	text-align: right;
-	height: inherit;
 	background-color: gainsboro;
 	padding:3%;
+	object-fit:content;
 }
-
 
 /* report box */
 .reportformbox {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+height: 700px;
     background-color: gainsboro;
 	width: 100%;
-    
+	margin:auto;
 }
 
-/* table inside info */
-.MuiDataGrid-cell   {
-    color:black;
-    text-align:right; 
-	padding:15%;
-	
+.MuiDataGrid{
+	border:1px solid blue;
 }
 
 /* table title  */
@@ -30,35 +29,38 @@
     color:#a63437;
     font-weight: bold;  
 	max-width: 550px;
-	width: 550px;
-	
+	width: 100%;
 }
 
-.inside-row{
-padding-left: 25%;
-width: 100%;
-
-
-}
 /* toolbar functions style */
 .report-toolbar {
     color:black;
+	background-color: #a63437;
+	width: 100%;
 }
 
 /* toolbar functions btn style */
 .MuiDataGrid-toolbarContainer button{
-    color:black;
-	
+    color:white;
 }
 
-.MuiDataGrid-cell:last-child{
-	max-width: 0;
-	
+ .MuiDataGrid-cell {
+	display: flex; 
+	flex-direction: column;
+	flex-wrap: wrap;
 }
-.MuiDataGrid-cell{
-	position: relative;
-	max-width: 550px;
-	width: 550px;
+
+
+ .reportformbox .MuiDataGrid-columnHeaderTitleContainer {
+	display: flex; 
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content:space-around;
+}
+
+.MuiDataGrid-cellContent {
+	padding-top:15px;
+	
 
 }
 

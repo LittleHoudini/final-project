@@ -63,9 +63,9 @@ export function ManageOrders({docs}) {
             <Box  sx={{ margin: 1 }}>
              
 
-              <Table className='orderBoxInside' size="small" aria-label="purchases">
+              <Table  size="small" aria-label="purchases">
               {/* tableHeaderBox דריסה? */}
-              <TableHead className='tableHeaderBox'>
+              <TableHead >
                   <TableRow>
                   <TableCell>עיר</TableCell>
                    <TableCell>רחוב</TableCell>
@@ -73,20 +73,20 @@ export function ManageOrders({docs}) {
                     <TableCell>מספר טלפון</TableCell>
                     <TableCell>אימייל</TableCell>
                     <TableCell>שם פרטי</TableCell>
-                    <TableCell >שם משפחה</TableCell>
+                    <TableCell colSpan={2}>שם משפחה</TableCell>
                     
                   
                   </TableRow>
                 </TableHead>
-                    <TableBody >
+                    <TableBody>
                         <TableRow key={docs.email}> 
-                            <TableCell component="tr" >{docs.city}</TableCell>
-                            <TableCell component="tr">{docs.street}</TableCell>
-                            <TableCell component="tr" >{docs.homeNumber}</TableCell>
-                            <TableCell component="tr">{docs.phoneNumber}</TableCell>
-                            <TableCell component="tr" scope="row">{docs.email}</TableCell>
-                            <TableCell component="tr" scope="row">{docs.firstName}</TableCell>
-                            <TableCell component="tr">{docs.lastName}</TableCell>
+                            <TableCell  >{docs.city}</TableCell>
+                            <TableCell >{docs.street}</TableCell>
+                            <TableCell  >{docs.homeNumber}</TableCell>
+                            <TableCell>{docs.phoneNumber}</TableCell>
+                            <TableCell  scope="row">{docs.email}</TableCell>
+                            <TableCell  scope="row">{docs.firstName}</TableCell>
+                            <TableCell >{docs.lastName}</TableCell>
                       </TableRow>
                     </TableBody>
                 
@@ -97,19 +97,19 @@ export function ManageOrders({docs}) {
                     <TableCell  align="right">מחיר ליחידה</TableCell>
                     <TableCell    align="right">כמות</TableCell>
                     <TableCell colSpan={2}>רכיבים</TableCell>
-                    <TableCell  colSpan={1}>שם מוצר</TableCell>
+                    <TableCell  colSpan={2}>שם מוצר</TableCell>
                   </TableRow>
                 </TableHead>
-                <TableBody >
+                <TableBody>
                   {docs.orders.map((item) => (
-                    <TableRow className='' key={item.id}>
-                       <TableCell component="tr" colSpan={1} ></TableCell>
-                       <TableCell component="tr">{ccyFormat(item.itemTotal)}</TableCell>
-                       <TableCell component="tr" >{ccyFormat(item.price)}</TableCell>
-                       <TableCell component="tr" >{item.quantity}</TableCell>
-                      <TableCell colSpan={2} component="tr" scope="row">{item.ing && convertJSON(item.ing)}</TableCell>
-                      <TableCell component="tr" colSpan={1} ></TableCell>
-                      <TableCell colSpan={1} component="tr" scope="row">{item.title}</TableCell>
+                    <TableRow  key={item.id}>
+                       <TableCell  colSpan={1} ></TableCell>
+                       <TableCell >{ccyFormat(item.itemTotal)}</TableCell>
+                       <TableCell >{ccyFormat(item.price)}</TableCell>
+                       <TableCell  >{item.quantity}</TableCell>
+                      <TableCell colSpan={2} scope="row">{item.ing && convertJSON(item.ing)}</TableCell>
+                      <TableCell colSpan={1}></TableCell>
+                      <TableCell colSpan={1} scope="row">{item.title}</TableCell>
                     </TableRow>
                   ))}
                 <TableRow>

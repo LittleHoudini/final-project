@@ -1,29 +1,150 @@
-* {
-    box-sizing: border-box;
+
+
+
+/* background box */
+
+.wrapper2 {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: auto;
+	margin-bottom:10px;
+	justify-content: center;
+	width: 100%;
+	text-align: right;
+	height: inherit;
+	background-color: white;
+
+	
 }
 
-body {
-    margin: 0;
-    padding: 20px;
+/* new product form box */
+
+.wrapperInside {
+	display: flex;
+	flex-direction: column;
+	background-color: gainsboro;
+	border-radius: 10px;
+	justify-content: center;
+	width: 100%;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+	margin: auto;
+	align-items: center;
+	
 }
 
-input[type="text"], input[type="email"] {
-    margin-bottom: 15px;
+/* new product form  */
+
+.wrapperInside form {
+	width: 80%;
+}
+
+/* ingredients select */
+
+.select2{
+    border: 1px solid #444;
+    border-radius: 5px;
+}
+
+/* category select */
+.select {
+	margin-bottom: 10px;
     height: 30px;
     text-indent: 10px;
     border: 1px solid #444;
     border-radius: 5px;
-    display: block;
+    width: 100%;
+}
+
+/* inputs  */
+
+input {
+    margin-bottom: 10px;
+    height: 30px;
+    text-indent: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    width: 100%;
 }
 
 input[type="checkbox"], input[type="radio"] {
-    margin-right: 0.75rem;
+    margin-left: 0.75rem;
 }
 
 textarea {
     margin-bottom: 15px;
     border: 1px solid #444;
     border-radius: 5px;
-    display: block;
     
 }
+
+input:focus {
+	background-color: rgb(232, 229, 229);
+	border: solid 2px #ca7275;
+	outline: 0;
+}
+
+input:hover {
+	background-color: rgb(232, 229, 229);
+	border: solid 2px #497694;
+	outline: 0;
+}
+
+/* title div */
+ 
+.titleDiv {
+	width: 100%;
+	margin-bottom: 10px;
+	margin-top:10px;
+}
+
+.titleDiv p {
+	font-size:16px;
+	color: white;
+}
+
+.hasIngredients  {
+	width: 20px;
+	display:inline-block;
+	
+}
+
+/* btns  */
+
+.containerbtn {
+	background-color: #a63437;
+	color: #fff;
+	font-size: 16px;
+	padding: 12px 24px;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	transition: background-color 0.5s;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+	align-content: center;
+	text-align: center;
+	margin-bottom: 2%;
+}
+
+.containerbtn:hover {
+	background-color: #ca7275;
+	color: white;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.containerbtn:focus {
+	background-color: #ca7275;
+	color: white;
+	outline:0;
+	box-shadow:none;
+}
+
+ .productImg {
+	flex: 1 1 120px;
+	aspect-ratio: 1/1;
+	border-radius: 10px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	
+}
+

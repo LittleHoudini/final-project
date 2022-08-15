@@ -4,7 +4,7 @@
  import React, { useEffect, useState } from "react";
  import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
  import "./nav.css";
- import HeartSmallLogo from "../../images/kiss_logo_heart_red_small.png";
+//  import HeartSmallLogo from "../../images/kiss_logo_heart_red_small.png";
  import { Link } from "react-router-dom";
  import { useContext } from "react";
  import { UserContext } from "../../App";
@@ -13,7 +13,7 @@
  import { SignupPage } from "../pages/signup/SignupPage";
  import { getUserClassification } from "../../firebase/Users";
  import { useCart} from "react-use-cart";
- 
+ import { getMisc } from "../../firebase/Orders";
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
   *****************************************/
@@ -22,10 +22,23 @@
 	 const currentUser = useContext(UserContext);
 	 const [openSignIn, setOpenSignIn] = useState(false);
 	 const [openSignUp, setOpenSignUp] = useState(false);
-
+	 const [image, setImage] = useState("");
 	 const [userType, setUserType] = useState("");
 	 const {totalUniqueItems} = useCart();
  
+
+
+	 useEffect(() => {
+		let isMounted = true;
+		if(isMounted){
+			getMisc('NavbarImage')
+			.then((res) => {
+				setImage(res.image);
+			})
+			.catch((err) => console.log(err))
+		}
+		return () => isMounted = false;
+	 },[])
  
 	 useEffect(() => {
 		 if (currentUser) {
@@ -47,7 +60,8 @@
 	 const checkUserType = () => {
 		 if(userType === 'admin'){
 			 return (
-				 <NavDropdown title="Admin" id="collasible-nav-dropdown">
+				<Nav className="navAdmin">
+				 <NavDropdown  title="Admin" id="collasible-nav-dropdown">
 				 <NavDropdown.Item as={Link} to={"/admin/stock"}>
 					 Stock
 				 </NavDropdown.Item>
@@ -61,6 +75,7 @@
 					 Chart
 				 </NavDropdown.Item>
 			 </NavDropdown>
+			 </Nav>
 			 )
 		 }
 		 if(userType === 'worker'){
@@ -83,7 +98,7 @@
 	 return (
 		 <Navbar collapseOnSelect expand="lg" variant="dark" className="navbar1">
 			 <Container className="navbarcontainer">
-				 <img alt="" src={HeartSmallLogo} width="10" height="10" className="d-inline-block align-top logo-image-nav" />
+				 <img alt="" src={image} width="10" height="10" className="d-inline-block align-top logo-image-nav" />
 				 <Navbar.Brand>KISS</Navbar.Brand>
 				 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 				 <Navbar.Collapse id="responsive-navbar-nav">

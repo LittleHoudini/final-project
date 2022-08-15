@@ -202,7 +202,7 @@ const Signup = ({ open, setOpen }) => {
 				</form>
 			</DialogContent>
 			<DialogActions>
-				<button className="closebtn" onClick={() => setOpen(false)}>X</button>
+				<button className="containerbtn" onClick={() => setOpen(false)}>X</button>
 			</DialogActions>
 		</Dialog>
 	);

@@ -27,11 +27,11 @@ function CustomToolbar() {
 }
 
 export default function CustomToolbarGrid() {
-    const columns = [
-        { field: 'count', headerName: 'מלאי' },
-        { field: 'name', headerName: 'שם המוצר'},
-        { field: 'id', headerName: 'ID'},
-      ];
+  const columns = [
+    { field: 'id',minWidth: 150, headerName: 'ID'},
+    { field: 'name',minWidth: 150, headerName: 'שם המוצר'},
+    { field: 'count' ,minWidth: 150, headerName: 'מלאי' },
+  ];
     const [items, setItems] = useState([
         {
             count: "",
@@ -43,7 +43,6 @@ export default function CustomToolbarGrid() {
     useEffect(() => {
         getItems("Item")
         .then((res)=> {
-            console.log(res)
             setItems(res);
         }
         )
@@ -53,12 +52,15 @@ export default function CustomToolbarGrid() {
 
   return (
 <div className="wrapper55">
-  <div className="wrappershoppingcart55">
-  <div  className="reportformbox"  style={{ height: 700, width: 1000 }}>
+
+<div className="titleDiv">
+				<h1 className="titleDiv"> מלאי</h1>
+				<p>למיון תוצאות דו"ח יש ללחוץ על כותרות הטבלה</p>
+				</div>
+  <div  className="reportformbox" >
       <DataGrid
-        className="inside-row"
         rows={items}
-        columns={columns}
+        columns={columns }item xs={10}
         pageSize={10}
         rowsPerPageOptions={[10]}
         checkboxSelection
@@ -68,6 +70,6 @@ export default function CustomToolbarGrid() {
       />
     </div>
   </div>
-</div>
+
   );
 }

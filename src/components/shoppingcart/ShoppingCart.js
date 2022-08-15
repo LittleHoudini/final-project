@@ -11,7 +11,7 @@ import "./shoppingcart.css";
 
 import { useCart } from "react-use-cart";
 import { checkStockAvailbility, handleStockAfterOrder, addOrderToDB } from "../../firebase/Orders";
-import ShoppingCartIcon from "../../images/shopping-cart-icon.png";
+// import ShoppingCartIcon from "../../images/shopping-cart-icon.png";
 import { useContext } from "react";
 import { UserContext } from "../../App";
 import { Link } from "react-router-dom";
@@ -242,19 +242,23 @@ export function ShoppingCart() {
 	//incase cart is empty
 	if (isEmpty) {
 		return (
-			<div className="shoppingCartBoxMain">
-				<div className="shoppingCartBox">
-				<img alt="" src={ShoppingCartIcon} className="emptyShoppingCartImage " />
+			
+				<div className="emptyShoppingCart">
+				{/* <img alt="" src={ShoppingCartIcon} className="emptyShoppingCartImage " /> */}
 				<p> סל הקניות שלכם ריק</p>
-				<Link as={Link} to={"/menucategories"} className="closebtn">לתפריט</Link>
+				<Link as={Link} to={"/menucategories"} className="containerbtnEmpty">חזרה לתפריט</Link>
 				</div>
-			</div>
+			
 		);
 	}
 
 	return (
-		<div className="shoppingCartBoxMain">
+		
 		<div className="shoppingCartBox">
+			<div className="titleDiv">
+				<h1 className="titleDiv"> סל קניה</h1>
+				<p>לפני התשלום נא לוודא שפרטי המזמין והכתובת תקינים</p>
+				</div>
 			<TableContainer  className="tableBodyBox" align="left" component={Paper}>
 
 				<Table aria-label="spanning table">
@@ -273,6 +277,7 @@ export function ShoppingCart() {
 					</TableHead>
 					<TableBody >
 						{items.map(item => (
+							
 							<TableRow key={item.id}>
 							<TableCell align="right">
 									<button className="minusBtn fullTd" onClick={() => removeItem(item.id)}>
@@ -323,10 +328,12 @@ export function ShoppingCart() {
 							<TableCell align="left">{ccyFormat(taxRate * cartTotal + cartTotal)}</TableCell>
 							<TableCell colSpan={2}>סה"כ אחרי מע"מ</TableCell>
 						</TableRow>
-						<TableRow> <TableCell colSpan={2}>חזרה לתפריט</TableCell></TableRow>
+
+
 					</TableBody>
 				</Table>
 			</TableContainer>
+			{/* <button className="containerbtn " onClick={handleOrder}>חזרה לתפריט </button> */}
 			<div className="paybtn">
 				<button className="containerbtn paybtnpaypal " onClick={handleOrder}>
 					לתשלום {show ? <PayPalButtons className="payPalPayBox" style={{ layout: "vertical" }} createOrder={createOrder} onApprove={onApprove} /> : null}
@@ -335,6 +342,6 @@ export function ShoppingCart() {
 			{openSignIn && <SigninPage openSignIn={openSignIn} setOpenSignIn={setOpenSignIn} />}
 			{ErrorMessage.length > 0 ? <SomethingWentWrong openSomethingWentWrong= {openSomethingWentWrong} setOpenSomethingWentWrong={setOpenSomethingWentWrong}/> : null}
 		</div>
-		</div>
+	
 	);
 }

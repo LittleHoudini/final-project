@@ -134,13 +134,13 @@ const Signin = ({ open, setOpen }) => {
 						<form onSubmit={(e) => handlePasswordReset(e)}>
 							<TextField className="textFieldForm" autoFocus margin="dense" label="Email Address"  type="email" fullWidth variant="standard" value={emailReset}
 							onChange={(event) => {setEmailReset(event.target.value)}}/>
-							<button className="containerbtn" type="submit">Reset Password</button>
-							{emailSent && <Alert severity="success">Check your inbox for further instructions.</Alert>}
+							<button className="containerbtn" type="submit">שחזור</button>
+							{emailSent && <Alert severity="success">נשלח למייל האישי שלך מייל לשחזור סיסמא</Alert>}
 						</form>
 						}
 			</DialogContent>
 			<DialogActions>
-				<button className="closebtn"  onClick={() => setOpen(false)}>X</button>
+				<button className="containerbtn"  onClick={() => setOpen(false)}>X</button>
 			</DialogActions>
 		</Dialog>
 	);

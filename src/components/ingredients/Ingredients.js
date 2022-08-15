@@ -9,7 +9,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import "../button/btn.css";
 import Styles from "./ingredients.module.css";
 import { getDishIngredients } from "../../firebase/Orders";
 import { useCart } from "react-use-cart";
@@ -144,23 +143,20 @@ export default function Ingredients({ dishData,name, open, setOpen }) {
 								<div className={Styles.ingredientsContainer}  key={key}>
 									<div className={Styles.ingredientsList}>{key}</div>
 									<div className={Styles.ingredientsBtns}>
-									<button   onClick={(() => {DecreaseItemByKey(key)})} className="minusBtn" name={key} >-</button>
+									<button   onClick={(() => {DecreaseItemByKey(key)})} className={Styles.minusBtn} name={key} >-</button>
 									<input disabled className={Styles.countInput}  value={value} name={key} onChange={handleOnChange}  />
-									<button onClick={(() => {IncrementItemByKey(key)})} className="plusBtn" name={key} >+</button>
+									<button onClick={(() => {IncrementItemByKey(key)})}  className={Styles.plusBtn} name={key} >+</button>
 									</div>
 								</div>
 							);
 						})}
 				</DialogContent>
 				<DialogActions>
-					<button className="closebtn" onClick={handleClose}>
-						X
+					<button className={Styles.closebtn} onClick={handleClose}>
+						ביטול
 					</button>
-					<button className="closebtn" onClick={() => {console.table(values);console.table(dishData)}}>
-						CLG
-					</button>
-					<button className="closebtn" onClick={handleAddToCart}>
-						הוסף
+					<button   className={Styles.closebtn} onClick={handleAddToCart}>
+						 הוסף לעגלה
 					</button>
 				</DialogActions>
 			</Dialog>
