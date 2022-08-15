@@ -51,6 +51,7 @@ const AddProduct = () => {
 		if (isMounted) {
 			getMenuCategories()
 				.then(res => {
+					console.log(res)
 					setCategories(res);
 				})
 				.catch(err => console.log(err));
@@ -63,7 +64,6 @@ const AddProduct = () => {
 		if (isMounted) {
 			getItems("Item")
 				.then(res => {
-					console.log(res);
 					setItems(res);
 				})
 				.catch(err => console.log(err));
@@ -180,12 +180,14 @@ const AddProduct = () => {
 		 
 		<form onSubmit={e => handleForm(e)}>
             {error ? <label style={{ color: "red" }}>{error}</label> : null}
+			{success && <Alert severity="success">Product Successfully Added</Alert>}
             <br/>
 			<p>בחירת קטגוריה</p>
 			<label htmlFor="category">בחר את הקטגוריה של המוצר</label>
 			<br/>
 			
 			<select className="select" id="category" value={formData.category} onChange={handleChange} name="category">
+			<option key={uuid()} value={""}>		</option>
 				{categories.map(category => {
 					return (
 						<option key={uuid()} value={category.docID}>

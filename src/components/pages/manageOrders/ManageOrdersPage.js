@@ -56,6 +56,10 @@ export default function ManageOrdersPage() {
         setError(`Can't approve order ${docs.orderID}, Stock can not be updated, Please check stock status`)
       }
     }
+    else{
+      const res = await HandleOrderStatus(docs.orderID,docs.email,status)
+      handleDocsChange();
+    }
     
   }
 
