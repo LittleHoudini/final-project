@@ -12,6 +12,18 @@ import Paper from '@mui/material/Paper';
 import uuid from "react-uuid";
 import UserOrders from "../../userorders/UserOrders";
 
+function padTo2Digits(num) {
+  return num.toString().padStart(2, '0');
+}
+
+function formatDate(date) {
+  return [
+    padTo2Digits(date.getDate()),
+    padTo2Digits(date.getMonth() + 1),
+    date.getFullYear(),
+  ].join('/') +   ", " +  [date.getHours(),
+  date.getMinutes()].join(":");
+}
 
 export default function UserOrdersPage() {
 	const currentUser = useContext(UserContext);
@@ -66,7 +78,7 @@ export default function UserOrdersPage() {
                     return <UserOrders key={uuid()} docs={docs} />
                 })
                 :
-                orderHistory.filter((docs) => docs.date.includes(search) || docs.orderID.includes(search) || docs.status.includes(search))
+                orderHistory.filter((docs) => formatDate(docs.date.toDate()).includes(search) || docs.orderID.includes(search) || docs.status.includes(search))
                 .map((docs) => {
                   return <UserOrders key={uuid()} docs={docs} />
                 })}

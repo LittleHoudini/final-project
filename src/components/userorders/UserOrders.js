@@ -21,6 +21,18 @@ const convertJSON = (obj) => {
   return str.replace(/{|},|}/g, "\n").replace(/\[|\]|"/g, "").replace(/,/g, ',\n')
 }
 
+function padTo2Digits(num) {
+  return num.toString().padStart(2, '0');
+}
+
+function formatDate(date) {
+  return [
+    padTo2Digits(date.getDate()),
+    padTo2Digits(date.getMonth() + 1),
+    date.getFullYear(),
+  ].join('/') +   ", " +  [date.getHours(),
+  date.getMinutes()].join(":");
+}
 
 export default function UserOrders({docs}) {
   const [open, setOpen] = useState(false);
@@ -44,7 +56,7 @@ export default function UserOrders({docs}) {
             {docs.orderID}
         </TableCell>
         <TableCell component="th" scope="row" style={{backgroundColor:'#84A98c', color: 'white',}}>
-            {docs.date}
+        {formatDate(docs.date.toDate())}
         </TableCell>
         <TableCell component="th" scope="row" style={{backgroundColor:'#84A98c', color: 'white',}}>
             {docs.status}

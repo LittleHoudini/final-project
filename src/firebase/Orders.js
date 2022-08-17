@@ -236,7 +236,8 @@ export const addOrderToDB = async (obj,cartTotal,currentUser,orderID) => {
 			const db = getFirestore();
 			//Adds the user info to our database
 			const docRef = await addDoc(collection(db, "Person",currentUser,'Orders'), {
-				date : new Date().toLocaleString() + '',
+				// date : new Date().toLocaleString() + '',
+				date : new Date(),
 				cartTotal : cartTotal,
 				orderID : orderID,
 				status : "Pending",

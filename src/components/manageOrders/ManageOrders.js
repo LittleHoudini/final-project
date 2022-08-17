@@ -20,7 +20,18 @@ const convertJSON = (obj) => {
   return str.replace(/{|},|}/g, "\n").replace(/\[|\]|"/g, "").replace(/,/g, ',\n')
 }
 
+function padTo2Digits(num) {
+  return num.toString().padStart(2, '0');
+}
 
+function formatDate(date) {
+  return [
+    padTo2Digits(date.getDate()),
+    padTo2Digits(date.getMonth() + 1),
+    date.getFullYear(),
+  ].join('/') +   ", " +  [date.getHours(),
+  date.getMinutes()].join(":");
+}
 
 export function ManageOrders({docs}) {
   
@@ -46,7 +57,7 @@ export function ManageOrders({docs}) {
           {ccyFormat(docs.cartTotal)}
           </TableCell>
         <TableCell className="header-table-details" component="th" scope="row">
-            {docs.date}
+            {formatDate(docs.date.toDate())}
         </TableCell>
         <TableCell className="header-table-details" component="th" scope="row">
             {docs.status}

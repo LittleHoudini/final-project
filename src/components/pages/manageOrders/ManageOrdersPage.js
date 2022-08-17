@@ -37,10 +37,22 @@ export default function ManageOrdersPage() {
 		return arrayOfObjects;
 	};
 
+  function padTo2Digits(num) {
+    return num.toString().padStart(2, '0');
+  }
   
-  // {docs.date[3]+docs.date[4]}
+  function formatDate(date) {
+    return [
+      padTo2Digits(date.getDate()),
+      padTo2Digits(date.getMonth() + 1),
+      date.getFullYear(),
+    ].join('/') +   ", " +  [date.getHours(),
+    date.getMinutes()].join(":");
+  }
+  
 
   const handleStatusChange = async (docs,status) => {
+    console.log(docs.date.toDate().getMonth()+1);
     if(status === "Approved"){
       console.log("Approved")
       const canUpdateStock = await checkStockAvailbility(getItemQuantity(docs.orders));
@@ -49,7 +61,7 @@ export default function ManageOrdersPage() {
         const res = await HandleOrderStatus(docs.orderID,docs.email,status)
         handleDocsChange();
         const handleUpdate = handleStockAfterOrder(getItemQuantity(docs.orders));
-        updateStats(docs.cartTotal,docs.date[3]+docs.date[4]);
+        updateStats(docs.cartTotal,formatDate(docs.date.toDate())[3]+formatDate(docs.date.toDate())[4]);
         
       }
       else{
@@ -76,7 +88,7 @@ export default function ManageOrdersPage() {
           //if component did mount, set res to state
 					if (isMounted) {
             const sortedOrders = res.sort(function (a, b) {
-              return a.date.localeCompare(b.date);
+              return formatDate(a.date.toDate()).localeCompare(formatDate(b.date.toDate()));
             });
 
             setPendingOrders(sortedOrders);
