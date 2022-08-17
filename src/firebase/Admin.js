@@ -1,8 +1,9 @@
 //IMPORTS
 import getFirebase from "./Firebase";
 import bcrypt from "bcryptjs/dist/bcrypt";
-import { doc, updateDoc, setDoc, getDoc, deleteDoc, addDoc, getFirestore, collection, query, where, getDocs } from "firebase/firestore";
+import { doc, updateDoc, setDoc, getDoc, deleteDoc, addDoc, getFirestore, collection, query, where, getDocs,increment } from "firebase/firestore";
 import { getAuth, updatePassword, sendPasswordResetEmail, deleteUser } from "firebase/auth";
+import { fetchAllUsersData,fetchAllUsersEmails } from "./Orders";
 import uuid from "react-uuid";
 
 //Firebase instance
@@ -175,7 +176,7 @@ export const updateStats = async (total,month) => {
 
 			// Set the "capital" field of the city 'DC'
 			await updateDoc(docRef, {
-				[`${month}`] : total,
+				[`${month}`] : increment(total),
 			});
 		}
 	}
@@ -184,3 +185,41 @@ export const updateStats = async (total,month) => {
 	}
 }
 
+
+
+
+
+
+export const getWeeklyStats = async (start,end) => {
+	try{
+		if(firebaseInstance){
+			const db = getFirestore();
+			let res = {};
+			const usersEmails = await fetchAllUsersEmails();
+			for(let i in usersEmails){
+				//fetching all Approved orders
+				const q = query(collection(db, "Person",usersEmails[i],"Orders"), where("status", "==", "Approved"));
+				const querySnapshot = await getDocs(q);
+				querySnapshot.forEach((doc) => {
+					start.setHours(0,0,0,0);
+					end.setHours(0,0,0,0);
+					const dateToCheck = doc.data().date.toDate();
+					dateToCheck.setHours(0,0,0,0);
+					if((dateToCheck <= end && dateToCheck >= start) || (dateToCheck < end && dateToCheck > start) || (dateToCheck < end && dateToCheck >= start) || (dateToCheck <= end && dateToCheck > start)){
+						const month = doc.data().date.toDate().getDate();
+						const total = doc.data().cartTotal;
+						console.log(month, total)
+						res[month] = (res[month] || 0) + total;
+					}
+				
+
+				});
+			}
+			// console.log(res)
+			return res;
+			
+		}
+	}catch(err){
+		console.log(err);
+	}
+}

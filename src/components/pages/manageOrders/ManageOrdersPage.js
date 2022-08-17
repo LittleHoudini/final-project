@@ -52,7 +52,7 @@ export default function ManageOrdersPage() {
   
 
   const handleStatusChange = async (docs,status) => {
-    console.log(docs.date.toDate().getMonth()+1);
+    console.log();
     if(status === "Approved"){
       console.log("Approved")
       const canUpdateStock = await checkStockAvailbility(getItemQuantity(docs.orders));
@@ -60,8 +60,8 @@ export default function ManageOrdersPage() {
         setError("");
         const res = await HandleOrderStatus(docs.orderID,docs.email,status)
         handleDocsChange();
-        const handleUpdate = handleStockAfterOrder(getItemQuantity(docs.orders));
-        updateStats(docs.cartTotal,formatDate(docs.date.toDate())[3]+formatDate(docs.date.toDate())[4]);
+        const handleUpdate = await handleStockAfterOrder(getItemQuantity(docs.orders));
+        const update = await updateStats(docs.cartTotal,docs.date.toDate().getMonth()+1);
         
       }
       else{
