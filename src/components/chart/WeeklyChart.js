@@ -41,6 +41,7 @@ export default function WeeklyChart() {
 		if (isMounted) {
       getWeeklyStats(startDate,endDate)
       .then((res) => {
+        console.log(res)
         setWeeklyStats(getValuesOfObj(res))
       })
       .catch((err) => {
@@ -68,8 +69,21 @@ export default function WeeklyChart() {
 	};
   
 	const getValuesOfObj = obj => {
-		let arr = Object.values(obj);
-		return arr;
+        let arr = [];
+        const start = startDate.getDate();
+        const end = endDate.getDate();
+        Object.keys(obj).forEach(key => {
+            // const idx = end-Number(key);
+            // arr[idx] = obj[key];
+            if(Number(key) === start){
+                arr[Number(key)-start] = obj[key];
+            }
+            if(Number(key) > start){
+                arr[Number(key)-start] = obj[key];
+            }
+
+          });
+        return arr;
 	};
 
 
