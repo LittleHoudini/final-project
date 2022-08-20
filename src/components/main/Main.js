@@ -25,6 +25,7 @@ export const Main = () => {
 		}
 		return () => {
 			isMounted = false;
+			setHomePage([{}]);
 		};
 	}, []);
 

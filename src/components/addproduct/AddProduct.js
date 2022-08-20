@@ -8,8 +8,8 @@ import { MultiSelect } from "react-multi-select-component";
 import { getItems } from "../../firebase/Orders";
 import { addIngredient } from "../../firebase/Admin";
 import { IngredientExists } from "../../firebase/Admin";
-import { addProductWithIngredients ,addProduct} from "../../firebase/Admin";
-import Alert from '@mui/material/Alert';
+import { addProductWithIngredients, addProduct } from "../../firebase/Admin";
+import Alert from "@mui/material/Alert";
 const AddProduct = () => {
 	const [categories, setCategories] = useState([{}]);
 	const [error, setError] = useState("");
@@ -51,7 +51,7 @@ const AddProduct = () => {
 		if (isMounted) {
 			getMenuCategories()
 				.then(res => {
-					console.log(res)
+					console.log(res);
 					setCategories(res);
 				})
 				.catch(err => console.log(err));
@@ -86,24 +86,22 @@ const AddProduct = () => {
 		return options;
 	};
 
+	const convertSelectedToMatchDB = () => {
+		let obj = {};
+		selected.map(item => {
+			obj[item.value] = 1;
+		});
+		return obj;
+	};
 
-    const convertSelectedToMatchDB = () => {
-        let obj = {};
-        selected.map((item) => {
-            obj[item.value] = 1;
-        })
-        return obj;
-    }
-
-	const checkInput = (e) => {
+	const checkInput = e => {
 		e.preventDefault();
-        if (formData.category.length < 1) {
+		if (formData.category.length < 1) {
 			setError("Product Category Required");
 			return false;
 		}
-        
 
-        let nameReg = /^[a-zA-Z]+$/;
+		let nameReg = /^[a-zA-Z]+$/;
 		if (formData.productName.length < 1 || !nameReg.test(formData.productName)) {
 			setError("Product Name Required, Only In English");
 			return false;
@@ -120,131 +118,149 @@ const AddProduct = () => {
 			return false;
 		}
 
-        if (formData.title < 1) {
+		if (formData.title < 1) {
 			setError("Product title Required");
 			return false;
 		}
 
-        if(formData.hasIngredients && selected.length > 4 || formData.hasIngredients && selected.length <= 0 ){
-            setError("You can only select up to four ingredients");
+		if ((formData.hasIngredients && selected.length > 4) || (formData.hasIngredients && selected.length <= 0)) {
+			setError("You can only select up to four ingredients");
 			return false;
-        }
+		}
 
 		return true;
 	};
 
-	const handleForm = async (e) => {
+	const handleForm = async e => {
 		e.preventDefault();
-        console.log(error)
-        console.log(convertSelectedToMatchDB(selected));
-        console.log(formData.category)
-        if(checkInput(e)){
-            try{
-                if(formData.hasIngredients){
-                    await Promise.all(
-                        selected.map(async (element) => {
-                            const res = await IngredientExists(element.value);
-                            if(!res){
-                                await addIngredient(element.value);
-                            }
-                        })
-                    )
-                    const res = await addProductWithIngredients(formData,convertSelectedToMatchDB(selected))
+		console.log(error);
+		console.log(convertSelectedToMatchDB(selected));
+		console.log(formData.category);
+		if (checkInput(e)) {
+			try {
+				if (formData.hasIngredients) {
+					await Promise.all(
+						selected.map(async element => {
+							const res = await IngredientExists(element.value);
+							if (!res) {
+								await addIngredient(element.value);
+							}
+						})
+					);
+					const res = await addProductWithIngredients(formData, convertSelectedToMatchDB(selected));
 					setError("");
-					setSuccess(true)
-                    return true;
-
-                }else{
-                    const res = await addProduct(formData);
+					setSuccess(true);
+					return true;
+				} else {
+					const res = await addProduct(formData);
 					setError("");
-					setSuccess(true)
-                    return true;
-                }
-            }
-            catch(err){
-                console.log(err)
-            }
-
-        }
+					setSuccess(true);
+					return true;
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		}
 	};
 
-		return (
-
+	return (
 		<div className="wrapper2">
-			<div className="titleDiv">
-				<h1 className="titleDiv"> הוספת מוצר חדש</h1>
-				<p>על מנת להשלים את תהליך הוספת המוצר נדרש למלא את כל הערכים בטופס</p>
-				</div>
-	 	
-		 <div className="wrapperInside">
-		 
-		<form onSubmit={e => handleForm(e)}>
-            {error ? <label style={{ color: "red" }}>{error}</label> : null}
-			{success && <Alert severity="success">Product Successfully Added</Alert>}
-            <br/>
-			<p>בחירת קטגוריה</p>
-			<label htmlFor="category">בחר את הקטגוריה של המוצר</label>
-			<br/>
-			
-			<select className="select" id="category" value={formData.category} onChange={handleChange} name="category">
-			<option key={uuid()} value={""}>		</option>
-				{categories.map(category => {
-					return (
-						<option key={uuid()} value={category.docID}>
-							{category.docID}
+			<div className="wrapperInside">
+				<form onSubmit={e => handleForm(e)}>
+					{error ? <label style={{ color: "red" }}>{error}</label> : null}
+					{success && <Alert severity="success">Product Successfully Added</Alert>}
+					<br />
+					<label htmlFor="category">בחר את הקטגוריה של המוצר</label>
+					<br />
+
+					<select className="select" id="category" value={formData.category} onChange={handleChange} name="category">
+						<option key={uuid()} value={""}>
+							{" "}
 						</option>
-					);
-				})}
-			</select>
-			<p>שם המוצר</p>
-			<input  type="text" placeholder="שם המוצר" onChange={handleChange} name="productName" value={formData.productName} />
-			<p>מחיר המוצר</p>
-			<input
-				
-				onKeyPress={event => {
-					if (!/[0-9]/.test(event.key)) {
-						event.preventDefault();
-					}
-				}}
-				placeholder="מחיר המוצר"
-				onChange={handleChange}
-				name="price"
-				value={formData.price}
-			/>
-			<p>תמונת המוצר</p>
-			<input   type="text" placeholder="הכנס כתובת תמונה" onChange={handleChange} name="imageLink" value={formData.imageLink} />
-			<img className="productImg" src={formData.imageLink}></img>
-			<p>תיאור המוצר</p>
-			<input type="text" placeholder="הכנס תיאור המתאר את המנה "onChange={handleChange} name="text" value={formData.text} />
-			<p>כותרת המוצר</p>
-			<input  type="text" placeholder="כותרת המוצר" onChange={handleChange} name="title" value={formData.title} />
-			<br />
-			<input className="hasIngredients" type="checkbox" id="hasIngredients" checked={formData.hasIngredients} onChange={handleChange} name="hasIngredients" />
-			<label htmlFor="hasIngredients">האם המוצר בעל רכיבים?</label>
-			<div >
-				{!formData.hasIngredients ? null : (
-					<>
-						<p>בחר עד ארבעה רכיבים למנה</p>
-						<pre >{JSON.stringify(selected)}</pre>
-						<MultiSelect
-							options={convertItemsToMatchOptions() || [{}]}
-							value={selected}
-							onChange={setSelected}
-							labelledBy="Select"
-							isCreatable={true}
-							className="select2"
-						/>
-					</>
-				)}
+						{categories.map(category => {
+							return (
+								<option key={uuid()} value={category.docID}>
+									{category.docID}
+								</option>
+							);
+						})}
+					</select>
+					<p>שם המוצר</p>
+					<input
+						className="inputStyle"
+						type="text"
+						placeholder="שם המוצר"
+						onChange={handleChange}
+						name="productName"
+						value={formData.productName}
+					/>
+					<p>מחיר המוצר</p>
+					<input
+						className="inputStyle"
+						onKeyPress={event => {
+							if (!/[0-9]/.test(event.key)) {
+								event.preventDefault();
+							}
+						}}
+						placeholder="מחיר המוצר"
+						onChange={handleChange}
+						name="price"
+						value={formData.price}
+					/>
+					<p>תמונת המוצר</p>
+					<input
+						className="inputStyle"
+						type="text"
+						placeholder="הכנס כתובת תמונה"
+						onChange={handleChange}
+						name="imageLink"
+						value={formData.imageLink}
+					/>
+					{/* <img className="productImg" src={formData.imageLink}></img> */}
+					<p>תיאור המוצר</p>
+					<input
+						className="inputStyle"
+						type="text"
+						placeholder="הכנס תיאור המתאר את המנה "
+						onChange={handleChange}
+						name="text"
+						value={formData.text}
+					/>
+					<p>כותרת המוצר</p>
+					<input className="inputStyle" type="text" placeholder="כותרת המוצר" onChange={handleChange} name="title" value={formData.title} />
+					<br />
+					<label htmlFor="hasIngredients">האם המוצר בעל רכיבים?</label>
+					<input
+						className="hasIngredients"
+						type="checkbox"
+						id="hasIngredients"
+						checked={formData.hasIngredients}
+						onChange={handleChange}
+						name="hasIngredients"
+					/>
+
+					<div>
+						{!formData.hasIngredients ? null : (
+							<>
+								<p>בחר עד ארבעה רכיבים למנה</p>
+								<MultiSelect
+									options={convertItemsToMatchOptions() || [{}]}
+									value={selected}
+									onChange={setSelected}
+									labelledBy="Select"
+									isCreatable={true}
+									className="select2"
+								/>
+							</>
+						)}
+					</div>
+					<br />
+					<button className="containerbtn" type="submit">
+						הוספת מוצר
+					</button>
+				</form>
 			</div>
-			<br />
-			<button className="containerbtn" type="submit">הוספת מוצר</button>
-		</form>
-	
 		</div>
-	
-		</div>
-	
 	);
 };
 

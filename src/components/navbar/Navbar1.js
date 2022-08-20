@@ -62,6 +62,9 @@
 			 return (
 				<Nav className="navAdmin">
 				 <NavDropdown  title="Admin" id="collasible-nav-dropdown">
+				 <NavDropdown.Item as={Link} to={"/"}>
+					 Admin Panel
+				 </NavDropdown.Item>
 				 <NavDropdown.Item as={Link} to={"/admin/stock"}>
 					 Stock
 				 </NavDropdown.Item>
@@ -77,9 +80,6 @@
 			 </NavDropdown>
 			 </Nav>
 			 )
-		 }
-		 if(userType === 'worker'){
-			 return <Nav><Nav.Link>WORKER</Nav.Link></Nav>
 		 }
 		 return null;
 	 };

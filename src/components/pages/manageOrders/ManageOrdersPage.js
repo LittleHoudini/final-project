@@ -103,7 +103,7 @@ export default function ManageOrdersPage() {
 		};
 	}, [currentUser,docsUpdated]);
 
-  if(pendingOrders.length === 0) return <p>No Pending Orders</p>
+  if(pendingOrders.length === 0) return <p>אין הזמנות פעילות</p>
 
 	return (
     <div className="wrapper22">

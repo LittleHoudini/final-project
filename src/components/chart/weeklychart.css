@@ -1,0 +1,17 @@
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right:2%;
+    width: 90%;
+    margin:auto;
+    
+}
+
+form label {
+    align-self:flex-end;
+  
+}
+.DatePicker {
+   border: 4px blue solid;
+    }

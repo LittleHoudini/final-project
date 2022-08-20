@@ -27,6 +27,7 @@ import { useState,useEffect } from "react";
 import { getUserClassification } from "../../firebase/Users";
 import AddProduct from "../addproduct/AddProduct"
 import {Chart} from '../chart/Chart';
+import { AdminPanel } from "../adminpanel/AdminPanel";
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
   *****************************************/
@@ -61,7 +62,7 @@ import {Chart} from '../chart/Chart';
 				 <Route path="/coctails" element={<CoctailsPage />} />
 				 <Route path="/store" element={<StorePage />} />
 				 {
-					userType === "admin" ? <Route path="/" element={<Stock/>} /> : <Route path="/" exact element={<HomePage />} />
+					userType === "admin" ? <Route path="/" element={<AdminPanel/>} /> : <Route path="/" exact element={<HomePage />} />
 				 }
 				 {/* <Route path="/" exact element={<HomePage />} /> */}
 				 <Route path="*" element={<PageNotFound />} />

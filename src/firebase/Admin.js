@@ -172,7 +172,7 @@ export const updateStats = async (total,month) => {
 	try{
 		if(firebaseInstance){
 			const db = getFirestore();
-			const docRef = doc(db, (db, `Order/Chart`));
+			const docRef = doc(db,  `Order/Chart`);
 
 			// Set the "capital" field of the city 'DC'
 			await updateDoc(docRef, {
@@ -220,6 +220,111 @@ export const getWeeklyStats = async (start,end) => {
 			
 		}
 	}catch(err){
+		console.log(err);
+	}
+}
+
+
+export const getItemsBelowNum = async (num) => {
+	try {
+		if (firebaseInstance) {
+			const db = getFirestore();
+			let res = [];
+			const q = query(collection(db, "Item"), where("count", "<", num));
+			const querySnapshot = await getDocs(q);
+			querySnapshot.forEach(doc => {
+				//   console.log(doc.id, " => ", doc.data());
+				let docToAdd = doc.data();
+				res.push(docToAdd);
+			});
+			//return array of objects(docs)
+			return res;
+		}
+	} catch (err) {
+		console.log(err);
+	}
+}
+
+
+export const getUrgentOrders = async () => {
+	try{
+		if(firebaseInstance){
+			const db = getFirestore();
+			let res = [];
+			const usersEmails = await fetchAllUsersEmails();
+			const usersData = await fetchAllUsersData();
+			for(let i in usersEmails){
+				//fetching all pending orders
+				const q = query(collection(db, "Person",usersEmails[i],"Orders"), where("status", "==", "Pending"));
+				const currentUserData = usersData[i];
+				const querySnapshot = await getDocs(q);
+				querySnapshot.forEach((doc) => {
+					const currDate = new Date();
+					const orderDate = doc.data().date.toDate();
+					const hours = Math.abs(currDate - orderDate) / 36e5;
+					if(hours > 0.50){
+						let docToAdd = {};
+						Object.assign(docToAdd, {
+							id : doc.data().orderID,
+							// email:currentUserData.email,
+							firstName : currentUserData.firstName,
+							lastName : currentUserData.lastName,
+							phoneNumber: currentUserData.phoneNumber
+
+						});
+						res.push(docToAdd);
+					}
+				});
+			}
+			// console.log(res)
+			return res;
+			
+		}
+	}catch(err){
+		console.log(err);
+	}
+}
+
+export const updateItemsAmount = async(id,num) => {
+	try{
+		if(firebaseInstance){
+			const db = getFirestore();
+			const q = query(collection(db, "Item"), where("id", "==", id));
+			const querySnapshot = await getDocs(q);
+			let docRef;
+			querySnapshot.forEach((doc) => {
+				docRef = doc.ref
+			});
+			await updateDoc(docRef, {
+				count : increment(num),
+			});
+		}
+	}
+	catch(err){
+		console.log(err);
+	}
+}
+
+export const canUpdateItem = async(id,num) => {
+	try {
+		if (firebaseInstance) {
+			//db
+			const db = getFirestore();
+			var flag = true;
+
+			//query
+			const q = query(collection(db, "Item"), where("id", "==", id));
+			//get docs matching query
+			const querySnapshot = await getDocs(q);
+			querySnapshot.forEach((doc) => {
+				//if at least one of the items will be negative after update set flag to false
+				if(doc.data()['count']-num < 0){
+					flag = false
+				}
+			});
+			return flag;
+		}
+	} catch (err) {
 		console.log(err);
 	}
 }

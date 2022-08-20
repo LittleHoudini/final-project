@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 import "./chart.css";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { getStats,getWeeklyStats } from "../../firebase/Admin";
+import { getStats, getWeeklyStats } from "../../firebase/Admin";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { registerLocale, setDefaultLocale } from  "react-datepicker";
-import he from 'date-fns/locale/he';
-import WeeklyChart from './WeeklyChart';
+import { registerLocale, setDefaultLocale } from "react-datepicker";
+import he from "date-fns/locale/he";
+import WeeklyChart from "./WeeklyChart";
+import AddProduct from "../addproduct/AddProduct";
+import Stock from "../stock/Stock";
+import ManageOrdersPage from "../pages/manageOrders/ManageOrdersPage";
 
-registerLocale('he', he)
+registerLocale("he", he);
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 export const options = {
@@ -27,11 +30,6 @@ export const options = {
 
 export function Chart() {
 	const [stats, setStats] = useState();
-  const [weeklyStats, setWeeklyStats] = useState();
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -45,13 +43,13 @@ export function Chart() {
 					console.log(err);
 				});
 		}
-		return () => (isMounted = false);
+		return () => {
+			isMounted = false
+			setStats();
+		};
 	}, []);
-  
-
 
 	const labels = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"];
-
 
 	const data = {
 		labels,
@@ -63,27 +61,11 @@ export function Chart() {
 			},
 		],
 	};
-  
 
 	const getValuesOfObj = obj => {
 		let arr = Object.values(obj);
 		return arr;
 	};
 
-
-
-
-	return (
-		<div className="wrapper66">
-			<div className="wrapperInside">
-				<div className="titleDiv">
-					<h1 className="titleDiv"> דוח מכירות חודשי</h1>
-					<p>דוח מכירות חודשי </p>
-				</div>
-
-				<Bar className="chartBox" options={options} data={data} />
-        <WeeklyChart />
-			</div>
-		</div>
-	);
+	return <Bar className="chartBox" options={options} data={data} />;
 }
