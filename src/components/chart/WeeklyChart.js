@@ -66,8 +66,17 @@ export default function WeeklyChart() {
 
 	const range = getDatesInRange(startDate, endDate);
 	let labels = [];
+	let flag = false;
+	let idx = -1;
 	for (var i = 0; i < range.length; i++) {
+		if(flag){
+			idx = i+1;
+			flag = false;
+		}
 		labels.push(range[i].getDate());
+		if(range[i].getDate() == 31){
+			flag = true;
+		}
 	}
 
 	const data = {
@@ -81,6 +90,7 @@ export default function WeeklyChart() {
 		],
 	};
 
+
 	const getValuesOfObj = obj => {
 		let arr = [];
 		const start = startDate.getDate();
@@ -91,7 +101,12 @@ export default function WeeklyChart() {
 			if (Number(key) > start) {
 				arr[Number(key) - start] = obj[key];
 			}
+			if(Number(key) < start){
+				arr[idx++] = obj[key]
+			}
+
 		});
+		idx = -1;
 		return arr;
 	};
 
