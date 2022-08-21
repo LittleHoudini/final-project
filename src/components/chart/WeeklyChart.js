@@ -51,9 +51,23 @@ export default function WeeklyChart() {
 		};
 	}, [startDate, endDate]);
 
+	function getDatesInRange(startDate, endDate) {
+		const date = new Date(startDate.getTime());
+
+		const dates = [];
+
+		while (date <= endDate) {
+			dates.push(new Date(date));
+			date.setDate(date.getDate() + 1);
+		}
+
+		return dates;
+	}
+
+	const range = getDatesInRange(startDate, endDate);
 	let labels = [];
-	for (var i = startDate.getDate(); i <= endDate.getDate(); i++) {
-		labels.push(i);
+	for (var i = 0; i < range.length; i++) {
+		labels.push(range[i].getDate());
 	}
 
 	const data = {
@@ -70,10 +84,7 @@ export default function WeeklyChart() {
 	const getValuesOfObj = obj => {
 		let arr = [];
 		const start = startDate.getDate();
-		const end = endDate.getDate();
 		Object.keys(obj).forEach(key => {
-			// const idx = end-Number(key);
-			// arr[idx] = obj[key];
 			if (Number(key) === start) {
 				arr[Number(key) - start] = obj[key];
 			}
@@ -106,7 +117,7 @@ export default function WeeklyChart() {
 
 	const checkInput = () => {
 		const diff = dateDiffInDays(startDate, endDate);
-		if (diff < 0 || diff > 7) {
+		if (diff < 0 || diff > 31) {
 			setError("טווח ימים לא תקין, טווח יכול להיות עד 7 ימים.");
 			return false;
 		}
