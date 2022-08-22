@@ -206,10 +206,11 @@ export const getWeeklyStats = async (start,end) => {
 					const dateToCheck = doc.data().date.toDate();
 					dateToCheck.setHours(0,0,0,0);
 					if((dateToCheck <= end && dateToCheck >= start) || (dateToCheck < end && dateToCheck > start) || (dateToCheck < end && dateToCheck >= start) || (dateToCheck <= end && dateToCheck > start)){
-						const month = doc.data().date.toDate().getDate();
+						const day = doc.data().date.toDate().getDate();
+						const month = doc.data().date.toDate().getMonth()+1;
+						const year = doc.data().date.toDate().getFullYear();
 						const total = doc.data().cartTotal;
-						console.log(month, total)
-						res[month] = (res[month] || 0) + total;
+						res[`${day}/${month}/${year}`] = (res[`${day}/${month}/${year}`] || 0) + total;
 					}
 				
 

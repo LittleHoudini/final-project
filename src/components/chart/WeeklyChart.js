@@ -38,7 +38,8 @@ export default function WeeklyChart() {
 		if (isMounted) {
 			getWeeklyStats(startDate, endDate)
 				.then(res => {
-					console.log(res);
+					console.log("res " ,res);
+					console.log("res after format " , getValuesOfObj(res))
 					setWeeklyStats(getValuesOfObj(res));
 				})
 				.catch(err => {
@@ -64,21 +65,13 @@ export default function WeeklyChart() {
 		return dates;
 	}
 
+	let labels =[];
 	const range = getDatesInRange(startDate, endDate);
-	let labels = [];
-	let flag = false;
-	let idx = -1;
-	const daysInCurrMonth = getDaysInMonth(startDate.getMonth(),startDate.getFullYear());
-	for (var i = 0; i < range.length; i++) {
-		if(flag){
-			idx = i;
-			flag = false;
-		}
-		labels.push(range[i].getDate());
-		if(range[i].getDate() === daysInCurrMonth){
-			flag = true;
-		}
+	for (let i = 0; i < range.length; i++) {
+		labels.push(`${range[i].getDate()}/${range[i].getMonth()+1}/${range[i].getFullYear()}`);
 	}
+	console.log("labels " , labels)
+
 
 	const data = {
 		labels,
@@ -94,27 +87,16 @@ export default function WeeklyChart() {
 
 	const getValuesOfObj = obj => {
 		let arr = [];
-		const start = startDate.getDate();
-		Object.keys(obj).forEach(key => {
-			if (Number(key) === start && labels.length <= daysInCurrMonth) {
-				arr[Number(key) - start] = obj[key];
+		for (const key in obj) {
+			for (let i = 0; i < labels.length; i++) {
+				if(labels[i] === key){
+					arr[i] = obj[key]
+				}
 			}
-			if (Number(key) > start) {
-				arr[Number(key) - start] = obj[key];
-			}
-			if(Number(key) < start ){
-				arr[idx++] = obj[key]
-			}
-			
-
-		});
-		idx = -1;
+		}
 		return arr;
 	};
 
-	function getDaysInMonth(m, y) {
-		return m===2 ? y & 3 || !(y%25) && y & 15 ? 28 : 29 : 30 + (m+(m>>3)&1);
-	}
 
 	const _MS_PER_DAY = 1000 * 60 * 60 * 24;
 
@@ -138,7 +120,7 @@ export default function WeeklyChart() {
 
 	const checkInput = () => {
 		const diff = dateDiffInDays(startDate, endDate);
-		if (diff < 0 || diff > daysInCurrMonth-1) {
+		if (diff < 0) {
 			setError("טווח ימין לא תקין.");
 			return false;
 		}

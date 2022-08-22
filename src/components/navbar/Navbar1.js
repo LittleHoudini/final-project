@@ -77,6 +77,9 @@
 				 <NavDropdown.Item as={Link} to={"/admin/chart"}>
 					 Chart
 				 </NavDropdown.Item>
+				 <NavDropdown.Item as={Link} to={"/admin/weeklychart"}>
+					 Weekly Chart
+				 </NavDropdown.Item>
 			 </NavDropdown>
 			 </Nav>
 			 )

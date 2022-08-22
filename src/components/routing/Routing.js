@@ -28,6 +28,7 @@ import { getUserClassification } from "../../firebase/Users";
 import AddProduct from "../addproduct/AddProduct"
 import {Chart} from '../chart/Chart';
 import { AdminPanel } from "../adminpanel/AdminPanel";
+import WeeklyChart from "../chart/WeeklyChart";
  /*****************************************
   * * CREATE REACT FUNCTION COMPONENT
   *****************************************/
@@ -79,6 +80,7 @@ import { AdminPanel } from "../adminpanel/AdminPanel";
 				 <Route path="/admin/manageorders" element={<ManageOrdersPage/>} />
 				 <Route path="/admin/addproduct" element={<AddProduct/>} />
 				 <Route path="/admin/chart" element={<Chart/>} />
+				 <Route path="/admin/weeklychart" element={<WeeklyChart/>} />
 				 
  
 			 </Routes>
