@@ -68,13 +68,14 @@ export default function WeeklyChart() {
 	let labels = [];
 	let flag = false;
 	let idx = -1;
+	const daysInCurrMonth = getDaysInMonth(startDate.getMonth(),startDate.getFullYear());
 	for (var i = 0; i < range.length; i++) {
 		if(flag){
-			idx = i+1;
+			idx = i;
 			flag = false;
 		}
 		labels.push(range[i].getDate());
-		if(range[i].getDate() == 31){
+		if(range[i].getDate() === daysInCurrMonth){
 			flag = true;
 		}
 	}
@@ -95,20 +96,25 @@ export default function WeeklyChart() {
 		let arr = [];
 		const start = startDate.getDate();
 		Object.keys(obj).forEach(key => {
-			if (Number(key) === start) {
+			if (Number(key) === start && labels.length <= daysInCurrMonth) {
 				arr[Number(key) - start] = obj[key];
 			}
 			if (Number(key) > start) {
 				arr[Number(key) - start] = obj[key];
 			}
-			if(Number(key) < start){
+			if(Number(key) < start ){
 				arr[idx++] = obj[key]
 			}
+			
 
 		});
 		idx = -1;
 		return arr;
 	};
+
+	function getDaysInMonth(m, y) {
+		return m===2 ? y & 3 || !(y%25) && y & 15 ? 28 : 29 : 30 + (m+(m>>3)&1);
+	}
 
 	const _MS_PER_DAY = 1000 * 60 * 60 * 24;
 
@@ -132,8 +138,8 @@ export default function WeeklyChart() {
 
 	const checkInput = () => {
 		const diff = dateDiffInDays(startDate, endDate);
-		if (diff < 0 || diff > 31) {
-			setError("טווח ימים לא תקין, טווח יכול להיות עד 7 ימים.");
+		if (diff < 0 || diff > daysInCurrMonth-1) {
+			setError("טווח ימין לא תקין.");
 			return false;
 		}
 
