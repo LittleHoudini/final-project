@@ -65,17 +65,19 @@ import WeeklyChart from "../chart/WeeklyChart";
 				 {
 					userType === "admin" ? <Route path="/" element={<AdminPanel/>} /> : <Route path="/" exact element={<HomePage />} />
 				 }
-				 {/* <Route path="/" exact element={<HomePage />} /> */}
+
 				 <Route path="*" element={<PageNotFound />} />
  
-				 {/* ממשק משתמש - לקוח */}
+
 				 <Route path="/profile" element={<UserProfile />} />
 				 <Route path="/orders" element={<UserOrdersPage/>} />
  
-				 {/* תבנית של סל הקניה */}
+				 {/*  */}
+				 
 				 <Route path="/shoppingcart" element={<ShoppingCart />} />
-				 {/* קטגוריות התפריט */}
 				 <Route path="/menucategories" element={<MenuCategoriesPage />} />
+
+				 {/*  */}
 				 <Route path="/admin/stock" element={<Stock/>} />
 				 <Route path="/admin/manageorders" element={<ManageOrdersPage/>} />
 				 <Route path="/admin/addproduct" element={<AddProduct/>} />

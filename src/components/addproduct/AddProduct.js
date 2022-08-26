@@ -169,10 +169,9 @@ const AddProduct = () => {
 				<form onSubmit={e => handleForm(e)}>
 					{error ? <label style={{ color: "red" }}>{error}</label> : null}
 					{success && <Alert severity="success">Product Successfully Added</Alert>}
-					<br />
+					
 					<label htmlFor="category">בחר את הקטגוריה של המוצר</label>
-					<br />
-
+				
 					<select className="select" id="category" value={formData.category} onChange={handleChange} name="category">
 						<option key={uuid()} value={""}>
 							{" "}
@@ -229,7 +228,7 @@ const AddProduct = () => {
 					<p>כותרת המוצר</p>
 					<input className="inputStyle" type="text" placeholder="כותרת המוצר" onChange={handleChange} name="title" value={formData.title} />
 					<br />
-					<label htmlFor="hasIngredients">האם המוצר בעל רכיבים?</label>
+					
 					<input
 						className="hasIngredients"
 						type="checkbox"
@@ -238,7 +237,7 @@ const AddProduct = () => {
 						onChange={handleChange}
 						name="hasIngredients"
 					/>
-
+					<label  dir="rlt" htmlFor="hasIngredients">האם המוצר בעל רכיבים?</label>
 					<div>
 						{!formData.hasIngredients ? null : (
 							<>
@@ -255,7 +254,7 @@ const AddProduct = () => {
 						)}
 					</div>
 					<br />
-					<button className="containerbtn" type="submit">
+					<button className="containerbtn adminPanelBtn" type="submit">
 						הוספת מוצר
 					</button>
 				</form>

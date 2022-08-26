@@ -1,17 +1,30 @@
-form {
+.inputStyleForm {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding-right:2%;
+    
+   
     width: 90%;
     margin:auto;
     
 }
-
-form label {
-    align-self:flex-end;
-  
-}
-.DatePicker {
-   border: 4px blue solid;
+    .inputStyleBox {
+      display:flex;
+     flex-direction: row;
+     width: 100%;
+     margin: 0 auto;
+     justify-content:center;
     }
+
+    .inputStyle1 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-content: center;
+        
+    }
+
+ .dataPicker{
+    width: 90%;
+    
+    
+ }

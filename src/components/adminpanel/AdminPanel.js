@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { getItemsBelowNum, getUrgentOrders } from "../../firebase/Admin";
 import uuid from "react-uuid";
+import './adminpanel.css';
 export const AdminPanel = () => {
 	const [items, setItems] = useState([
 		{
@@ -50,10 +51,10 @@ export const AdminPanel = () => {
 	return (
 		<div className="box">
 			<div className="div1">
-				<Stack sx={{ width: "100%" }} spacing={2}>
+				<Stack className="AlertArea" sx={{ width: "100%" }} spacing={2}>
 					{items.map(item => {
 						return (
-							<Alert key={uuid()} severity="warning" onClose={() => dismissItemNotification(item.id)}>
+							<Alert  className="Alert1" key={uuid()} severity="warning" onClose={() => dismissItemNotification(item.id)}>
 								הכמות הנוכחית של {item.name} (מזהה מוצר-{item.id}) היא : {item.count}
 							</Alert>
 						);
@@ -66,6 +67,7 @@ export const AdminPanel = () => {
 						);
 					})}
 				</Stack>
+				<div className="cardBox"> 
 				<div className="titleDiv">
 					<h1 className="titleDiv"> ניהול הזמנות</h1>
 					<p>התראות חדשות</p>
@@ -75,11 +77,12 @@ export const AdminPanel = () => {
 					<ManageOrdersPage />{" "}
 				</div>
 			</div>
-
-			<div className="div2">
+			</div>
+			<div
+			 className="div2">
 				<div className="titleDiv">
-					<h1 className="titleDiv">דו"ח מכירות יומי </h1>
-					<p>התראות חדשות</p>
+					<h1 className="titleDiv">מכירות</h1>
+					<p>בחר תאריך התחלתי ותאריך סופי</p>
 				</div>
 				<div>
 					{" "}
@@ -89,7 +92,7 @@ export const AdminPanel = () => {
 
 			<div className="div3">
 				<div className="titleDiv">
-					<h1 className="titleDiv">דו"ח מכירות יומי </h1>
+					<h1 className="titleDiv">מכירות חודשי</h1>
 					<p>התראות חדשות</p>
 				</div>
 				<div>
@@ -99,7 +102,7 @@ export const AdminPanel = () => {
 
 			<div className="div4">
 				<div className="titleDiv">
-					<h1 className="titleDiv">דו"ח מכירות יומי </h1>
+					<h1 className="titleDiv">מלאי</h1>
 					<p>התראות חדשות</p>
 				</div>
 				<div className="b">
@@ -110,7 +113,7 @@ export const AdminPanel = () => {
 
 			<div className="div5">
 				<div className="titleDiv">
-					<h1 className="titleDiv">דו"ח מכירות יומי </h1>
+					<h1 className="titleDiv">הוספת מוצר חדש</h1>
 					<p>התראות חדשות</p>
 				</div>
 				<div>

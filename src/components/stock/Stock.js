@@ -123,7 +123,11 @@ export default function CustomToolbarGrid() {
 		<div className="wrapper55">
 			<>
 				{error ? <label style={{ color: "red" }}>{error}</label> : null}
-				<br />
+		
+				<div className="inputStyleForm">
+				<div className="inputStyleBox">
+				
+				<div className="inputStyle1">
 				<label>ID</label>
 				<input
 					type="text"
@@ -135,7 +139,8 @@ export default function CustomToolbarGrid() {
 						}
 					}}
 				/>
-				<br />
+				</div>
+				<div className="inputStyle1">
 				<label>כמות</label>
 				<input
 					type="text"
@@ -147,9 +152,13 @@ export default function CustomToolbarGrid() {
 						}
 					}}
 				/>
-				<br />
-				<button onClick={e => handleSubmit(e, "הוספה")}>הוספה</button>
-				<button onClick={e => handleSubmit(e, "הסרה")}>הסרה</button>
+
+				</div>
+				</div>
+				
+				<button  className="containerbtn adminPanelBtn" onClick={e => handleSubmit(e, "הוספה")}>הוספה</button>
+				<button  className="containerbtn  adminPanelBtn" onClick={e => handleSubmit(e, "הסרה")}>הסרה</button>
+				</div>
 			</>
 			<div className="reportformbox">
 				<Box

@@ -12,7 +12,7 @@
 	justify-content: center;
 	width: 100%;
 	text-align: right;
-	height: inherit;
+	
 }
 
 /* new product form box */
@@ -24,8 +24,8 @@
 	border-radius: 10px;
 	justify-content: center;
 	width: 100%;
-	margin: auto;
 	align-items: center;
+	
 	
 }
 
@@ -47,31 +47,36 @@
 	margin-bottom: 10px;
     height: 30px;
     text-indent: 10px;
-    border: 1px solid #444;
+    border:none;
     border-radius: 5px;
     width: 50%;
 	margin-left: 50%;
 }
 
+select:focus {
+	background-color: rgb(232, 229, 229);
+	border: solid 2px #ca7275;
+	outline: 0;
+}
+
+select:hover {
+	background-color: rgb(232, 229, 229);
+	border: solid 2px #497694;
+	outline: 0;
+}
+
 /* inputs  */
 
 input {
-    margin-bottom: 10px;
+    margin-bottom: 5%;
     height: 30px;
     text-indent: 10px;
-    border: 1px solid #444;
+    border: none;
     border-radius: 5px;
     width: 50%;
 }
 
-.inputStyle {
-margin-left: 50%;
-}
 
-
-input[type="checkbox"], input[type="radio"] {
-    margin-left: 0.75rem;
-}
 
 textarea {
     margin-bottom: 15px;
@@ -90,24 +95,6 @@ input:hover {
 	background-color: rgb(232, 229, 229);
 	border: solid 2px #497694;
 	outline: 0;
-}
-
-/* title div */
- 
-.titleDiv {
-	width: 100%;
-	margin-bottom: 10px;
-	margin-top:10px;
-}
-
-.titleDiv p {
-	font-size:16px;
-	color: white;
-}
-
-.hasIngredients  {
-	width: 18px;
-margin-top: -25px;
 }
 
 /* btns  */
@@ -138,6 +125,11 @@ margin-top: -25px;
 	color: white;
 	outline:0;
 	box-shadow:none;
+}
+
+label {
+	align-self: right;
+	display: inline-left;
 }
 
  /* .productImg {

@@ -6,18 +6,24 @@
 	background-color: gainsboro;
 	padding:3%;
 	object-fit:content;
+	
 }
 
 /* report box */
 .reportformbox {
-	position: relative;
+	
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
-height: 700px;
+
     background-color: gainsboro;
 	width: 100%;
 	margin:auto;
+	margin-top:6%;
+	border-radius: 1em;
+	border-bottom-right-radius: 1em;
+	
+	
 }
 
 .MuiDataGrid{
@@ -63,5 +69,7 @@ height: 700px;
 	
 
 }
+
+
 
 

@@ -78,28 +78,63 @@ export default function ManageOrdersPage() {
   const handleDocsChange = () => {
 		setDocsUpdated(prev => !prev);
 	};
-  
+
+
+  //use effect for pending orders with interval, updates every 1 minute
+  const MINUTE_MS = 60000;
 	useEffect(() => {
 		let isMounted = true;
         //make sure there is user logged in
-		if (currentUser) {
-			fetchAllPendingOrders()
-				.then(res => {
-          //if component did mount, set res to state
-					if (isMounted) {
-            const sortedOrders = res.sort(function (a, b) {
-              return formatDate(a.date.toDate()).localeCompare(formatDate(b.date.toDate()));
-            });
-
-            setPendingOrders(sortedOrders);
-					}
-				})
-				.catch(err => console.log(err));
-		}
+        const interval = setInterval(() => {
+          if (currentUser) {
+            console.log("starting fetch")
+            fetchAllPendingOrders()
+              .then(res => {
+                //if component did mount, set res to state
+                if (isMounted) {
+                  const sortedOrders = res.sort(function (a, b) {
+                    return formatDate(a.date.toDate()).localeCompare(formatDate(b.date.toDate()));
+                  });
+      
+                  setPendingOrders(sortedOrders);
+                }
+              })
+              .catch(err => console.log(err));
+          }
+        },MINUTE_MS)
     //component did unmount
 		return () => {
 			isMounted = false;
+      clearInterval(interval);
       // setDocsUpdated(false);
+		};
+	}, [currentUser,docsUpdated]);
+
+
+
+  //regular use effect for pending orders
+  useEffect(() => {
+		let isMounted = true;
+        //make sure there is user logged in
+          if (currentUser) {
+            console.log("starting fetch")
+            fetchAllPendingOrders()
+              .then(res => {
+                //if component did mount, set res to state
+                if (isMounted) {
+                  const sortedOrders = res.sort(function (a, b) {
+                    return formatDate(a.date.toDate()).localeCompare(formatDate(b.date.toDate()));
+                  });
+      
+                  setPendingOrders(sortedOrders);
+                }
+              })
+              .catch(err => console.log(err));
+          }
+
+    //component did unmount
+		return () => {
+			isMounted = false;
 		};
 	}, [currentUser,docsUpdated]);
 
