@@ -1,11 +1,9 @@
 /*****************************************
  * * IMPORT LIBRARIES
  *****************************************/
-import React from "react";
 
 import CreateSquare from "../../createSquare/CreateSquare";
-import "./menucategories.css";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { getMenuCategories } from "../../../firebase/Orders";
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
@@ -25,7 +23,7 @@ export const MenuCategoriesPage = () => {
 				})
 				.catch(err => console.log(err));
 		}
-		return () => isMounted = false;
+		return () => (isMounted = false);
 	}, []);
 
 	return (

@@ -2,15 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./chart.css";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { getStats, getWeeklyStats } from "../../firebase/Admin";
-import DatePicker from "react-datepicker";
+import { getStats } from "../../firebase/Admin";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
 import he from "date-fns/locale/he";
-import WeeklyChart from "./WeeklyChart";
-import AddProduct from "../addproduct/AddProduct";
-import Stock from "../stock/Stock";
-import ManageOrdersPage from "../pages/manageOrders/ManageOrdersPage";
+
 
 registerLocale("he", he);
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -44,7 +40,7 @@ export function Chart() {
 				});
 		}
 		return () => {
-			isMounted = false
+			isMounted = false;
 			setStats();
 		};
 	}, []);

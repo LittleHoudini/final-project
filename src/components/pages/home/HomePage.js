@@ -1,6 +1,5 @@
 import React from "react";
-import {Main} from "../../main/Main";
-import "./home.css";
+import { Main } from "../../main/Main";
 
 export const HomePage = () => {
 	return (

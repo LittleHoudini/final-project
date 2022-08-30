@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./chart.css";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { getStats, getWeeklyStats } from "../../firebase/Admin";
+import { getWeeklyStats } from "../../firebase/Admin";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
@@ -38,8 +38,6 @@ export default function WeeklyChart() {
 		if (isMounted) {
 			getWeeklyStats(startDate, endDate)
 				.then(res => {
-					console.log("res " ,res);
-					console.log("res after format " , getValuesOfObj(res))
 					setWeeklyStats(getValuesOfObj(res));
 				})
 				.catch(err => {
@@ -52,6 +50,7 @@ export default function WeeklyChart() {
 		};
 	}, [startDate, endDate]);
 
+	//returns array of all the dates between the 2 choosen dates
 	function getDatesInRange(startDate, endDate) {
 		const date = new Date(startDate.getTime());
 
@@ -65,13 +64,13 @@ export default function WeeklyChart() {
 		return dates;
 	}
 
-	let labels =[];
+	let labels = [];
 	const range = getDatesInRange(startDate, endDate);
-	for (let i = 0; i < range.length; i++) {
-		labels.push(`${range[i].getDate()}/${range[i].getMonth()+1}/${range[i].getFullYear()}`);
-	}
-	console.log("labels " , labels)
 
+	//iterates over each date and create a new label of the date for labels
+	for (let i = 0; i < range.length; i++) {
+		labels.push(`${range[i].getDate()}/${range[i].getMonth() + 1}/${range[i].getFullYear()}`);
+	}
 
 	const data = {
 		labels,
@@ -84,23 +83,22 @@ export default function WeeklyChart() {
 		],
 	};
 
-
+	//format the obj fetched from database
 	const getValuesOfObj = obj => {
 		let arr = [];
 		for (const key in obj) {
 			for (let i = 0; i < labels.length; i++) {
-				if(labels[i] === key){
-					arr[i] = obj[key]
+				if (labels[i] === key) {
+					arr[i] = obj[key];
 				}
 			}
 		}
 		return arr;
 	};
 
-
 	const _MS_PER_DAY = 1000 * 60 * 60 * 24;
 
-	// a and b are javascript Date objects
+	// makes sure the choosen end date is not earlier than the starting date
 	function dateDiffInDays(a, b) {
 		// Discard the time and time-zone information.
 		const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
@@ -141,16 +139,16 @@ export default function WeeklyChart() {
 	return (
 		<>
 			{error ? <label style={{ color: "red" }}>{error}</label> : null}
-			<form  className="inputStyleForm" onSubmit={e => handleSubmit(e)}>
-				<div className="inputStyleBox"> 
-				<div className="inputStyle1">  
-				<label >תאריך התחלתי</label>
-				<DatePicker  className="dataPicker"  locale="he" selected={startDate} onChange={date => handleStartDateChange(date)} />
-				</div>
-				<div className="inputStyle1">
-				<label>תאריך סופי</label>
-				<DatePicker  className="dataPicker"  locale="he" selected={endDate} onChange={date => handleEndDateChange(date)} />
-				</div>
+			<form className="inputStyleForm" onSubmit={e => handleSubmit(e)}>
+				<div className="inputStyleBox">
+					<div className="inputStyle1">
+						<label>תאריך התחלתי</label>
+						<DatePicker className="dataPicker" locale="he" selected={startDate} onChange={date => handleStartDateChange(date)} />
+					</div>
+					<div className="inputStyle1">
+						<label>תאריך סופי</label>
+						<DatePicker className="dataPicker" locale="he" selected={endDate} onChange={date => handleEndDateChange(date)} />
+					</div>
 				</div>
 				<button className="containerbtn inputStyle5 adminPanelBtn" type="submit">
 					הצג נתונים

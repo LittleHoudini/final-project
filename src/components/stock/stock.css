@@ -1,75 +1,63 @@
-
 .wrapper55 {
 	align-items: center;
 	justify-content: center;
 	text-align: right;
 	background-color: gainsboro;
-	padding:3%;
-	object-fit:content;
-	
+	padding: 3%;
+	object-fit: content;
 }
 
 /* report box */
 .reportformbox {
-	
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
 
-    background-color: gainsboro;
+	background-color: gainsboro;
 	width: 100%;
-	margin:auto;
-	margin-top:6%;
+	margin: auto;
+	margin-top: 6%;
 	border-radius: 1em;
 	border-bottom-right-radius: 1em;
-	
-	
 }
 
-.MuiDataGrid{
-	border:1px solid blue;
+.MuiDataGrid {
+	border: 1px solid blue;
 }
 
 /* table title  */
-.MuiDataGrid-columnHeaderTitle  {
-    color:#a63437;
-    font-weight: bold;  
+.MuiDataGrid-columnHeaderTitle {
+	color: #a63437;
+	font-weight: bold;
 	max-width: 550px;
 	width: 100%;
 }
 
 /* toolbar functions style */
 .report-toolbar {
-    color:black;
+	color: black;
 	background-color: #a63437;
 	width: 100%;
 }
 
 /* toolbar functions btn style */
-.MuiDataGrid-toolbarContainer button{
-    color:white;
+.MuiDataGrid-toolbarContainer button {
+	color: white;
 }
 
- .MuiDataGrid-cell {
-	display: flex; 
+.MuiDataGrid-cell {
+	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
 }
 
-
- .reportformbox .MuiDataGrid-columnHeaderTitleContainer {
-	display: flex; 
+.reportformbox .MuiDataGrid-columnHeaderTitleContainer {
+	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
-	justify-content:space-around;
+	justify-content: space-around;
 }
 
 .MuiDataGrid-cellContent {
-	padding-top:15px;
-	
-
+	padding-top: 15px;
 }
-
-
-
-

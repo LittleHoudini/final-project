@@ -1,27 +1,20 @@
 import React, { useState } from "react";
-import { getDocument, signIn,resetPassword } from "../../firebase/Users";
+import { getDocument, signIn, resetPassword } from "../../firebase/Users";
 import "./sign.css";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { passwordMatch } from "../../firebase/Users";
-import Alert from '@mui/material/Alert';
+import Alert from "@mui/material/Alert";
 
-//Sign in form for new users
 const Signin = ({ open, setOpen }) => {
-	//state
-	// const currentUser = useContext(UserContext);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
-
 	const [forgotPassword, setForgotPassword] = useState(false);
 	const [emailReset, setEmailReset] = useState("");
-
 	const [emailSent, setEmailSent] = useState(false);
-	
 
 	// Checks email and passsword fields are correctly filled
 	const checkInput = () => {
@@ -39,108 +32,116 @@ const Signin = ({ open, setOpen }) => {
 	};
 
 	//if checkinput return true, will sign in the user
-	const handleForm = async (e) => {
+	const handleForm = async e => {
 		e.preventDefault();
 		if (checkInput(e)) {
 			//checks
-			try{
-
-				const emailExists = await getDocument('Person',email)
+			try {
+				const emailExists = await getDocument("Person", email);
 				//checks if the email exist
-				if(!emailExists){
-					setError("Incorrect email.")
+				if (!emailExists) {
+					setError("Incorrect email.");
 					return false;
 				}
-				// const pwMatched = await passwordMatch(email,password);
-				// if(!pwMatched){
-				// 	setError("Incorrect Password")
-				// 	return false;
-				// }
-	
+
 				const res = await signIn(e, { email, password });
-				console.log(res);
-				if(res.length === 0){
+				//if length equals 0 means there are no errors on server side
+				if (res.length === 0) {
 					setOpen(false);
-				}
-				else{
+				} else {
 					setError(res);
 					return false;
 				}
-
-			}
-			catch(err){
+			} catch (err) {
 				console.log(err);
 			}
-
 		}
 	};
 
-
-	const handlePasswordReset = async (e) => {
+	const handlePasswordReset = async e => {
 		e.preventDefault();
 		const res = await resetPassword(emailReset);
 		console.log(res);
-		if(res === 'auth/user-not-found'){
-			setError("There is no user with this email.")
-		}
-		else{
+		if (res === "auth/user-not-found") {
+			setError("There is no user with this email.");
+		} else {
 			setEmailSent(true);
 		}
-	}
-	//<Redirect to={{ pathname: "/" }} />;
+	};
 
 	return (
 		<Dialog className="textFieldFormWrapper" open={open} onClose={() => setOpen(false)}>
-			<DialogTitle className="DialogTitle">SIGN IN</DialogTitle>
+			<DialogTitle dir="rtl" className="DialogTitle">
+				התחברות
+			</DialogTitle>
 			<DialogContent>
-				<form className="textFieldFormWrapper" onSubmit={(e) => {handleForm(e)}}>
+				<form
+					dir="rtl"
+					className="textFieldFormWrapper"
+					onSubmit={e => {
+						handleForm(e);
+					}}
+				>
 					{error ? <label style={{ color: "red" }}>{error}</label> : null}
-					<TextField
-						className="textFieldForm"
+					<label className="label1" dir="rtl">
+						דואר אלקטרוני
+					</label>
+					<input
+						className="TextField1"
 						autoFocus
-						margin="dense"
-						label="Email Address"
 						type="email"
-						fullWidth
-						variant="standard"
 						value={email}
-						onChange={(event) => {
+						onChange={event => {
 							setEmail(event.target.value);
 						}}
 					/>
-					<TextField
-						className="textFieldForm"
+					<label className="label1" dir="rtl">
+						סיסמא
+					</label>
+					<input
+						className="TextField1"
 						autoFocus
-						margin="dense"
-						label="password"
 						type="password"
-						fullWidth
-						variant="standard"
 						value={password}
-						onChange={(event) => {
+						onChange={event => {
 							setPassword(event.target.value);
 						}}
 					/>
-					<button className="containerbtn" type="submit">
-						Sign in
+					<button className="containerbtn signBtn" type="submit">
+						התחבר
 					</button>
 				</form>
 			</DialogContent>
 			<DialogContent>
-			<button className="containerbtn" onClick={() => setForgotPassword(true)}>
-						Forgot Password?
-			</button>
-			{forgotPassword && 
-						<form onSubmit={(e) => handlePasswordReset(e)}>
-							<TextField className="textFieldForm" autoFocus margin="dense" label="Email Address"  type="email" fullWidth variant="standard" value={emailReset}
-							onChange={(event) => {setEmailReset(event.target.value)}}/>
-							<button className="containerbtn" type="submit">שחזור</button>
-							{emailSent && <Alert severity="success">נשלח למייל האישי שלך מייל לשחזור סיסמא</Alert>}
-						</form>
-						}
+				<button dir="rtl" className="containerbtn frgBtn" onClick={() => setForgotPassword(true)}>
+					שכחתם סיסמא?
+				</button>
+				{forgotPassword && (
+					<form onSubmit={e => handlePasswordReset(e)}>
+						<TextField
+							className="textFieldForm"
+							autoFocus
+							margin="dense"
+							label="Email Address"
+							type="email"
+							fullWidth
+							variant="standard"
+							value={emailReset}
+							onChange={event => {
+								setEmailReset(event.target.value);
+							}}
+						/>
+						<button className="containerbtn" type="submit">
+							שחזור
+						</button>
+						{emailSent && <Alert severity="success">נשלח למייל האישי שלך מייל לשחזור סיסמא</Alert>}
+					</form>
+				)}
 			</DialogContent>
 			<DialogActions>
-				<button className="containerbtn"  onClick={() => setOpen(false)}>X</button>
+				<button className="containerbtn " onClick={() => setOpen(false)}>
+					X
+				</button>
 			</DialogActions>
 		</Dialog>
 	);

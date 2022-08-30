@@ -17,7 +17,7 @@ export default class Square extends Component {
 		return (
 			<div className={Styles.container3}>
 				<img className={Styles.img} src={image} alt="Original Burger" />
-				<Link to={path ? path : '/'} as={Link}>
+				<Link to={path ? path : "/"} as={Link}>
 					<button className={Styles.btn}>
 						{title}
 						<br></br>

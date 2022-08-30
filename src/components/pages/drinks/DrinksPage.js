@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import CreateSquare from "../../createSquare/CreateSquare";
 import "./drinks.css";
 import { getAllDishesFromCategory } from "../../../firebase/Orders";
 import { getUserClassification } from "../../../firebase/Users";
 import { UserContext } from "../../../App";
-import { useContext } from "react";
+
 
 export const DrinksPage = () => {
 	const [drinks, setDrinks] = useState([{}]);
 	const [clicks, setClicked] = useState({
-		edit : false,
-		deleteDish : false,
-		disable : false,
+		edit: false,
+		deleteDish: false,
+		disable: false,
 	});
 	const [userType, setUserType] = useState("");
 	const currentUser = useContext(UserContext);
@@ -51,7 +51,7 @@ export const DrinksPage = () => {
 
 	return (
 		<div className="wrapperdrinks">
-			<CreateSquare data={drinks} type="productsquare" setClicked={setClicked} userType={userType} clicks={clicks}/>
+			<CreateSquare data={drinks} type="productsquare" setClicked={setClicked} userType={userType} clicks={clicks} />
 		</div>
 	);
 };

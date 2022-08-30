@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CreateSquare from "../../createSquare/CreateSquare";
 import "./starters.css";
 import { getAllDishesFromCategory } from "../../../firebase/Orders";
 import { getUserClassification } from "../../../firebase/Users";
 import { UserContext } from "../../../App";
-import { useContext } from "react";
+
 export const StartersPage = () => {
 	const [starters, setStarters] = useState([{}]);
 	const [clicks, setClicked] = useState({
-		edit : false,
-		deleteDish : false,
-		disable : false,
+		edit: false,
+		deleteDish: false,
+		disable: false,
 	});
 	const [userType, setUserType] = useState("");
 	const currentUser = useContext(UserContext);
@@ -49,7 +49,7 @@ export const StartersPage = () => {
 
 	return (
 		<div className="wrapperstarters">
-			<CreateSquare data={starters} type="productsquare" setClicked={setClicked} userType={userType} clicks={clicks}/>
+			<CreateSquare data={starters} type="productsquare" setClicked={setClicked} userType={userType} clicks={clicks} />
 		</div>
 	);
 };

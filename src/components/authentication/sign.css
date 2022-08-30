@@ -1,43 +1,43 @@
-.dialogBox{
-	border-top: 1px solid blue;
-	background-color:green;
-	display: flex;
-	justify-content:center;
-	
-}
-
-.textFieldFormWrapper {
-	display: flex;
-	flex-wrap: wrap;
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	justify-content: center;
-}
-
-.textFieldFormWrapper .textFieldForm {
-	border-radius: 5px;
-	border: none;
-	background-color: rgb(230, 223, 223);
-	padding: 1%;
-	margin: 2%;
-
-}
-
-.textFieldForm:focus {
-	background-color: rgb(232, 229, 229);
-	border: solid 2px #ca7275;
-	outline: 0;
-}
-
-.textFieldForm:hover {
-	background-color: rgb(232, 229, 229);
-	border: solid 2px #497694;
-	outline: 0;
-}
-
-.DialogTitle{
+.DialogTitle {
 	margin: auto;
 	color: #a63437;
 	font-size: 16px;
+}
+
+.TextField1 {
+	margin: 1%;
+	height: 40px;
+	border: none;
+	border-radius: 5px;
+	width: 80%;
+	display: inline;
+	box-shadow: 0;
+	text-decoration: none;
+	background-color: rgb(232, 229, 229);
+}
+
+.TextField1:focus {
+	background-color: rgb(232, 229, 229);
+	border: solid 2px #ca7275;
+	outline: 0;
+	box-shadow: 0;
+}
+.TextField1:hover {
+	background-color: rgb(232, 229, 229);
+	border: solid 2px #497694;
+	outline: 0;
+	box-shadow: 0;
+}
+
+.signBtn {
+	margin-top: 3%;
+	width: 100%;
+}
+
+.label1 {
+	width: 100%;
+}
+
+.frgBtn {
+	margin-left: 70%;
 }

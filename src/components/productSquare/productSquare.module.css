@@ -1,14 +1,14 @@
 /* product box */
 .container {
 	display: flex;
-	flex-wrap:wrap;
+	flex-wrap: wrap;
 	background-color: gainsboro;
 	border-radius: 10px;
 	display: flex;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 	text-align: right;
 	border: none;
-	min-height:300px; 
+	min-height: 300px;
 	height: 100%;
 }
 
@@ -35,20 +35,19 @@
 .cardbody {
 	display: flex;
 	flex-direction: column;
-	justify-content:center;
+	justify-content: center;
 	padding: 0;
-	margin:1%;
-	margin-top:3%;
-	margin-bottom:3%;
+	margin: 1%;
+	margin-top: 3%;
+	margin-bottom: 3%;
 }
 
 .info {
 	display: flex;
 	flex-direction: row;
-	justify-content:space-between;
+	justify-content: space-between;
 	height: 120px;
 	padding: 2%;
-	
 }
 
 /* btns */
@@ -63,7 +62,7 @@
 	transition: background-color 0.5s;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 	align-content: center;
-	margin:2%;
+	margin: 2%;
 	text-align: center;
 }
 
@@ -76,39 +75,38 @@
 .containerbtn:focus {
 	background-color: #ca7275;
 	color: white;
-	outline:0;
-	box-shadow:none;
+	outline: 0;
+	box-shadow: none;
 }
 
 .plusBtn {
-    font-weight: bold;
-    color:  rgb(89, 136, 89);  
-    border:none;
-    border-radius: 15%;
-    width:20px;
-	margin:0 ;
+	font-weight: bold;
+	color: rgb(89, 136, 89);
+	border: none;
+	border-radius: 15%;
+	width: 20px;
+	margin: 0;
 	padding: 1% 2%;
 }
 
 .plusBtn:hover {
-    color: rgb(0, 0, 0);
-    background-color:rgb(103, 152, 103);
+	color: rgb(0, 0, 0);
+	background-color: rgb(103, 152, 103);
 }
 
 .minusBtn {
-    font-weight: bold;
-    color:  rgb(122, 19, 24);  
-    border:none;
-    border-radius: 15%;
-    width:20px;
-	margin:0 ;
+	font-weight: bold;
+	color: rgb(122, 19, 24);
+	border: none;
+	border-radius: 15%;
+	width: 20px;
+	margin: 0;
 	padding: 1% 2%;
 }
 
 .minusBtn:hover {
-    color: white;
-    background-color:rgb(166, 36, 36);  
-	
+	color: white;
+	background-color: rgb(166, 36, 36);
 }
 
 /* admin area */
@@ -121,23 +119,21 @@
 
 .adminEditBox {
 	display: flex;
-	flex-direction:row;
+	flex-direction: row;
 	flex-wrap: wrap;
 }
 
 .adminEditBox1 {
-display:flex;
-flex-direction:column;
-width: 30%;
-margin-left: 10%;
-
+	display: flex;
+	flex-direction: column;
+	width: 30%;
+	margin-left: 10%;
 }
-.adminEditBox2{
+.adminEditBox2 {
 	width: 60%;
-
 }
 
-.editForm{
+.editForm {
 	border-radius: 5px;
 	border: none;
 	background-color: rgb(230, 223, 223);
@@ -157,6 +153,3 @@ margin-left: 10%;
 	border: solid 2px #497694;
 	outline: 0;
 }
-
-
-

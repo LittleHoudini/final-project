@@ -1,10 +1,8 @@
-
-
 /* when the shopping cart is empty */
 .emptyShoppingCart {
 	background-color: gainsboro;
 	width: 100%;
-	display:flex;
+	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -12,17 +10,17 @@
 }
 .emptyShoppingCartImage {
 	width: 100px;
-	object-fit:contain;
+	object-fit: contain;
 	align-self: center;
 	width: 100px;
 	margin: 3%;
-	height:fit-content;
+	height: fit-content;
 }
 
 .emptyShoppingCartImage:hover {
 	width: 150px;
-	object-fit:contain;
-	opacity:0.7;
+	object-fit: contain;
+	opacity: 0.7;
 }
 
 .containerbtnEmpty {
@@ -36,7 +34,7 @@
 	transition: background-color 0.5s;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 	align-content: center;
-	margin:2%;
+	margin: 2%;
 	text-align: center;
 }
 
@@ -48,12 +46,10 @@
 
 /* when the shopping cart is not empty */
 
-
-.shoppingCartBox{
+.shoppingCartBox {
 	background-color: gainsboro;
 	width: 100%;
 }
-
 
 table.MuiTable-root {
 	border-radius: 10px;
@@ -68,18 +64,17 @@ table.MuiTable-root th {
 	font-size: 16px;
 	font-weight: bold;
 	text-align: center;
-	border:none;
+	border: none;
 }
 
 /* table inside rows */
 table.MuiTable-root td {
 	font-size: 16px;
-	color:grey;
+	color: grey;
 	text-align: right;
-	border:none;
-	letter-spacing: 1px;	
+	border: none;
+	letter-spacing: 1px;
 	font-weight: 500;
-	
 }
 
 /* change quantity column */
@@ -90,85 +85,76 @@ table.MuiTable-root td {
 
 /* pay box */
 .paybtn {
-margin:auto;
-display: flex;
-flex-direction: column;
-margin-top:3%;
-width:100%;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	margin-top: 3%;
+	width: 100%;
 	border: none;
 	cursor: pointer;
 	border-radius: 5px;
 	transition: background-color 0.5s;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-	
-
 }
 
-.paybtnpaypal{
-	width:fit-content;
+.paybtnpaypal {
+	width: fit-content;
 	min-width: 222px;
-	width:100%;
+	width: 100%;
 }
 
 /* when the paypel area is open */
-.payPalPayBox{
-	margin-top:3%;
+.payPalPayBox {
+	margin-top: 3%;
 }
-
 
 /* btns */
 
 .plusBtn {
-    font-weight: bold;
-    color:  rgb(89, 136, 89);  
-    border:none;
-    border-radius: 15%;
-    width:20px;
-	margin:0 ;
+	font-weight: bold;
+	color: rgb(89, 136, 89);
+	border: none;
+	border-radius: 15%;
+	width: 20px;
+	margin: 0;
 	padding: 1% 2%;
-	background-color:white;
+	background-color: white;
 }
 
 .plusBtn:hover {
-    color: rgb(0, 0, 0);
-    background-color:rgb(103, 152, 103);
+	color: rgb(0, 0, 0);
+	background-color: rgb(103, 152, 103);
 	color: white;
 }
 
 .minusBtn {
-    font-weight: bold;
-    color:  rgb(122, 19, 24);  
-    border:none;
-    border-radius: 15%;
-    width:20px;
-	margin:0 ;
+	font-weight: bold;
+	color: rgb(122, 19, 24);
+	border: none;
+	border-radius: 15%;
+	width: 20px;
+	margin: 0;
 	padding: 1% 2%;
-	background-color:white;
+	background-color: white;
 }
 
 .minusBtn:hover {
-    color: white;
-    background-color:rgb(166, 36, 36);  
-	
+	color: white;
+	background-color: rgb(166, 36, 36);
 }
 
 /* delete item column */
 .fullTd {
 	width: 100px;
-	border-radius:5px;
+	border-radius: 5px;
 	margin-right: 35%;
 }
 
-
 @media only screen and (max-width: 991px) {
-	
-	.shoppingCartBox{
-	
-		width:100%;
+	.shoppingCartBox {
+		width: 100%;
 	}
-	.shoppingCartBox{
-	
+	.shoppingCartBox {
 		background-color: white;
 	}
 }
-

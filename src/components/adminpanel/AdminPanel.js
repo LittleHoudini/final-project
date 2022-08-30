@@ -5,11 +5,11 @@ import AddProduct from "../addproduct/AddProduct";
 import Stock from "../stock/Stock";
 import ManageOrdersPage from "../pages/manageOrders/ManageOrdersPage";
 import Alert from "@mui/material/Alert";
-import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { getItemsBelowNum, getUrgentOrders } from "../../firebase/Admin";
 import uuid from "react-uuid";
-import './adminpanel.css';
+import "./adminpanel.css";
+
 export const AdminPanel = () => {
 	const [items, setItems] = useState([
 		{
@@ -19,6 +19,8 @@ export const AdminPanel = () => {
 		},
 	]);
 	const [pendingOrders, setPendingOrders] = useState([]);
+
+	//fetching items with count below 100
 	useEffect(() => {
 		getItemsBelowNum(100)
 			.then(res => {
@@ -28,6 +30,7 @@ export const AdminPanel = () => {
 		return () => setItems([{}]);
 	}, []);
 
+	//fetching urgent orders
 	useEffect(() => {
 		getUrgentOrders()
 			.then(res => {
@@ -38,12 +41,13 @@ export const AdminPanel = () => {
 		return () => setPendingOrders([{}]);
 	}, []);
 
+	//notifications
 	const dismissItemNotification = id => {
 		const updatedItems = [...items].filter(item => item.id !== id);
 		setItems(updatedItems);
 	};
 
-    const dismissUrgenOrderNotification = id => {
+	const dismissUrgenOrderNotification = id => {
 		const updateOrders = [...pendingOrders].filter(order => order.id !== id);
 		setPendingOrders(updateOrders);
 	};
@@ -54,7 +58,7 @@ export const AdminPanel = () => {
 				<Stack className="AlertArea" sx={{ width: "100%" }} spacing={2}>
 					{items.map(item => {
 						return (
-							<Alert  className="Alert1" key={uuid()} severity="warning" onClose={() => dismissItemNotification(item.id)}>
+							<Alert className="Alert1" key={uuid()} severity="warning" onClose={() => dismissItemNotification(item.id)}>
 								הכמות הנוכחית של {item.name} (מזהה מוצר-{item.id}) היא : {item.count}
 							</Alert>
 						);
@@ -62,24 +66,24 @@ export const AdminPanel = () => {
 					{pendingOrders.map(order => {
 						return (
 							<Alert key={uuid()} severity="warning" onClose={() => dismissUrgenOrderNotification(order.id)}>
-								Order {order.id} waiting above half an hour for confirmation , order belongs to Name : {order.firstName} {order.lastName},  Phone Number : {order.phoneNumber}
+								Order {order.id} waiting above half an hour for confirmation , order belongs to Name : {order.firstName} {order.lastName},
+								Phone Number : {order.phoneNumber}
 							</Alert>
 						);
 					})}
 				</Stack>
-				<div className="cardBox"> 
-				<div className="titleDiv">
-					<h1 className="titleDiv"> ניהול הזמנות</h1>
-					<p>התראות חדשות</p>
-				</div>
-				<div>
-					{" "}
-					<ManageOrdersPage />{" "}
+				<div className="cardBox">
+					<div className="titleDiv">
+						<h1 className="titleDiv"> ניהול הזמנות</h1>
+						<p>התראות חדשות</p>
+					</div>
+					<div>
+						{" "}
+						<ManageOrdersPage />{" "}
+					</div>
 				</div>
 			</div>
-			</div>
-			<div
-			 className="div2">
+			<div className="div2">
 				<div className="titleDiv">
 					<h1 className="titleDiv">מכירות</h1>
 					<p>בחר תאריך התחלתי ותאריך סופי</p>

@@ -1,7 +1,5 @@
 import getFirebase from "./Firebase";
-import { doc, setDoc, getDoc, addDoc, getFirestore, collection, query, where, getDocs, updateDoc, increment,Timestamp  } from "firebase/firestore";
-import moment from "moment";
-
+import { doc, getDoc, addDoc, getFirestore, collection, query, where, getDocs, updateDoc, increment, Timestamp } from "firebase/firestore";
 
 //Firebase instance
 const firebaseInstance = getFirebase();
@@ -51,9 +49,6 @@ export const getDishIngredients = async (category, product, dishName) => {
 	try {
 		if (firebaseInstance) {
 			const db = getFirestore();
-			// const docRef = doc(db, "Category/Burgers/burgers/CheeseBurger");
-			//gets snapshot of the doc
-			// const docSnap = await getDoc(docRef);
 			const docSnap = await getDoc(doc(db, `Category/${category}/${product}/${dishName}`));
 			//if doc exists return promise object
 			if (docSnap.exists()) {
@@ -111,7 +106,7 @@ export const getDishData = async (category, product, dishName) => {
 	}
 };
 
-export const getMisc = async (docName) => {
+export const getMisc = async docName => {
 	try {
 		if (firebaseInstance) {
 			const db = getFirestore();
@@ -173,7 +168,7 @@ export const getHomePageData = async () => {
 };
 
 //check stock before update
-export const checkStockAvailbility = async (obj) => {
+export const checkStockAvailbility = async obj => {
 	try {
 		if (firebaseInstance) {
 			//db
@@ -186,14 +181,12 @@ export const checkStockAvailbility = async (obj) => {
 					//get docs matching query
 					const querySnapshot = await getDocs(q);
 					console.log(obj[index][key], key);
-					querySnapshot.forEach((doc) => {
+					querySnapshot.forEach(doc => {
 						//if at least one of the items will be negative after update set flag to false
-						if(doc.data()['count']-obj[index][key] < 0){
-							flag = false
-							
+						if (doc.data()["count"] - obj[index][key] < 0) {
+							flag = false;
 						}
 					});
-
 				}
 			}
 			return flag;
@@ -203,11 +196,11 @@ export const checkStockAvailbility = async (obj) => {
 	}
 };
 
-export const handleStockAfterOrder = async (obj) => {
+export const handleStockAfterOrder = async obj => {
 	try {
 		if (firebaseInstance) {
 			console.log("we shilling");
-			console.log(obj)
+			console.log(obj);
 			//db
 			const db = getFirestore();
 			for (let index in obj) {
@@ -217,7 +210,7 @@ export const handleStockAfterOrder = async (obj) => {
 					//get docs matching query
 					const querySnapshot = await getDocs(q);
 					//update docs
-					querySnapshot.forEach((doc) => {
+					querySnapshot.forEach(doc => {
 						updateDoc(doc.ref, { count: increment(-obj[index][key]) });
 					});
 				}
@@ -228,135 +221,126 @@ export const handleStockAfterOrder = async (obj) => {
 	}
 };
 
-
-export const addOrderToDB = async (obj,cartTotal,currentUser,orderID) => {
+export const addOrderToDB = async (obj, cartTotal, currentUser, orderID) => {
 	try {
 		if (firebaseInstance) {
 			//Gets db
 			const db = getFirestore();
 			//Adds the user info to our database
-			const docRef = await addDoc(collection(db, "Person",currentUser,'Orders'), {
+			const docRef = await addDoc(collection(db, "Person", currentUser, "Orders"), {
 				// date : new Date().toLocaleString() + '',
-				date : new Date(),
-				cartTotal : cartTotal,
-				orderID : orderID,
-				status : "Pending",
+				date: new Date(),
+				cartTotal: cartTotal,
+				orderID: orderID,
+				status: "Pending",
 				orders: obj,
-				
-			  });
-			  
-
+			});
 		}
-	} catch(error) {
-		console.log("error code :" ,error.code);
-		console.log("error message : " ,error.message);
+	} catch (error) {
+		console.log("error code :", error.code);
+		console.log("error message : ", error.message);
 	}
 };
 
-export const fetchUserOrders = async (currentUser) => {
-	try{
-		if(firebaseInstance){
+export const fetchUserOrders = async currentUser => {
+	try {
+		if (firebaseInstance) {
 			const db = getFirestore();
 			let res = [];
-			const querySnapshot = await getDocs(collection(db, "Person",currentUser,"Orders"));
-			querySnapshot.forEach((doc) => {
-			//   console.log(doc.id, " => ", doc.data());
-			  let docToAdd = doc.data();
-			  res.push(docToAdd);
+			const querySnapshot = await getDocs(collection(db, "Person", currentUser, "Orders"));
+			querySnapshot.forEach(doc => {
+				//   console.log(doc.id, " => ", doc.data());
+				let docToAdd = doc.data();
+				res.push(docToAdd);
 			});
 			return res;
 		}
-	}catch(err){
+	} catch (err) {
 		console.log(err);
 	}
-}
-
+};
 
 export const fetchAllUsersEmails = async () => {
-	try{
-		if(firebaseInstance){
+	try {
+		if (firebaseInstance) {
 			const db = getFirestore();
 			let res = [];
-			const querySnapshot = await getDocs(collection(db,"Person"));
-			querySnapshot.forEach((doc) => {
+			const querySnapshot = await getDocs(collection(db, "Person"));
+			querySnapshot.forEach(doc => {
 				//   console.log(doc.id, " => ", doc.data());
-				  let docToAdd = doc.data()['email'];
-				  res.push(docToAdd);
-				});
+				let docToAdd = doc.data()["email"];
+				res.push(docToAdd);
+			});
 			return res;
 		}
+	} catch (err) {
+		console.error(err);
 	}
-	catch(err){
-		console.error(err)
-	}
-}
+};
 
 export const fetchAllUsersData = async () => {
-	try{
-		if(firebaseInstance){
+	try {
+		if (firebaseInstance) {
 			const db = getFirestore();
 			let res = [];
-			const querySnapshot = await getDocs(collection(db,"Person"));
-			querySnapshot.forEach((doc) => {
+			const querySnapshot = await getDocs(collection(db, "Person"));
+			querySnapshot.forEach(doc => {
 				//   console.log(doc.id, " => ", doc.data());
-				  let docToAdd = doc.data();
-				  res.push(docToAdd);
-				});
+				let docToAdd = doc.data();
+				res.push(docToAdd);
+			});
 			return res;
 		}
+	} catch (err) {
+		console.error(err);
 	}
-	catch(err){
-		console.error(err)
-	}
-}
+};
 
 export const fetchAllPendingOrders = async () => {
-	try{
-		if(firebaseInstance){
+	try {
+		if (firebaseInstance) {
 			const db = getFirestore();
 			let res = [];
 			const usersEmails = await fetchAllUsersEmails();
 			const usersData = await fetchAllUsersData();
-			for(let i in usersEmails){
+			for (let i in usersEmails) {
 				//fetching all pending orders
-				const q = query(collection(db, "Person",usersEmails[i],"Orders"), where("status", "==", "Pending"));
+				const q = query(collection(db, "Person", usersEmails[i], "Orders"), where("status", "==", "Pending"));
 				// console.log("this is query  => " , q)
 				const currentUserData = usersData[i];
 				const querySnapshot = await getDocs(q);
-				querySnapshot.forEach((doc) => {
-				//   console.log(doc.id, " => ", doc.data());
-				  let docToAdd = doc.data();
-				  Object.assign(docToAdd, {...currentUserData});
-				  res.push(docToAdd);
+				querySnapshot.forEach(doc => {
+					//   console.log(doc.id, " => ", doc.data());
+					let docToAdd = doc.data();
+					Object.assign(docToAdd, { ...currentUserData });
+					res.push(docToAdd);
 				});
 			}
 			// console.log(res)
 			return res;
-			
 		}
-	}catch(err){
+	} catch (err) {
 		console.log(err);
 	}
-}
+};
 
-export const HandleOrderStatus = async (orderID, email,status) => {
+export const HandleOrderStatus = async (orderID, email, status) => {
 	try {
-		if(firebaseInstance){
+		if (firebaseInstance) {
 			const db = getFirestore();
-			const q = query(collection(db, "Person",email,"Orders"), where("orderID", "==", orderID));
+			const q = query(collection(db, "Person", email, "Orders"), where("orderID", "==", orderID));
 			let docRef;
 			const querySnapshot = await getDocs(q);
-					querySnapshot.forEach((doc) => {
-					// doc.data() is never undefined for query doc snapshots
-					//get document reference so we change its status
-					docRef = doc.ref
-					 
+			querySnapshot.forEach(doc => {
+				// doc.data() is never undefined for query doc snapshots
+				//get document reference so we change its status
+				docRef = doc.ref;
 			});
 			await updateDoc(docRef, {
-				status: status
-			  });
+				status: status,
+			});
 		}
-	}catch(err){
-		console.log(err)
+	} catch (err) {
+		console.log(err);
 	}
-}
+};

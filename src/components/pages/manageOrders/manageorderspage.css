@@ -1,15 +1,15 @@
 /* specific btns for table */
 .btnArea {
-    display:flex;
-    flex-direction: column;
-    gap:15px;
-    width: 100%;
-    min-width:300px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	width: 100%;
+	min-width: 300px;
 	border: yellow solid 3px;
 }
 
 .containerbtn1 {
-    position: relative;
+	position: relative;
 	background-color: #a63437;
 	color: #fff;
 	font-size: 16px;
@@ -20,10 +20,8 @@
 	transition: background-color 0.5s;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 	align-content: center;
-	margin:2%;
+	margin: 2%;
 	text-align: center;
-
-	
 }
 
 .containerbtn1:hover {
@@ -35,11 +33,10 @@
 .containerbtn1:focus {
 	background-color: #ca7275;
 	color: white;
-	outline:0;
-	box-shadow:none;
+	outline: 0;
+	box-shadow: none;
 }
 
 .TableContainer {
-    width: 100%;
+	width: 100%;
 }
-

@@ -1,14 +1,6 @@
-/*****************************************
- * * IMPORT LIBRARIES
- *****************************************/
-
 import "./mainimage.css";
-
 import { getDocument } from "../../firebase/Users";
 import { useEffect, useState } from "react";
-/*****************************************
- * * CREATE REACT FUNCTION COMPONENT
- *****************************************/
 
 //Main image below navbar
 export const MainImage = () => {

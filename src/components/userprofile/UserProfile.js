@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./userprofile.css";
-// import HeartSmallLogo from "../../images/kiss_logo_heart_red_small.png";
-import { useContext } from "react";
 import { UserContext } from "../../App";
-import { getEmailForInfoUpdate, getDocument } from "../../firebase/Users";
-import { phoneNumberExistForInfoUpdate } from "../../firebase/Users";
-import { updateInfo } from "../../firebase/Users";
-// import { FiEye } from "react-icons/fi";
+import { getEmailForInfoUpdate, getDocument, phoneNumberExistForInfoUpdate, updateInfo } from "../../firebase/Users";
 
 export const UserProfile = () => {
 	//context to pass down current user logged in
@@ -27,11 +22,11 @@ export const UserProfile = () => {
 	const { firstName, lastName, phoneNumber, city, street, homeNumber, email, password } = values;
 
 	//changing state based on input
-	const handleChange = (name) => (event) => {
+	const handleChange = name => event => {
 		setValues({ ...values, [name]: event.target.value });
 	};
 
-	const checkInput = (e) => {
+	const checkInput = e => {
 		e.preventDefault();
 		if (firstName.toString().length < 1) {
 			setError("First name required");
@@ -72,31 +67,30 @@ export const UserProfile = () => {
 		return true;
 	};
 
-	const handleForm = async (e) => {
+	const handleForm = async e => {
 		e.preventDefault();
 		if (checkInput(e)) {
-		try{
-			//if we manage to get the document(email), means the user already registered
-			const checkNumberExist = await phoneNumberExistForInfoUpdate(currentUser,phoneNumber);
-			if(checkNumberExist){
-				setError("Phone number already in use.")
-				return false;
-			}
+			try {
+				//if we manage to get the document(email), means the user already registered
+				const checkNumberExist = await phoneNumberExistForInfoUpdate(currentUser, phoneNumber);
+				if (checkNumberExist) {
+					setError("Phone number already in use.");
+					return false;
+				}
 
-			// checks if email exist in database
-			const getDoc = await getEmailForInfoUpdate(currentUser, email);
-			if(getDoc){
-				setError("Email address already in use.")
-				return false;
-			}
+				// checks if email exist in database
+				const getDoc = await getEmailForInfoUpdate(currentUser, email);
+				if (getDoc) {
+					setError("Email address already in use.");
+					return false;
+				}
 
-			//if we are here it means no document(email) and phone number is not registered.
-			updateInfo(currentUser, values)
-			return true;
-		}	
-		catch(err){
-			console.log(err);
-		}
+				//if we are here it means no document(email) and phone number is not registered.
+				updateInfo(currentUser, values);
+				return true;
+			} catch (err) {
+				console.log(err);
+			}
 		}
 	};
 
@@ -106,15 +100,12 @@ export const UserProfile = () => {
 		if (currentUser) {
 			//fetch data from collection 'Person' if theres user logged in
 			getDocument("Person", currentUser)
-				.then((result) => {
-					// console.table(result);
-					//console.log(result.classification);
+				.then(result => {
 					if (isMounted) {
-						//set the values to input fields
 						setValues(result);
 					}
 				})
-				.catch((err) => {
+				.catch(err => {
 					console.log(err);
 				});
 		}
@@ -123,29 +114,26 @@ export const UserProfile = () => {
 		};
 	}, [currentUser]);
 
-	// const togglePasswordVisiblity = () => {
-	// 	setPasswordShown(passwordShown ? false : true);
-	// };
-
 	return (
-
 		<div className="wrapper2">
-				<div className="titleDiv">
+			<div className="titleDiv">
 				<h1> ברוכ/ה הבאה </h1>
 				<h1> {currentUser} </h1>
-					<p>
-					
-						על מנת לעדכן את פרטי המשתמש המחובר יש לשנות את תוכן הערך וללחוץ על כפתור השמירה. אנא וודאו שהכתובת במערכת זוהי הכתובת העדכנית שלכם, תודה.
-					</p>
-				</div>
+				<p>
+					על מנת לעדכן את פרטי המשתמש המחובר יש לשנות את תוכן הערך וללחוץ על כפתור השמירה. אנא וודאו שהכתובת במערכת זוהי הכתובת העדכנית
+					שלכם, תודה.
+				</p>
+			</div>
 			<div className="personalDataBox">
-				
 				<section className="personalDetailsUpdate">
-			
 					{error ? <label style={{ color: "red" }}>{error}</label> : null}
-					<form onSubmit={(e) => {handleForm(e)}}>
-					<label>שם פרטי</label>
-						<input  placeholder="First Name" value={firstName} onChange={handleChange("firstName")}/>
+					<form
+						onSubmit={e => {
+							handleForm(e);
+						}}
+					>
+						<label>שם פרטי</label>
+						<input placeholder="First Name" value={firstName} onChange={handleChange("firstName")} />
 						<label>שם משפחה</label>
 						<input placeholder="Last Name" value={lastName} onChange={handleChange("lastName")} />
 						<label>מספר טלפון</label>
@@ -156,18 +144,10 @@ export const UserProfile = () => {
 						<input placeholder="Street" value={street} onChange={handleChange("street")} />
 						<label>מספר בית</label>
 						<input placeholder="Home Number" value={homeNumber} onChange={handleChange("homeNumber")} />
-						
-						{/* <label>Email</label> */}
-						{/* <input placeholder="Email" value={email} onChange={handleChange("email")} /> */}
 
-						{/* <input  placeholder="Password" type={passwordShown ? "text" : "password"} value={password} onChange={handleChange("password")} /> */}
-						{/* <FiEye onClick={togglePasswordVisiblity} /> */}
 						<br></br>
-	
 					</form>
-					<button  type="submit">
-						שמירת פרטים
-					</button>
+					<button type="submit">שמירת פרטים</button>
 				</section>
 			</div>
 		</div>

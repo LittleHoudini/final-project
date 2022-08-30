@@ -13,12 +13,11 @@ import "./stock.css";
 import { updateItemsAmount, canUpdateItem } from "../../firebase/Admin";
 import uuid from "react-uuid";
 import Box from "@mui/material/Box";
-
 import { darken, lighten } from "@mui/material/styles";
 
 const getBackgroundColor = (color, mode) => (mode === "dark" ? darken(color, 0.6) : lighten(color, 0.6));
-
 const getHoverBackgroundColor = (color, mode) => (mode === "dark" ? darken(color, 0.5) : lighten(color, 0.5));
+
 function CustomToolbar() {
 	return (
 		<div className="report-toolbar">
@@ -53,6 +52,8 @@ export default function CustomToolbarGrid() {
 	const [clicked, setClicked] = useState(false);
 	const [id, setId] = useState("");
 
+
+	//fetching all the items
 	useEffect(() => {
 		let isMounted = true;
 		if (isMounted) {

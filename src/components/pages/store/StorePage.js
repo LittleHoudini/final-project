@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import CreateSquare from "../../createSquare/CreateSquare";
 import { getAllDishesFromCategory } from "../../../firebase/Orders";
 import "./store.css";
 import { getUserClassification } from "../../../firebase/Users";
 import { UserContext } from "../../../App";
-import { useContext } from "react";
+
 
 export const StorePage = () => {
 	const [store, setStore] = useState([{}]);
 	const [clicks, setClicked] = useState({
-		edit : false,
-		deleteDish : false,
-		disable : false,
+		edit: false,
+		deleteDish: false,
+		disable: false,
 	});
 	const [userType, setUserType] = useState("");
 	const currentUser = useContext(UserContext);
@@ -35,7 +35,6 @@ export const StorePage = () => {
 				//checks user classification to determine if hes admin or worker
 				getUserClassification(currentUser)
 					.then(result => {
-						console.log("result = ", result);
 						setUserType(result);
 					})
 					.catch(err => {
@@ -51,7 +50,7 @@ export const StorePage = () => {
 
 	return (
 		<div className="wrapperstore">
-			<CreateSquare data={store} type="productsquare" setClicked={setClicked} userType={userType} clicks={clicks}/>
+			<CreateSquare data={store} type="productsquare" setClicked={setClicked} userType={userType} clicks={clicks} />
 		</div>
 	);
 };

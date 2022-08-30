@@ -1,26 +1,20 @@
-import React from "react";
 import CreateSquare from "../../createSquare/CreateSquare";
-
 import "./burgers.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { getAllDishesFromCategory } from "../../../firebase/Orders";
 import { getUserClassification } from "../../../firebase/Users";
 import { UserContext } from "../../../App";
-import { useContext } from "react";
 
 export const BurgersPage = () => {
 	const [burgers, setBurgers] = useState([{}]);
-	// const [clicked, setClicked] = useState(false);
 	const [userType, setUserType] = useState("");
 	const currentUser = useContext(UserContext);
 
 	const [clicks, setClicked] = useState({
-		edit : false,
-		deleteDish : false,
-		disable : false,
+		edit: false,
+		deleteDish: false,
+		disable: false,
 	});
-
-
 
 	useEffect(() => {
 		let isMounted = true;

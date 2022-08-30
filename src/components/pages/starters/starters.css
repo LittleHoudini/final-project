@@ -10,6 +10,6 @@
 @media only screen and (max-width: 991px) {
 	.wrapperstarters {
 		grid-template-columns: repeat(2, 1fr);
-		min-width:33%;
+		min-width: 33%;
 	}
 }

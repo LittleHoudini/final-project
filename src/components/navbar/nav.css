@@ -1,15 +1,14 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Alef:wght@700&family=Staatliches&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Alef:wght@700&family=Staatliches&display=swap");
 .navbar {
 	background-color: #ca7275;
 	font-size: 16px;
-	font-family: 'Staatliches', cursive,  'Alef', sans-serif;
-	
+	font-family: "Staatliches", cursive, "Alef", sans-serif;
 }
 .navbarcontainer {
 	padding: 0;
 	margin: 0;
 	min-width: 100%;
+	display: flex;
 }
 
 .logo-image-nav {
@@ -17,56 +16,53 @@
 	max-height: 60px;
 	display: inline-block;
 	align-items: top;
+	margin-left: 3%;
 }
 
 /* nav bar style */
-div.navbarcontainer.container a.nav-link  {
+div.navbarcontainer.container a.nav-link {
 	color: white;
 }
 
-div.navbarcontainer.container a.nav-link:hover  {
+div.navbarcontainer.container a.nav-link:hover {
 	color: #497694;
+}
+
+.navAdmin {
+	margin-right: 3%;
 }
 
 /* dropdown box style */
 div.dropdown-menu.show {
-	background-color:#ca7275;
+	background-color: #ca7275;
 	display: flex;
 	flex-direction: column;
-	
 }
 
 /* inside dropdown box - links and text */
-a.dropdown-item{
-	
+a.dropdown-item {
 	color: white;
 }
 
 a.dropdown-item:hover {
-	color:#497694;
-	background-color:#ca7275;
+	color: #497694;
+	background-color: #ca7275;
 }
 
 .navbar-toggler-icon .collapsed:active {
-	border:none;
-	box-shadow:none;
-}
-
-.navAdmin {
-	width: 100%;
+	border: none;
+	box-shadow: none;
 }
 
 @media only screen and (max-width: 991px) {
-
 	.navbar {
 		font-size: 16px;
 	}
-	div.navbarcontainer.container a.nav-link  {
-		margin:0 auto;
+	div.navbarcontainer.container a.nav-link {
+		margin: 0 auto;
 	}
-	 a.dropdown-toggle  {
+	a.dropdown-toggle {
 		text-align: center;
-		
 	}
 
 	a.dropdown-item {
@@ -75,21 +71,23 @@ a.dropdown-item:hover {
 
 	span.navbar-brand {
 		display: none;
-	
 	}
 
 	button.navbar-toggler {
-		border:none;
-		margin:auto 0;
-		box-shadow:none;
-		
+		border: none;
+		margin: auto 0;
+		box-shadow: none;
 	}
 
 	span.navbar-toggler-icon:focus {
 		background-color: #ca7275;
 		color: white;
-		outline:0;
-		box-shadow:none;
-		border:none;
+		outline: 0;
+		box-shadow: none;
+		border: none;
+	}
+
+	.navAdmin {
+		margin-right: 0;
 	}
 }

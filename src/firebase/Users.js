@@ -1,10 +1,7 @@
 //IMPORTS
 import getFirebase from "./Firebase";
-import bcrypt from "bcryptjs/dist/bcrypt";
-import { doc, updateDoc, setDoc, getDoc, addDoc, getFirestore, collection, query, where, getDocs } from "firebase/firestore";
-import { getAuth, updatePassword, sendPasswordResetEmail, deleteUser } from "firebase/auth";
-import { updateEmail } from "firebase/auth";
-
+import { doc, updateDoc, setDoc, getDoc, getFirestore, collection, query, where, getDocs } from "firebase/firestore";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 //Firebase instance
 const firebaseInstance = getFirebase();
@@ -21,12 +18,6 @@ export const signUp = async (event, ...userinfo) => {
 			const user = await firebaseInstance.auth().createUserWithEmailAndPassword(email, password);
 			//Gets db
 			const db = getFirestore();
-			//Hashed password
-
-			// not needed after sign in update function update 
-			// const salt = bcrypt.genSaltSync(10);
-			// const hashed_password = bcrypt.hashSync(password.trim(), salt);
-
 
 			//Adds the user info to our database
 			const res = await setDoc(doc(db, "Person", email), {
@@ -51,73 +42,29 @@ export const signUp = async (event, ...userinfo) => {
 	}
 };
 
-//creates sub collection of orders for each person
-// const createSubCollection = async (db, parentCollection, email, subCollectionName) => {
-// 	const docRef = await addDoc(collection(db, parentCollection, email, subCollectionName), {});
-// };
-
-// sign in function
-	//*********old sign in function*************
-// export const signIn = async (event, ...userinfo) => {
-// 	//cancels the event if it is cancelable, meaning that the default action that belongs to the event will not occur.
-// 	event.preventDefault();
-// 	//deconstruct
-// 	const { email, password } = userinfo[0];
-// 	try {
-// 		if (firebaseInstance) {
-// 			//checks if user input match to database info
-// 			const user = await firebaseInstance.auth().signInWithEmailAndPassword(email, password);
-// 			console.log(`Welcome ${email}!`);
-// 		}
-// 	} catch (error) {
-// 		console.log("sign in error", error);
-// 	}
-// };
-
 export const signIn = async (event, ...userinfo) => {
 	event.preventDefault();
-	let res= "";
-	try{
-		if(firebaseInstance){
+	let res = "";
+	try {
+		if (firebaseInstance) {
 			const { email, password } = userinfo[0];
-			await firebaseInstance.auth().signInWithEmailAndPassword(email, password)
-				.then(userCredential => {
-				})
+			await firebaseInstance
+				.auth()
+				.signInWithEmailAndPassword(email, password)
+				.then(userCredential => {})
 				.catch(error => {
 					const errorCode = error.code;
-					if(errorCode === 'auth/wrong-password'){
-						res = "Incorrect Password"
+					if (errorCode === "auth/wrong-password") {
+						res = "Incorrect Password";
 					}
 				});
 		}
-	}catch(err){
+	} catch (err) {
 		console.log(err);
-	}
-	finally{
+	} finally {
 		return res;
 	}
 };
-
-
-// not needed after sign in function update
-// export const passwordMatch = async (email, pw) => {
-// 	try {
-// 		if (firebaseInstance) {
-// 			const db = getFirestore();
-// 			//gets the doc
-// 			const docRef = doc(db, "Person", email);
-// 			//gets snapshot of the doc
-// 			const docSnap = await getDoc(docRef);
-// 			if (docSnap.exists()) {
-// 				const hashed_pw = docSnap.data()["password"];
-// 				const match = await bcrypt.compare(pw, hashed_pw);
-// 				return match ? true : false;
-// 			}
-// 		}
-// 	} catch (error) {
-// 		console.log(error);
-// 	}
-// };
 
 //Sign out function for users
 export const signOut = async () => {
@@ -196,16 +143,14 @@ export const getUserClassification = async frDoc => {
 	}
 };
 
-
 //
-export const resetPassword = async (email) => {
+export const resetPassword = async email => {
 	let res = "";
 	try {
 		if (firebaseInstance) {
 			const auth = getAuth();
 			await sendPasswordResetEmail(auth, email)
-				.then((result) => {
-				})
+				.then(result => {})
 				.catch(error => {
 					const errorCode = error.code;
 					res = errorCode;
@@ -213,15 +158,13 @@ export const resetPassword = async (email) => {
 		}
 	} catch (err) {
 		console.log(err);
-	}
-	finally{
+	} finally {
 		return res;
 	}
 };
 
-
 // checks if phone number already exist in firestore before updating Info
-export const phoneNumberExistForInfoUpdate = async (currentUserEmail,phoneNum) => {
+export const phoneNumberExistForInfoUpdate = async (currentUserEmail, phoneNum) => {
 	try {
 		if (firebaseInstance) {
 			let counter = 0;
@@ -232,7 +175,7 @@ export const phoneNumberExistForInfoUpdate = async (currentUserEmail,phoneNum) =
 			querySnapshot.forEach(doc => {
 				console.log(doc.id, " => ", doc.data()["email"]);
 				//skipping the current user
-				if(doc.id !== currentUserEmail){
+				if (doc.id !== currentUserEmail) {
 					counter++;
 				}
 			});
@@ -243,10 +186,10 @@ export const phoneNumberExistForInfoUpdate = async (currentUserEmail,phoneNum) =
 	}
 };
 
-export const updateInfo = async(email,data) => {
-	try{
-		if(firebaseInstance){
-			console.log(data)
+export const updateInfo = async (email, data) => {
+	try {
+		if (firebaseInstance) {
+			console.log(data);
 			const db = getFirestore();
 			await updateDoc(doc(db, "Person", email), {
 				city: data.city,
@@ -256,15 +199,14 @@ export const updateInfo = async(email,data) => {
 				lastName: data.lastName,
 				phoneNumber: data.phoneNumber,
 				street: data.street,
-			  });
+			});
 		}
+	} catch (err) {
+		console.log(err);
 	}
-	catch(err){
-		console.log(err)
-	}
-}
+};
 
-export const getEmailForInfoUpdate = async (currentUserEmail,email) => {
+export const getEmailForInfoUpdate = async (currentUserEmail, email) => {
 	try {
 		//checks there is db connection
 		if (firebaseInstance) {
@@ -276,7 +218,7 @@ export const getEmailForInfoUpdate = async (currentUserEmail,email) => {
 			querySnapshot.forEach(doc => {
 				console.log(doc.id, " => ", doc.data()["email"]);
 				//skipping the current user
-				if(doc.id !== currentUserEmail){
+				if (doc.id !== currentUserEmail) {
 					counter++;
 					console.log(doc.id, " => inside with counter ", doc.data()["email"]);
 				}

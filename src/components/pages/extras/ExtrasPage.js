@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import CreateSquare from "../../createSquare/CreateSquare";
 import "./extra.css";
 import { getAllDishesFromCategory } from "../../../firebase/Orders";
 import { getUserClassification } from "../../../firebase/Users";
 import { UserContext } from "../../../App";
-import { useContext } from "react";
+
 
 export const ExtrasPage = () => {
 	const [extras, setExtras] = useState([{}]);
 	const [clicks, setClicked] = useState({
-		edit : false,
-		deleteDish : false,
-		disable : false,
-	})
+		edit: false,
+		deleteDish: false,
+		disable: false,
+	});
 	const [userType, setUserType] = useState("");
 	const currentUser = useContext(UserContext);
 

@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import CreateSquare from "../../createSquare/CreateSquare";
 import "./coctails.css";
 import { getAllDishesFromCategory } from "../../../firebase/Orders";
 import { getUserClassification } from "../../../firebase/Users";
 import { UserContext } from "../../../App";
-import { useContext } from "react";
 
 export const CoctailsPage = () => {
 	const [cocktails, setCocktails] = useState([{}]);
@@ -35,7 +34,6 @@ export const CoctailsPage = () => {
 				//checks user classification to determine if hes admin or worker
 				getUserClassification(currentUser)
 					.then(result => {
-						console.log("result = ", result);
 						setUserType(result);
 					})
 					.catch(err => {

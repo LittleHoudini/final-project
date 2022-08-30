@@ -1,14 +1,6 @@
-/*****************************************
- * * IMPORT LIBRARIES
- *****************************************/
-
 import React, { useState, useEffect } from "react";
 import CreateSquare from "../createSquare/CreateSquare";
-import Styles from "./main.module.css";
 import { getHomePageData } from "../../firebase/Orders";
-/*****************************************
- * * CREATE REACT FUNCTION COMPONENT
- *****************************************/
 
 //Main Screen - Home Page
 export const Main = () => {
@@ -30,7 +22,7 @@ export const Main = () => {
 	}, []);
 
 	return (
-		<main className={Styles.Main}>
+		<main>
 			<CreateSquare data={homePage} type="square" />
 		</main>
 	);

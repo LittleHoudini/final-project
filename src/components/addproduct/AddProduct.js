@@ -1,15 +1,13 @@
 //Incase the user enters invalid route a 404 error page will raise.
 
 import { useState, useEffect } from "react";
-import { getMenuCategories } from "../../firebase/Orders";
+import { getMenuCategories, getItems } from "../../firebase/Orders";
 import "./addproduct.css";
 import uuid from "react-uuid";
 import { MultiSelect } from "react-multi-select-component";
-import { getItems } from "../../firebase/Orders";
-import { addIngredient } from "../../firebase/Admin";
-import { IngredientExists } from "../../firebase/Admin";
-import { addProductWithIngredients, addProduct } from "../../firebase/Admin";
+import { addProductWithIngredients, addProduct, IngredientExists, addIngredient } from "../../firebase/Admin";
 import Alert from "@mui/material/Alert";
+
 const AddProduct = () => {
 	const [categories, setCategories] = useState([{}]);
 	const [error, setError] = useState("");
@@ -133,25 +131,26 @@ const AddProduct = () => {
 
 	const handleForm = async e => {
 		e.preventDefault();
-		console.log(error);
-		console.log(convertSelectedToMatchDB(selected));
-		console.log(formData.category);
 		if (checkInput(e)) {
 			try {
 				if (formData.hasIngredients) {
+					//checks if the choosen ingredient exist in the database
 					await Promise.all(
 						selected.map(async element => {
 							const res = await IngredientExists(element.value);
 							if (!res) {
+								//adds the ingredients
 								await addIngredient(element.value);
 							}
 						})
 					);
+					//adds product with ingredients
 					const res = await addProductWithIngredients(formData, convertSelectedToMatchDB(selected));
 					setError("");
 					setSuccess(true);
 					return true;
 				} else {
+					//adds product without ingredients
 					const res = await addProduct(formData);
 					setError("");
 					setSuccess(true);
@@ -169,9 +168,9 @@ const AddProduct = () => {
 				<form onSubmit={e => handleForm(e)}>
 					{error ? <label style={{ color: "red" }}>{error}</label> : null}
 					{success && <Alert severity="success">Product Successfully Added</Alert>}
-					
+
 					<label htmlFor="category">בחר את הקטגוריה של המוצר</label>
-				
+
 					<select className="select" id="category" value={formData.category} onChange={handleChange} name="category">
 						<option key={uuid()} value={""}>
 							{" "}
@@ -192,6 +191,7 @@ const AddProduct = () => {
 						onChange={handleChange}
 						name="productName"
 						value={formData.productName}
+						dir="rtl"
 					/>
 					<p>מחיר המוצר</p>
 					<input
@@ -205,6 +205,7 @@ const AddProduct = () => {
 						onChange={handleChange}
 						name="price"
 						value={formData.price}
+						dir="rtl"
 					/>
 					<p>תמונת המוצר</p>
 					<input
@@ -214,8 +215,8 @@ const AddProduct = () => {
 						onChange={handleChange}
 						name="imageLink"
 						value={formData.imageLink}
+						dir="rtl"
 					/>
-					{/* <img className="productImg" src={formData.imageLink}></img> */}
 					<p>תיאור המוצר</p>
 					<input
 						className="inputStyle"
@@ -224,11 +225,20 @@ const AddProduct = () => {
 						onChange={handleChange}
 						name="text"
 						value={formData.text}
+						dir="rtl"
 					/>
 					<p>כותרת המוצר</p>
-					<input className="inputStyle" type="text" placeholder="כותרת המוצר" onChange={handleChange} name="title" value={formData.title} />
+					<input
+						dir="rtl"
+						className="inputStyle"
+						type="text"
+						placeholder="כותרת המוצר"
+						onChange={handleChange}
+						name="title"
+						value={formData.title}
+					/>
 					<br />
-					
+
 					<input
 						className="hasIngredients"
 						type="checkbox"
@@ -236,8 +246,11 @@ const AddProduct = () => {
 						checked={formData.hasIngredients}
 						onChange={handleChange}
 						name="hasIngredients"
+						dir="rtl"
 					/>
-					<label  dir="rlt" htmlFor="hasIngredients">האם המוצר בעל רכיבים?</label>
+					<label dir="rtl" htmlFor="hasIngredients">
+						האם המוצר בעל רכיבים?
+					</label>
 					<div>
 						{!formData.hasIngredients ? null : (
 							<>
@@ -249,6 +262,7 @@ const AddProduct = () => {
 									labelledBy="Select"
 									isCreatable={true}
 									className="select2"
+									dir="rtl"
 								/>
 							</>
 						)}
