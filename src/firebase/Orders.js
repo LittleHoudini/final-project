@@ -310,13 +310,11 @@ export const fetchAllPendingOrders = async () => {
 				const currentUserData = usersData[i];
 				const querySnapshot = await getDocs(q);
 				querySnapshot.forEach(doc => {
-					//   console.log(doc.id, " => ", doc.data());
 					let docToAdd = doc.data();
 					Object.assign(docToAdd, { ...currentUserData });
 					res.push(docToAdd);
 				});
 			}
-			// console.log(res)
 			return res;
 		}
 	} catch (err) {

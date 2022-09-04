@@ -9,7 +9,7 @@ import Ingredients from "../ingredients/Ingredients";
 
 import { useCart } from "react-use-cart";
 import Alert from "@mui/material/Alert";
-import { updateDishData, removeProduct, handleDisabledProduct } from "../../firebase/Admin";
+import { updateDishData, removeProduct, handleDisabledProduct,productInPendingOrders } from "../../firebase/Admin";
 
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
@@ -24,6 +24,7 @@ export default function ProductSquare(props) {
 	const { addItem } = useCart();
 	const [itemAdded, setItemAdded] = useState(false);
 	const [error, setError] = useState(false);
+	const [removeError, setRemoveError] = useState(false);
 	const [show, setShow] = useState(false);
 	const [checkbox, setCheckBox] = useState(false);
 
@@ -83,8 +84,15 @@ export default function ProductSquare(props) {
 	const handleremoveProduct = async e => {
 		e.preventDefault();
 		if (checkbox) {
-			const res = await removeProduct(captializeFirstLetter(getCategoryName()), getCategoryName(), name);
-			props.setClicked({ ...props.clicks, deleteDish: !deleteDish });
+			const productFound = await productInPendingOrders(title);
+			if(!productFound){
+				const res = await removeProduct(captializeFirstLetter(getCategoryName()), getCategoryName(), name);
+				props.setClicked({ ...props.clicks, deleteDish: !deleteDish });
+			}
+			else{
+				setRemoveError("There's a pending order with this product.")
+				return false;
+			}
 		}
 	};
 
@@ -114,7 +122,9 @@ export default function ProductSquare(props) {
 
 	return (
 		<>
+			
 			<Card className={styles.container}>
+			{removeError ? <label style={{ color: "red" }}>{removeError}</label> : null}
 				<Card.Img src={image} />
 
 				<Card.Body className={styles.cardbody}>

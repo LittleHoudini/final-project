@@ -304,3 +304,45 @@ export const canUpdateItem = async (id, num) => {
 		console.log(err);
 	}
 };
+
+
+export const fetchPendingOrdersBeforeDeletion = async () => {
+	try {
+		if (firebaseInstance) {
+			const db = getFirestore();
+			let res = [];
+			const usersEmails = await fetchAllUsersEmails();
+			for (let i in usersEmails) {
+				//fetching all pending orders
+				const q = query(collection(db, "Person", usersEmails[i], "Orders"), where("status", "==", "Pending"));
+				const querySnapshot = await getDocs(q);
+				querySnapshot.forEach(doc => {
+					console.log(typeof doc.data().orders)
+					res.push(...doc.data().orders);
+				});
+			}
+			console.log(res)
+			return res;
+		}
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+export const productInPendingOrders = async (name) => {
+	try{
+		if(firebaseInstance){
+			let flag = false;
+			const res = await fetchPendingOrdersBeforeDeletion();
+			for (let i = 0; i < res.length; i++) {
+				if(res[i].title === name){
+					flag = true;
+				}
+			}
+			return flag;
+		}
+	}
+	catch(err){
+		console.log(err)
+	}
+}
