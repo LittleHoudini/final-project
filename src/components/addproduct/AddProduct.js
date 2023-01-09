@@ -248,7 +248,7 @@ const AddProduct = () => {
 						name="hasIngredients"
 						dir="rtl"
 					/>
-					<label dir="rtl" htmlFor="hasIngredients">
+					<label dir="rtl" htmlFor="hasIngredients" className="hasIngredientsLabel">
 						האם המוצר בעל רכיבים?
 					</label>
 					<div>

@@ -53,7 +53,7 @@ export default function UserOrdersPage() {
 		<div className="myOrdersPage">
 			<div className="titleDiv">
 				<h1> ההזמנות שלי</h1>
-				<p>לחיפוש הזמנה נא הכנס את מספר ההזמנה בשורה החיפוש</p>
+				<p style={{marginRight: "0px"}}>לחיפוש הזמנה נא הכנס את מספר ההזמנה/תאריך/סטטוס בשורה החיפוש</p>
 				<input placeholder="Search" type="text" onChange={e => setSearch(e.target.value)} value={search} />
 			</div>
 			<TableContainer component={Paper}>
@@ -76,7 +76,7 @@ export default function UserOrdersPage() {
 							  })
 							: orderHistory
 									.filter(
-										docs => formatDate(docs.date.toDate()).includes(search) || docs.orderID.includes(search) || docs.status.includes(search)
+										docs => formatDate(docs.date.toDate()).includes(search) || docs.orderID.toLowerCase().includes(search.toLowerCase()) || docs.status.toLowerCase().includes(search.toLowerCase())
 									)
 									.map(docs => {
 										return <UserOrders key={uuid()} docs={docs} />;

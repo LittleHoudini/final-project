@@ -11,6 +11,7 @@ import uuid from "react-uuid";
 import { ManageOrders } from "../../manageOrders/ManageOrders";
 import { handleStockAfterOrder, checkStockAvailbility,HandleOrderStatus,fetchAllPendingOrders } from "../../../firebase/Orders";
 import { updateStats } from "../../../firebase/Admin";
+import { CSVLink,CSVDownload  } from "react-csv";
 import "./manageorderspage.css";
 export default function ManageOrdersPage() {
 	const currentUser = useContext(UserContext);
@@ -45,6 +46,44 @@ export default function ManageOrdersPage() {
 		);
 	}
 
+	const headers = [
+		{ label: 'First Name', key: 'firstName' },
+		{ label: 'Last Name', key: 'lastName' },
+		{ label: 'Phone Number', key: 'phoneNumber' },
+		{ label: 'City', key: 'city' },
+		{ label: 'Street', key: 'street' },
+		{ label: 'Home Number', key: 'homeNumber' },
+		{ label: 'Email', key: 'email' },
+		{ label: 'Cart Total', key: 'cartTotal' },
+		{ label: 'Order ID', key: 'orderID' },
+		{ label: 'Item Title', key: 'orders.title' },
+		{ label: 'Item ID', key: 'orders.id' },
+		{ label: 'Item Total', key: 'orders.itemTotal' },
+		{ label: 'Item Price', key: 'orders.price' },
+		{ label: 'Item Quantity', key: 'orders.quantity' },
+	  ];
+
+
+	const generateCsvData = (docs) => {
+		const { firstName, lastName, phoneNumber, city, street, homeNumber, email, cartTotal ,orderID ,orders } = docs;
+		const data = [
+			{ firstName,
+			  lastName,
+			  phoneNumber,
+			  city,
+			  street,
+			  homeNumber,
+			  email: email,
+			  cartTotal,
+			  orderID,
+			}
+		]
+		orders.map(obj => {
+			data.push({orders:obj})
+		})
+
+		return data;
+	}
 
   
 	const handleStatusChange = async (docs, status) => {
@@ -63,6 +102,9 @@ export default function ManageOrdersPage() {
 			}
       //handle if order is declined
 		} else {
+			console.log("docs  inside manageOrdersPage " , docs);
+			const csvData = generateCsvData(docs);
+			// <CSVDownload data={csvData} target="_blank" filename={`Canceled_Order_${docs.phoneNumber}_${docs.orderID}.csv`}/>;
 			const res = await HandleOrderStatus(docs.orderID, docs.email, status);
 			handleDocsChange();
 		}
@@ -128,7 +170,7 @@ export default function ManageOrdersPage() {
 		};
 	}, [currentUser, docsUpdated]);
 
-	if (pendingOrders.length === 0) return <p>אין הזמנות פעילות</p>;
+	if (pendingOrders.length === 0) return <p style={{textAlign: "center"}}>אין הזמנות פעילות</p>;
 
 	return (
 		<div className="wrapper22">
@@ -154,11 +196,14 @@ export default function ManageOrdersPage() {
 									<ManageOrders key={uuid()} docs={docs} />
 									<TableRow key={uuid()}>
 										<TableCell className="btnArea">
-											<button onClick={() => handleStatusChange(docs, "Approved")} className="containerbtn1">
+											<button onClick={() => handleStatusChange(docs, "Approved")} className="containerbtn1 btnApprove">
 												לאשר הזמנה
 											</button>
-											<button onClick={() => handleStatusChange(docs, "Canceled")} className="containerbtn1">
+											{/* <button onClick={() => handleStatusChange(docs, "Canceled")} className="containerbtn1">
 												לבטל הזמנה
+											</button> */}
+											<button className="containerbtn1 btnCancel">
+												<CSVLink  onClick={() => handleStatusChange(docs, "Canceled")} data={generateCsvData(docs)} headers={headers} target="_blank" filename={`CanceledOrder_${docs.phoneNumber}_${docs.orderID}.csv`}>לבטל הזמנה</CSVLink>
 											</button>
 										</TableCell>
 									</TableRow>

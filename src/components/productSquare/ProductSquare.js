@@ -166,7 +166,7 @@ export default function ProductSquare(props) {
 									</div>
 								</div>
 							) : null}
-							<label htmlFor="hasIngredients">למחיקת המוצר נא לסמן את התיבה הבאה</label>
+							<label style={{textAlign:"center",width:"100%"}} htmlFor="hasIngredients">למחיקת המוצר נא לסמן את התיבה הבאה</label>
 							<input className={styles.checkBoxDelete} type="checkbox" onChange={() => setCheckBox(prev => !prev)} value={checkbox} />
 							<button className={styles.containerbtn} onClick={e => handleremoveProduct(e)}>
 								מחיקת מוצר

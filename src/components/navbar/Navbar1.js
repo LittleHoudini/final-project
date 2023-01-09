@@ -12,9 +12,22 @@ import { SignupPage } from "../pages/signup/SignupPage";
 import { getUserClassification } from "../../firebase/Users";
 import { useCart } from "react-use-cart";
 import { getMisc } from "../../firebase/Orders";
+import Badge from '@mui/material/Badge';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 /*****************************************
  * * CREATE REACT FUNCTION COMPONENT
  *****************************************/
+const StyledBadge = styled(Badge)(({ theme }) => ({
+	'& .MuiBadge-badge': {
+	  right: -3,
+	  top: 13,
+	  border: `2px solid ${theme.palette.background.paper}`,
+	  padding: '0 4px',
+	},
+  }));
+
 function Navbar1() {
 	//state
 	const currentUser = useContext(UserContext);
@@ -57,7 +70,7 @@ function Navbar1() {
 			return (
 				<Nav className="navAdmin">
 					<NavDropdown title="Admin" id="collasible-nav-dropdown">
-						<NavDropdown.Item as={Link} to={"/"}>
+						<NavDropdown.Item as={Link} to={"/admin/panel"}>
 							Admin Panel
 						</NavDropdown.Item>
 						<NavDropdown.Item as={Link} to={"/admin/stock"}>
@@ -100,9 +113,15 @@ function Navbar1() {
 				<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 				<Navbar.Collapse id="responsive-navbar-nav">
 					<Nav className="me-auto">
-						<Nav.Link as={Link} to={"/"}>
+						{userType === 'admin' ? 						
+						<Nav.Link as={Link} to={"/admin/panel"}>
+							ADMIN PANEL
+						</Nav.Link> : null}
+						
+						<Nav.Link as={Link} to={"/home"}>
 							HOME PAGE
 						</Nav.Link>
+
 						<NavDropdown title="MENU" id="collasible-nav-dropdown">
 							<NavDropdown.Item as={Link} to={"/menucategories"}>
 								CATEGORIES
@@ -133,8 +152,14 @@ function Navbar1() {
 							OUR STORE
 						</Nav.Link>
 
-						<Nav.Link as={Link} to={"/shoppingcart"}>
+						{/* <Nav.Link as={Link} to={"/shoppingcart"}>
 							{totalUniqueItems > 0 ? `SHOPPING CART (${totalUniqueItems})` : "SHOPPING CART"}
+						</Nav.Link> */}
+
+						<Nav.Link as={Link} to={"/shoppingcart"}>
+							<StyledBadge badgeContent={totalUniqueItems} color="secondary">
+								<ShoppingCartIcon />
+							</StyledBadge>
 						</Nav.Link>
 					</Nav>
 					{currentUser ? (

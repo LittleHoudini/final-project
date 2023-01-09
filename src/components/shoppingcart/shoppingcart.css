@@ -7,6 +7,7 @@
 	flex-wrap: wrap;
 	justify-content: center;
 	align-content: center;
+	text-align: center;
 }
 .emptyShoppingCartImage {
 	width: 100px;

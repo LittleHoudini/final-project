@@ -60,6 +60,8 @@ function Routing() {
 				<Route path="/coctails" element={<CoctailsPage />} />
 				<Route path="/store" element={<StorePage />} />
 				{userType === "admin" ? <Route path="/" element={<AdminPanel />} /> : <Route path="/" exact element={<HomePage />} />}
+				<Route path="/home" exact element={<HomePage />} />
+				<Route path="/admin/panel" element={<AdminPanel />} />
 				<Route path="*" element={<PageNotFound />} />
 				<Route path="/profile" element={<UserProfile />} />
 				<Route path="/orders" element={<UserOrdersPage />} />
