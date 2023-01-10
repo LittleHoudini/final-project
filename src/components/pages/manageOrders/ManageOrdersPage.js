@@ -102,9 +102,6 @@ export default function ManageOrdersPage() {
 			}
       //handle if order is declined
 		} else {
-			console.log("docs  inside manageOrdersPage " , docs);
-			const csvData = generateCsvData(docs);
-			// <CSVDownload data={csvData} target="_blank" filename={`Canceled_Order_${docs.phoneNumber}_${docs.orderID}.csv`}/>;
 			const res = await HandleOrderStatus(docs.orderID, docs.email, status);
 			handleDocsChange();
 		}
@@ -113,6 +110,15 @@ export default function ManageOrdersPage() {
 	const handleDocsChange = () => {
 		setDocsUpdated(prev => !prev);
 	};
+
+	function formatDate(date) {
+		return [
+		  padTo2Digits(date.getDate()),
+		  padTo2Digits(date.getMonth() + 1),
+		  date.getFullYear(),
+		].join('_') +   "-" +  [date.getHours(),
+		date.getMinutes()].join(";");
+	  }
 
 	//use effect for pending orders with interval, updates every 1 minute
 	const MINUTE_MS = 60000;
@@ -196,12 +202,15 @@ export default function ManageOrdersPage() {
 									<ManageOrders key={uuid()} docs={docs} />
 									<TableRow key={uuid()}>
 										<TableCell className="btnArea">
-											<button onClick={() => handleStatusChange(docs, "Approved")} className="containerbtn1 btnApprove">
+											{/* <button onClick={() => handleStatusChange(docs, "Approved")} className="containerbtn1 btnApprove">
 												לאשר הזמנה
-											</button>
+											</button> */}
 											{/* <button onClick={() => handleStatusChange(docs, "Canceled")} className="containerbtn1">
 												לבטל הזמנה
 											</button> */}
+											<button className="containerbtn1 btnApprove">
+												<CSVLink  onClick={() => handleStatusChange(docs, "Approved")} data={generateCsvData(docs)} headers={headers} target="_blank" filename={`ApprovedOrder_${formatDate(docs.date.toDate())}_${docs.orderID}.csv`}>לאשר הזמנה</CSVLink>
+											</button>
 											<button className="containerbtn1 btnCancel">
 												<CSVLink  onClick={() => handleStatusChange(docs, "Canceled")} data={generateCsvData(docs)} headers={headers} target="_blank" filename={`CanceledOrder_${docs.phoneNumber}_${docs.orderID}.csv`}>לבטל הזמנה</CSVLink>
 											</button>
