@@ -135,17 +135,26 @@ export const removeProduct = async (category, product, docToRemove) => {
 	}
 };
 
-export const getStats = async () => {
+export const getStats = async (year) => {
 	try {
 		if (firebaseInstance) {
 			const db = getFirestore();
-			const docSnap = await getDoc(doc(db, `Order/Chart`));
-			if (docSnap.exists()) {
-				return docSnap.data();
-			} else {
-				console.log("No such document!");
-				return false;
+			let res = {};
+			const usersEmails = await fetchAllUsersEmails();
+			for (let i in usersEmails) {
+				//fetching all Approved orders
+				const q = query(collection(db, "Person", usersEmails[i], "Orders"), where("status", "==", "Approved"));
+				const querySnapshot = await getDocs(q);
+				querySnapshot.forEach(doc => {
+					const dateToCheck = doc.data().date.toDate();
+					if (dateToCheck.getFullYear()===Number(year)) {
+						const month = doc.data().date.toDate().getMonth();
+						const total = doc.data().cartTotal;
+						res[`${month}`] = (res[`${month}`] || 0) + total;
+					}
+				});
 			}
+			return res;
 		}
 	} catch (err) {
 		console.log(err);
