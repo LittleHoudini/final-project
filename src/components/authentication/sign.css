@@ -29,9 +29,9 @@
 	box-shadow: 0;
 }
 
-.signBtn {
+.signBtn, .resetPwBtn {
 	margin-top: 3%;
-	width: 100%;
+	width: 80%;
 }
 
 .label1 {
@@ -39,5 +39,11 @@
 }
 
 .frgBtn {
-	margin-left: 70%;
+	width: 80%;
+	margin-left: 20%;
+}
+
+.exitbtn{
+	margin-right: auto;
+	
 }

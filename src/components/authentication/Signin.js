@@ -60,20 +60,31 @@ const Signin = ({ open, setOpen }) => {
 
 	const handlePasswordReset = async e => {
 		e.preventDefault();
+		if(emailReset === ""){
+			setError(".Email field for resetting password can't be empty")
+			return;
+		}
 		const res = await resetPassword(emailReset);
 		console.log(res);
 		if (res === "auth/user-not-found") {
-			setError("There is no user with this email.");
+			setError(".There is no user with this email");
 		} else {
+			setError("");
 			setEmailSent(true);
 		}
 	};
 
 	return (
 		<Dialog className="textFieldFormWrapper" open={open} onClose={() => setOpen(false)}>
+			<DialogActions style={{width: "16%"}}>
+				<button className="containerbtn exitbtn" onClick={() => setOpen(false)}>
+					X
+				</button>
+			</DialogActions>
 			<DialogTitle dir="rtl" className="DialogTitle">
 				התחברות
 			</DialogTitle>
+			
 			<DialogContent>
 				<form
 					dir="rtl"
@@ -117,32 +128,27 @@ const Signin = ({ open, setOpen }) => {
 					שכחתם סיסמא?
 				</button>
 				{forgotPassword && (
-					<form onSubmit={e => handlePasswordReset(e)}>
-						<TextField
-							className="textFieldForm"
+					<form dir="rtl" onSubmit={e => handlePasswordReset(e)} className="textFieldFormWrapper">
+					<label className="label1" dir="rtl">
+						דואר אלקטרוני לשחזור סיסמא
+					</label>
+						<input
+							className="TextField1"
 							autoFocus
-							margin="dense"
-							label="Email Address"
 							type="email"
-							fullWidth
-							variant="standard"
 							value={emailReset}
 							onChange={event => {
 								setEmailReset(event.target.value);
 							}}
 						/>
-						<button className="containerbtn" type="submit">
+						<button className="containerbtn resetPwBtn" type="submit">
 							שחזור
 						</button>
-						{emailSent && <Alert severity="success">נשלח למייל האישי שלך מייל לשחזור סיסמא</Alert>}
+						{emailSent && <Alert severity="success" style={{width: "80%"}}>נשלח למייל האישי שלך מייל לשחזור סיסמא</Alert>}
 					</form>
 				)}
 			</DialogContent>
-			<DialogActions>
-				<button className="containerbtn " onClick={() => setOpen(false)}>
-					X
-				</button>
-			</DialogActions>
+
 		</Dialog>
 	);
 };
