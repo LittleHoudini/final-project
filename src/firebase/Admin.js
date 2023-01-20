@@ -161,21 +161,6 @@ export const getStats = async (year) => {
 	}
 };
 
-export const updateStats = async (total, month) => {
-	try {
-		if (firebaseInstance) {
-			const db = getFirestore();
-			const docRef = doc(db, `Order/Chart`);
-
-			// Set the "capital" field of the city 'DC'
-			await updateDoc(docRef, {
-				[`${month}`]: increment(total),
-			});
-		}
-	} catch (err) {
-		console.log(err);
-	}
-};
 
 export const getWeeklyStats = async (start, end) => {
 	try {

@@ -10,8 +10,7 @@ import Paper from "@mui/material/Paper";
 import uuid from "react-uuid";
 import { ManageOrders } from "../../manageOrders/ManageOrders";
 import { handleStockAfterOrder, checkStockAvailbility,HandleOrderStatus,fetchAllPendingOrders } from "../../../firebase/Orders";
-import { updateStats } from "../../../firebase/Admin";
-import { CSVLink,CSVDownload  } from "react-csv";
+import { CSVLink } from "react-csv";
 import "./manageorderspage.css";
 export default function ManageOrdersPage() {
 	const currentUser = useContext(UserContext);
@@ -96,7 +95,6 @@ export default function ManageOrdersPage() {
 				const res = await HandleOrderStatus(docs.orderID, docs.email, status);
 				handleDocsChange();
 				const handleUpdate = await handleStockAfterOrder(getItemQuantity(docs.orders));
-				const update = await updateStats(docs.cartTotal, docs.date.toDate().getMonth() + 1);
 			} else {
 				setError(`Can't approve order ${docs.orderID}, Stock can not be updated, Please check stock status`);
 			}
