@@ -309,7 +309,7 @@ export function ShoppingCart() {
 							<TableCell colSpan={1}></TableCell>
 							<TableCell colSpan={1}></TableCell>
 							<TableCell align="right">{ccyFormat(taxRate * cartTotal)}</TableCell>
-							<TableCell> מע"מ{`${(taxRate * 100).toFixed(0)} %`}</TableCell>
+							<TableCell> מע"מ {`${(taxRate * 100).toFixed(0)}%`}</TableCell>
 						</TableRow>
 						<TableRow>
 							<TableCell colSpan={1}></TableCell>

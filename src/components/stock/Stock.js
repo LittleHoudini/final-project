@@ -131,6 +131,7 @@ export default function CustomToolbarGrid() {
 				<div className="inputStyle1">
 				<label>ID</label>
 				<input
+					style={{width:"100%"}}
 					type="text"
 					value={id}
 					onChange={e => setId(e.target.value)}
@@ -144,6 +145,7 @@ export default function CustomToolbarGrid() {
 				<div className="inputStyle1">
 				<label>כמות</label>
 				<input
+					style={{width:"100%"}}
 					type="text"
 					value={num}
 					onChange={e => setNum(e.target.value)}

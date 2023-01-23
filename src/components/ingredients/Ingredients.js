@@ -142,7 +142,7 @@ export default function Ingredients({ dishData, name, open, setOpen }) {
 								>
 									-
 								</button>
-								<input disabled className={Styles.countInput} value={value} name={key} onChange={handleOnChange} />
+								<input style={{width:"20px"}} disabled className={Styles.countInput} value={value} name={key} onChange={handleOnChange} />
 								<button
 									onClick={() => {
 										IncrementItemByKey(key);
