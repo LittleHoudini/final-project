@@ -36,13 +36,16 @@ export default function WeeklyChart() {
 	useEffect(() => {
 		let isMounted = true;
 		if (isMounted) {
-			getWeeklyStats(startDate, endDate)
-				.then(res => {
-					setWeeklyStats(getValuesOfObj(res));
-				})
-				.catch(err => {
-					console.log(err);
-				});
+			const start_date = startDate ?? new Date();
+			const end_date = endDate ?? new Date();
+			getWeeklyStats(start_date, end_date)
+			.then(res => {
+				setWeeklyStats(getValuesOfObj(res));
+			})
+			.catch(err => {
+				console.log(err);
+			});
+			
 		}
 		return () => {
 			isMounted = false;
@@ -52,6 +55,9 @@ export default function WeeklyChart() {
 
 	//returns array of all the dates between the 2 choosen dates
 	function getDatesInRange(startDate, endDate) {
+		if(startDate === null || endDate === null){
+			return [];
+		}
 		const date = new Date(startDate.getTime());
 
 		const dates = [];
@@ -117,6 +123,10 @@ export default function WeeklyChart() {
 	};
 
 	const checkInput = () => {
+		if(startDate === null ||  endDate === null){
+			setError("תאריכים לא תקינים.");
+			return false;
+		}
 		const diff = dateDiffInDays(startDate, endDate);
 		if (diff < 0) {
 			setError("טווח ימין לא תקין.");
