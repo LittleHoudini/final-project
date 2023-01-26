@@ -104,7 +104,7 @@ export default function ProductSquare(props) {
 			return false;
 		}
 
-		if (Number(values.priceToEdit) < 1) {
+		if (Number(values.priceToEdit) < 1 || isDot(values.priceToEdit)) {
 			setError("Price can not be below 1");
 			return false;
 		}
@@ -120,6 +120,37 @@ export default function ProductSquare(props) {
 		return true;
 	};
 
+	function isDot(key) {
+		return key === ".";
+	  }
+	  
+	  function isNumber(key) {
+		return key.match(/[0-9]/);
+	  }
+	  
+	  function isValidDot(value) {
+		return value.length === 0 || (value.match(/\./g) || []).length < 1;
+	  }
+	  
+	  function isValidNumber(value) {
+		const index = value.indexOf(".");
+		if(index === -1) return true;
+		return value.slice(index+1).length < 2;
+	  }
+	  
+	  function isValidPriceInput(key, value) {
+		if(isDot(key)) return isValidDot(value);
+		if(isNumber(key)) return isValidNumber(value);
+		return false;
+	  }
+	  
+	  function formatNumber(num) {
+		if (Number.isInteger(num)) {
+		  return `${num}.00`;
+		}
+		return num;
+	  }
+
 	return (
 		<>
 			
@@ -130,7 +161,7 @@ export default function ProductSquare(props) {
 				<Card.Body className={styles.cardbody}>
 					<Card.Title className={styles.title}>{title}</Card.Title>
 					<div className={styles.info}>
-						<Card.Text className={styles.priceproduct}>{price}.00</Card.Text>
+						<Card.Text className={styles.priceproduct} onClick={() => console.log(typeof(price))}>{formatNumber(price)}</Card.Text>
 						<Card.Text className={styles.aboutproduct}>{text}</Card.Text>
 					</div>
 					<Button disabled={disabled} className={"containerbtn"} variant="primary" id={name} onClick={handleAddToCart}>
@@ -150,7 +181,13 @@ export default function ProductSquare(props) {
 										<form onSubmit={e => handleEdit(e, values)}>
 											{error ? <label style={{ color: "red" }}>{error}</label> : null}
 											<input value={values.imageLink} onChange={handleChange("imageLink")} placeholder="Image Link" />
-											<input value={values.priceToEdit} onChange={handleChange("priceToEdit")} placeholder="Product Price" />
+											<input 
+											onKeyPress={event => {
+												if (!isValidPriceInput(event.key, event.target.value)) {
+												  event.preventDefault();
+												}
+											  }}
+											value={values.priceToEdit} onChange={handleChange("priceToEdit")} placeholder="Product Price" />
 											<input value={values.titleToEdit} onChange={handleChange("titleToEdit")} placeholder="Product Title" />
 											<input value={values.textToEdit} onChange={handleChange("textToEdit")} placeholder="Product Text" />
 											<button className={styles.containerbtn} type="submit">

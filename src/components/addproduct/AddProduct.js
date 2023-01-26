@@ -105,7 +105,7 @@ const AddProduct = () => {
 			return false;
 		}
 
-		if (Number(formData.price) < 1) {
+		if (Number(formData.price) < 1 || isDot(formData.price)) {
 			setError("Price can not be below 1");
 			return false;
 		}
@@ -162,6 +162,30 @@ const AddProduct = () => {
 		}
 	};
 
+	function isDot(key) {
+		return key === ".";
+	  }
+	  
+	  function isNumber(key) {
+		return key.match(/[0-9]/);
+	  }
+	  
+	  function isValidDot(value) {
+		return value.length === 0 || (value.match(/\./g) || []).length < 1;
+	  }
+	  
+	  function isValidNumber(value) {
+		const index = value.indexOf(".");
+		if(index === -1) return true;
+		return value.slice(index+1).length < 2;
+	  }
+	  
+	  function isValidPriceInput(key, value) {
+		if(isDot(key)) return isValidDot(value);
+		if(isNumber(key)) return isValidNumber(value);
+		return false;
+	  }
+
 	return (
 		<div className="wrapper2">
 			<div className="wrapperInside">
@@ -197,10 +221,10 @@ const AddProduct = () => {
 					<input
 						className="inputStyle"
 						onKeyPress={event => {
-							if (!/[0-9]/.test(event.key)) {
-								event.preventDefault();
+							if (!isValidPriceInput(event.key, event.target.value)) {
+							  event.preventDefault();
 							}
-						}}
+						  }}
 						placeholder="מחיר המוצר"
 						onChange={handleChange}
 						name="price"

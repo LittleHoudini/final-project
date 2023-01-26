@@ -97,6 +97,7 @@ export function Chart() {
 	return (
 		<>	
 			<div className="chart-input">
+			{error ? <p style={{ color: "red", textAlign:"center"}}>{error}</p> : null}
 				<form onSubmit={e => handleSubmit(e)}>
 					<label htmlFor="year">בחר שנה</label>
 					<input className="inputStyle" onChange={(e) => setYear(e.target.value)} value={year} onKeyPress={event => {
@@ -104,7 +105,7 @@ export function Chart() {
 							event.preventDefault();
 						}
 					}}></input>
-					{error ? <p style={{ color: "red", textAlign:"center"}}>{error}</p> : null}
+					
 					<button className="containerbtn inputStyle5 adminPanelBtn" type="submit">
 						הצג נתונים
 					</button>

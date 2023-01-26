@@ -138,22 +138,21 @@ export default function WeeklyChart() {
 
 	return (
 		<>
-			{error ? <label style={{ color: "red" }}>{error}</label> : null}
-			<form className="inputStyleForm" onSubmit={e => handleSubmit(e)}>
-				<div className="inputStyleBox">
-					<div className="inputStyle1">
-						<label>תאריך התחלתי</label>
-						<DatePicker className="dataPicker" locale="he" selected={startDate} onChange={date => handleStartDateChange(date)} />
-					</div>
-					<div className="inputStyle1">
-						<label>תאריך סופי</label>
-						<DatePicker className="dataPicker" locale="he" selected={endDate} onChange={date => handleEndDateChange(date)} />
-					</div>
-				</div>
-				<button className="containerbtn inputStyle5 adminPanelBtn" type="submit">
-					הצג נתונים
-				</button>
-			</form>
+			<div className="chart-input">
+				{error ? <p style={{ color: "red",textAlign:"center" }}>{error}</p> : null}
+				<form  onSubmit={e => handleSubmit(e)}>
+
+							<label>תאריך התחלתי</label>
+							<DatePicker className="datePicker" locale="he" selected={startDate} onChange={date => handleStartDateChange(date)} />
+
+							<label>תאריך סופי</label>
+							<DatePicker className="datePicker" locale="he" selected={endDate} onChange={date => handleEndDateChange(date)} />
+
+					<button className="containerbtn inputStyle5 adminPanelBtn" style={{marginBottom:"5%", width:"53.5%"}} type="submit">
+						הצג נתונים
+					</button>
+				</form>
+			</div>
 			{success && <Bar className="chartBox" options={options} data={data} />}
 		</>
 	);

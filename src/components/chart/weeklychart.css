@@ -20,6 +20,8 @@
 	align-content: center;
 }
 
-.dataPicker {
-	width: 90%;
+.datePicker {
+	width: 40%;
+	border: black 1px solid;
+	border-radius: 5px;
 }
