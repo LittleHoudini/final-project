@@ -154,7 +154,7 @@ export default function ProductSquare(props) {
 	return (
 		<>
 			
-			<Card className={styles.container}>
+			<Card className={`${show ? styles.show : styles.container}`}>
 			{removeError ? <label style={{ color: "red" }}>{removeError}</label> : null}
 				<Card.Img src={image} />
 
@@ -176,31 +176,29 @@ export default function ProductSquare(props) {
 								{show ? "ביטול עריכה" : "עריכה"}
 							</button>
 							{show ? (
-								<div className={styles.adminEditBox}>
-									<div className={styles.adminEditBox2}>
-										<form onSubmit={e => handleEdit(e, values)}>
-											{error ? <label style={{ color: "red" }}>{error}</label> : null}
-											<input value={values.imageLink} onChange={handleChange("imageLink")} placeholder="Image Link" />
-											<input 
-											onKeyPress={event => {
-												if (!isValidPriceInput(event.key, event.target.value)) {
-												  event.preventDefault();
-												}
-											  }}
-											value={values.priceToEdit} onChange={handleChange("priceToEdit")} placeholder="Product Price" />
-											<input value={values.titleToEdit} onChange={handleChange("titleToEdit")} placeholder="Product Title" />
-											<input value={values.textToEdit} onChange={handleChange("textToEdit")} placeholder="Product Text" />
-											<button className={styles.containerbtn} type="submit">
+								<div className={styles.adminEditBox} >
+									<form onSubmit={e => handleEdit(e, values)}>
+										{error ? <label style={{ color: "red" }}>{error}</label> : null}
+										<label>תמונה</label>
+										<input value={values.imageLink} onChange={handleChange("imageLink")} placeholder="Image Link" />
+										<label>מחיר</label>
+										<input 
+										onKeyPress={event => {
+											if (!isValidPriceInput(event.key, event.target.value)) {
+											event.preventDefault();
+											}
+										}}
+										value={values.priceToEdit} onChange={handleChange("priceToEdit")} placeholder="Product Price" />
+										<label>שם מוצר</label>
+										<input value={values.titleToEdit} onChange={handleChange("titleToEdit")} placeholder="Product Title" />
+										<label>תיאור מוצר</label>
+										<input maxLength="50" value={values.textToEdit} onChange={handleChange("textToEdit")} placeholder="Product Text" />
+										<div className={styles.saveEditBtn}>
+											<button type="submit">
 												שמירה
 											</button>
-										</form>
-									</div>
-									<div className={styles.adminEditBox1}>
-										<p>תמונה</p>
-										<p> מחיר</p>
-										<p> תיאור</p>
-										<p> שם </p>
-									</div>
+										</div>
+									</form>
 								</div>
 							) : null}
 							<label style={{textAlign:"center",width:"100%"}} htmlFor="hasIngredients">למחיקת המוצר נא לסמן את התיבה הבאה</label>
