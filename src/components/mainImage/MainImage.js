@@ -17,7 +17,10 @@ export const MainImage = () => {
 				})
 				.catch(err => console.log(err));
 		}
-		return () => (isMounted = false);
+		return () => {
+			isMounted = false
+			setImagesData({})
+		};
 	}, []);
 
 	return (

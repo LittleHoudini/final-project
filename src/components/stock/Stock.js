@@ -107,9 +107,9 @@ export default function CustomToolbarGrid() {
 		let arr = [];
 		obj.map((item) => {
 			if(item.count < 100){
-				item.status = "VeryLow"
+				item.status = "Critical"
 			}
-			else if(item.count > 100 && item.count < 250){
+			else if(item.count >= 100 && item.count < 250){
 				item.status = "Low"
 			}
 			else{
@@ -180,7 +180,7 @@ export default function CustomToolbarGrid() {
 								bgcolor: theme => getHoverBackgroundColor(theme.palette.warning.main, theme.palette.mode),
 							},
 						},
-						"& .super-app-theme--VeryLow": {
+						"& .super-app-theme--Critical": {
 							bgcolor: theme => getBackgroundColor(theme.palette.error.main, theme.palette.mode),
 							"&:hover": {
 								bgcolor: theme => getHoverBackgroundColor(theme.palette.error.main, theme.palette.mode),
@@ -189,6 +189,11 @@ export default function CustomToolbarGrid() {
 					}}
 				>
 					<DataGrid
+						initialState={{
+							sorting: {
+							  sortModel: [{ field: 'count', sort: 'asc' }],
+							},
+						  }}
 						getRowId={row => uuid()}
 						rows={addStatusToItem(items)}
 						getRowClassName={(params) => `super-app-theme--${params.row.status}`}
@@ -196,7 +201,7 @@ export default function CustomToolbarGrid() {
 						xs={10}
 						pageSize={10}
 						rowsPerPageOptions={[10]}
-						checkboxSelection
+						// checkboxSelection
 						components={{
 							Toolbar: CustomToolbar,
 						}}
