@@ -99,7 +99,7 @@ export function Chart() {
 			<div className="chart-input">
 			{error ? <p style={{ color: "red", textAlign:"center"}}>{error}</p> : null}
 				<form onSubmit={e => handleSubmit(e)}>
-					<label htmlFor="year">בחר שנה</label>
+					<label style={{display:"block"}} htmlFor="year">בחר שנה</label>
 					<input className="inputStyle" onChange={(e) => setYear(e.target.value)} value={year} onKeyPress={event => {
 						if (!/[0-9]/.test(event.key)) {
 							event.preventDefault();

@@ -30,8 +30,16 @@
 	font-size: 14px;
 	margin-top: 10px;
 	display: block;
-	/* min-width: 100px; */
+
   }
+
+  label {
+	color: #a63437;
+	padding-top: 3%;
+	margin-right: 3%;
+	/* width: 80%; */
+}
+
   .personalDetailsUpdate input {
 	width: 100%;
 	min-width: 150px;
