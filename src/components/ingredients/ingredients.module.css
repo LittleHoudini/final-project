@@ -2,7 +2,7 @@
 .ingredientsContainer {
 	display: flex;
 	flex-direction: row;
-	width: 200px;
+	width: 250px;
 }
 
 /* title */
@@ -12,17 +12,24 @@
 	align-self: center;
 }
 
+.ingredientsBtns {
+	display: flex;
+	flex-wrap: wrap;
+}
+
 /* product image */
 .ingredientsContent img {
-	width: 150px;
+	width: 250px;
+	/* max-width: 100%; */
 	height: auto;
 	flex: 1 1 40px;
 	aspect-ratio: 1/1;
 	border-radius: 10px;
 	min-height: 50px;
 	object-fit: cover;
-	margin-left: 15%;
-	margin-bottom: 7%;
+	/* margin-left: 10%; */
+	margin-bottom: 10%;
+	/* margin: 0 auto; */
 }
 
 .ingredientsList {
@@ -74,6 +81,7 @@
 
 /* botton btns */
 .closebtn {
+	width: 100%;
 	background-color: #a63437;
 	color: #fff;
 	font-size: 16px;
