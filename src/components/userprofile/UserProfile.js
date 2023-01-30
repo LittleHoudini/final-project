@@ -117,21 +117,18 @@ export const UserProfile = () => {
 	return (
 		<div className="wrapper2">
 			<div className="titleDiv">
-				<h1> ברוכ/ה הבאה </h1>
-				<h1> {currentUser} </h1>
+				<h1>{currentUser} ברוכ/ה הבאה </h1>
 				<p>
 					על מנת לעדכן את פרטי המשתמש המחובר יש לשנות את תוכן הערך וללחוץ על כפתור השמירה. אנא וודאו שהכתובת במערכת זוהי הכתובת העדכנית
 					שלכם, תודה.
 				</p>
 			</div>
-			<div className="personalDataBox">
+			{/* <div className="personalDataBox"> */}
+			
 				<section className="personalDetailsUpdate">
+					
+					<form onSubmit={e => {handleForm(e);}}>
 					{error ? <label style={{ color: "red" }}>{error}</label> : null}
-					<form
-						onSubmit={e => {
-							handleForm(e);
-						}}
-					>
 						<label>שם פרטי</label>
 						<input placeholder="First Name" value={firstName} onChange={handleChange("firstName")} />
 						<label>שם משפחה</label>
@@ -144,12 +141,11 @@ export const UserProfile = () => {
 						<input placeholder="Street" value={street} onChange={handleChange("street")} />
 						<label>מספר בית</label>
 						<input placeholder="Home Number" value={homeNumber} onChange={handleChange("homeNumber")} />
-
-						<br></br>
+						<button type="submit">שמירת פרטים</button>
 					</form>
-					<button type="submit">שמירת פרטים</button>
+					
 				</section>
 			</div>
-		</div>
+		// </div>
 	);
 };

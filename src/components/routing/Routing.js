@@ -61,17 +61,18 @@ function Routing() {
 				<Route path="/store" element={<StorePage />} />
 				{userType === "admin" ? <Route path="/" element={<AdminPanel />} /> : <Route path="/" exact element={<HomePage />} />}
 				<Route path="/home" exact element={<HomePage />} />
-				<Route path="/admin/panel" element={<AdminPanel />} />
 				<Route path="*" element={<PageNotFound />} />
 				<Route path="/profile" element={<UserProfile />} />
 				<Route path="/orders" element={<UserOrdersPage />} />
 				<Route path="/shoppingcart" element={<ShoppingCart />} />
 				<Route path="/menucategories" element={<MenuCategoriesPage />} />
-				<Route path="/admin/stock" element={<Stock />} />
-				<Route path="/admin/manageorders" element={<ManageOrdersPage />} />
-				<Route path="/admin/addproduct" element={<AddProduct />} />
-				<Route path="/admin/chart" element={<Chart />} />
-				<Route path="/admin/weeklychart" element={<WeeklyChart />} />
+
+				{userType === 'admin' && <Route path="/admin/panel" element={<AdminPanel />} />}
+				{userType === 'admin' &&  <Route path="/admin/stock" element={<Stock />} />}
+				{userType === 'admin' && <Route path="/admin/manageorders" element={<ManageOrdersPage />} />}
+				{userType === 'admin' && <Route path="/admin/addproduct" element={<AddProduct />} />}
+				{userType === 'admin' && <Route path="/admin/chart" element={<Chart />} />}
+				{userType === 'admin' && <Route path="/admin/weeklychart" element={<WeeklyChart />} />}
 			</Routes>
 	);
 }

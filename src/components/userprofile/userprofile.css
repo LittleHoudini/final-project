@@ -1,88 +1,69 @@
-/* personal Data Box */
+/* Add a general styling for the form container */
 .personalDataBox {
 	display: flex;
-	flex-direction: column;
-	align-items: center;
-	background-color: gainsboro;
-	margin: auto;
-	border-radius: 10px;
 	justify-content: center;
+	align-items: center;
+	height: 100%;
+  }
+  
+  /* Style the personal details section */
+  .personalDetailsUpdate {
 	width: 100%;
-	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-	padding: 5%;
-}
-
-/* inside box */
-.personalDetailsUpdate {
+	background-color: #f2f2f2;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	text-align: right;
+	justify-content: center;
+	display: flex;
+  }
+  
+.personalDetailsUpdate form {
+	width: 30%;
+	align-items: center;
 	display: flex;
 	flex-direction: column;
 }
-
-.personalDetailsUpdate button {
-	border-radius: 5px;
-	border: none;
-	padding: 3%;
-	margin: 3%;
-	background-color: #a63437;
-	color: aliceblue;
-	margin: auto;
-	position: relative;
-}
-
-.personalDetailsUpdate button:hover {
-	background-color: #ca7275;
+  
+  /* Style the form elements within the section */
+  .personalDetailsUpdate label {
+	font-size: 14px;
+	margin-top: 10px;
+	display: block;
+	/* min-width: 100px; */
+  }
+  .personalDetailsUpdate input {
+	width: 100%;
+	min-width: 150px;
+	padding: 12px 20px;
+	margin: 8px 0;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+  }
+  .personalDetailsUpdate button[type="submit"] {
+	width: 100%;
+	background-color: #4CAF50;
 	color: white;
-	font-weight: bold;
-}
-
-.personalDetailsUpdate form {
-	display: flex;
-	flex-wrap: wrap;
-
-	justify-content: right;
-}
-
-/* inputs */
-
-label {
-	color: #a63437;
-	padding-top: 3%;
-	margin-right: 3%;
-	width: 80%;
-}
-
-.personalDetailsUpdate input {
-	border-radius: 5px;
+	padding: 14px 20px;
+	margin: 8px 0;
 	border: none;
-	background-color: white;
-	padding: 1%;
-	margin: 2%;
-	box-shadow: none;
-	border: none;
-	min-width: 200px;
-}
-.personalDetailsUpdate inputfocus {
-	background-color: rgb(232, 229, 229);
-	border: solid 2px #ca7275;
-	outline: 0;
-}
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+  }
+  .personalDetailsUpdate button[type="submit"]:hover {
+	background-color: #3e8e41;
+  }
+  
+  /* Style the error label */
+  .personalDetailsUpdate label[style] {
+	margin-top: 20px;
+  }
+  
 
-.personalDetailsUpdate input:hover {
-	background-color: rgb(232, 229, 229);
-	border: solid 2px #497694;
-	outline: 0;
-}
-.personalDetailsUpdate input:focus {
-	background-color: rgb(232, 229, 229);
-	border: solid 1px #ca7275;
-}
-
-.personalDetailsUpdate input:hover {
-	background-color: rgb(232, 229, 229);
-}
-
-/* title div */
-.titleDiv {
+  .titleDiv {
 	background-color: #a63437;
 	display: flex;
 	flex-direction: column;
