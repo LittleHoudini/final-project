@@ -72,7 +72,7 @@ export default function UserOrders({docs}) {
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell style={{color:'white',textAlign:"right"}}  align="right">סה"כ ($)</TableCell>
+                    <TableCell style={{color:'white',textAlign:"right"}}  align="right">סה"כ</TableCell>
                     <TableCell style={{color:'white',textAlign:"right"}}  align="right">מחיר ליחידה</TableCell>
                     <TableCell style={{color:'white',textAlign:"right"}}  align="right">כמות</TableCell>
                     <TableCell style={{color:'white',textAlign:"right"}} >פריטים</TableCell>

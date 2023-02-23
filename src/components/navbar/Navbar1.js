@@ -69,22 +69,22 @@ function Navbar1() {
 				<Nav className="navAdmin">
 					<NavDropdown title="Admin" id="collasible-nav-dropdown">
 						<NavDropdown.Item as={Link} to={"/admin/panel"}>
-							Admin Panel
+							אדמין פאנל
 						</NavDropdown.Item>
 						<NavDropdown.Item as={Link} to={"/admin/stock"}>
-							Stock
+							מלאי
 						</NavDropdown.Item>
 						<NavDropdown.Item as={Link} to={"/admin/manageorders"}>
-							Manage Orders
+							ניהול הזמנות
 						</NavDropdown.Item>
 						<NavDropdown.Item as={Link} to={"/admin/addproduct"}>
-							Add Product
+							הוספת מוצר
 						</NavDropdown.Item>
 						<NavDropdown.Item as={Link} to={"/admin/chart"}>
-							Chart
+							מכירות שנתי
 						</NavDropdown.Item>
 						<NavDropdown.Item as={Link} to={"/admin/weeklychart"}>
-							Weekly Chart
+							מכירות יומי
 						</NavDropdown.Item>
 					</NavDropdown>
 				</Nav>
@@ -113,41 +113,41 @@ function Navbar1() {
 					<Nav className="me-auto">
 						{userType === 'admin' ? 						
 						<Nav.Link as={Link} to={"/admin/panel"}>
-							ADMIN PANEL
+							אדמין פאנל
 						</Nav.Link> : null}
 						
 						<Nav.Link as={Link} to={"/home"}>
-							HOME PAGE
+							עמוד הבית
 						</Nav.Link>
 
-						<NavDropdown title="MENU" id="collasible-nav-dropdown">
+						<NavDropdown title="תפריט" id="collasible-nav-dropdown">
 							<NavDropdown.Item as={Link} to={"/menucategories"}>
-								CATEGORIES
+								קטגוריות
 							</NavDropdown.Item>
 							<NavDropdown.Item as={Link} to={"/starters"}>
-								STARTERS
+								ראשונות
 							</NavDropdown.Item>
 							<NavDropdown.Item as={Link} to={"/extras"}>
-								EXTRAS
+								תוספות
 							</NavDropdown.Item>
 							<NavDropdown.Item as={Link} to={"/burgers"}>
-								BURGERS
+								בורגר
 							</NavDropdown.Item>
 							<NavDropdown.Item as={Link} to={"/combos"}>
-								COMBOS
+								קומבו
 							</NavDropdown.Item>
 							<NavDropdown.Item as={Link} to={"/drinks"}>
-								DRINKS
+								שתייה
 							</NavDropdown.Item>
-							<NavDropdown.Item as={Link} to={"/desserts"}>
+							{/* <NavDropdown.Item as={Link} to={"/desserts"}>
 								DESSERTS
-							</NavDropdown.Item>
+							</NavDropdown.Item> */}
 							<NavDropdown.Item as={Link} to={"/coctails"}>
-								COCTAILS
+								קוקטיילים
 							</NavDropdown.Item>
 						</NavDropdown>
 						<Nav.Link as={Link} to={"/store"}>
-							OUR STORE
+							החנות שלנו
 						</Nav.Link>
 
 						{/* <Nav.Link as={Link} to={"/shoppingcart"}>
@@ -165,10 +165,10 @@ function Navbar1() {
 						<Nav>
 							<NavDropdown title={currentUser} id="collasible-nav-dropdown">
 								<NavDropdown.Item as={Link} to={"/profile"}>
-									Profile
+									אזור אישי
 								</NavDropdown.Item>
 								<NavDropdown.Item as={Link} to={"/orders"}>
-									My Orders
+								ההזמנות שלי
 								</NavDropdown.Item>
 								<Signout />
 							</NavDropdown>
@@ -176,9 +176,9 @@ function Navbar1() {
 					) : (
 						//if user is not logged in
 						<Nav>
-							<Nav.Link onClick={handleOpenSignIn}>SIGN IN</Nav.Link>
+							<Nav.Link onClick={handleOpenSignIn}>התחברות</Nav.Link>
 							<SigninPage openSignIn={openSignIn} setOpenSignIn={setOpenSignIn} />
-							<Nav.Link onClick={handleOpenSignUp}>SIGN UP</Nav.Link>
+							<Nav.Link onClick={handleOpenSignUp}>הרשמה</Nav.Link>
 							<SignupPage openSignUp={openSignUp} setOpenSignUp={setOpenSignUp} />
 						</Nav>
 					)}

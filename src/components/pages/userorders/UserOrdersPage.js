@@ -47,7 +47,7 @@ export default function UserOrdersPage() {
 		};
 	}, [currentUser]);
 
-	if (orderHistory.length === 0) return <p>You dont have Orders yet</p>;
+	if (orderHistory.length === 0) return <p>אין לך הזמנות קודמות</p>;
 
 	return (
 		<div className="myOrdersPage">
@@ -61,11 +61,11 @@ export default function UserOrdersPage() {
 					<TableHead>
 						<TableRow>
 							<TableCell />
-							<TableCell>ORDER ID</TableCell>
-							<TableCell>DATE ORDERED</TableCell>
-							<TableCell>STATUS</TableCell>
+							<TableCell>מספר הזמנה</TableCell>
+							<TableCell>תאריך הזמנה</TableCell>
+							<TableCell>סטטוס</TableCell>
 
-							<TableCell align="right">Price For Order</TableCell>
+							<TableCell align="right">מחיר הזמנה</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>

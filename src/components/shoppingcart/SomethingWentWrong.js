@@ -19,15 +19,15 @@ export default function SomethingWentWrong({ openSomethingWentWrong, setOpenSome
 				aria-labelledby="alert-dialog-title"
 				aria-describedby="alert-dialog-description"
 			>
-				<DialogTitle id="alert-dialog-title">{"Something Went Wrong."}</DialogTitle>
+				<DialogTitle id="alert-dialog-title">{"שגיאה"}</DialogTitle>
 				<DialogContent>
 					<DialogContentText id="alert-dialog-description">
-						Sorry, something went wrong. Please try again, or refresh the page. If you keep seeing this message, please contact us.
+					סליחה, משהו השתבש. אנא נסה מאוחר יותר. אם הינך ממשיך לראות הודעה זו אנא צור איתנו קשר
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleClose} autoFocus>
-						CLOSE
+						סגור
 					</Button>
 				</DialogActions>
 			</Dialog>

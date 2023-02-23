@@ -29,38 +29,38 @@ export const UserProfile = () => {
 	const checkInput = e => {
 		e.preventDefault();
 		if (firstName.toString().length < 1) {
-			setError("First name required");
+			setError("שם פרטי לא תקין");
 			return false;
 		}
 		if (lastName.toString().length < 1) {
-			setError("Last name required");
+			setError("שם משפחה לא תקין");
 			return false;
 		}
 
 		if (phoneNumber.toString().length !== 10) {
-			setError("Phone number should be 10 digits");
+			setError("מספר טלפון חייב להיות לפחות 10 מספרים");
 			return false;
 		}
 
 		if (city.toString().length < 1) {
-			setError("City required");
+			setError("שם עיר לא תקין");
 			return false;
 		}
 
 		if (street.toString().length < 1) {
-			setError("Street required");
+			setError("שם רחוב לא תקין");
 			return false;
 		}
 
 		if (Number(homeNumber) < 1) {
-			setError("Home number required");
+			setError("מספר בית לא תקין");
 			return false;
 		}
 
 		let re =
 			/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		if (!re.test(email)) {
-			setError("Incorrect email format");
+			setError("פורמט אימייל לא תקין");
 			return false;
 		}
 
@@ -74,14 +74,14 @@ export const UserProfile = () => {
 				//if we manage to get the document(email), means the user already registered
 				const checkNumberExist = await phoneNumberExistForInfoUpdate(currentUser, phoneNumber);
 				if (checkNumberExist) {
-					setError("Phone number already in use.");
+					setError("מספר הטלפון כבר בשימוש");
 					return false;
 				}
 
 				// checks if email exist in database
 				const getDoc = await getEmailForInfoUpdate(currentUser, email);
 				if (getDoc) {
-					setError("Email address already in use.");
+					setError("כתובת האימייל כבר בשימוש");
 					return false;
 				}
 

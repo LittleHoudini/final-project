@@ -33,55 +33,60 @@ export default class Footer extends Component {
 							</div>
 
 							<div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-								<h6 className="text-uppercase fw-bold mb-4">MENU</h6>
+								<h6 className="text-uppercase fw-bold mb-4">תפריט</h6>
 								<p>
 									<a href="#!" className="text-reset">
-										BURGERS
+										בורגר
 									</a>
 								</p>
 								<p>
 									<a href="#!" className="text-reset">
-										COCTAILS
+										קוקטיילים
 									</a>
 								</p>
 								<p>
 									<a href="#!" className="text-reset">
-										EXTRAS
+										תוספות
 									</a>
 								</p>
 								<p>
 									<a href="#!" className="text-reset">
-										OTHERS
+										ראשונות
+									</a>
+								</p>
+								<p>
+									<a href="#!" className="text-reset">
+										החנות שלנו
 									</a>
 								</p>
 							</div>
 
 							<div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-								<h6 className="text-uppercase fw-bold mb-4">SOCIAL</h6>
+								<h6 className="text-uppercase fw-bold mb-4">לינקים חיצוניים</h6>
 								<p>
 									<a href="#!" className="text-reset">
-										INSTEGRAM
+										אינסטגרם
 									</a>
 								</p>
 								<p>
 									<a href="#!" className="text-reset">
-										TIKTOK
+										טיקטוק
 									</a>
 								</p>
 								<p>
 									<a href="#!" className="text-reset">
-										FACEBOOK
+										פייסבוק
 									</a>
 								</p>
-								<p>
+								{/* <p>
 									<a href="#!" className="text-reset">
 										GOOGLE
 									</a>
-								</p>
+								</p> */}
 							</div>
 
 							<div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-								<h6 className="text-uppercase fw-bold mb-4">Contact</h6>
+								<h6 className="text-uppercase fw-bold mb-4">צור קשר</h6>
 								<p>
 									<i className="fas fa-home me-3"></i> שדרות משה גושן 1, קרית מוצקין
 								</p>

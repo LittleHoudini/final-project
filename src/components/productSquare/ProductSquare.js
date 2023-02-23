@@ -90,7 +90,7 @@ export default function ProductSquare(props) {
 				props.setClicked({ ...props.clicks, deleteDish: !deleteDish });
 			}
 			else{
-				setRemoveError("There's a pending order with this product.")
+				setRemoveError("הזמנה ממתינה לאישור עם המוצר הנ''ל")
 				return false;
 			}
 		}
@@ -100,12 +100,12 @@ export default function ProductSquare(props) {
 	const checkInput = e => {
 		e.preventDefault();
 		if (values.titleToEdit.length < 1) {
-			setError("Product Category Required");
+			setError("קטגורית מוצר לא תקינה");
 			return false;
 		}
 
 		if (Number(values.priceToEdit) < 1 || isDot(values.priceToEdit)) {
-			setError("Price can not be below 1");
+			setError("מחיר לא יכול להיות מתחת ל1");
 			return false;
 		}
 
@@ -113,7 +113,7 @@ export default function ProductSquare(props) {
 		let re = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
 		let re1 = /([./-]*[A-Za-z])\w+/g;
 		if (!re1.test(values.imageLinkToEdit) && !re.test(values.imageLinkToEdit)) {
-			setError("Incorrect Image Link Format");
+			setError("פורמט תמונה לא תקין");
 			return false;
 		}
 

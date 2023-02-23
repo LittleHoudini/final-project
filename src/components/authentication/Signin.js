@@ -21,11 +21,11 @@ const Signin = ({ open, setOpen }) => {
 		let re =
 			/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		if (!re.test(email)) {
-			setError("Incorrect email format");
+			setError("פורמט האימייל לא תקין");
 			return false;
 		}
 		if (password.toString().length < 6) {
-			setError("Password should be at least 6 digits");
+			setError("הסיסמא חייבת להיות 6 תווים לפחות");
 			return false;
 		}
 		return true;
@@ -40,7 +40,7 @@ const Signin = ({ open, setOpen }) => {
 				const emailExists = await getDocument("Person", email);
 				//checks if the email exist
 				if (!emailExists) {
-					setError("Incorrect email.");
+					setError("אימייל לא תקין");
 					return false;
 				}
 
@@ -61,13 +61,13 @@ const Signin = ({ open, setOpen }) => {
 	const handlePasswordReset = async e => {
 		e.preventDefault();
 		if(emailReset === ""){
-			setError(".Email field for resetting password can't be empty")
+			setError("שדה אימייל לאיפוס סיסמא לא יכול להיות ריק")
 			return;
 		}
 		const res = await resetPassword(emailReset);
 		console.log(res);
 		if (res === "auth/user-not-found") {
-			setError(".There is no user with this email");
+			setError("לא קיים משתמש עם האימייל המוזן");
 		} else {
 			setError("");
 			setEmailSent(true);

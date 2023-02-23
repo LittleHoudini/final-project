@@ -6,7 +6,7 @@ import { signOut } from "../../firebase/Users";
 const Signout = () => {
 	return (
 		<NavDropdown.Item as={Link} to={"/"} onClick={() => signOut()}>
-			SIGN OUT
+			התנתקות
 		</NavDropdown.Item>
 	);
 };

@@ -36,43 +36,43 @@ const Signup = ({ open, setOpen }) => {
 	const checkInput = e => {
 		e.preventDefault();
 		if (firstName.toString().length < 1) {
-			setError("First name required");
+			setError("שם פרטי לא תקין");
 			return false;
 		}
 		if (lastName.toString().length < 1) {
-			setError("Last name required");
+			setError("שם משפחה לא תקין");
 			return false;
 		}
 
 		if (phoneNumber.toString().length !== 10) {
-			setError("Phone number should be 10 digits");
+			setError("מספר טלפון חייב להיות 10 ספרות");
 			return false;
 		}
 
 		if (city.toString().length < 1) {
-			setError("City required");
+			setError("עיר לא תקינה");
 			return false;
 		}
 
 		if (street.toString().length < 1) {
-			setError("Street required");
+			setError("רחוב לא תקין");
 			return false;
 		}
 
 		if (Number(homeNumber) < 1) {
-			setError("Home number required");
+			setError("מספר בית לא תקין ");
 			return false;
 		}
 
 		let re =
 			/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		if (!re.test(email)) {
-			setError("Incorrect email format");
+			setError("פורמט אימייל לא תקין");
 			return false;
 		}
 
 		if (password.toString().length < 6) {
-			setError("Password should be at least 6 digits");
+			setError("הסיסמא חייבת להיות לפחות 6 תווים");
 			return false;
 		}
 		return true;
@@ -86,14 +86,14 @@ const Signup = ({ open, setOpen }) => {
 				//if we manage to get the document(email), means the user already registered
 				const checkNumberExist = await phoneNumberExist(phoneNumber);
 				if (checkNumberExist) {
-					setError("Phone number already in use.");
+					setError("המספר טלפון כבר בשימוש");
 					return false;
 				}
 
 				// checks if email exist in database
 				const getDoc = await getDocument("Person", email);
 				if (getDoc) {
-					setError("Email address already in use.");
+					setError("כתובת האימייל כבר בשימוש");
 					return false;
 				}
 

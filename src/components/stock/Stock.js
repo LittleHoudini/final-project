@@ -107,13 +107,13 @@ export default function CustomToolbarGrid() {
 		let arr = [];
 		obj.map((item) => {
 			if(item.count < 100){
-				item.status = "Critical"
+				item.status = "קריטי"
 			}
 			else if(item.count >= 100 && item.count < 250){
-				item.status = "Low"
+				item.status = "נמוך"
 			}
 			else{
-				item.status = "Good"
+				item.status = "תקין"
 			}
 			arr.push(item);
 		});
@@ -168,19 +168,19 @@ export default function CustomToolbarGrid() {
 					sx={{
 						height: 700,
 						width: "100%",
-						"& .super-app-theme--Good": {
+						"& .super-app-theme--תקין": {
 							bgcolor: theme => getBackgroundColor(theme.palette.success.main, theme.palette.mode),
 							"&:hover": {
 								bgcolor: theme => getHoverBackgroundColor(theme.palette.success.main, theme.palette.mode),
 							},
 						},
-						"& .super-app-theme--Low": {
+						"& .super-app-theme--נמוך": {
 							bgcolor: theme => getBackgroundColor(theme.palette.warning.main, theme.palette.mode),
 							"&:hover": {
 								bgcolor: theme => getHoverBackgroundColor(theme.palette.warning.main, theme.palette.mode),
 							},
 						},
-						"& .super-app-theme--Critical": {
+						"& .super-app-theme--קריטי": {
 							bgcolor: theme => getBackgroundColor(theme.palette.error.main, theme.palette.mode),
 							"&:hover": {
 								bgcolor: theme => getHoverBackgroundColor(theme.palette.error.main, theme.palette.mode),

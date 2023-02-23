@@ -214,7 +214,7 @@ export function ShoppingCart() {
 					console.log("cant update");
 					//here we will show the user some kind of something went wrong...
 					setErrorMessage(
-						"Sorry, something went wrong. Please try again, or refresh the page. If you keep seeing this message, please contact us."
+						"סליחה, משהו השתבש. אנא נסה מאוחר יותר. אם הינך ממשיך לראות הודעה זו אנא צור איתנו קשר"
 					);
 					setOpenSomethingWentWrong(true);
 				}
