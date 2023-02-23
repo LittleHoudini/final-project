@@ -85,7 +85,7 @@ export function Chart() {
 
 	const checkInput = () => {
 		const dt = new Date();
-		if (year < 2016 || year > dt.getFullYear()) {
+		if (year < dt.getFullYear()-7 || year > dt.getFullYear()) {
 			setError("שנה לא תקינה.");
 			setSuccess(false);
 			return false;
