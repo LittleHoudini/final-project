@@ -70,13 +70,13 @@ export function ManageOrders({ docs }) {
 								{/* tableHeaderBox דריסה? */}
 								<TableHead>
 									<TableRow>
-										<TableCell>עיר</TableCell>
-										<TableCell>רחוב</TableCell>
-										<TableCell>מספר בית</TableCell>
-										<TableCell>מספר טלפון</TableCell>
-										<TableCell>אימייל</TableCell>
-										<TableCell>שם פרטי</TableCell>
-										<TableCell colSpan={2}>שם משפחה</TableCell>
+										<TableCell style={{textAlign:"right"}}>עיר</TableCell>
+										<TableCell style={{textAlign:"right"}}>רחוב</TableCell>
+										<TableCell style={{textAlign:"right"}}>מספר בית</TableCell>
+										<TableCell style={{textAlign:"right"}}>מספר טלפון</TableCell>
+										<TableCell style={{textAlign:"right"}}>אימייל</TableCell>
+										<TableCell style={{textAlign:"right"}}>שם פרטי</TableCell>
+										<TableCell style={{textAlign:"right"}} colSpan={2}>שם משפחה</TableCell>
 									</TableRow>
 								</TableHead>
 								<TableBody>
@@ -87,18 +87,18 @@ export function ManageOrders({ docs }) {
 										<TableCell>{docs.phoneNumber}</TableCell>
 										<TableCell scope="row">{docs.email}</TableCell>
 										<TableCell scope="row">{docs.firstName}</TableCell>
-										<TableCell>{docs.lastName}</TableCell>
+										<TableCell colSpan={2}>{docs.lastName}</TableCell>
 									</TableRow>
 								</TableBody>
 
 								<TableHead>
 									<TableRow>
-										<TableCell colSpan={1}></TableCell>
-										<TableCell align="right">סהכ </TableCell>
-										<TableCell align="right">מחיר ליחידה</TableCell>
-										<TableCell align="right">כמות</TableCell>
-										<TableCell colSpan={2}>רכיבים</TableCell>
-										<TableCell colSpan={2}>שם מוצר</TableCell>
+										<TableCell style={{textAlign:"right"}} colSpan={1}></TableCell>
+										<TableCell style={{textAlign:"right"}} align="right">סהכ </TableCell>
+										<TableCell style={{textAlign:"right"}} align="right">מחיר ליחידה</TableCell>
+										<TableCell style={{textAlign:"right"}} align="right">כמות</TableCell>
+										<TableCell style={{textAlign:"right"}} colSpan={2}>רכיבים</TableCell>
+										<TableCell style={{textAlign:"right"}} colSpan={2}>שם מוצר</TableCell>
 									</TableRow>
 								</TableHead>
 								<TableBody>
