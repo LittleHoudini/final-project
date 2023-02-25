@@ -75,7 +75,6 @@ export const AdminPanel = () => {
 				<div className="cardBox">
 					<div className="titleDiv">
 						<h1 className="titleDiv"> ניהול הזמנות</h1>
-						<p>התראות חדשות</p>
 					</div>
 					<div>
 						{" "}
@@ -86,7 +85,6 @@ export const AdminPanel = () => {
 			<div className="div2">
 				<div className="titleDiv">
 					<h1 className="titleDiv">מכירות</h1>
-					<p>בחר תאריך התחלתי ותאריך סופי</p>
 				</div>
 				<div>
 					{" "}
@@ -97,7 +95,6 @@ export const AdminPanel = () => {
 			<div className="div3">
 				<div className="titleDiv">
 					<h1 className="titleDiv">מכירות חודשי</h1>
-					<p>התראות חדשות</p>
 				</div>
 				<div>
 					<Chart />
@@ -107,7 +104,6 @@ export const AdminPanel = () => {
 			<div className="div4">
 				<div className="titleDiv">
 					<h1 className="titleDiv">מלאי</h1>
-					<p>התראות חדשות</p>
 				</div>
 				<div className="b">
 					{" "}
@@ -118,7 +114,6 @@ export const AdminPanel = () => {
 			<div className="div5">
 				<div className="titleDiv">
 					<h1 className="titleDiv">הוספת מוצר חדש</h1>
-					<p>התראות חדשות</p>
 				</div>
 				<div>
 					{" "}

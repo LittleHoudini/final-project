@@ -16,6 +16,7 @@ import uuid from "react-uuid";
 import { SigninPage } from "../pages/signin/SigninPage";
 import SomethingWentWrong from "./SomethingWentWrong";
 import { getDocument } from "../../firebase/Users";
+import Alert from "@mui/material/Alert";
 
 export function ShoppingCart() {
 	const currentUser = useContext(UserContext);
@@ -232,6 +233,7 @@ export function ShoppingCart() {
 		return (
 			<div className="emptyShoppingCart">
 				{/* <img alt="" src={ShoppingCartIcon} className="emptyShoppingCartImage " /> */}
+				{success && <Alert severity="success">ההזמנה בוצעה בהצלחה.</Alert>}
 				<p> סל הקניות שלכם ריק</p>
 				<Link as={Link} to={"/menucategories"} className="containerbtnEmpty">
 					חזרה לתפריט

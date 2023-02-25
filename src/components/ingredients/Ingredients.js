@@ -123,7 +123,7 @@ export default function Ingredients({ dishData, name, open, setOpen }) {
 	return (
 		<Dialog open={open} onClose={handleClose}>
 			{/* add product name for every dish */}
-			{itemAdded && <Alert severity="success">Added To Cart</Alert>}
+			{itemAdded && <Alert severity="success">המוצר התווסף לעגלה</Alert>}
 			<DialogTitle className={Styles.ingredientsTitle}>{dishData.title} </DialogTitle>
 			<DialogContent className={Styles.ingredientsContent}>
 				<img className={Styles.ingredients} src={dishData.image}></img>
