@@ -37,13 +37,13 @@ export default function ManageOrdersPage() {
 		return num.toString().padStart(2, "0");
 	}
 
-	function formatDate(date) {
-		return (
-			[padTo2Digits(date.getDate()), padTo2Digits(date.getMonth() + 1), date.getFullYear()].join("/") +
-			", " +
-			[date.getHours(), date.getMinutes()].join(":")
-		);
-	}
+	// function formatDate(date) {
+	// 	return (
+	// 		[padTo2Digits(date.getDate()), padTo2Digits(date.getMonth() + 1), date.getFullYear()].join("/") +
+	// 		", " +
+	// 		[date.getHours(), date.getMinutes()].join(":")
+	// 	);
+	// }
 
 	const headers = [
 		{ label: 'First Name', key: 'firstName' },

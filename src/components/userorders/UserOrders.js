@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-
+import './userOrdersStyle.css';
 
 
 function ccyFormat(num) {
@@ -34,6 +34,7 @@ function formatDate(date) {
   date.getMinutes()].join(":");
 }
 
+
 export default function UserOrders({docs}) {
   const [open, setOpen] = useState(false);
 
@@ -41,7 +42,7 @@ export default function UserOrders({docs}) {
     <>
    
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-        <TableCell style={{backgroundColor:'#84A98c', color: 'white',}}>
+        <TableCell className={docs.status}>
           <IconButton
             aria-label="expand row"
             size="large"
@@ -52,16 +53,16 @@ export default function UserOrders({docs}) {
         </TableCell>
         
     
-        <TableCell   component="th" scope="row" style={{backgroundColor:'#84A98c', color: 'white',}}>
+        <TableCell   component="th" scope="row" className={docs.status}>
             {docs.orderID}
         </TableCell>
-        <TableCell component="th" scope="row" style={{backgroundColor:'#84A98c', color: 'white',}}>
+        <TableCell component="th" scope="row" className={docs.status}>
         {formatDate(docs.date.toDate())}
         </TableCell>
-        <TableCell component="th" scope="row" style={{backgroundColor:'#84A98c', color: 'white',}}>
+        <TableCell component="th" scope="row" className={docs.status}>
             {docs.status}
         </TableCell>
-        <TableCell style={{backgroundColor:'#84A98c', color: 'white',}}  component="th" align="right">
+        <TableCell className={docs.status}  component="th" align="right">
           {ccyFormat(docs.cartTotal)}
           </TableCell>
       </TableRow>

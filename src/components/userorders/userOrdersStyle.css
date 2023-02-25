@@ -1,0 +1,14 @@
+.Pending { 
+    color: white;
+    background-color: orange;
+}
+
+.Canceled {
+    color: white;
+    background-color: rgb(230, 67, 67);
+}
+
+.Approved {
+    color: white;
+    background-color: #84A98c;
+}

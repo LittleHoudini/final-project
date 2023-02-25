@@ -36,7 +36,10 @@ export default function UserOrdersPage() {
 				.then(res => {
 					//if component did mount, set res to state
 					if (isMounted) {
-						setOrderHistory(res);
+						const sortedOrders = res.sort(function (a, b) {
+							return formatDate(a.date.toDate()).localeCompare(formatDate(b.date.toDate()));
+						});
+						setOrderHistory(sortedOrders);
 					}
 				})
 				.catch(err => console.log(err));
