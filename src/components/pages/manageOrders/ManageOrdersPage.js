@@ -210,7 +210,7 @@ export default function ManageOrdersPage() {
 												<CSVLink  onClick={() => handleStatusChange(docs, "Approved")} data={generateCsvData(docs)} headers={headers} target="_blank" filename={`ApprovedOrder_${formatDate(docs.date.toDate())}_${docs.orderID}.csv`}>לאשר הזמנה</CSVLink>
 											</button>
 											<button className="containerbtn1 btnCancel">
-												<CSVLink  onClick={() => handleStatusChange(docs, "Canceled")} data={generateCsvData(docs)} headers={headers} target="_blank" filename={`CanceledOrder_${docs.phoneNumber}_${docs.orderID}.csv`}>לבטל הזמנה</CSVLink>
+												<CSVLink  onClick={() => handleStatusChange(docs, "Canceled")} data={generateCsvData(docs)} headers={headers} target="_blank" filename={`CanceledOrder_${formatDate(docs.date.toDate())}_${docs.orderID}.csv`}>לבטל הזמנה</CSVLink>
 											</button>
 										</TableCell>
 									</TableRow>

@@ -35,7 +35,7 @@ export default function Ingredients({ dishData, name, open, setOpen }) {
 	//increment dish values ,
 	const IncrementItemByKey = key => {
 		const lastValue = values[key];
-		if (lastValue < 3) {
+		if (lastValue < 2) {
 			setValues({ ...values, [key]: lastValue + 1 });
 		}
 	};

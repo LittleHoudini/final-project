@@ -101,28 +101,28 @@ const AddProduct = () => {
 
 		let nameReg = /^[a-zA-Z]+$/;
 		if (formData.productName.length < 1 || !nameReg.test(formData.productName)) {
-			setError("Product Name Required, Only In English");
+			setError("שם מוצר לא תקין, שם המוצר חייב להיות באנגלית");
 			return false;
 		}
 
 		if (Number(formData.price) < 1 || isDot(formData.price)) {
-			setError("Price can not be below 1");
+			setError("מחיר לא יכול להיות פחות מ - 1");
 			return false;
 		}
 
 		let re = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
 		if (!re.test(formData.imageLink)) {
-			setError("Incorrect Image Link Format");
+			setError("הפורמט של הלינק לא תקין");
 			return false;
 		}
 
 		if (formData.title < 1) {
-			setError("Product title Required");
+			setError("כותרת המוצר לא תקינה");
 			return false;
 		}
 
 		if ((formData.hasIngredients && selected.length > 4) || (formData.hasIngredients && selected.length <= 0)) {
-			setError("You can only select up to four ingredients");
+			setError("ניתן לבחור עד ארבעה מרכיבים בלבד");
 			return false;
 		}
 
@@ -207,7 +207,7 @@ const AddProduct = () => {
 							);
 						})}
 					</select>
-					<p>שם המוצר</p>
+					<p>(SmashBurger : לדוגמא) שם המוצר</p>
 					<input
 						className="inputStyle"
 						type="text"

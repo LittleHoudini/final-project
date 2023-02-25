@@ -28,10 +28,11 @@ function padTo2Digits(num) {
 }
 
 function formatDate(date) {
+	const minutes = date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes();
 	return (
 		[padTo2Digits(date.getDate()), padTo2Digits(date.getMonth() + 1), date.getFullYear()].join("/") +
 		", " +
-		[date.getHours(), date.getMinutes()].join(":")
+		[date.getHours(),minutes].join(":")
 	);
 }
 
